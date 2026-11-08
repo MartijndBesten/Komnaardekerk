@@ -49,8 +49,11 @@ await mkdir(UIT, { recursive: true });
 
 // Server: standaard (formulier 'uit' aan serverkant) en één met het formulier 'aan'.
 const extern = process.env.TEST_BASE_URL;
-const server = maakServer();
-const serverAan = maakServer({ contactAan: true });
+// TEST_BUNDEL=1: test de uit te rollen Worker-bundel (.uitrol/komnaardekerk.mjs) in plaats van dist/.
+const bundel = process.env.TEST_BUNDEL ? await import(path.join(ROOT, '.uitrol/komnaardekerk.mjs')) : null;
+if (bundel) console.log('Test tegen de Worker-bundel .uitrol/komnaardekerk.mjs');
+const server = maakServer({ bundel });
+const serverAan = maakServer({ contactAan: true, bundel });
 await new Promise((r) => server.listen(0, r));
 await new Promise((r) => serverAan.listen(0, r));
 const BASIS = extern || `http://localhost:${server.address().port}`;

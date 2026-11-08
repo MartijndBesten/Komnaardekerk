@@ -67,7 +67,7 @@ export async function verwerk(request, env, { maakMail, nu = Date.now() } = {}) 
   const id = crypto.randomUUID();
   const raw = bouwMail({ gegevens: uitslag.gegevens, van: env.MAIL_VAN, aan: env.MAIL_AAN, kerkNaam: kerk?.naam, id });
   try {
-    await env.MAIL.send(maakMail(env.MAIL_VAN, env.MAIL_AAN, raw));
+    await env.MAIL.send(await maakMail(env.MAIL_VAN, env.MAIL_AAN, raw));
   } catch {
     // Geen inhoud loggen: alleen dat het misging.
     console.error('contact: verzenden mislukt', id);

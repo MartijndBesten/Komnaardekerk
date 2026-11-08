@@ -11,6 +11,7 @@ import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { verwerk } from '../worker/verwerk.js';
+import { leesHeaders, past } from '../worker/headers.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(ROOT, 'dist');
@@ -30,53 +31,45 @@ const TYPES = {
 export const verzonden = [];
 
 async function headerRegels() {
-  const tekst = await readFile(path.join(DIST, '_headers'), 'utf8');
-  const regels = [];
-  let huidig = null;
-  for (const lijn of tekst.split('\n')) {
-    if (!lijn.trim() || lijn.trim().startsWith('#')) continue;
-    if (!/^\s/.test(lijn)) {
-      huidig = { patroon: lijn.trim(), headers: [] };
-      regels.push(huidig);
-    } else if (huidig) {
-      const i = lijn.indexOf(':');
-      huidig.headers.push([lijn.slice(0, i).trim(), lijn.slice(i + 1).trim()]);
-    }
-  }
-  return regels;
+  return leesHeaders(await readFile(path.join(DIST, '_headers'), 'utf8'));
 }
 
-function past(patroon, host, pad) {
-  let doel = pad;
-  let p = patroon;
-  if (/^https:\/\//.test(p)) {
-    doel = `https://${host}${pad}`;
-  }
-  const re = new RegExp('^' + p.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*').replace(/:[A-Za-z]\w*/g, '[^./]+') + '$');
-  return re.test(doel);
+function mailEnv(contactAan) {
+  return contactAan
+    ? { CONTACT_AAN: 'ja', MAIL_VAN: 'formulier@komnaardekerk.nl', MAIL_AAN: 'coordinator@test.invalid', MAIL: { send: async (m) => verzonden.push(m) }, __maakMail: (van, aan, raw) => ({ van, aan, raw }) }
+    : { CONTACT_AAN: 'nee' };
 }
 
-export function maakServer({ contactAan = process.env.CONTACT_AAN === 'ja' } = {}) {
+async function naarRequest(req, url) {
+  const delen = [];
+  for await (const d of req) delen.push(d);
+  return new Request(url, {
+    method: req.method,
+    headers: Object.fromEntries(Object.entries(req.headers).filter(([, v]) => typeof v === 'string')),
+    body: ['GET', 'HEAD'].includes(req.method) ? undefined : Buffer.concat(delen)
+  });
+}
+
+// bundel: een geladen Worker-module (.uitrol/komnaardekerk.mjs). Dan gaat elk verzoek
+// door precies de code die wordt uitgerold.
+export function maakServer({ contactAan = process.env.CONTACT_AAN === 'ja', bundel = null } = {}) {
   return http.createServer(async (req, res) => {
     try {
       const url = new URL(req.url, `http://${req.headers.host}`);
+      if (bundel) {
+        const r = await bundel.default.fetch(await naarRequest(req, url), mailEnv(contactAan));
+        res.writeHead(r.status, Object.fromEntries(r.headers));
+        res.end(req.method === 'HEAD' ? undefined : Buffer.from(await r.arrayBuffer()));
+        return;
+      }
       const regels = await headerRegels();
       const zetHeaders = (pad) => {
         for (const r of regels) if (past(r.patroon, url.host, pad)) for (const [k, v] of r.headers) res.setHeader(k, v);
       };
 
       if (url.pathname === '/api/contact') {
-        const delen = [];
-        for await (const d of req) delen.push(d);
-        const request = new Request(url, {
-          method: req.method,
-          headers: Object.fromEntries(Object.entries(req.headers).filter(([, v]) => typeof v === 'string')),
-          body: ['GET', 'HEAD'].includes(req.method) ? undefined : Buffer.concat(delen)
-        });
-        const env = contactAan
-          ? { CONTACT_AAN: 'ja', MAIL_VAN: 'formulier@komnaardekerk.nl', MAIL_AAN: 'coordinator@test.invalid', MAIL: { send: async (m) => verzonden.push(m) } }
-          : { CONTACT_AAN: 'nee' };
-        const r = await verwerk(request, env, { maakMail: (van, aan, raw) => ({ van, aan, raw }) });
+        const request = await naarRequest(req, url);
+        const r = await verwerk(request, mailEnv(contactAan), { maakMail: (van, aan, raw) => ({ van, aan, raw }) });
         res.writeHead(r.status, Object.fromEntries(r.headers));
         res.end(Buffer.from(await r.arrayBuffer()));
         return;
