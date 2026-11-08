@@ -22,7 +22,8 @@ assen = {k: float(v) for k, v in (a.split('=') for a in rest if '=' in a)}
 teksten = [a for a in rest if '=' not in a]
 
 font = TTFont(bron)
-font = instantiateVariableFont(font, assen)
+if 'fvar' in font:
+    font = instantiateVariableFont(font, assen)
 buf = io.BytesIO()
 font.flavor = None
 font.save(buf)

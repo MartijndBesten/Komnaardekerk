@@ -1,0 +1,6 @@
+# Sionkerk-foto en montages: niet vrij te gebruiken, alleen intern
+intern/
+# gegenereerd: node voorstellen/bouw.mjs / node voorstellen/mockups.mjs
+dist/
+mockups/*.png
+.mockup-tmp.html

@@ -1,0 +1,421 @@
+{
+  "_uitleg": "Voorstel (nog niet in de live site). Teksten voor 'Wat houdt jou bezig?'. Per woord: herkenning, een Bijbelgedachte (vrij weergegeven, met exacte vindplaats en link naar debijbel.nl), een uitnodiging tot Jezus, een volgende stap en zo nodig een hulpnotitie. 'spandoek' = ja | seizoen | nee. De Bijbelgedachten zijn bewust vrij weergegeven: de NBV21-tekst kon niet automatisch worden gecontroleerd en grootschalig missionair citeren vraagt toestemming van het NBG (VRAGEN V-003). Na toestemming kan per woord het letterlijke citaat worden ingevoegd. Niets van wat een bezoeker kiest wordt opgeslagen of verstuurd.",
+  "versie": "voorstel 0.1, 2026-11-08",
+  "bijbelLink": "https://www.debijbel.nl/bijbel/NBV21/",
+  "groepen": [
+    {
+      "id": "gevoel",
+      "naam": "Hoe voel je je?"
+    },
+    {
+      "id": "leven",
+      "naam": "Wat gebeurt er in je leven?"
+    },
+    {
+      "id": "nieuwsgierig",
+      "naam": "Waar ben je benieuwd naar?"
+    }
+  ],
+  "woorden": [
+    {
+      "id": "moe",
+      "woord": "Moe",
+      "groep": "gevoel",
+      "spandoek": "ja",
+      "beoordeling": "Sterkste spandoekwoord. Herkenbaar voor bijna iedereen, niet stigmatiserend, en het sluit direct aan op de bekendste uitnodiging van Jezus.",
+      "herkenning": [
+        "Moe van het werk, van zorgen voor anderen, van altijd maar doorgaan.",
+        "Soms is moe meer dan slaap tekort. Dan ben je moe van binnen."
+      ],
+      "bijbel": {
+        "vrij": "Jezus zegt: kom bij Mij, jullie die moe zijn en zwaar te dragen hebben. Bij Mij vind je rust.",
+        "plaats": "Matteüs 11:28-30",
+        "code": "MAT.11"
+      },
+      "jezus": "Dat is geen opdracht om nóg iets te doen. Het is een uitnodiging om te komen zoals je bent, met alles wat je meedraagt.",
+      "stap": {
+        "tekst": "Een uur waarin niemand iets van je vraagt: zo gaat een kerkdienst",
+        "doel": "binnen"
+      },
+      "hulp": "Ben je al lange tijd uitgeput of somber? Praat er ook over met je huisarts. Rust in de kerk vervangt geen zorg."
+    },
+    {
+      "id": "alleen",
+      "woord": "Alleen",
+      "groep": "gevoel",
+      "spandoek": "ja",
+      "beoordeling": "Geschikt, mits als vraag (ALLEEN?) en niet als etiket (eenzaam). Raakt veel mensen, ook jongeren en ouderen. Op de site meteen een concrete stap: samen gaan of een maaltijd.",
+      "herkenning": [
+        "Je kunt je alleen voelen in een stil huis, maar ook midden tussen mensen.",
+        "Het overkomt meer mensen dan je denkt, en het zegt niets over wat je waard bent."
+      ],
+      "bijbel": {
+        "vrij": "God zegt: Ik laat je nooit los en Ik laat je nooit in de steek.",
+        "plaats": "Hebreeën 13:5",
+        "code": "HEB.13"
+      },
+      "jezus": "Jezus zocht mensen op die aan de kant stonden. Hij at met hen en noemde hen bij hun naam. In zijn gemeente ben je geen nummer.",
+      "stap": {
+        "tekst": "Liever niet alleen naar binnen? Iemand gaat met je mee",
+        "doel": "samen"
+      },
+      "hulp": null
+    },
+    {
+      "id": "verdriet",
+      "woord": "Verdriet",
+      "groep": "gevoel",
+      "spandoek": "nee",
+      "beoordeling": "Alleen op de website. Op een spandoek te zwaar voor voorbijgangers en kinderen, en het kan voelen alsof je verdriet als wervingsmiddel wordt gebruikt.",
+      "herkenning": [
+        "Verdriet om iemand die er niet meer is, om iets wat stukging, om wat nooit kwam.",
+        "Verdriet hoeft niet opgelost te worden. Het mag er zijn."
+      ],
+      "bijbel": {
+        "vrij": "Jezus zegt: gelukkig wie verdriet hebben, want zij zullen getroost worden.",
+        "plaats": "Matteüs 5:4",
+        "code": "MAT.5"
+      },
+      "jezus": "Jezus liep niet om verdriet heen. Hij huilde mee. Christenen geloven dat Hij dicht bij wie gebroken is, en dat de dood niet het laatste woord heeft.",
+      "stap": {
+        "tekst": "In de kerk mag je stil zijn. Zo gaat een dienst",
+        "doel": "binnen"
+      },
+      "hulp": "hulplijnen"
+    },
+    {
+      "id": "onrust",
+      "woord": "Onrust",
+      "groep": "gevoel",
+      "spandoek": "ja",
+      "beoordeling": "Goed alternatief voor MOE? Eigentijds (prikkels, haast, zorgen) en niet stigmatiserend. Iets minder direct herkenbaar dan moe.",
+      "herkenning": [
+        "Meldingen, haast, zorgen die blijven malen.",
+        "Je hoofd staat niet stil, ook niet als het stil is om je heen."
+      ],
+      "bijbel": {
+        "vrij": "Jezus zegt: Ik geef jullie mijn vrede, niet zoals de wereld die geeft. Maak je niet ongerust en wees niet bang.",
+        "plaats": "Johannes 14:27",
+        "code": "JHN.14"
+      },
+      "jezus": "De vrede van Jezus is geen ontspanningstechniek. Het is vertrouwen dat je leven in goede handen is, ook als niet alles goed gaat.",
+      "stap": {
+        "tekst": "Zingen, lezen, stilte: kijk hoe een dienst verloopt",
+        "doel": "binnen"
+      },
+      "hulp": "Houden angst of onrust je dag in hun greep? Bespreek het ook met je huisarts."
+    },
+    {
+      "id": "bang",
+      "woord": "Bang",
+      "groep": "gevoel",
+      "spandoek": "nee",
+      "beoordeling": "Alleen op de website. Op straat kan BANG? dreigend lezen, als angstmarketing, en kinderen lezen mee. Op de site wel waardevol.",
+      "herkenning": [
+        "Bang voor wat komt: je gezondheid, je kinderen, de wereld.",
+        "Angst maakt klein. Het is fijn als iemand naast je komt staan."
+      ],
+      "bijbel": {
+        "vrij": "God zegt: wees niet bang, want Ik ben bij je. Ik geef je kracht en Ik houd je vast.",
+        "plaats": "Jesaja 41:10",
+        "code": "ISA.41"
+      },
+      "jezus": "Toen zijn vrienden in de storm in paniek raakten, kwam Jezus naar hen toe en zei: wees niet bang, Ik ben het. Hij nodigt je uit om je angst bij Hem neer te leggen.",
+      "stap": {
+        "tekst": "Eerst rustig rondkijken? Kijk eens binnen",
+        "doel": "binnen"
+      },
+      "hulp": "hulplijnen"
+    },
+    {
+      "id": "twijfels",
+      "woord": "Twijfels",
+      "groep": "gevoel",
+      "spandoek": "ja",
+      "beoordeling": "Sterk voor denkers en voor mensen met een kerkelijk verleden. Dubbelzinnig in de goede zin: twijfel over het leven én over geloof.",
+      "herkenning": [
+        "Bestaat God? Kun je dat eigenlijk wel geloven?",
+        "Of je geloofde ooit, en weet het nu niet meer zo zeker."
+      ],
+      "bijbel": {
+        "vrij": "Een vader zei tegen Jezus: ik geloof, maar help mij waar ik nog twijfel.",
+        "plaats": "Marcus 9:24",
+        "code": "MRK.9"
+      },
+      "jezus": "Jezus stuurde die vader niet weg. Twijfel is geen reden om weg te blijven. Je mag je vragen meenemen.",
+      "stap": {
+        "tekst": "Praten over vragen, met eten erbij: Alpha en andere avonden",
+        "doel": "ontdek"
+      },
+      "hulp": null
+    },
+    {
+      "id": "baan-kwijt",
+      "woord": "Baan kwijt",
+      "groep": "leven",
+      "spandoek": "nee",
+      "beoordeling": "Alleen op de website. Te specifiek en te pijnlijk in het openbaar. Op de site met een duidelijke grens: de kerk vervangt geen praktische hulp.",
+      "herkenning": [
+        "Je baan kwijt: dat raakt je inkomen, maar ook je ritme, je collega's, je gevoel van waarde.",
+        "Wie ben je als niemand je 's ochtends verwacht?"
+      ],
+      "bijbel": {
+        "vrij": "Jezus zegt: maak je geen zorgen over morgen. Je Vader in de hemel weet wat je nodig hebt.",
+        "plaats": "Matteüs 6:31-34",
+        "code": "MAT.6"
+      },
+      "jezus": "Bij Jezus hangt je waarde niet af van wat je presteert. Je bent gekend en gewild, ook zonder functietitel.",
+      "stap": {
+        "tekst": "Ergens gewoon welkom zijn: koffie, een maaltijd, een dienst",
+        "doel": "ontdek"
+      },
+      "hulp": "Voor werk, uitkering of geldzorgen zijn er instanties die je praktisch verder helpen. De kerk vervangt die niet, maar je hoeft het niet alleen te doen."
+    },
+    {
+      "id": "gescheiden",
+      "woord": "Gescheiden",
+      "groep": "leven",
+      "spandoek": "nee",
+      "beoordeling": "Nooit op een spandoek: stigmatiserend in een dorp waar mensen elkaar kennen, en kerken denken er verschillend over. Op de site alleen aanwezigheid en troost, geen oordeel en geen leer.",
+      "herkenning": [
+        "Een relatie die stukging, een huis dat leeg voelt, kinderen die heen en weer gaan.",
+        "Misschien denk je: in de kerk hoor ik er nu niet meer bij."
+      ],
+      "bijbel": {
+        "vrij": "God geneest wie gebroken zijn en verbindt hun wonden.",
+        "plaats": "Psalm 147:3",
+        "code": "PSA.147"
+      },
+      "jezus": "Jezus begon niet met een oordeel, maar met een gesprek. Hij zag mensen bij wie het leven anders liep dan gehoopt, en nodigde hen uit.",
+      "stap": {
+        "tekst": "Iemand die naast je zit: samen naar de kerk",
+        "doel": "samen"
+      },
+      "hulp": null
+    },
+    {
+      "id": "iemand-verloren",
+      "woord": "Iemand verloren",
+      "groep": "leven",
+      "spandoek": "nee",
+      "beoordeling": "Alleen op de website. Waardevol rond Allerzielen en de laatste zondag van het kerkelijk jaar, wanneer veel kerken de overledenen gedenken, maar niet op een spandoek.",
+      "herkenning": [
+        "Iemand die er altijd was, is er niet meer.",
+        "De wereld gaat door, en jij staat even stil."
+      ],
+      "bijbel": {
+        "vrij": "Bij het graf van zijn vriend huilde Jezus. En Hij zei: Ik ben de opstanding en het leven.",
+        "plaats": "Johannes 11:25 en 11:35",
+        "code": "JHN.11"
+      },
+      "jezus": "Christenen geloven dat Jezus de dood niet ontweek maar overwon. Daarom wordt in de kerk niet om rouw heen gepraat, en wordt er gebeden om troost.",
+      "stap": {
+        "tekst": "Een plek om stil te zijn en een kaars aan te steken",
+        "doel": "binnen"
+      },
+      "hulp": "hulplijnen"
+    },
+    {
+      "id": "ziek",
+      "woord": "Ziek",
+      "groep": "leven",
+      "spandoek": "nee",
+      "beoordeling": "Alleen op de website, met een harde grens: geen genezingsbelofte, geen vervanging van medische zorg. Bezoek aan huis of een livestream is hier vaak de beste stap.",
+      "herkenning": [
+        "Ziek zijn, of zorgen om iemand die ziek is.",
+        "Wachten op uitslagen, en niet weten hoe het verder gaat."
+      ],
+      "bijbel": {
+        "vrij": "Ook als ik door een donker dal ga, ben ik niet bang, want U bent bij mij.",
+        "plaats": "Psalm 23:4",
+        "code": "PSA.23"
+      },
+      "jezus": "Jezus ging naar zieken toe, raakte hen aan en bleef bij hen. Kerken bidden voor zieken en komen op bezoek, als je dat wilt.",
+      "stap": {
+        "tekst": "Thuis meekijken kan ook: veel kerken zenden diensten uit",
+        "doel": "eerste"
+      },
+      "hulp": "Een kerk is geen vervanging van medische zorg. Volg altijd het advies van je huisarts of specialist."
+    },
+    {
+      "id": "vastgelopen",
+      "woord": "Vastgelopen",
+      "groep": "leven",
+      "spandoek": "ja",
+      "beoordeling": "Bruikbaar spandoekwoord: breed (werk, relatie, gewoonten, geloof) en niet beschuldigend. Wel lang; vraagt een brede banner.",
+      "herkenning": [
+        "Het loopt niet meer. In je werk, je relatie, of gewoon in je hoofd.",
+        "Je weet niet goed welke kant je op moet."
+      ],
+      "bijbel": {
+        "vrij": "Jezus zegt: Ik ben de weg, de waarheid en het leven.",
+        "plaats": "Johannes 14:6",
+        "code": "JHN.14"
+      },
+      "jezus": "Jezus wijst niet alleen een weg; Hij zegt dat Hij de weg is. Je hoeft niet eerst alles op orde te hebben om met Hem op weg te gaan.",
+      "stap": {
+        "tekst": "Een eerste kleine stap: één dienst, één keer",
+        "doel": "eerste"
+      },
+      "hulp": "Zit je echt vast en kom je er niet uit? Praat er ook over met je huisarts of een hulpverlener."
+    },
+    {
+      "id": "opnieuw-beginnen",
+      "woord": "Opnieuw beginnen",
+      "groep": "leven",
+      "spandoek": "seizoen",
+      "beoordeling": "Hoopvol en positief, sterk in januari of na de zomer. Lang voor een spandoek; alleen met korte regel (OPNIEUW?) of op een brede banner.",
+      "herkenning": [
+        "Nieuwe plek, nieuwe fase, of gewoon het verlangen om het anders te doen.",
+        "Een schone lei. Bestaat dat?"
+      ],
+      "bijbel": {
+        "vrij": "Wie bij Christus hoort, is een nieuw mens. Het oude is voorbij, er is iets nieuws begonnen.",
+        "plaats": "2 Korintiërs 5:17",
+        "code": "2CO.5"
+      },
+      "jezus": "Bij Jezus is opnieuw beginnen geen zelfverbeteringsproject. Het is vergeving ontvangen en een nieuw begin krijgen.",
+      "stap": {
+        "tekst": "Nieuw in Houten? Vind een kerk bij jou in de buurt",
+        "doel": "eerste"
+      },
+      "hulp": null
+    },
+    {
+      "id": "nieuwsgierig",
+      "woord": "Nieuwsgierig",
+      "groep": "nieuwsgierig",
+      "spandoek": "ja",
+      "beoordeling": "Beste positieve spandoekwoord. Licht, uitnodigend, geen drempel, en geschikt naast de zwaardere woorden.",
+      "herkenning": [
+        "Je komt elke week langs die kerk. Wat gebeurt daar eigenlijk?",
+        "Gewoon benieuwd. Dat is een prima reden."
+      ],
+      "bijbel": {
+        "vrij": "Twee mannen vroegen Jezus waar Hij woonde. Hij zei: kom mee, dan zul je het zien.",
+        "plaats": "Johannes 1:38-39",
+        "code": "JHN.1"
+      },
+      "jezus": "Jezus begon niet met een preek, maar met een uitnodiging: kom kijken. Dat mag jij ook.",
+      "stap": {
+        "tekst": "Kijk eens binnen: zo gaat een kerkdienst",
+        "doel": "binnen"
+      },
+      "hulp": null
+    },
+    {
+      "id": "gelukkig",
+      "woord": "Gelukkig",
+      "groep": "nieuwsgierig",
+      "spandoek": "nee",
+      "beoordeling": "Alleen op de website. GELUKKIG? op een spandoek kan cynisch of uitdagend lezen ('o ja?'). Op de site wel een mooi tegenwicht: de kerk is niet alleen voor als het slecht gaat.",
+      "herkenning": [
+        "Het gaat goed met je. Mooi.",
+        "Misschien vraag je je af waar dat goede eigenlijk vandaan komt."
+      ],
+      "bijbel": {
+        "vrij": "Jezus zegt: Ik ben gekomen om leven te geven, leven in overvloed.",
+        "plaats": "Johannes 10:10",
+        "code": "JHN.10"
+      },
+      "jezus": "Jezus is er niet alleen voor slechte dagen. Christenen vieren elke zondag dat het leven een geschenk is.",
+      "stap": {
+        "tekst": "Mee vieren: vind een kerk",
+        "doel": "eerste"
+      },
+      "hulp": null
+    },
+    {
+      "id": "dankbaar",
+      "woord": "Dankbaar",
+      "groep": "nieuwsgierig",
+      "spandoek": "seizoen",
+      "beoordeling": "Seizoenswoord rond Dankdag (begin november, vooral in protestantse kerken) en oogstdankvieringen. Buiten dat seizoen minder sterk.",
+      "herkenning": [
+        "Je hebt meer gekregen dan je ooit kon verdienen.",
+        "En je zou iemand willen bedanken."
+      ],
+      "bijbel": {
+        "vrij": "Alles wat goed is, komt van boven, van de Vader van het licht.",
+        "plaats": "Jakobus 1:17",
+        "code": "JAS.1"
+      },
+      "jezus": "Christenen zeggen dank aan God, in de eerste plaats voor Jezus Christus. Je mag meedoen, of gewoon meeluisteren.",
+      "stap": {
+        "tekst": "Dank zeggen gebeurt samen: zo gaat een dienst",
+        "doel": "binnen"
+      },
+      "hulp": null
+    },
+    {
+      "id": "zoekend",
+      "woord": "Zoekend",
+      "groep": "nieuwsgierig",
+      "spandoek": "ja",
+      "beoordeling": "Sterk en eerlijk. Spreekt mensen aan die bewust op zoek zijn naar zin, zonder hen een etiket te geven.",
+      "herkenning": [
+        "Er moet meer zijn dan werken, slapen en scrollen.",
+        "Je weet nog niet wat, maar je zoekt."
+      ],
+      "bijbel": {
+        "vrij": "Jezus zegt: zoek, en je zult vinden. Klop, en er zal voor je worden opengedaan.",
+        "plaats": "Matteüs 7:7",
+        "code": "MAT.7"
+      },
+      "jezus": "Christenen geloven dat het zoeken niet alleen van jouw kant komt. God zoekt jou ook.",
+      "stap": {
+        "tekst": "Zoeken mag samen: Alpha en gespreksavonden",
+        "doel": "ontdek"
+      },
+      "hulp": null
+    },
+    {
+      "id": "meer-weten",
+      "woord": "Meer weten",
+      "groep": "nieuwsgierig",
+      "spandoek": "nee",
+      "beoordeling": "Geen spandoekwoord maar een knop. Hoort op de site als rustige vervolgstap.",
+      "herkenning": [
+        "Wie was Jezus eigenlijk?",
+        "Wat geloven christenen, en waarom?"
+      ],
+      "bijbel": {
+        "vrij": "Dit is opgeschreven zodat je gelooft dat Jezus de Messias is, de Zoon van God, en zodat je door Hem leven hebt.",
+        "plaats": "Johannes 20:31",
+        "code": "JHN.20"
+      },
+      "jezus": "Het christelijk geloof draait niet om regels, maar om een persoon: Jezus Christus. Wie Hem leert kennen, leert God kennen.",
+      "stap": {
+        "tekst": "Het geloof in het kort",
+        "doel": "evangelie"
+      },
+      "hulp": null
+    }
+  ],
+  "nooitGebruiken": [
+    {
+      "woord": "Eenzaam",
+      "waarom": "Etiket in plaats van vraag; ALLEEN? zegt hetzelfde zonder stempel."
+    },
+    {
+      "woord": "Depressief, Burn-out",
+      "waarom": "Medische diagnose; suggereert dat de kerk een behandeling is."
+    },
+    {
+      "woord": "Verslaafd",
+      "waarom": "Stigmatiserend en vraagt gespecialiseerde hulp."
+    },
+    {
+      "woord": "Schuldig, Zondaar",
+      "waarom": "Juist een kernthema van het evangelie, maar op straat schrikt het af en leest het als oordeel. Hoort in het gesprek, niet op de banner."
+    },
+    {
+      "woord": "Verloren",
+      "waarom": "Dubbelzinnig: bedoeld als 'zoek', gelezen als 'jij bent verloren'."
+    },
+    {
+      "woord": "Wanhopig, Kapot",
+      "waarom": "Te zwaar voor publiek; wie zich zo voelt, heeft eerst hulp nodig (113, huisarts)."
+    }
+  ]
+}
