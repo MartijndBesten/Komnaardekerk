@@ -57,7 +57,24 @@ Aan zetten alleen als de opvolging geregeld is (VRAGEN V-004), daarna:
 
 De Worker is fail-closed: zonder `CONTACT_AAN=ja` én mailconfiguratie geeft hij 503. Er wordt niets opgeslagen of gelogd behalve een fout-id.
 
-## Uitrollen (nog niet gedaan)
+## Preview: komnaardekerk.martijndenbesten.com
+
+De conceptversie staat live op **https://komnaardekerk.martijndenbesten.com** (Worker `komnaardekerk-preview`, zone martijndenbesten.com). Hele site `noindex`, formulier aan serverkant uit. Uitgerolde versie: `/versie.json`.
+
+Omdat static assets vanuit een cloudsessie niet te uploaden zijn (B99), worden alle bestanden in één Worker-script ingebed:
+
+```bash
+node scripts/bundel.mjs                                   # dist/ controleren + .uitrol/komnaardekerk.mjs
+TEST_BUNDEL=1 node scripts/test-browser.mjs               # dezelfde suite tegen de bundel
+node scripts/uitrol-preview.mjs komnaardekerk.martijndenbesten.com   # herstelpunt, upload, domein
+TEST_BASE_URL=https://komnaardekerk.martijndenbesten.com node scripts/test-browser.mjs
+```
+
+Het uitrolscript stopt als het domein al aan een andere Worker hangt en bewaart de vorige versie in `.uitrol/vorige-versie.multipart`. Terugzetten: die versie opnieuw uploaden, of de Worker/het domein in het Cloudflare-dashboard verwijderen.
+
+HTML krijgt `Cache-Control: no-transform`, zodat Cloudflare op deze zone geen Web Analytics-beacon inspuit (de zone heeft dat aan voor je andere sites; daar is niets aan veranderd).
+
+## Uitrollen naar komnaardekerk.nl (nog niet gedaan)
 
 Doel: Cloudflare Workers met static assets (`wrangler.jsonc`). Vanuit een Claude Code-cloudsessie kunnen statische assets niet worden geüpload (bouwsteen B99): uitrollen lokaal met `npx wrangler deploy` of via Workers Builds gekoppeld aan de repository. Vóór livegang: `npm run poort` moet slagen, daarna de browsertest tegen het echte domein. Op `*.workers.dev` staat `X-Robots-Tag: noindex`; in conceptmodus staat de hele site op noindex (via `_headers`, niet in de HTML).
 
