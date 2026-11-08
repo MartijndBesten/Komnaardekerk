@@ -1,0 +1,30 @@
+/* A — Portaal: licht door echte architectuur. Kalk, leisteen, baksteen; Newsreader. Foto en uitsnede dragen de sfeer. */
+:root {
+  --bg: #F2EFE9; --vlak: #FBFAF7; --inkt: #1E2A2F; --zacht: #4C5659; --lijn: #D8D2C6; --accent: #8E3B2A; --op-accent: #FFFFFF;
+  --donker: #1E2A2F; --op-donker: #F2EFE9; --steen: #E7E1D6; --licht: #EADFC8;
+  --kop: 'Newsreader', Georgia, serif; --kop-gewicht: 400; --hoek: 2px;
+}
+.wissel-regel { font-family: 'Newsreader', serif; letter-spacing: -0.02em; }
+.wissel { font-style: italic; }
+.hero { padding-block: 1.5rem 3rem; }
+.hero-raster { display: grid; gap: 2.2rem; align-items: end; }
+@media (min-width: 60rem) { .hero-raster { grid-template-columns: 1.15fr 0.85fr; gap: 4rem; } .hero { padding-block: 3rem 4.5rem; } }
+.hero h1 { font-weight: 400; }
+.h1-2 { font-style: italic; color: var(--accent); }
+/* de foto in een rondboog, met een tweede boog eromheen: de archivolt uit het merk */
+.boog { margin: 0; position: relative; padding: 0.9rem 0.9rem 0; max-width: 34rem; justify-self: center; width: 100%; }
+.boog::before { content: ''; position: absolute; inset: 0 0 1.9rem 0; border: 1.5px solid var(--inkt); border-bottom: 0; border-radius: 999px 999px 0 0; pointer-events: none; }
+.boog img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 60%; border-radius: 999px 999px 0 0; }
+@media (max-width: 59.99rem) { .boog { max-width: 22rem; } }
+.kort { background: var(--vlak); border-block: 1px solid var(--lijn); }
+.woordveld { background: var(--steen); }
+.woord { font-family: 'Newsreader', serif; font-size: 1.25rem; }
+.woord[aria-current] { background: var(--inkt); }
+.paneel-kop { font-style: italic; }
+.jezus { background: var(--donker); color: var(--op-donker); }
+.jezus .tekstlink { color: var(--licht); }
+.jezus h3 { color: var(--licht); }
+.punten li { border-top: 1px solid rgb(242 239 233 / 0.3); padding-top: 1rem; }
+.kerkdienst { background: var(--bg); }
+.kerken { background: var(--vlak); border-top: 1px solid var(--lijn); }
+.kerk { background: var(--bg); box-shadow: none; border-top: 3px solid var(--inkt); border-radius: 0; }

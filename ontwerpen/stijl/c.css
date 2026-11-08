@@ -1,0 +1,27 @@
+/* C — Ontmoeting: symbool en mensen. Linnen, avondblauw, klei en zee; Atkinson Hyperlegible Next. Vriendelijk en ruim. */
+:root {
+  --bg: #FBF8F4; --vlak: #FFFFFF; --inkt: #1F2140; --zacht: #4D4F66; --lijn: #E2DCD3; --accent: #2E6E78; --op-accent: #FFFFFF;
+  --donker: #1F2140; --op-donker: #FBF8F4; --klei: #A84B2E; --licht: #FBE9DA;
+  --kop: 'Atkinson Next', system-ui, sans-serif; --kop-gewicht: 800; --hoek: 1rem;
+}
+.wissel-regel { font-family: 'Atkinson Next', sans-serif; font-weight: 800; letter-spacing: -0.02em; color: var(--klei); }
+.hero { padding-block: 1.5rem 3.5rem; background: var(--licht); }
+.hero-raster { display: grid; gap: 1.6rem; align-items: center; }
+.hero-merk { width: min(9rem, 36vw); }
+@media (min-width: 60rem) { .hero-raster { grid-template-columns: 0.8fr 1.2fr; gap: 4rem; } .hero-merk { width: 100%; max-width: 24rem; justify-self: center; } .hero { padding-block: 3.5rem 5rem; } }
+.knop { border-radius: 999px; }
+.woord { border-radius: 999px; font-weight: 700; }
+.woord[aria-current] { background: var(--klei); }
+.hoop { border-left-color: var(--klei); }
+.paneel { box-shadow: 0 1px 0 var(--lijn), 0 18px 40px -28px rgb(31 33 64 / 0.35); }
+.mensen { background: var(--vlak); }
+.mensen-lijst li { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.7rem; }
+.plek { aspect-ratio: 4 / 3; border-radius: var(--hoek); background: #F6F1EA; display: grid; place-items: center; }
+.plek svg { width: 34%; }
+.jezus { background: var(--donker); color: var(--op-donker); }
+.jezus h3 { color: var(--licht); }
+.jezus .tekstlink { color: var(--licht); }
+.punten li { background: rgb(255 255 255 / 0.06); border-radius: var(--hoek); padding: 1.2rem; }
+.dienst-lijst li::before { background: var(--klei); }
+.kerk { box-shadow: none; }
+.wissel-regel { font-size: clamp(2.2rem, min(calc(128vw / var(--len)), 8rem), 8rem); }

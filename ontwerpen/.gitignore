@@ -1,0 +1,6 @@
+# gegenereerd: node ontwerpen/bouw.mjs / node ontwerpen/spandoek.mjs
+dist/
+spandoek/*.png
+.spandoek-tmp.html
+# Sionkerk-montages: foto niet vrij te gebruiken, alleen intern
+intern/

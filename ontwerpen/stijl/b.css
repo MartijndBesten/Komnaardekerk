@@ -1,0 +1,37 @@
+/* B — Kruisvenster: hedendaagse uitnodiging in letters. Papier en inkt, één blauw; Archivo smal en zwaar; veel wit. */
+:root {
+  --bg: #FAFAF8; --vlak: #FFFFFF; --inkt: #101820; --zacht: #4A525C; --lijn: #D5D8DC; --accent: #2F5F99; --op-accent: #FFFFFF;
+  --donker: #101820; --op-donker: #FAFAF8; --ochtend: #E6EEF7; --hemel: #5B8DC9;
+  --kop: 'Archivo', 'Arial Narrow', sans-serif; --kop-gewicht: 800; --kop-breedte: 74%; --hoek: 0;
+}
+.plaats { font: 700 0.82rem/1 var(--tekst); letter-spacing: 0.12em; text-transform: uppercase; color: var(--zacht); margin-bottom: 1rem; }
+.wissel-regel { font-family: 'Archivo', sans-serif; font-weight: 800; font-stretch: 70%; letter-spacing: -0.01em; font-size: clamp(3rem, min(calc(165vw / var(--len)), 15rem), 15rem); line-height: 0.86; }
+.hero { padding-block: 2rem 3.5rem; border-bottom: 1px solid var(--inkt); }
+.hero-raster { display: grid; gap: 2rem; margin-top: 1.6rem; padding-top: 1.6rem; border-top: 1px solid var(--inkt); }
+@media (min-width: 60rem) { .hero-raster { grid-template-columns: 1fr 22rem; gap: 4rem; align-items: start; } }
+.hero h1 { margin-top: 0; font-size: clamp(1.8rem, 5vw, 3rem); }
+.h1-2 { color: var(--accent); }
+/* foto met het venster als dunne lijn eroverheen: het motief uit het merk */
+.venster-foto { margin: 0; position: relative; max-width: 22rem; }
+.venster-foto img { width: 100%; aspect-ratio: 5 / 8; object-fit: cover; object-position: 50% 20%; }
+.venster-lijn { position: absolute; left: 0; top: 0; width: 100%; aspect-ratio: 5 / 8; height: auto; fill: none; stroke: #FFFFFF; stroke-width: 1.4px; vector-effect: non-scaling-stroke; }
+@media (max-width: 59.99rem) { .venster-foto { max-width: 15rem; } }
+.knop { font-family: var(--tekst); }
+.kort { border-bottom: 1px solid var(--inkt); }
+.kort dt { font-size: 1.15rem; text-transform: lowercase; }
+.woordveld { border-bottom: 1px solid var(--inkt); }
+.woorden { gap: 0; border-top: 1px solid var(--lijn); }
+.woorden li { border-bottom: 1px solid var(--lijn); }
+.woord { background: none; box-shadow: none; font-family: 'Archivo', sans-serif; font-weight: 700; font-stretch: 74%; font-size: clamp(1.5rem, 5vw, 2.2rem); padding: 0.3rem 1.2rem 0.3rem 0; min-height: 3rem; border-radius: 0; }
+.woord:hover { box-shadow: none; text-decoration: underline; color: var(--accent); }
+.woord[aria-current] { background: none; color: var(--accent); text-decoration: underline; text-decoration-thickness: 3px; }
+.paneel { box-shadow: none; border: 1px solid var(--inkt); }
+.hoop { border-left-color: var(--hemel); }
+.jezus { background: var(--ochtend); }
+.punten { counter-reset: p; }
+.punten li { counter-increment: p; border-top: 1px solid var(--inkt); padding-top: 0.8rem; }
+.punten li::before { content: counter(p); display: block; font: 800 3rem/1 'Archivo', sans-serif; font-stretch: 70%; color: var(--accent); margin-bottom: 0.4rem; }
+.kerkdienst { border-bottom: 1px solid var(--inkt); }
+.dienst-lijst li::before { border-radius: 0; background: var(--hemel); }
+.kerk { box-shadow: none; border-top: 1px solid var(--inkt); padding-inline: 0; background: none; }
+.plaatsnaam { text-transform: lowercase; }
