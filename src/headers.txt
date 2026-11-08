@@ -27,4 +27,5 @@ https://:worker.:sub.workers.dev/*
 https://:versie.:worker.:sub.workers.dev/*
   X-Robots-Tag: noindex
 
+{{HTML_NO_TRANSFORM}}
 {{CONCEPT_NOINDEX}}

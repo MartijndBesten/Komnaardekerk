@@ -27,5 +27,35 @@ https://:worker.:sub.workers.dev/*
 https://:versie.:worker.:sub.workers.dev/*
   X-Robots-Tag: noindex
 
+/
+  Cache-Control: no-cache, no-transform
+
+/voor-het-eerst/
+  Cache-Control: no-cache, no-transform
+
+/kerken/
+  Cache-Control: no-cache, no-transform
+
+/geloof/
+  Cache-Control: no-cache, no-transform
+
+/even-praten/
+  Cache-Control: no-cache, no-transform
+
+/over/
+  Cache-Control: no-cache, no-transform
+
+/privacy/
+  Cache-Control: no-cache, no-transform
+
+/even-praten/bedankt/
+  Cache-Control: no-cache, no-transform
+
+/even-praten/niet-gelukt/
+  Cache-Control: no-cache, no-transform
+
+/404.html
+  Cache-Control: no-cache, no-transform
+
 /*
   X-Robots-Tag: noindex

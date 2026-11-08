@@ -171,6 +171,7 @@ async function bouw() {
   const concept = content.site.modus !== 'productie';
 
   const sitemap = [];
+  const htmlPaden = [];
   for (const mod of PAGINAS) {
     const pagina = { ...mod.pagina };
     const ctx = { ...content, pad: pagina.pad, versie };
@@ -178,6 +179,7 @@ async function bouw() {
     const uit = layout(ctx, pagina, mod.inhoud(ctx));
     const bestand = pagina.bestand || `${pagina.pad.slice(1)}index.html`;
     bestanden[bestand] = Buffer.from(uit);
+    htmlPaden.push(pagina.bestand ? `/${pagina.bestand}` : pagina.pad);
     if (pagina.sitemap !== false) sitemap.push(content.site.domein + pagina.pad);
   }
 
@@ -206,8 +208,14 @@ async function bouw() {
   );
 
   const sjabloon = await readFile(path.join(ROOT, 'src', 'headers.txt'), 'utf8');
+  // no-transform op HTML: Cloudflare spuit dan geen Web Analytics-beacon of andere scripts in
+  // (privacybelofte 'geen tracking'; les uit B97). CSS/JS/fonts blijven gecomprimeerd.
+  const htmlRegels = htmlPaden.map((p) => `${p}\n  Cache-Control: no-cache, no-transform\n`).join('\n');
   bestanden['_headers'] = Buffer.from(
-    sjabloon.replace('{{CONCEPT_NOINDEX}}', concept ? '/*\n  X-Robots-Tag: noindex\n' : '').trimEnd() + '\n'
+    sjabloon
+      .replace('{{CONCEPT_NOINDEX}}', concept ? '/*\n  X-Robots-Tag: noindex\n' : '')
+      .replace('{{HTML_NO_TRANSFORM}}', htmlRegels)
+      .trimEnd() + '\n'
   );
 
   controleerHtml(bestanden, fouten);

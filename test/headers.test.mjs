@@ -17,3 +17,11 @@ test('workers.dev en conceptmodus krijgen noindex; lettertypen lang in cache', (
   assert.ok(naam(headersVoor(regels, 'komnaardekerk.martijndenbesten.com', '/'), 'X-Robots-Tag').includes('noindex'), 'concept moet noindex zijn');
   assert.match(naam(headersVoor(regels, 'x', '/fonts/a.woff2'), 'Cache-Control')[0], /immutable/);
 });
+
+test('HTML-pagina\'s krijgen no-transform (geen ingespoten scripts), lettertypen niet', () => {
+  for (const pad of ['/', '/kerken/', '/even-praten/bedankt/', '/404.html']) {
+    assert.match(naam(headersVoor(regels, 'x', pad), 'Cache-Control').join(','), /no-transform/, pad);
+  }
+  assert.doesNotMatch(naam(headersVoor(regels, 'x', '/fonts/a.woff2'), 'Cache-Control').join(','), /no-transform/);
+  assert.doesNotMatch(naam(headersVoor(regels, 'x', '/css/site.css'), 'Cache-Control').join(','), /no-transform/);
+});
