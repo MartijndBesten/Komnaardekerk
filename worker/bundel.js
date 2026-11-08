@@ -27,14 +27,15 @@ function bytes(b64) {
   return uit;
 }
 
-function serveer(pad, host, status = 200) {
-  const sleutel = pad.replace(/^\//, '');
+// bestand: pad van het bestand in dist/; urlPad: het gevraagde pad (daarop werken de _headers-regels).
+function serveer(bestandPad, host, status = 200, urlPad = bestandPad) {
+  const sleutel = bestandPad.replace(/^\//, '');
   const bestand = BESTANDEN[sleutel];
   const headers = new Headers();
-  for (const [k, v] of headersVoor(HEADERS, host, pad)) headers.append(k, v);
+  for (const [k, v] of headersVoor(HEADERS, host, urlPad)) headers.append(k, v);
   const ext = sleutel.split('.').pop();
   headers.set('Content-Type', TYPES[ext] || 'application/octet-stream');
-  if (!headers.has('Cache-Control')) headers.set('Cache-Control', ext === 'html' ? 'no-cache' : 'public, max-age=3600');
+  if (!headers.has('Cache-Control')) headers.set('Cache-Control', ext === 'html' ? 'no-cache, no-transform' : 'public, max-age=3600');
   const body = bestand.b ? bytes(bestand.b) : bestand.t;
   return new Response(body, { status, headers });
 }
@@ -66,7 +67,7 @@ export async function behandel(request, env = {}) {
   }
   if (pad.includes('..') || pad === '/_headers') return serveer('/404.html', url.host, 404);
   if (pad.endsWith('/')) {
-    if (BESTANDEN[`${pad.slice(1)}index.html`]) return serveer(`${pad}index.html`, url.host);
+    if (BESTANDEN[`${pad.slice(1)}index.html`]) return serveer(`${pad}index.html`, url.host, 200, pad);
   } else if (BESTANDEN[pad.slice(1)]) {
     return serveer(pad, url.host);
   } else if (BESTANDEN[`${pad.slice(1)}/index.html`]) {

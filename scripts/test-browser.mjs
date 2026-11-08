@@ -104,7 +104,9 @@ for (const pad of PAGINAS) {
     eis(resp.status() === 200, `status ${resp.status()}`);
     eis((await page.locator('h1').count()) === 1, 'niet precies één h1');
     const csp = resp.headers()['content-security-policy'] || '';
-    eis(extern || csp.includes("script-src 'self'"), 'CSP-header ontbreekt');
+    eis(csp.includes("script-src 'self'"), 'CSP-header ontbreekt');
+    // Voorkomt dat Cloudflare scripts (Web Analytics-beacon) in de HTML spuit.
+    eis(/no-transform/.test(resp.headers()['cache-control'] || ''), `HTML zonder no-transform (cache-control: ${resp.headers()['cache-control']})`);
     for (const w of BREEDTES) {
       await page.setViewportSize({ width: w, height: 900 });
       await page.waitForTimeout(50);
