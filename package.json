@@ -1,0 +1,23 @@
+{
+  "name": "komnaardekerk",
+  "version": "0.1.0",
+  "private": true,
+  "description": "komnaardekerk.nl — een open uitnodiging van de kerken in Houten",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --check",
+    "poort": "node scripts/build.mjs --check --productie",
+    "serve": "node scripts/serve.mjs",
+    "test:unit": "node --test test/*.test.mjs",
+    "test:browser": "node scripts/test-browser.mjs",
+    "test": "node scripts/build.mjs --check && node --test test/*.test.mjs && node scripts/test-browser.mjs",
+    "merk": "node scripts/merk.mjs"
+  },
+  "devDependencies": {
+    "axe-core": "4.11.0"
+  }
+}

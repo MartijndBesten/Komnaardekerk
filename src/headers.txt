@@ -1,0 +1,30 @@
+# Sjabloon voor dist/_headers (Cloudflare Workers static assets / Pages).
+# Wordt door scripts/build.mjs ingevuld. Niet met de hand in dist/ aanpassen.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; upgrade-insecure-requests
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  X-Frame-Options: DENY
+  Cross-Origin-Opener-Policy: same-origin
+  Strict-Transport-Security: max-age=31536000
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/merk/*
+  Cache-Control: public, max-age=604800
+
+/even-praten/bedankt/*
+  X-Robots-Tag: noindex
+
+/even-praten/niet-gelukt/*
+  X-Robots-Tag: noindex
+
+https://:worker.:sub.workers.dev/*
+  X-Robots-Tag: noindex
+
+https://:versie.:worker.:sub.workers.dev/*
+  X-Robots-Tag: noindex
+
+{{CONCEPT_NOINDEX}}

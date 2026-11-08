@@ -1,0 +1,25 @@
+// Cloudflare Worker met static assets. Nog NIET uitgerold (geen opdracht tot publicatie).
+// Vóór uitrol: zie README.md → 'Uitrollen' en VRAGEN.md (V-004, V-005).
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "komnaardekerk",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    // Pas op "ja" zetten als de opvolging door de kerken geregeld is.
+    "CONTACT_AAN": "nee"
+    // "MAIL_VAN": "formulier@komnaardekerk.nl",   // adres op het eigen domein (Email Routing)
+    // "MAIL_AAN": "<geverifieerd adres van de coördinator>"
+  }
+  // Mail via Cloudflare Email Routing (alleen naar een geverifieerd bestemmingsadres):
+  // "send_email": [{ "name": "MAIL", "destination_address": "<geverifieerd adres>" }],
+  // Misbruikrem per IP:
+  // "ratelimits": [{ "name": "RATE_LIMIT", "namespace_id": "1001", "simple": { "limit": 5, "period": 60 } }]
+}
