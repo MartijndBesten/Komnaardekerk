@@ -1,0 +1,87 @@
+{
+  "_uitleg": "Foto's van de site. Alleen beelden met gebruiksrecht. 'bron' = herkomstpagina met licentie; 'credit' = verplichte naamsvermelding. Uitsnede 'snede' = [links, boven, rechts, onder] als fractie. Maak de webp-bestanden met: python3 scripts/fotos.py (vult w/h aan). Geen herkenbare personen zonder toestemming (portretrecht staat los van de licentie).",
+  "held": {
+    "bestand": "pleinkerk-deur.jpg",
+    "src": "/foto/held-open-deur.webp",
+    "snede": [
+      0.42,
+      0,
+      0.985,
+      1
+    ],
+    "alt": "Een openstaande houten kerkdeur met smeedijzeren beslag; binnen valt licht door glas-in-loodramen.",
+    "bijschrift": "De openstaande deur van de Pleinkerk, Houten",
+    "credit": "IdsVanHouten",
+    "licentie": "CC BY-SA 4.0",
+    "bron": "https://commons.wikimedia.org/wiki/File:HOUTEN_PLEINKERK_11.jpg",
+    "w": 543,
+    "h": 720,
+    "breedtes": [
+      543
+    ]
+  },
+  "dorp": {
+    "bestand": "oude-dorp.jpg",
+    "src": "/foto/oude-dorp.webp",
+    "snede": [
+      0.33,
+      0,
+      0.83,
+      1
+    ],
+    "alt": "Het Oude Dorp in Houten op een zomerdag, met tussen de bomen de toren van de Pleinkerk.",
+    "bijschrift": "Het Oude Dorp, Houten",
+    "credit": "Jan Dijkstra",
+    "licentie": "CC BY-SA 4.0",
+    "bron": "https://commons.wikimedia.org/wiki/File:Houten_%22Het_Oude_Dorp.%22.jpg",
+    "w": 640,
+    "h": 853,
+    "breedtes": [
+      640
+    ]
+  },
+  "toren": {
+    "bestand": "toren-weiland.jpg",
+    "src": "/foto/toren-weiland.webp",
+    "snede": [
+      0.25,
+      0,
+      0.75,
+      1
+    ],
+    "alt": "Een kerktoren boven de daken van Houten, gezien vanaf een weiland onder een wijde lucht.",
+    "bijschrift": "Zicht op Houten",
+    "credit": "Jan Dijkstra",
+    "licentie": "CC BY-SA 4.0",
+    "bron": "https://commons.wikimedia.org/wiki/File:De_Nederlands_Hervormde_kerk_in_Houten.jpg",
+    "w": 960,
+    "h": 1279,
+    "breedtes": [
+      640,
+      960,
+      1600
+    ]
+  },
+  "rk-houten": {
+    "bestand": "rk-houten.jpg",
+    "src": "/foto/rk-houten.webp",
+    "snede": [
+      0.1,
+      0,
+      0.6,
+      1
+    ],
+    "alt": "De rooms-katholieke Onze Lieve Vrouwe ten Hemelopnemingkerk aan de Loerikseweg in Houten, met de spitse toren tegen een blauwe lucht.",
+    "bijschrift": "O.L.V. ten Hemelopnemingkerk, Houten",
+    "credit": "Jan Dijkstra",
+    "licentie": "CC BY-SA 4.0",
+    "bron": "https://commons.wikimedia.org/wiki/File:De_Onze_Lieve_Vrouwe_ten_Hemelopneming_kerk_aan_de_Loerikseweg_in_Houten.jpg",
+    "w": 960,
+    "h": 1280,
+    "breedtes": [
+      640,
+      960,
+      1600
+    ]
+  }
+}

@@ -1,15 +1,32 @@
 import { esc, html, raw, alinea } from './html.mjs';
-import { beeldmerk } from './merk.mjs';
+import { lijn } from './lijnen.mjs';
 
-// Boogvormig beeldvlak (de vorm van een kerkdeur). Zonder foto: warm licht met een
-// duidelijke 'foto volgt'-aanduiding in conceptmodus. Nooit stockbeeld als 'echt'.
-export function boog({ foto = null, alt = '', briefing = '', concept = true, klasse = '', deur = false } = {}) {
-  if (foto) {
-    return html`<figure class="boog ${klasse}"><img src="${foto}" alt="${alt}" loading="lazy" decoding="async"></figure>`;
-  }
+const MAANDEN = ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'];
+export function datum(iso) {
+  if (!iso) return '';
+  const [j, m, d] = iso.split('-').map(Number);
+  return `${d} ${MAANDEN[m - 1]} ${j}`;
+}
+
+// Responsieve foto (webp in twee breedtes, zie scripts/fotos.mjs). foto = { src, alt, credit, licentie, bron, w, h }
+export function foto(f, { klasse = '', sizes = '(min-width: 60rem) 40vw, 100vw', laden = 'lazy', bijschrift = true } = {}) {
+  if (!f) return '';
+  const basis = f.src.replace(/\.webp$/, '');
+  const credit = bijschrift && f.credit
+    ? html`<figcaption class="foto-credit">${f.bijschrift ? html`<span class="foto-bijschrift">${f.bijschrift}</span> ` : ''}Foto: ${f.credit}, <a href="${f.bron}" rel="noopener">${f.licentie}</a>${f.conceptbeeld ? ' · conceptbeeld' : ''}</figcaption>`
+    : '';
+  const breedtes = f.breedtes || [640, 960, 1600];
+  const standaard = breedtes.includes(960) ? 960 : breedtes[breedtes.length - 1];
+  const srcset = breedtes.map((b) => `${basis}-${b}.webp ${b}w`).join(', ');
+  return html`<figure class="foto ${klasse}"><img src="${basis}-${standaard}.webp" srcset="${srcset}" sizes="${sizes}" width="${f.w || 960}" height="${f.h || 1280}" alt="${f.alt || ''}" loading="${laden}" decoding="async"${laden === 'eager' ? raw(' fetchpriority="high"') : ''}>${credit}</figure>`;
+}
+
+// Boogvormig beeldvlak. Met foto: foto in de boog. Zonder: warm licht + 'Foto volgt' (concept).
+export function boog({ foto: f = null, briefing = '', concept = true, klasse = '', sizes } = {}) {
+  if (f) return foto(f, { klasse: `boog ${klasse}`, sizes });
   const verborgen = concept && briefing ? '' : raw(' aria-hidden="true"');
   return html`<figure class="boog boog--licht ${klasse}"${verborgen}>
-    <span class="boog-binnen" aria-hidden="true"><span class="boog-straal"></span>${deur ? raw('<span class="boog-deur"></span>') : ''}</span>
+    <span class="boog-binnen" aria-hidden="true"><span class="boog-straal"></span></span>
     ${concept && briefing ? html`<figcaption class="boog-briefing"><span>Foto volgt</span> ${briefing}</figcaption>` : ''}
   </figure>`;
 }
@@ -40,45 +57,59 @@ export function hulplijnen(site, { kop = 'Heb je nú iemand nodig?' } = {}) {
 
 const DAG = { zondag: 'Zondag', zaterdag: 'Zaterdag', vrijdag: 'Vrijdag', donderdag: 'Donderdag', woensdag: 'Woensdag', dinsdag: 'Dinsdag', maandag: 'Maandag' };
 
+const STATUS = {
+  kandidaat: 'Nog niet benaderd · openbare gegevens van de eigen website',
+  belangstelling: 'Heeft belangstelling getoond · nog geen deelnemer',
+  deelnemer: null
+};
+
+export function statusLabel(item) {
+  const s = item.deelname?.status || 'kandidaat';
+  return STATUS[s] ? html`<p class="label-status label-status--${s}">${STATUS[s]}</p>` : '';
+}
+
 function diensten(kerk) {
-  if (!kerk.diensten?.length) return html`<p class="kerk-leeg">Tijden volgen.</p>`;
+  if (!kerk.diensten?.length) return html`<p class="kerk-leeg">Zie de website van de kerk voor de tijden.</p>`;
   return html`<ul class="kerk-tijden">${kerk.diensten.map(
-    (d) => html`<li><span class="kerk-tijd">${DAG[d.dag] || d.dag} ${d.tijd ? `${d.tijd} uur` : ''}</span>${d.omschrijving ? html` <span class="kerk-tijd-uitleg">${d.omschrijving}</span>` : ''}
-      ${d.tijd ? html`<button type="button" class="tekstknop agenda-knop" hidden data-agenda data-kerk="${kerk.naam}" data-dag="${d.dag}" data-tijd="${d.tijd}" data-adres="${[kerk.adres, kerk.postcode, 'Houten'].filter(Boolean).join(', ')}">Zet in mijn agenda</button>` : ''}</li>`
+    (d) => html`<li><span class="kerk-tijd">${DAG[d.dag] || d.dag}${d.tijd ? ` ${d.tijd.replace(':', '.')} uur` : ''}</span>${d.omschrijving ? html` <span class="kerk-tijd-uitleg">${d.omschrijving}</span>` : ''}
+      ${d.tijd && d.agenda !== false ? html`<button type="button" class="tekstknop agenda-knop" hidden data-agenda data-kerk="${kerk.naam}" data-dag="${d.dag}" data-tijd="${d.tijd}" data-adres="${[kerk.adres, kerk.postcode, kerk.plaats].filter(Boolean).join(', ')}">Zet in mijn agenda</button>` : ''}</li>`
   )}</ul>`;
 }
 
 function routeLink(kerk) {
   if (!kerk.adres) return '';
-  const bestemming = encodeURIComponent([kerk.adres, kerk.postcode, 'Houten'].filter(Boolean).join(', '));
-  return html`<a class="pijllink" href="https://www.openstreetmap.org/search?query=${bestemming}" rel="noopener">Bekijk op de kaart<span class="sr"> (${kerk.naam}, opent OpenStreetMap)</span></a>`;
+  const q = encodeURIComponent([kerk.adres, kerk.postcode, kerk.plaats].filter(Boolean).join(', '));
+  return html`<a class="pijllink" href="https://www.openstreetmap.org/search?query=${q}" rel="noopener">Route<span class="sr"> naar ${kerk.naam} (OpenStreetMap)</span></a>`;
 }
 
-export function kerkItem(kerk, { concept = true, kop = 'h3' } = {}) {
+export function kerkItem(kerk, { concept = true } = {}) {
   const kenmerken = (kerk.kenmerken || []).join(' ');
-  return html`<article class="kerk" id="${kerk.id}" data-kenmerken="${kenmerken}">
-    <div class="kerk-beeld">${boog({ foto: kerk.foto, alt: kerk.fotoAlt || '', briefing: concept ? 'van deze kerk: interieur of ingang, met echte mensen' : '', concept })}</div>
+  const c = kerk.contactroute;
+  return html`<article class="kerk" id="${kerk.id}" data-kenmerken="${kenmerken}" data-plaats="${kerk.plaats}" data-traditie="${kerk.traditie}">
+    <div class="kerk-beeld">${boog({ foto: kerk.foto, briefing: concept ? 'van deze kerk, met toestemming van de gemeente' : '', concept, sizes: '(min-width: 56rem) 28vw, 80vw' })}</div>
     <div class="kerk-tekst">
-      ${kerk.voorbeeld ? html`<p class="label-voorbeeld">Voorbeeld · geen echte kerk</p>` : ''}
-      ${raw(`<${kop} class="kerk-naam">${esc(kerk.naam)}</${kop}>`)}
-      ${kerk.traditie ? html`<p class="kerk-traditie">${kerk.traditie}</p>` : ''}
+      ${statusLabel(kerk)}
+      <h3 class="kerk-naam">${kerk.naam}</h3>
+      <p class="kerk-traditie">${[kerk.verband || kerk.kerkverband, kerk.plaats].filter(Boolean).join(' · ')}</p>
       ${diensten(kerk)}
-      <p class="kerk-sfeer">${kerk.sfeer}</p>
+      ${kerk.zelfomschrijving?.tekst
+        ? html`<blockquote class="kerk-citaat"><p>${kerk.zelfomschrijving.tekst}</p><footer>Zo omschrijft de gemeente zichzelf · <a href="${kerk.zelfomschrijving.bron}" rel="noopener">bron</a></footer></blockquote>`
+        : ''}
+      ${kerk.verwachten ? html`<p class="kerk-sfeer">${kerk.verwachten}</p>` : ''}
       <dl class="kerk-feiten">
-        <div><dt>Adres</dt><dd>${kerk.adres ? `${kerk.adres}${kerk.postcode ? ', ' + kerk.postcode : ''} Houten` : 'Volgt'}${kerk.wijk && kerk.wijk !== 'Wijk volgt' ? html` <span class="kerk-wijk">(${kerk.wijk})</span>` : ''}</dd></div>
-        <div><dt>Kinderen</dt><dd>${kerk.kinderen || 'Vraag het de kerk.'}</dd></div>
-        <div><dt>Toegankelijkheid</dt><dd>${kerk.toegankelijkheid || 'Vraag het de kerk.'}</dd></div>
-        <div><dt>Voor nieuwe bezoekers</dt><dd>${
-          kerk.contact
-            ? html`${kerk.contact.naam}${kerk.contact.telefoon ? html`, <a href="tel:${kerk.contact.telefoon.replace(/\s/g, '')}">${kerk.contact.telefoon}</a>` : ''}${kerk.contact.email ? html`, <a href="mailto:${kerk.contact.email}">${kerk.contact.email}</a>` : ''}`
-            : 'Contactpersoon volgt.'
+        <div><dt>Adres</dt><dd>${kerk.adres ? `${kerk.adres}, ${kerk.postcode ? kerk.postcode + ' ' : ''}${kerk.plaats}` : 'Zie website'}</dd></div>
+        <div><dt>Kinderen</dt><dd>${kerk.kinderen || 'Niet vermeld op de website.'}</dd></div>
+        ${kerk.toegankelijkheid ? html`<div><dt>Toegankelijkheid</dt><dd>${kerk.toegankelijkheid}</dd></div>` : ''}
+        ${kerk.livestream ? html`<div><dt>Eerst online kijken?</dt><dd><a href="${kerk.livestream}" rel="noopener">Diensten online</a></dd></div>` : ''}
+        <div><dt>Eerste contact</dt><dd>${
+          c?.soort === 'email' ? html`<a href="mailto:${c.waarde}">${c.waarde}</a>` : c?.soort === 'formulier' ? html`<a href="${c.waarde}" rel="noopener">Contact via de website</a>` : c?.soort === 'telefoon' ? html`<a href="tel:${c.waarde.replace(/\s/g, '')}">${c.waarde}</a>` : 'Via de website'
         }</dd></div>
       </dl>
       <p class="kerk-links">
-        ${kerk.website ? html`<a class="pijllink" href="${kerk.website}" rel="noopener">Website van de kerk<span class="sr"> ${kerk.naam}</span></a>` : ''}
+        ${kerk.website ? html`<a class="pijllink" href="${kerk.website}" rel="noopener">Website<span class="sr"> van ${kerk.naam}</span></a>` : ''}
         ${routeLink(kerk)}
-        ${kerk.samenGaan ? html`<a class="pijllink" href="/even-praten/?kerk=${kerk.id}#samen">Samen gaan<span class="sr"> naar ${kerk.naam}</span></a>` : ''}
       </p>
+      <p class="kerk-controle">Gegevens gecontroleerd op ${datum(kerk.gecontroleerd)}${kerk.bronnen?.length ? html` · <a href="${kerk.bronnen[0].url}" rel="noopener">bron</a>` : ''}.</p>
     </div>
   </article>`;
 }
@@ -88,8 +119,8 @@ export function kerkCompact(kerk) {
   return html`<li class="kerk-kort" data-kerk="${kerk.id}">
     <a href="/kerken/#${kerk.id}">
       <span class="kerk-kort-naam">${kerk.naam}</span>
-      <span class="kerk-kort-meta">${eerste?.tijd ? `${DAG[eerste.dag] || eerste.dag} ${eerste.tijd} uur` : 'Tijden volgen'}${kerk.voorbeeld ? ' · voorbeeld' : ''}</span>
-      <span class="kerk-kort-sfeer">${kerk.traditie || ''}</span>
+      <span class="kerk-kort-meta">${eerste?.tijd ? `${DAG[eerste.dag] || eerste.dag} ${eerste.tijd.replace(':', '.')} uur${eerste.agenda === false ? ' · zie rooster' : ''}` : 'Tijden: zie website'}</span>
+      <span class="kerk-kort-sfeer">${[kerk.verband || kerk.kerkverband, kerk.plaats].filter(Boolean).join(' · ')}</span>
     </a>
   </li>`;
 }
@@ -98,31 +129,33 @@ export function bijbeltekst(site, { klasse = '' } = {}) {
   const b = site.bijbel;
   return html`<figure class="bijbeltekst ${klasse}">
     <blockquote><p>${b.tekst}</p></blockquote>
-    <figcaption>Jezus, in ${b.bron} <span class="bijbel-vertaling">(${b.vertaling}, ${b.rechten})</span></figcaption>
+    <figcaption>Jezus, in ${b.bron} <span class="bijbel-vertaling">${b.bronvermelding} · <a href="${b.verderLezen}" rel="noopener">lees verder op debijbel.nl</a></span></figcaption>
   </figure>`;
 }
 
-export function samenGaan({ concept }) {
+export function paginaKop({ boven, titel, lead, id = 'pagina-kop', beeld = null, lijnNaam = 'portaal' }) {
+  return html`<header class="paginakop${beeld ? ' paginakop--beeld' : ''}">
+    <div class="paginakop-binnen">
+      <div class="paginakop-tekst">
+        ${boven ? html`<p class="bovenregel">${boven}</p>` : ''}
+        <h1 class="kop-1" id="${id}">${raw(titel)}</h1>
+        ${lead ? html`<p class="lead">${lead}</p>` : ''}
+      </div>
+      ${beeld ? html`<div class="paginakop-beeld">${foto(beeld, { klasse: 'boog', laden: 'eager', sizes: '(min-width: 60rem) 30vw, 70vw' })}</div>` : html`<div class="paginakop-lijn" aria-hidden="true">${raw(lijn(lijnNaam))}</div>`}
+    </div>
+  </header>`;
+}
+
+export function samenGaanTeaser() {
   return html`<section class="samen" aria-labelledby="samen-kop">
     <div class="samen-binnen">
-      <div class="samen-beeld">${boog({ briefing: 'twee mensen bij een kerkdeur, van achteren of opzij; geen poses', concept, klasse: 'boog--klein' })}</div>
+      <div class="samen-lijn" aria-hidden="true">${raw(lijn('samen'))}</div>
       <div class="samen-tekst">
-        <p class="bovenregel">Zullen we samen gaan?</p>
-        <h2 id="samen-kop" class="kop-2">Vind je het spannend om alleen te komen?</h2>
-        <p class="lead">Dat snappen we. Iemand van de kerk kan je bij de deur opwachten, naast je komen zitten en na afloop een kop koffie met je drinken. Je spreekt gewoon samen een zondag af.</p>
-        <p><a class="knop knop--vol" href="/even-praten/#samen">Ik wil graag samen gaan</a></p>
+        <p class="bovenregel">Samen naar de kerk</p>
+        <h2 id="samen-kop" class="kop-2">Vind je het spannend om alleen te gaan?</h2>
+        <p class="lead">Dat snappen we. Lees hoe je een eerste bezoek voorbereidt, en neem gerust iemand mee: een vriend, een buurvrouw, je kind. Kerken zijn gewend aan nieuwe gezichten.</p>
+        <p><a class="knop knop--vol" href="/samen-naar-de-kerk/">Een eerste bezoek voorbereiden</a></p>
       </div>
     </div>
   </section>`;
-}
-
-export function paginaKop({ boven, titel, lead, id = 'pagina-kop' }) {
-  return html`<header class="paginakop">
-    <div class="paginakop-binnen">
-      ${boven ? html`<p class="bovenregel">${boven}</p>` : ''}
-      <h1 class="kop-1" id="${id}">${raw(titel)}</h1>
-      ${lead ? html`<p class="lead">${lead}</p>` : ''}
-    </div>
-    <div class="paginakop-licht" aria-hidden="true">${raw(beeldmerk({ klasse: 'beeldmerk paginakop-merk' }))}</div>
-  </header>`;
 }

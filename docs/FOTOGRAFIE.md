@@ -1,30 +1,29 @@
-# Fotografiebriefing komnaardekerk.nl
+# Fotografie
 
-Het ontwerp toont foto's in een **boogvorm** (de vorm van een kerkdeur). Tot er echte foto's zijn, staat er warm licht met de aanduiding 'Foto volgt'. Er worden bewust geen stockfoto's gebruikt.
+## Nu op de site (allemaal echte foto's uit Houten, met licentie)
 
-## Wat we zoeken
+| Foto | Gebruik | Maker | Licentie |
+|---|---|---|---|
+| Open deur van de Pleinkerk | hero, deelbeeld, ontwerppagina | IdsVanHouten | CC BY-SA 4.0 |
+| Het Oude Dorp met de toren van de Pleinkerk | kop ‘Kerken’ | Jan Dijkstra | CC BY-SA 4.0 |
+| Kerktoren boven de weilanden | kop ‘Over ons’, kaart Pleinkerk | Jan Dijkstra | CC BY-SA 4.0 |
+| O.L.V. ten Hemelopnemingkerk | kaart RK Houten | Jan Dijkstra | CC BY-SA 4.0 |
 
-- **Echte mensen uit Houten**, in echte momenten: binnenkomen, koffie na de dienst, iemand die een ander begroet, een kind op de oppas, iemand alleen in een bank in de stilte.
-- **Licht**: ochtendlicht door ramen, een open deur van binnenuit gefotografeerd, licht op een vloer of bank.
-- **Ruimtes**: het interieur en de ingang van elke deelnemende kerk, zoals een nieuwe bezoeker die ziet.
-- **Rustige compositie**: veel ruimte, niet te vol, liefst staand formaat (3:4) zodat het in de boog past. Het bovenste kwart valt in de boogronding weg.
+Bron, licentie en uitsnede staan in `content/fotos.json`; de naamsvermelding staat bij elke foto. Herkenbare personen zijn bewust vermeden: een CC-licentie dekt het portretrecht niet. Er zijn geen stockfoto's of AI-beelden gebruikt.
 
-## Wat we níet willen
+**Aandachtspunten:**
 
-- Gevouwen handen, perfecte gezinnen, lachende modellen die in de lens kijken.
-- Stockfoto's of AI-beelden die doen alsof ze in Houten zijn gemaakt.
-- Herkenbare personen zonder hun toestemming (schriftelijk, met doel 'komnaardekerk.nl'). Kinderen alleen met toestemming van ouders, liefst onherkenbaar.
+- **Gelijkwaardigheid:** de hero toont de Pleinkerk. Zolang niet alle kerken een eigen foto hebben, ligt de nadruk visueel op één kerk. Liefst per kerk een foto, en een hero die wisselt of geen herkenbare kerk toont.
+- **Resolutie:** de heldfoto is nu 543 px breed, omdat Wikimedia downloads van grotere versies met een rate-limit weigerde. Haal vóór de lancering de originele 3264 px-versie op (`fotos/bron/pleinkerk-deur.jpg` vervangen, daarna `python3 scripts/fotos.py`).
 
-## Per kerk
+## Fotostijl
 
-1 staande foto (interieur of ingang, mét mensen als dat kan), minimaal 1200 × 1600 px, plus een korte beschrijving voor slechtzienden (`fotoAlt`), bijvoorbeeld: "Ochtendlicht valt door de hoge ramen op de lege achterste banken."
+Daglicht, warm en ongeposeerd, met ruimte. Deuren, drempels, lichtval, handen om een kop koffie, iemand die de deur openhoudt: van opzij of van achteren. Liefst staand 3:4, voor de boogvorm. Het bovenste kwart valt in de boogronding weg.
 
-## Algemeen (homepage, 'Samen gaan', 'Even praten')
+**Niet:** gevouwen handen, stockgezinnen, lachende modellen in de lens, AI-mensen als ‘echte’ bezoekers, herkenbare personen zonder schriftelijke toestemming, kinderen zonder toestemming van de ouders.
 
-- Twee mensen bij een kerkdeur, van achteren of opzij.
-- Twee mensen in gesprek aan een keukentafel of op een bankje, ongeposeerd.
-- Een interieur in ochtendlicht met een paar mensen op de achterste rij.
+## Toevoegen
 
-## Technisch
-
-Lever JPEG of WebP; de site verkleint niet automatisch. Zet bestanden in `src/static/foto/` en verwijs ernaar in `content/kerken.json` (`"foto": "/foto/<naam>.webp"`). Maak ze vóór plaatsing maximaal 1200 px breed (± 150–250 kB) en verwijder locatiegegevens (EXIF/GPS).
+1. Zet het origineel in `fotos/bron/` en voeg een regel toe aan `content/fotos.json`: bestand, uitsnede, alt-tekst, maker, licentie en bron.
+2. `python3 scripts/fotos.py` maakt WebP in de beschikbare breedtes (640, 960 en 1600 px) en verwijdert EXIF en GPS.
+3. Koppel de foto aan een kerk: `"foto": "<sleutel>"` in `content/kerken.json`.

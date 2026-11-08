@@ -15,10 +15,10 @@
 /merk/*
   Cache-Control: public, max-age=604800
 
-/even-praten/bedankt/*
+/samen-naar-de-kerk/bedankt/*
   X-Robots-Tag: noindex
 
-/even-praten/niet-gelukt/*
+/samen-naar-de-kerk/niet-gelukt/*
   X-Robots-Tag: noindex
 
 https://:worker.:sub.workers.dev/*

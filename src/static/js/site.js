@@ -85,6 +85,7 @@
   });
 
   /* ---------- filter op de kerkenpagina ---------- */
+  // Binnen een groep (plaats, traditie) = 'of'; tussen groepen en kenmerken = 'en'.
   var filter = document.querySelector('[data-filter]');
   if (filter) {
     filter.hidden = false;
@@ -92,24 +93,25 @@
     var uitkomst = filter.querySelector('[data-filter-uitkomst]');
     var geen = document.querySelector('[data-geen-resultaat]');
     var pas = function () {
-      var gekozen = alle('.filterknop[aria-pressed="true"]', filter).map(function (b) {
-        return b.getAttribute('data-kenmerk');
+      var gekozen = { plaats: [], traditie: [], kenmerk: [] };
+      alle('.filterknop[aria-pressed="true"]', filter).forEach(function (b) {
+        gekozen[b.getAttribute('data-groep')].push(b.getAttribute('data-waarde'));
       });
+      var aantalGekozen = gekozen.plaats.length + gekozen.traditie.length + gekozen.kenmerk.length;
       var aantal = 0;
       kerken.forEach(function (k) {
         var heeft = (k.getAttribute('data-kenmerken') || '').split(' ');
-        var past = gekozen.every(function (g) {
-          return heeft.indexOf(g) !== -1 || (g === 'middag' && heeft.indexOf('avond') !== -1);
-        });
+        var past =
+          (!gekozen.plaats.length || gekozen.plaats.indexOf(k.getAttribute('data-plaats')) !== -1) &&
+          (!gekozen.traditie.length || gekozen.traditie.indexOf(k.getAttribute('data-traditie')) !== -1) &&
+          gekozen.kenmerk.every(function (g) {
+            return heeft.indexOf(g) !== -1;
+          });
         k.hidden = !past;
         if (past) aantal++;
       });
       if (geen) geen.hidden = aantal !== 0;
-      uitkomst.textContent = gekozen.length
-        ? aantal === 1
-          ? '1 kerk past bij je keuze.'
-          : aantal + ' kerken passen bij je keuze.'
-        : '';
+      uitkomst.textContent = aantalGekozen ? (aantal === 1 ? '1 kerk past bij je keuze.' : aantal + ' kerken passen bij je keuze.') : '';
     };
     alle('.filterknop', filter).forEach(function (b) {
       b.addEventListener('click', function () {

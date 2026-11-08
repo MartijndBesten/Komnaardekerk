@@ -22,7 +22,7 @@ function antwoord(request, status, body, redirect) {
 
 export async function verwerk(request, env, { maakMail, nu = Date.now() } = {}) {
   const url = new URL(request.url);
-  const mislukt = '/even-praten/niet-gelukt/';
+  const mislukt = '/samen-naar-de-kerk/niet-gelukt/';
   if (request.method !== 'POST') {
     return new Response('Methode niet toegestaan', { status: 405, headers: { ...BEVEILIGING, Allow: 'POST' } });
   }
@@ -57,7 +57,7 @@ export async function verwerk(request, env, { maakMail, nu = Date.now() } = {}) 
   const uitslag = valideer(invoer, { nu, kerkIds: kerken.map((k) => k.id) });
   if (uitslag.bot) {
     // Doe alsof het gelukt is; verstuur niets.
-    return antwoord(request, 200, { ok: true }, '/even-praten/bedankt/');
+    return antwoord(request, 200, { ok: true }, '/samen-naar-de-kerk/bedankt/');
   }
   if (!uitslag.ok) {
     return antwoord(request, 422, { ok: false, melding: Object.values(uitslag.fouten)[0], fouten: uitslag.fouten }, mislukt);
@@ -73,5 +73,5 @@ export async function verwerk(request, env, { maakMail, nu = Date.now() } = {}) 
     console.error('contact: verzenden mislukt', id);
     return antwoord(request, 502, { ok: false, melding: 'Versturen is niet gelukt. Probeer het later nog eens.' }, mislukt);
   }
-  return antwoord(request, 200, { ok: true }, '/even-praten/bedankt/');
+  return antwoord(request, 200, { ok: true }, '/samen-naar-de-kerk/bedankt/');
 }

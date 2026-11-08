@@ -15,10 +15,10 @@
 /merk/*
   Cache-Control: public, max-age=604800
 
-/even-praten/bedankt/*
+/samen-naar-de-kerk/bedankt/*
   X-Robots-Tag: noindex
 
-/even-praten/niet-gelukt/*
+/samen-naar-de-kerk/niet-gelukt/*
   X-Robots-Tag: noindex
 
 https://:worker.:sub.workers.dev/*
@@ -30,28 +30,37 @@ https://:versie.:worker.:sub.workers.dev/*
 /
   Cache-Control: no-cache, no-transform
 
+/waarom-naar-de-kerk/
+  Cache-Control: no-cache, no-transform
+
 /voor-het-eerst/
   Cache-Control: no-cache, no-transform
 
 /kerken/
   Cache-Control: no-cache, no-transform
 
-/geloof/
+/ontdek-het-geloof/
   Cache-Control: no-cache, no-transform
 
-/even-praten/
+/activiteiten/
   Cache-Control: no-cache, no-transform
 
-/over/
+/samen-naar-de-kerk/
+  Cache-Control: no-cache, no-transform
+
+/over-ons/
   Cache-Control: no-cache, no-transform
 
 /privacy/
   Cache-Control: no-cache, no-transform
 
-/even-praten/bedankt/
+/ontwerp/
   Cache-Control: no-cache, no-transform
 
-/even-praten/niet-gelukt/
+/samen-naar-de-kerk/bedankt/
+  Cache-Control: no-cache, no-transform
+
+/samen-naar-de-kerk/niet-gelukt/
   Cache-Control: no-cache, no-transform
 
 /404.html

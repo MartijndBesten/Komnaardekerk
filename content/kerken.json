@@ -1,94 +1,1087 @@
 {
-  "_uitleg": "Alleen kerken opnemen die écht meedoen en schriftelijk toestemming hebben gegeven voor publicatie van deze gegevens (ook de contactpersoon). Laat een veld leeg (null) als het niet bekend is; verzin nooit tijden of namen. 'voorbeeld: true' = fictieve demo-inhoud; de productiebuild weigert die. Kenmerken (voor de filter): kinderen, oppas, rolstoel, ringleiding, orgel, band, stilte, middag, avond, koffie.",
+  "_uitleg": "Kerken in de gemeente Houten. Bron: eigen websites, gecontroleerd op de datum in 'gecontroleerd'. deelname.status: 'kandidaat' (nog niet benaderd) | 'belangstelling' | 'deelnemer'. Alleen 'deelnemer' met toestemmingPublicatie=true mag in de productieversie (de build controleert dit). Contactpersonen alleen met hun eigen toestemming. Verzin nooit gegevens.",
   "kerken": [
     {
-      "id": "voorbeeld-a",
-      "voorbeeld": true,
-      "naam": "Voorbeeldkerk A",
-      "traditie": "Voorbeeld van een protestantse gemeente",
-      "adres": null,
-      "postcode": null,
-      "wijk": "Wijk volgt",
-      "geo": null,
+      "id": "sionkerk",
+      "naam": "Sionkerk",
+      "officieleNaam": "Hervormde Gemeente Houten",
+      "kerkverband": "Protestantse Kerk in Nederland (PKN); rekent zich tot de Gereformeerde Bond in de PKN",
+      "traditie": "protestants",
+      "plaats": "Houten",
+      "adres": "Eikenhout 221",
+      "postcode": "3991 PN",
+      "website": "https://www.hervormdhouten.nl/",
+      "zelfomschrijving": {
+        "tekst": "God wil de levens van mensen veranderen. Dat doet Hij in het bijzonder als de gemeente samenkomt tot eer van Hem.",
+        "bron": "https://www.hervormdhouten.nl/hervormde-gemeente-houten/"
+      },
+      "geloofsbasis": {
+        "tekst": "Voortgekomen uit de kerkreformatie van de zestiende eeuw; 'Nog bepalen de geloofsbelijdenissen uit die tijd de koers van de gemeente.' Kern: sola fide, sola gratia, sola scriptura, solus Christus. Welke belijdenisgeschriften precies, wordt op deze pagina niet bij naam genoemd.",
+        "bron": "https://www.hervormdhouten.nl/hervormde-gemeente-houten/"
+      },
       "diensten": [
-        { "dag": "zondag", "tijd": "10:00", "omschrijving": "Ochtenddienst (voorbeeldtijd)" }
+        {
+          "dag": "zondag",
+          "tijd": "09:30",
+          "omschrijving": "Morgendienst",
+          "agenda": true
+        },
+        {
+          "dag": "zondag",
+          "tijd": "16:15",
+          "omschrijving": "Middagdienst (met bijbelclub voor jongere kinderen)",
+          "agenda": true
+        }
       ],
-      "sfeer": "Een rustige dienst in een oud gebouw met hoge ramen. Orgel en bekende liederen, een preek van ongeveer twintig minuten. Na afloop koffie achterin de kerk. (Voorbeeldtekst: de kerk schrijft dit zelf.)",
-      "kinderen": "Oppas voor de kleintjes en kindernevendienst tijdens de preek. (Voorbeeld)",
-      "toegankelijkheid": "Ingang zonder drempel en ringleiding. (Voorbeeld)",
-      "kenmerken": ["orgel", "kinderen", "oppas", "rolstoel", "ringleiding", "koffie"],
-      "website": null,
-      "contact": null,
-      "samenGaan": true,
+      "kinderen": "Oppas in de crèche tijdens de diensten; tijdens de middagdiensten bijbelclub voor jongere kinderen (t/m groep 4).",
+      "toegankelijkheid": "Autodienst voor wie slecht ter been is.",
+      "livestream": "https://www.youtube.com/c/SionkerkHouten1/live",
+      "contactroute": {
+        "soort": "formulier",
+        "waarde": "https://www.hervormdhouten.nl/contact/",
+        "bron": "https://www.hervormdhouten.nl/contact/"
+      },
+      "verwachten": null,
+      "kenmerken": [
+        "kinderen",
+        "middag",
+        "online",
+        "oppas"
+      ],
+      "contactpersonen": [],
       "foto": null,
-      "fotoAlt": null
+      "deelname": {
+        "status": "kandidaat",
+        "toestemmingPublicatie": false,
+        "datum": null,
+        "notitie": "Nog niet benaderd."
+      },
+      "bronnen": [
+        {
+          "url": "https://www.hervormdhouten.nl/hervormde-gemeente-houten/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "identiteit, adres, diensttijden, crèche, bijbelclub, autodienst"
+        },
+        {
+          "url": "https://www.hervormdhouten.nl/missionair-werk/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "missionaire commissie, kring De Fontein"
+        },
+        {
+          "url": "https://www.hervormdhouten.nl/eetjemee/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "Eet je mee: data, tijd, kosten; links naar livestream (YouTube) en kerkdienstgemist"
+        },
+        {
+          "url": "https://www.hervormdhouten.nl/contact/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "contactformulier"
+        },
+        {
+          "url": "https://protestantsekerk.nl/kerkzoeker/hervormde-gemeente-houten/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "PKN-kerkzoeker bevestigt Sionkerk, Eikenhout 221 (via JSON-data van de kerkzoeker)"
+        }
+      ],
+      "gecontroleerd": "2026-11-08",
+      "betrouwbaarheid": "officiele-site",
+      "opmerkingen": "Algemeen e-mailadres op de bron is het scriba-adres (scriba@hervormdhouten.nl); persoonsnaam en privéadres van de scriba niet overgenomen. Audio live via kerkdienstgemist: https://kerkdienstgemist.nl/stations/888-Hervormde-Gemeente-Houten-Sionkerk/events/live. Eet je mee-pagina zegt 'oktober tot en met mei', maar de datumlijst begint op 16 september.",
+      "verband": "Protestantse Kerk in Nederland"
     },
     {
-      "id": "voorbeeld-b",
-      "voorbeeld": true,
-      "naam": "Voorbeeldkerk B",
-      "traditie": "Voorbeeld van een evangelische gemeente",
-      "adres": null,
-      "postcode": null,
-      "wijk": "Wijk volgt",
-      "geo": null,
+      "id": "pleinkerk",
+      "naam": "Pleinkerk",
+      "officieleNaam": "Hersteld Hervormde Gemeente Houten",
+      "kerkverband": "Hersteld Hervormde Kerk",
+      "traditie": "reformatorisch",
+      "plaats": "Houten",
+      "adres": "Plein 27",
+      "postcode": "3991 ED",
+      "website": "https://hhghouten.nl/",
+      "zelfomschrijving": {
+        "tekst": "We hopen dat je de informatie op de website waardevol vindt en dat we je binnenkort mogen ontmoeten, hetzij tijdens een kerkdienst, hetzij bij één van onze activiteiten.",
+        "bron": "https://hhghouten.nl/"
+      },
+      "geloofsbasis": {
+        "tekst": "Geen geloofsbasis of belijdenisgeschriften op de eigen site gevonden. De site vermeldt alle data onder het voorbehoud 'Zo de HEERE wil en wij leven mogen.'",
+        "bron": "https://hhghouten.nl/"
+      },
       "diensten": [
-        { "dag": "zondag", "tijd": "10:30", "omschrijving": "Samenkomst (voorbeeldtijd)" }
+        {
+          "dag": "zondag",
+          "tijd": "10:00",
+          "omschrijving": "Ochtenddienst (soms om 9.30 uur, zie het rooster op de website)",
+          "agenda": true
+        },
+        {
+          "dag": "zondag",
+          "tijd": "18:30",
+          "omschrijving": "Avonddienst",
+          "agenda": true
+        }
       ],
-      "sfeer": "Een eigentijdse samenkomst in een modern gebouw, met een band en veel jonge gezinnen. Het is er levendig en informeel; je wordt bij de deur begroet. (Voorbeeldtekst: de kerk schrijft dit zelf.)",
-      "kinderen": "Eigen programma voor kinderen van 0 tot 12 jaar. (Voorbeeld)",
-      "toegankelijkheid": "Lift en invalidenparkeerplaats. (Voorbeeld)",
-      "kenmerken": ["band", "kinderen", "oppas", "rolstoel", "koffie"],
-      "website": null,
-      "contact": null,
-      "samenGaan": true,
-      "foto": null,
-      "fotoAlt": null
-    },
-    {
-      "id": "voorbeeld-c",
-      "voorbeeld": true,
-      "naam": "Voorbeeldkerk C",
-      "traditie": "Voorbeeld van een rooms-katholieke parochie",
-      "adres": null,
-      "postcode": null,
-      "wijk": "Wijk volgt",
-      "geo": null,
-      "diensten": [
-        { "dag": "zondag", "tijd": "11:00", "omschrijving": "Eucharistieviering (voorbeeldtijd)" }
-      ],
-      "sfeer": "Een viering met vaste gebeden, koorzang en stilte. Kaarsen, beelden en ruimte om even te zitten. De kerk is ook doordeweeks open. (Voorbeeldtekst: de kerk schrijft dit zelf.)",
-      "kinderen": "Eens per maand een gezinsviering. (Voorbeeld)",
+      "kinderen": "Crècheopvang tijdens de ochtenddienst; vooraf contact opnemen (contactpersoon op de bron, niet overgenomen).",
       "toegankelijkheid": null,
-      "kenmerken": ["stilte", "orgel", "koffie"],
-      "website": null,
-      "contact": null,
-      "samenGaan": false,
-      "foto": null,
-      "fotoAlt": null
+      "livestream": "https://kerkdienstgemist.nl/stations/987-Hersteld-Hervormde-Gemeente-Pleinkerk-Houten",
+      "contactroute": {
+        "soort": "email",
+        "waarde": "scriba@hhghouten.nl",
+        "bron": "https://hhghouten.nl/contact/"
+      },
+      "verwachten": null,
+      "kenmerken": [
+        "middag",
+        "online",
+        "oppas"
+      ],
+      "contactpersonen": [],
+      "foto": "toren",
+      "deelname": {
+        "status": "kandidaat",
+        "toestemmingPublicatie": false,
+        "datum": null,
+        "notitie": "Nog niet benaderd."
+      },
+      "bronnen": [
+        {
+          "url": "https://hhghouten.nl/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "welkomsttekst, kerktijdenrooster (8 nov 09:30/18:30; 15 en 22 nov 10:00/18:30)"
+        },
+        {
+          "url": "https://hhghouten.nl/kerkdiensten/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "Pleinkerk, Plein 27, 3991 ED; ochtend 10:00, avond 18:30; crèche; kerkdienstgemist (audio)"
+        },
+        {
+          "url": "https://hhghouten.nl/kerkgebouw/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "adres kerkgebouw"
+        },
+        {
+          "url": "https://hhghouten.nl/contact/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "scriba-adres; verenigingsgebouw De Bron, Koningin Wilhelminaweg 105"
+        },
+        {
+          "url": "https://nl.wikipedia.org/wiki/Pleinkerk_(Houten)",
+          "gecontroleerd": "2026-11-08",
+          "wat": "Pleinkerk in erfpacht bij de HHG sinds 2009 (secundair)"
+        }
+      ],
+      "gecontroleerd": "2026-11-08",
+      "betrouwbaarheid": "officiele-site",
+      "opmerkingen": "Livestream is audio (kerkdienstgemist). Menu noemt o.a. zondagsschool, meidenclub, jeugdvereniging 16+, bijbelkring, maar die pagina's bestaan niet (404; ook niet in de WordPress-paginalijst); niet opgenomen. Geen missionaire activiteiten voor buitenstaanders gevonden. 'Lobbendijk' niet bevestigd; adres is Plein 27.",
+      "verband": "Hersteld Hervormde Kerk"
     },
     {
-      "id": "voorbeeld-d",
-      "voorbeeld": true,
-      "naam": "Voorbeeldkerk D",
-      "traditie": "Voorbeeld van een kleine wijkgemeente",
-      "adres": null,
-      "postcode": null,
-      "wijk": "Wijk volgt",
-      "geo": null,
+      "id": "opstandingskerk",
+      "naam": "Opstandingskerk",
+      "officieleNaam": "Protestantse Gemeente Houten",
+      "kerkverband": "Protestantse Kerk in Nederland (PKN), classis Utrecht; aangesloten bij Groene Kerken en Wijdekerk",
+      "traditie": "protestants",
+      "plaats": "Houten",
+      "adres": "Het Kant 1 (hoofdingang aan Dijkhoeve)",
+      "postcode": "3995 DZ",
+      "website": "https://www.protestantsegemeentehouten.nl/",
+      "zelfomschrijving": {
+        "tekst": "Van harte welkom bij de Protestantse Gemeente Houten, gemeente van Christus rondom de Opstandingskerk aan het Kant. Onze kerkdiensten en andere activiteiten staan open voor iedereen.",
+        "bron": "https://www.protestantsegemeentehouten.nl/"
+      },
+      "geloofsbasis": {
+        "tekst": "'Wat ons verbindt als gemeente is, dat we met vallen en opstaan Jezus willen volgen.' De gemeente noemt de manier van geloven divers ('de één met meer twijfel dan de ander'). Geen belijdenisgeschriften bij naam genoemd op de gelezen pagina's.",
+        "bron": "https://www.protestantsegemeentehouten.nl/wie_zijn_we"
+      },
       "diensten": [
-        { "dag": "zondag", "tijd": "09:30", "omschrijving": "Ochtenddienst (voorbeeldtijd)" },
-        { "dag": "zondag", "tijd": "17:00", "omschrijving": "Middagdienst met maaltijd, eens per maand (voorbeeldtijd)" }
+        {
+          "dag": "zondag",
+          "tijd": "10:00",
+          "omschrijving": "Zondagmorgendienst (orgel, regelmatig combo, soms koor)",
+          "agenda": true
+        },
+        {
+          "dag": "zondag",
+          "tijd": "17:00",
+          "omschrijving": "Vesper, eerste zondag van de maand",
+          "agenda": false
+        },
+        {
+          "dag": "zondag",
+          "tijd": "20:00",
+          "omschrijving": "Stilteviering, derde zondag van de maand (september t/m april)",
+          "agenda": false
+        },
+        {
+          "dag": "zondag",
+          "tijd": "16:00",
+          "omschrijving": "Peuter-op-schoot-viering, meerdere keren per jaar (o.a. 8 november 2026)",
+          "agenda": false
+        }
       ],
-      "sfeer": "Een kleine gemeente waar iedereen elkaar kent en nieuwe mensen snel een naam hebben. Piano en gitaar, korte overdenking, veel ruimte voor gesprek. (Voorbeeldtekst: de kerk schrijft dit zelf.)",
-      "kinderen": null,
-      "toegankelijkheid": "Alles op de begane grond. (Voorbeeld)",
-      "kenmerken": ["middag", "rolstoel", "koffie"],
-      "website": null,
-      "contact": null,
-      "samenGaan": true,
+      "kinderen": "Crèche (tot 4 jaar), kindernevendienst groep 1-8, tienerprogramma INBTWN en Take a Break; Peuter-op-schoot-vieringen; kinderkoor/KinderKerstKoor.",
+      "toegankelijkheid": null,
+      "livestream": "https://kerkdienstgemist.nl/stations/423-Opstandingskerk",
+      "contactroute": {
+        "soort": "email",
+        "waarde": "contact@protestantsegemeentehouten.nl",
+        "bron": "https://www.protestantsegemeentehouten.nl/"
+      },
+      "verwachten": null,
+      "kenmerken": [
+        "kinderen",
+        "online",
+        "oppas"
+      ],
+      "contactpersonen": [],
       "foto": null,
-      "fotoAlt": null
+      "deelname": {
+        "status": "kandidaat",
+        "toestemmingPublicatie": false,
+        "datum": null,
+        "notitie": "Nog niet benaderd."
+      },
+      "bronnen": [
+        {
+          "url": "https://www.protestantsegemeentehouten.nl/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "welkomsttekst, adres, contact, agenda (8 nov 2026 10:00)"
+        },
+        {
+          "url": "https://www.protestantsegemeentehouten.nl/wie_zijn_we",
+          "gecontroleerd": "2026-11-08",
+          "wat": "identiteit; Groene kerk en Wijdekerk"
+        },
+        {
+          "url": "https://www.protestantsegemeentehouten.nl/de_gemeente/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "diversiteit, ca. 2300 leden"
+        },
+        {
+          "url": "https://www.protestantsegemeentehouten.nl/hoe_vieren_we_onze_kerkdiensten",
+          "gecontroleerd": "2026-11-08",
+          "wat": "zondag 10 uur, vespers, stilteviering, peuter-op-schoot, kinderen"
+        },
+        {
+          "url": "https://www.protestantsegemeentehouten.nl/zondagmorgendienst/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "10 uur, hoofdingang aan Dijkhoeve"
+        },
+        {
+          "url": "https://www.protestantsegemeentehouten.nl/kerkdiensten",
+          "gecontroleerd": "2026-11-08",
+          "wat": "rooster november 2026"
+        },
+        {
+          "url": "https://www.protestantsegemeentehouten.nl/tijdens_kerkdienst/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "crèche, kindernevendienst, INBTWN"
+        },
+        {
+          "url": "https://www.protestantsegemeentehouten.nl/meer_weten_over_geloven_3f/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "gespreksaanbod"
+        },
+        {
+          "url": "https://www.protestantsegemeentehouten.nl/leerenleeskring/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "leeskring Weg van vrede"
+        },
+        {
+          "url": "https://www.protestantsegemeentehouten.nl/lev-groep/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "LEV-groep"
+        },
+        {
+          "url": "https://protestantsekerk.nl/kerkzoeker/protestantse-gemeente-houten/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "PKN-kerkzoeker (verouderd: 09.00 en 11.00; Kliederkerk-markering)"
+        },
+        {
+          "url": "https://geloveninhouten.nl/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "controle: 'Elke zondag 10.00 uur, Het kant 1'"
+        }
+      ],
+      "gecontroleerd": "2026-11-08",
+      "betrouwbaarheid": "officiele-site",
+      "opmerkingen": "PKN-kerkzoeker (09.00 en 11.00) is verouderd; eigen site en geloveninhouten.nl zeggen één dienst om 10.00 uur. Kinderpagina's spreken nog van 'beide diensten' en 'de dienst van 11 uur' (verouderde tekst). Messy Church/Kliederkerk staat niet op de huidige eigen site; alleen in Houtens Nieuws 2024-2025 en de PKN-kerkzoeker. www.pghouten.nl heeft een niet-passend certificaat (CN=redirect.yourhosting.nl) en is vermoedelijk een oud domein. Persoonsnamen van contactpersonen niet overgenomen.",
+      "verband": "Protestantse Kerk in Nederland"
+    },
+    {
+      "id": "de-lichtboog",
+      "naam": "De Lichtboog",
+      "officieleNaam": "NGK Houten | De Lichtboog",
+      "kerkverband": "Nederlandse Gereformeerde Kerken (NGK)",
+      "traditie": "protestants",
+      "plaats": "Houten",
+      "adres": "Kruisboog 22",
+      "postcode": "3994 AE",
+      "website": "https://www.delichtboog.nl/",
+      "zelfomschrijving": {
+        "tekst": "Wij zijn De Lichtboog, een gemeenschap in Houten waar we het leven delen en samen Jezus volgen.",
+        "bron": "https://www.delichtboog.nl/go/wie-we-zijn/ons-verhaal/"
+      },
+      "geloofsbasis": {
+        "tekst": "'Wij openen de Bijbel en putten uit de gereformeerde traditie en charismatische vernieuwing.' Het visiemanifest noemt de NGK ('een kerk uit de gereformeerde traditie') en het gedachtegoed van New Wine en Alpha; de bijlage verwijst naar de grondslag van de Evangelische Alliantie.",
+        "bron": "https://www.delichtboog.nl/go/wie-we-zijn/uniek/"
+      },
+      "diensten": [
+        {
+          "dag": "zondag",
+          "tijd": "09:30",
+          "omschrijving": "Samenkomst (crèche 0-4 jaar; Lichtkids voor basisschoolkinderen)",
+          "agenda": true
+        },
+        {
+          "dag": "zondag",
+          "tijd": "11:30",
+          "omschrijving": "Samenkomst",
+          "agenda": true
+        },
+        {
+          "dag": "zondag",
+          "tijd": null,
+          "omschrijving": "In de zomer één samenkomst; zie de website voor de tijd",
+          "agenda": false
+        }
+      ],
+      "kinderen": "Crèche met oppas voor de kleinsten; Lichtkids-programma per jaargroep voor basisschoolkinderen tijdens een deel van de dienst; Kidsclub (groep 5-8, eens per twee maanden, vrienden welkom); diensten met kinderen en samen-onderweg-diensten.",
+      "toegankelijkheid": null,
+      "livestream": "https://www.youtube.com/@DeLichtboogNGKHouten/streams",
+      "contactroute": {
+        "soort": "formulier",
+        "waarde": "https://www.delichtboog.nl/go/contact/contact/",
+        "bron": "https://www.delichtboog.nl/go/contact/contact/"
+      },
+      "verwachten": null,
+      "kenmerken": [
+        "kinderen",
+        "online",
+        "oppas"
+      ],
+      "contactpersonen": [],
+      "foto": null,
+      "deelname": {
+        "status": "kandidaat",
+        "toestemmingPublicatie": false,
+        "datum": null,
+        "notitie": "Nog niet benaderd."
+      },
+      "bronnen": [
+        {
+          "url": "https://www.delichtboog.nl/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "welkomsttekst, samenkomsttijden, zomerdienst 10:00, verwijzing Messy Church/PROEF!, livestreamlinks"
+        },
+        {
+          "url": "https://www.delichtboog.nl/go/wat-we-doen/samenkomsten/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "09:30 en 11:30, zomer 10:30, crèche, Lichtkids"
+        },
+        {
+          "url": "https://www.delichtboog.nl/go/wat-we-doen/kinderen/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "kinderwerk"
+        },
+        {
+          "url": "https://www.delichtboog.nl/go/wie-we-zijn/in-4-zinnen/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "zelfomschrijving in 4 zinnen, adres Kruisboog 22, 3994 AE, info@delichtboog.nl"
+        },
+        {
+          "url": "https://www.delichtboog.nl/go/wie-we-zijn/uniek/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "gereformeerde traditie en charismatische vernieuwing"
+        },
+        {
+          "url": "https://www.delichtboog.nl/uploads/bestanden/spot234/Visie_manifest_Licht_aan_24_.pdf",
+          "gecontroleerd": "2026-11-08",
+          "wat": "visiemanifest: NGK, New Wine/Alpha, bijlage grondslag Evangelische Alliantie"
+        },
+        {
+          "url": "https://www.delichtboog.nl/go/contact/contact/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "contactformulier"
+        },
+        {
+          "url": "https://www.delichtboog.nl/go/meedoen/kennismaken/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "introductie-avonden januari 2027"
+        },
+        {
+          "url": "https://www.delichtboog.nl/go/agenda/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "agenda november 2026 bevestigt samenkomsten 09:30 en 11:30"
+        }
+      ],
+      "gecontroleerd": "2026-11-08",
+      "betrouwbaarheid": "officiele-site",
+      "opmerkingen": "Algemeen e-mailadres: info@delichtboog.nl. Zomertijd tegenstrijdig (10:00 vs 10:30). Kerkwijzer-profiel (secundair, https://www.kerkwijzer.nl/kerk/de-lichtboog-2/) noemt o.a. band, Opwekking, NBV/BGT/HSV; niet overgenomen als feit van de eigen site.",
+      "verband": "Nederlandse Gereformeerde Kerken"
+    },
+    {
+      "id": "het-kruispunt",
+      "naam": "Het Kruispunt",
+      "officieleNaam": "NGK Houten - Het Kruispunt",
+      "kerkverband": "Nederlandse Gereformeerde Kerken (NGK); voorheen GKv",
+      "traditie": "protestants",
+      "plaats": "Houten",
+      "adres": "Het Spoor 51",
+      "postcode": "3994 AC",
+      "website": "https://www.ngkhetkruispunt.nl/",
+      "zelfomschrijving": {
+        "tekst": "Wij zijn een jonge en actieve kerk midden in Houten. Een plek waar mensen samenkomen om God en elkaar te ontmoeten rondom het kruis van Jezus, de opgestane Heer.",
+        "bron": "https://www.ngkhetkruispunt.nl/"
+      },
+      "geloofsbasis": {
+        "tekst": "'We geloven in het Woord van God. De Bijbel bepaalt de richting van ons leven.' Als NGK delen ze 'onze zekerheid dat de Bijbel het reddende woord van God is'; twee sacramenten (doop, ook van jonge kinderen, en avondmaal). Geen belijdenisgeschriften bij naam genoemd.",
+        "bron": "https://www.ngkhetkruispunt.nl/wie-zijn-we/wat-geloven-we"
+      },
+      "diensten": [
+        {
+          "dag": "zondag",
+          "tijd": "10:00",
+          "omschrijving": "Ochtenddienst (crèche, Kidspoint)",
+          "agenda": true
+        },
+        {
+          "dag": "zondag",
+          "tijd": "16:30",
+          "omschrijving": "Middagdienst",
+          "agenda": true
+        }
+      ],
+      "kinderen": "Crèche 0 t/m 3 jaar (babygroep en peutergroep) tijdens de ochtenddienst; kindermoment en daarna Kidspoint voor basisschoolkinderen; Kidsclub om de week (7-9 jaar vrijdagavond, 10-12 jaar zaterdagavond); catechisatie en clubs voor tieners.",
+      "toegankelijkheid": null,
+      "livestream": "https://www.ngkhetkruispunt.nl/samenkomsten-2/meekijken-of-luisteren",
+      "contactroute": {
+        "soort": "formulier",
+        "waarde": "https://www.ngkhetkruispunt.nl/contact",
+        "bron": "https://www.ngkhetkruispunt.nl/contact"
+      },
+      "verwachten": null,
+      "kenmerken": [
+        "kinderen",
+        "middag",
+        "online",
+        "oppas"
+      ],
+      "contactpersonen": [],
+      "foto": null,
+      "deelname": {
+        "status": "kandidaat",
+        "toestemmingPublicatie": false,
+        "datum": null,
+        "notitie": "Nog niet benaderd."
+      },
+      "bronnen": [
+        {
+          "url": "https://www.ngkhetkruispunt.nl/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "welkom, zelfomschrijving, eerstvolgende dienst 15 november 10:00"
+        },
+        {
+          "url": "https://www.ngkhetkruispunt.nl/wie-zijn-we/het-kruispunt",
+          "gecontroleerd": "2026-11-08",
+          "wat": "NGK in Houten, ca. 650 leden, 'gastvrij, missionair'"
+        },
+        {
+          "url": "https://www.ngkhetkruispunt.nl/wie-zijn-we/wat-geloven-we",
+          "gecontroleerd": "2026-11-08",
+          "wat": "geloofsbasis, sacramenten"
+        },
+        {
+          "url": "https://www.ngkhetkruispunt.nl/samenkomsten-2/samenkomsten",
+          "gecontroleerd": "2026-11-08",
+          "wat": "10.00 en 16.30, crèche, Kidspoint, muziek"
+        },
+        {
+          "url": "https://www.ngkhetkruispunt.nl/wat-doen-we/voor-de-kerk",
+          "gecontroleerd": "2026-11-08",
+          "wat": "kinder- en jeugdwerk"
+        },
+        {
+          "url": "https://www.ngkhetkruispunt.nl/wat-doen-we/voor-de-samenleving",
+          "gecontroleerd": "2026-11-08",
+          "wat": "Aanschuiftafel, Hobby en CreaCafé, UMA"
+        },
+        {
+          "url": "https://www.ngkhetkruispunt.nl/contact",
+          "gecontroleerd": "2026-11-08",
+          "wat": "adres Het Spoor 51, 3994 AC; contactformulier"
+        },
+        {
+          "url": "https://alphahouten.nl/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "mede-organisator Alpha"
+        },
+        {
+          "url": "https://geloveninhouten.nl/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "controle: 'Elke zondag 10.00 en 16.30, Het Spoor 51'"
+        }
+      ],
+      "gecontroleerd": "2026-11-08",
+      "betrouwbaarheid": "officiele-site",
+      "opmerkingen": "De site gaf een 403 op een kale curl-aanvraag, maar laadde normaal met de standaard ophaalhulp (geen botcontrole omzeild). Algemene e-mailadressen op de contactpagina zijn met JavaScript verborgen; contactformulier gekozen. Nieuwsberichten zijn deels oud (bv. 'zondagmiddag 1 oktober').",
+      "verband": "Nederlandse Gereformeerde Kerken"
+    },
+    {
+      "id": "eskol-kerk",
+      "naam": "Eskol-kerk",
+      "officieleNaam": "Gereformeerde Gemeente Houten (Eskol-kerk)",
+      "kerkverband": "Gereformeerde Gemeenten (classis Utrecht)",
+      "traditie": "reformatorisch",
+      "plaats": "Houten",
+      "adres": "Poldermolen 1",
+      "postcode": "3994 DD",
+      "website": "https://eskol-kerk.nl/",
+      "zelfomschrijving": {
+        "tekst": "Als christelijke gemeente zetten wij onze deuren wekelijks voor u open.",
+        "bron": "https://eskol-kerk.nl/activiteiten/"
+      },
+      "geloofsbasis": {
+        "tekst": "De eigen site vat het geloof samen in vijf kernprincipes: de goede schepping, de zondeval, de verlossing, wij kunnen God kennen, en de toekomstverwachting. Het kerkverband onderschrijft de drie Formulieren van Enigheid (Heidelbergse Catechismus, Nederlandse Geloofsbelijdenis, Dordtse Leerregels).",
+        "bron": "https://eskol-kerk.nl/wat-geloven-wij/"
+      },
+      "diensten": [
+        {
+          "dag": "zondag",
+          "tijd": "10:00",
+          "omschrijving": "Ochtenddienst",
+          "agenda": true
+        },
+        {
+          "dag": "zondag",
+          "tijd": "17:00",
+          "omschrijving": "Middagdienst; de tijd wisselt (in november en december vaak 18.30 uur), zie het rooster op de website",
+          "agenda": false
+        }
+      ],
+      "kinderen": "KinderBijbelTijd: livestream op zondag om 13.30 uur voor kinderen van 4 tot en met 8 jaar. KinderBijbelClub om de week op woensdag (4 tot 12 jaar).",
+      "toegankelijkheid": null,
+      "livestream": "https://kerkdienstgemist.nl/stations/2278-Eskol-kerk-Houten",
+      "contactroute": {
+        "soort": "formulier",
+        "waarde": "https://eskol-kerk.nl/contact/",
+        "bron": "https://eskol-kerk.nl/contact/"
+      },
+      "verwachten": null,
+      "kenmerken": [
+        "kinderen",
+        "online"
+      ],
+      "contactpersonen": [],
+      "foto": null,
+      "deelname": {
+        "status": "kandidaat",
+        "toestemmingPublicatie": false,
+        "datum": null,
+        "notitie": "Nog niet benaderd."
+      },
+      "bronnen": [
+        {
+          "url": "https://eskol-kerk.nl/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "kerktijdenrooster, KinderBijbelTijd, livestreamlinks"
+        },
+        {
+          "url": "https://eskol-kerk.nl/kerktijden/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "actueel rooster november-december 2026"
+        },
+        {
+          "url": "https://eskol-kerk.nl/activiteiten/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "zelfomschrijving, 'in de regel 10:00 en 17:00', adres Poldermolen 1, 3994 DD"
+        },
+        {
+          "url": "https://eskol-kerk.nl/wat-geloven-wij/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "vijf kernprincipes"
+        },
+        {
+          "url": "https://eskol-kerk.nl/kinderbijbeltijd/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "KinderBijbelTijd 4-8 jaar, zondag 13.30"
+        },
+        {
+          "url": "https://eskol-kerk.nl/activiteiten/kinderbijbelclub/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "KinderBijbelClub"
+        },
+        {
+          "url": "https://eskol-kerk.nl/activiteiten/maaltijd/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "open maaltijd"
+        },
+        {
+          "url": "https://eskol-kerk.nl/activiteiten/koffieochtend/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "koffieochtend"
+        },
+        {
+          "url": "https://eskol-kerk.nl/contact/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "contactformulier"
+        },
+        {
+          "url": "https://www.gergeminfo.nl/gemeenten/houten",
+          "gecontroleerd": "2026-11-08",
+          "wat": "kerkverband: Gereformeerde Gemeenten, classis Utrecht, Eskol-kerk Poldermolen 1"
+        },
+        {
+          "url": "https://www.gergeminfo.nl/over-gergeminfo/wat-geloven-wij",
+          "gecontroleerd": "2026-11-08",
+          "wat": "drie Formulieren van Enigheid (kerkverband)"
+        },
+        {
+          "url": "https://geloveninhouten.nl/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "controle: 'Elke zondag 10.00 en 17.00, Poldermolen 1'"
+        }
+      ],
+      "gecontroleerd": "2026-11-08",
+      "betrouwbaarheid": "officiele-site",
+      "opmerkingen": "Adres opgelost: Poldermolen 1, 3994 DD (eigen site en gergeminfo); Kerkwijzer 'De Molen 1' is fout. Tweede dienst: 'in de regel' 17:00, maar het actuele rooster wijkt in het winterseizoen af (meestal 18:30). Ook YouTube: https://www.youtube.com/channel/UCq7kozXyIWR_dDX1SFXrrTg/videos. Contactpersonen van activiteiten (namen, gmail, telefoon) niet overgenomen; functioneel adres voor de maaltijd: maaltijd@eskol-kerk.nl.",
+      "verband": "Gereformeerde Gemeenten"
+    },
+    {
+      "id": "evangelie-gemeente-houten",
+      "naam": "Evangelie Gemeente Houten (EGH)",
+      "officieleNaam": "Evangelie Gemeente Houten (EGH)",
+      "kerkverband": "Verenigde Pinkster- en Evangeliegemeenten (VPE); via VPE verbonden aan de World Assemblies of God Fellowship",
+      "traditie": "evangelisch",
+      "plaats": "Houten",
+      "adres": "Aula College De Heemlanden, Kamillehof (achteringang aan Kamillehof)",
+      "postcode": "3991 GX",
+      "website": "https://evangeliegemeentehouten.nl/",
+      "zelfomschrijving": {
+        "tekst": "Wij zijn een veelkleurige groep christenen, en samen zijn wij de Evangelie Gemeente Houten (EGH). We vormen een plaatselijk kerkgemeenschap met als doel God en elkaar liefhebben.",
+        "bron": "https://evangeliegemeentehouten.nl/"
+      },
+      "geloofsbasis": {
+        "tekst": "'Zoals onze naam al zegt staat het Evangelie op de eerste plaats.' Visie: 'Bidden – Leren – Liefhebben'. Voorwaarden voor lidmaatschap o.a. persoonlijk geloof in Jezus Christus, de Bijbel als grondslag en doop door onderdompeling op belijdenis. Geen belijdenisgeschrift genoemd.",
+        "bron": "https://evangeliegemeentehouten.nl/visie/"
+      },
+      "diensten": [
+        {
+          "dag": "zondag",
+          "tijd": "10:00",
+          "omschrijving": "Samenkomst met eigentijdse muziek (Opwekking), Bijbeluitleg en gebed; kinderclubs tijdens de prediking",
+          "agenda": true
+        },
+        {
+          "dag": "woensdag",
+          "tijd": "20:00",
+          "omschrijving": "Bidstond, 20.00 tot 21.30 uur",
+          "agenda": false
+        }
+      ],
+      "kinderen": "Elke zondag oppas voor 0-3 jaar (De Vonkjes); De Schatgravers (groep 1-4); De Fakkeldragers (groep 5-8); groep-8-lessen; tienergroep (open voor vrienden) en jeugdgroep.",
+      "toegankelijkheid": null,
+      "livestream": "https://www.youtube.com/@evangeliegemeentehouten/streams",
+      "contactroute": {
+        "soort": "email",
+        "waarde": "secretariaat@evangeliegemeentehouten.nl",
+        "bron": "https://evangeliegemeentehouten.nl/contact/"
+      },
+      "verwachten": null,
+      "kenmerken": [
+        "kinderen",
+        "online",
+        "oppas"
+      ],
+      "contactpersonen": [],
+      "foto": null,
+      "deelname": {
+        "status": "kandidaat",
+        "toestemmingPublicatie": false,
+        "datum": null,
+        "notitie": "Nog niet benaderd."
+      },
+      "bronnen": [
+        {
+          "url": "https://evangeliegemeentehouten.nl/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "welkomsttekst, visie, zondag 10.00 uur, adres Kamillehof 3991 GX"
+        },
+        {
+          "url": "https://evangeliegemeentehouten.nl/samenkomsten/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "verloop dienst, kinderwerk, gebed"
+        },
+        {
+          "url": "https://evangeliegemeentehouten.nl/wat-doen-wij/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "huiskringen, bidstond woensdag, jongeren, zending"
+        },
+        {
+          "url": "https://evangeliegemeentehouten.nl/visie/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "visie en lidmaatschap"
+        },
+        {
+          "url": "https://evangeliegemeentehouten.nl/contact/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "secretariaat-e-mail; aangesloten bij VPE"
+        },
+        {
+          "url": "https://evangeliegemeentehouten.nl/anbi/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "doelstelling; ANBI via VPE-groepsbeschikking"
+        },
+        {
+          "url": "https://geloveninhouten.nl/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "controle: 'Elke zondag 10.00 uur, Heemlanden/ingang Kamillehof'"
+        }
+      ],
+      "gecontroleerd": "2026-11-08",
+      "betrouwbaarheid": "officiele-site",
+      "opmerkingen": "Locatie van de bidstond staat niet op de gelezen pagina's (een WebSearch-samenvatting noemde gebedsruimte 'De Tent', Boekweitoord 48 — niet bevestigd, niet ingevuld). Het ANBI-postadres op de site (p/a) is niet de samenkomstlocatie. Telefoonnummer van het secretariaat niet overgenomen.",
+      "verband": "Pinkster- en evangeliegemeente (VPE)"
+    },
+    {
+      "id": "olv-houten",
+      "naam": "O.L.V. ten Hemelopneming Houten",
+      "officieleNaam": "Rooms-Katholieke Parochie H. Paus Johannes XXIII, locatie Houten (O.L.V. ten Hemelopneming)",
+      "kerkverband": "Rooms-Katholieke Kerk (parochie H. Paus Johannes XXIII, Krommerijnstreek)",
+      "traditie": "rooms-katholiek",
+      "plaats": "Houten",
+      "adres": "Loerikseweg 10",
+      "postcode": "3991 AD",
+      "website": "https://pj23.nl/kerken/houten/",
+      "zelfomschrijving": {
+        "tekst": "Wij zijn de katholieke kerk in Houten. Een (t)huis voor iedereen!",
+        "bron": "https://pj23.nl/kerken/houten/"
+      },
+      "geloofsbasis": {
+        "tekst": "'Wij geloven dat ieder mens een geliefd kind van God is.' (parochie-brede tekst; Rooms-Katholieke Kerk)",
+        "bron": "https://pj23.nl/"
+      },
+      "diensten": [
+        {
+          "dag": "zondag",
+          "tijd": "11:00",
+          "omschrijving": "Viering ('Elke zondag om 11.00 uur'); afwisselend eucharistie- en woord- en communieviering",
+          "agenda": true
+        },
+        {
+          "dag": "dinsdag",
+          "tijd": "19:00",
+          "omschrijving": "Eucharistieviering in de dagkapel",
+          "agenda": false
+        },
+        {
+          "dag": "zaterdag",
+          "tijd": "19:00",
+          "omschrijving": "Meditatieve viering (niet wekelijks, zie het vieringenrooster)",
+          "agenda": false
+        }
+      ],
+      "kinderen": "Kidskerk voor kinderen van 3 t/m 10 jaar met hun ouders, ongeveer zes keer per kerkseizoen (o.a. zondag 8 november 2026, 09:30).",
+      "toegankelijkheid": null,
+      "livestream": "https://www.youtube.com/@rk-kerkhouten545",
+      "contactroute": {
+        "soort": "email",
+        "waarde": "houten@pj23.nl",
+        "bron": "https://pj23.nl/kerken/houten/"
+      },
+      "verwachten": null,
+      "kenmerken": [
+        "kinderen",
+        "online"
+      ],
+      "contactpersonen": [],
+      "foto": "rk-houten",
+      "deelname": {
+        "status": "kandidaat",
+        "toestemmingPublicatie": false,
+        "datum": null,
+        "notitie": "Nog niet benaderd."
+      },
+      "bronnen": [
+        {
+          "url": "https://pj23.nl/kerken/houten/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "adres, zondag 11.00, contact, livestream, vieringen- en activiteitenrooster"
+        },
+        {
+          "url": "https://pj23.nl/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "parochie-zelfomschrijving en geloofstekst"
+        },
+        {
+          "url": "https://pj23.nl/wat-wij-doen/voor-kinderen/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "Kidskerk 3 t/m 10 jaar"
+        },
+        {
+          "url": "https://pj23.nl/blog/agenda/bijbellezen-nu-3/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "Bijbellezen NU, data en locatie"
+        }
+      ],
+      "gecontroleerd": "2026-11-08",
+      "betrouwbaarheid": "officiele-site",
+      "opmerkingen": "houten.pj23.nl is niet bereikbaar (host niet op de allowlist), maar dezelfde inhoud staat op pj23.nl/kerken/houten/. Engelstalige welkomstpagina: https://pj23.nl/our-lady-of-the-assumption-houten/. Parochiesecretariaat: Loerikseweg 12, info@pj23.nl. Het PJ23-bestuur heeft gemeld dat vóór 2030 vijf van de acht kerken aan de eredienst worden onttrokken; welke (naast Schalkwijk) is niet gecontroleerd.",
+      "verband": "Rooms-katholiek, parochie H. Paus Johannes XXIII"
+    },
+    {
+      "id": "de-rivier",
+      "naam": "De Rivier Houten",
+      "officieleNaam": "Evangelische Gemeente 'De Rivier Houten'",
+      "kerkverband": null,
+      "traditie": "evangelisch",
+      "plaats": "Houten",
+      "adres": "Zeilschip 6 (Anguli)",
+      "postcode": "3991 CT",
+      "website": "https://www.derivierhouten.nl/",
+      "zelfomschrijving": {
+        "tekst": "Een huis van evangelisatie, genezing en gebed.",
+        "bron": "https://www.derivierhouten.nl/"
+      },
+      "geloofsbasis": {
+        "tekst": "'Gods Woord, de Bijbel staat centraal in de Rivier Gemeente.' Basisvisie: plaats van ontmoeting, aanbidding, herstel (redding, genezing, bevrijding), onderwijs en evangeliedeling. Geen belijdenisgeschrift genoemd.",
+        "bron": "https://www.derivierhouten.nl/visie/"
+      },
+      "diensten": [
+        {
+          "dag": "zondag",
+          "tijd": "10:30",
+          "omschrijving": "Zondagbijeenkomst met wisselende sprekers",
+          "agenda": true
+        },
+        {
+          "dag": "woensdag",
+          "tijd": null,
+          "omschrijving": "Gebedsavond (aanmelden via de gemeente)",
+          "agenda": false
+        }
+      ],
+      "kinderen": "De zondagse samenkomst is voor het hele gezin; een apart kinderprogramma wordt niet genoemd.",
+      "toegankelijkheid": null,
+      "livestream": null,
+      "contactroute": {
+        "soort": "formulier",
+        "waarde": "https://www.derivierhouten.nl/contact/",
+        "bron": "https://www.derivierhouten.nl/contact/"
+      },
+      "verwachten": null,
+      "kenmerken": [],
+      "contactpersonen": [],
+      "foto": null,
+      "deelname": {
+        "status": "kandidaat",
+        "toestemmingPublicatie": false,
+        "datum": null,
+        "notitie": "Nog niet benaderd."
+      },
+      "bronnen": [
+        {
+          "url": "https://www.derivierhouten.nl/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "zelfomschrijving, zondag 10:30 Zeilschip 6, evangelisatie"
+        },
+        {
+          "url": "https://www.derivierhouten.nl/over-ons/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "start najaar 2020, zustergemeente van De Rivier Wijk bij Duurstede"
+        },
+        {
+          "url": "https://www.derivierhouten.nl/visie/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "visie"
+        },
+        {
+          "url": "https://www.derivierhouten.nl/contact/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "contactformulier, adres 'Anguli, Zeilschip 6, 3991 CT'"
+        },
+        {
+          "url": "https://www.derivierhouten.nl/actueel/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "nieuwsberichten zonder jaartal"
+        }
+      ],
+      "gecontroleerd": "2026-11-08",
+      "betrouwbaarheid": "officiele-site",
+      "opmerkingen": "Actualiteit van de site onzeker: nieuwsberichten zonder jaartal; een bericht noemt 'Glazeniersgilde' als locatie (afwijkend van Zeilschip 6). Het e-mailadres op de contactpagina (info@deriviergemeente.nl) hoort bij het domein van de zustergemeente in Wijk bij Duurstede; daarom contactformulier gekozen.",
+      "verband": "Evangelische gemeente"
+    },
+    {
+      "id": "h-michael-schalkwijk",
+      "naam": "H. Michaëlkerk Schalkwijk",
+      "officieleNaam": "Rooms-Katholieke Parochie H. Paus Johannes XXIII, locatie Schalkwijk (H. Michaël)",
+      "kerkverband": "Rooms-Katholieke Kerk (parochie H. Paus Johannes XXIII)",
+      "traditie": "rooms-katholiek",
+      "plaats": "Schalkwijk",
+      "adres": "Jhr. Ramweg 17a",
+      "postcode": "3998 JP",
+      "website": "https://pj23.nl/kerken/schalkwijk/",
+      "zelfomschrijving": {
+        "tekst": "De Michaël is van ons allemaal, ook van jou.",
+        "bron": "https://pj23.nl/kerken/schalkwijk/"
+      },
+      "geloofsbasis": {
+        "tekst": "'Wij geloven dat ieder mens een geliefd kind van God is.' (parochie-brede tekst; Rooms-Katholieke Kerk)",
+        "bron": "https://pj23.nl/"
+      },
+      "diensten": [
+        {
+          "dag": "zondag",
+          "tijd": "09:30",
+          "omschrijving": "Niet elke week, zie het vieringenrooster op de website",
+          "agenda": false
+        },
+        {
+          "dag": "zaterdag",
+          "tijd": "19:00",
+          "omschrijving": "Af en toe, zie het vieringenrooster",
+          "agenda": false
+        }
+      ],
+      "kinderen": null,
+      "toegankelijkheid": null,
+      "livestream": null,
+      "contactroute": {
+        "soort": "email",
+        "waarde": "schalkwijk.pastoraatsgroep@pj23.nl",
+        "bron": "https://pj23.nl/kerken/schalkwijk/"
+      },
+      "verwachten": "Let op: volgens het parochiebestuur wordt deze kerk vóór 2030 aan de eredienst onttrokken.",
+      "kenmerken": [],
+      "contactpersonen": [],
+      "foto": null,
+      "deelname": {
+        "status": "kandidaat",
+        "toestemmingPublicatie": false,
+        "datum": null,
+        "notitie": "Nog niet benaderd."
+      },
+      "bronnen": [
+        {
+          "url": "https://pj23.nl/kerken/schalkwijk/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "adres, zelfomschrijving, contact, vieringenrooster"
+        },
+        {
+          "url": "https://pj23.nl/herbestemmingsproces-h-michaelkerk/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "herbestemmingsproces: kerk moet vóór 2030 aan de eredienst onttrokken en verkocht zijn"
+        },
+        {
+          "url": "https://nl.wikipedia.org/wiki/H._Michaëlkerk_(Schalkwijk)",
+          "gecontroleerd": "2026-11-08",
+          "wat": "Wikipedia noemt adres Jonkheer Ramweg 18 (afwijkend)"
+        }
+      ],
+      "gecontroleerd": "2026-11-08",
+      "betrouwbaarheid": "officiele-site",
+      "opmerkingen": "Belangrijk voor de site: het parochiebestuur heeft (19 november 2025) gecommuniceerd dat deze kerk vóór 2030 aan de eredienst onttrokken en verkocht moet zijn; herbestemmingsproces loopt. Adres tegenstrijdig: PJ23 'Jhr. Ramweg 17a, 3998 JP', Wikipedia 'Jonkheer Ramweg 18'; officiële bron aangehouden.",
+      "verband": "Rooms-katholiek, parochie H. Paus Johannes XXIII"
+    },
+    {
+      "id": "olv-t-goy",
+      "naam": "O.L.V. ten Hemelopneming 't Goy",
+      "officieleNaam": "Rooms-Katholieke Parochie H. Paus Johannes XXIII, locatie 't Goy (O.L.V. ten Hemelopneming)",
+      "kerkverband": "Rooms-Katholieke Kerk (parochie H. Paus Johannes XXIII)",
+      "traditie": "rooms-katholiek",
+      "plaats": "'t Goy",
+      "adres": "Beusichemseweg 104",
+      "postcode": "3997 ML",
+      "website": "https://pj23.nl/kerken/t-goy/",
+      "zelfomschrijving": {
+        "tekst": "Een warm welkom voor iedereen",
+        "bron": "https://pj23.nl/kerken/t-goy/"
+      },
+      "geloofsbasis": {
+        "tekst": "'Wij geloven dat ieder mens een geliefd kind van God is.' (parochie-brede tekst; Rooms-Katholieke Kerk)",
+        "bron": "https://pj23.nl/"
+      },
+      "diensten": [
+        {
+          "dag": "zondag",
+          "tijd": "09:30",
+          "omschrijving": "Niet elke week, zie het vieringenrooster op de website",
+          "agenda": false
+        }
+      ],
+      "kinderen": null,
+      "toegankelijkheid": null,
+      "livestream": null,
+      "contactroute": {
+        "soort": "email",
+        "waarde": "info@pj23.nl",
+        "bron": "https://pj23.nl/kerken/t-goy/"
+      },
+      "verwachten": null,
+      "kenmerken": [],
+      "contactpersonen": [],
+      "foto": null,
+      "deelname": {
+        "status": "kandidaat",
+        "toestemmingPublicatie": false,
+        "datum": null,
+        "notitie": "Nog niet benaderd."
+      },
+      "bronnen": [
+        {
+          "url": "https://pj23.nl/kerken/t-goy/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "adres, zelfomschrijving, vieringenrooster; parochiecontact info@pj23.nl in voettekst"
+        }
+      ],
+      "gecontroleerd": "2026-11-08",
+      "betrouwbaarheid": "officiele-site",
+      "opmerkingen": "Locatie-specifiek contact staat op https://pj23.nl/kerken/t-goy/contact/ (niet volledig uitgelezen); daarom het algemene parochieadres gebruikt.",
+      "verband": "Rooms-katholiek, parochie H. Paus Johannes XXIII"
+    }
+  ],
+  "teVerifieren": [
+    {
+      "id": "sudanese-gospel-mission",
+      "naam": "Sudanese Gospel Mission",
+      "plaats": "Houten",
+      "reden": "Geen bron gevonden die een samenkomst in Houten bevestigt. WebSearch vond alleen een algemene (ongeverifieerde) vermelding op globalhand.org van een organisatie van Soedanese vluchtelingen in Nederland, zonder Houtense locatie. Niet opnemen zonder bevestiging.",
+      "bronnen": []
+    },
+    {
+      "id": "hervormd-schalkwijk",
+      "naam": "Hervormde Kerk Schalkwijk",
+      "plaats": "Schalkwijk",
+      "reden": "Officiële site blijft onleesbaar: zowel https://hervormdschalkwijk.nl als https://www.hervormdschalkwijk.nl leveren een certificaat voor 'webreus.nl' (naam komt niet overeen); TLS-controle niet uitgeschakeld. geloveninhouten.nl noemt de dorpskerken niet. Diensttijden, kinderwerk, contact en geloofsbasis blijven onbekend.",
+      "bronnen": [
+        {
+          "url": "https://protestantsekerk.nl/kerkzoeker/hervormde-gemeente-schalkwijk/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "naam, adres, website; geen diensttijden vermeld"
+        },
+        {
+          "url": "https://nl.wikipedia.org/wiki/Hervormde_kerk_(Schalkwijk)",
+          "gecontroleerd": "2026-11-08",
+          "wat": "kerkgebouw aan de Brink 10 (secundair)"
+        }
+      ]
+    },
+    {
+      "id": "t-waal-en-honswijk",
+      "naam": "Dorpskerk Tull en 't Waal",
+      "plaats": "Tull en 't Waal",
+      "reden": "Officiële site kerktullentwaal.nl (met en zonder www) blijft onbereikbaar ondanks de allowlist: de proxy geeft 502 en de naam lost niet op. Mogelijk is het domein vervallen; WebSearch vond geen andere site. Let op: officiële gemeentenaam is 'Hervormde gemeente 't Waal en Honswijk'. Tijd 10.00 uur alleen uit de PKN-kerkzoeker.",
+      "bronnen": [
+        {
+          "url": "https://protestantsekerk.nl/kerkzoeker/hervormde-gemeente-t-waal-en-honswijk/",
+          "gecontroleerd": "2026-11-08",
+          "wat": "naam, Dorpskerk, adres, website, kerktijd 10.00"
+        },
+        {
+          "url": "https://nl.wikipedia.org/wiki/Hervormde_Kerk_(Tull_en_%27t_Waal)",
+          "gecontroleerd": "2026-11-08",
+          "wat": "kerkgebouw aan de Waalseweg 71 (secundair)"
+        }
+      ]
     }
   ]
 }

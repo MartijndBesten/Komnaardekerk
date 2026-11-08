@@ -1,0 +1,94 @@
+{
+  "_uitleg": "Alleen kerken opnemen die écht meedoen en schriftelijk toestemming hebben gegeven voor publicatie van deze gegevens (ook de contactpersoon). Laat een veld leeg (null) als het niet bekend is; verzin nooit tijden of namen. 'voorbeeld: true' = fictieve demo-inhoud; de productiebuild weigert die. Kenmerken (voor de filter): kinderen, oppas, rolstoel, ringleiding, orgel, band, stilte, middag, avond, koffie.",
+  "kerken": [
+    {
+      "id": "voorbeeld-a",
+      "voorbeeld": true,
+      "naam": "Voorbeeldkerk A",
+      "traditie": "Voorbeeld van een protestantse gemeente",
+      "adres": null,
+      "postcode": null,
+      "wijk": "Wijk volgt",
+      "geo": null,
+      "diensten": [
+        { "dag": "zondag", "tijd": "10:00", "omschrijving": "Ochtenddienst (voorbeeldtijd)" }
+      ],
+      "sfeer": "Een rustige dienst in een oud gebouw met hoge ramen. Orgel en bekende liederen, een preek van ongeveer twintig minuten. Na afloop koffie achterin de kerk. (Voorbeeldtekst: de kerk schrijft dit zelf.)",
+      "kinderen": "Oppas voor de kleintjes en kindernevendienst tijdens de preek. (Voorbeeld)",
+      "toegankelijkheid": "Ingang zonder drempel en ringleiding. (Voorbeeld)",
+      "kenmerken": ["orgel", "kinderen", "oppas", "rolstoel", "ringleiding", "koffie"],
+      "website": null,
+      "contact": null,
+      "samenGaan": true,
+      "foto": null,
+      "fotoAlt": null
+    },
+    {
+      "id": "voorbeeld-b",
+      "voorbeeld": true,
+      "naam": "Voorbeeldkerk B",
+      "traditie": "Voorbeeld van een evangelische gemeente",
+      "adres": null,
+      "postcode": null,
+      "wijk": "Wijk volgt",
+      "geo": null,
+      "diensten": [
+        { "dag": "zondag", "tijd": "10:30", "omschrijving": "Samenkomst (voorbeeldtijd)" }
+      ],
+      "sfeer": "Een eigentijdse samenkomst in een modern gebouw, met een band en veel jonge gezinnen. Het is er levendig en informeel; je wordt bij de deur begroet. (Voorbeeldtekst: de kerk schrijft dit zelf.)",
+      "kinderen": "Eigen programma voor kinderen van 0 tot 12 jaar. (Voorbeeld)",
+      "toegankelijkheid": "Lift en invalidenparkeerplaats. (Voorbeeld)",
+      "kenmerken": ["band", "kinderen", "oppas", "rolstoel", "koffie"],
+      "website": null,
+      "contact": null,
+      "samenGaan": true,
+      "foto": null,
+      "fotoAlt": null
+    },
+    {
+      "id": "voorbeeld-c",
+      "voorbeeld": true,
+      "naam": "Voorbeeldkerk C",
+      "traditie": "Voorbeeld van een rooms-katholieke parochie",
+      "adres": null,
+      "postcode": null,
+      "wijk": "Wijk volgt",
+      "geo": null,
+      "diensten": [
+        { "dag": "zondag", "tijd": "11:00", "omschrijving": "Eucharistieviering (voorbeeldtijd)" }
+      ],
+      "sfeer": "Een viering met vaste gebeden, koorzang en stilte. Kaarsen, beelden en ruimte om even te zitten. De kerk is ook doordeweeks open. (Voorbeeldtekst: de kerk schrijft dit zelf.)",
+      "kinderen": "Eens per maand een gezinsviering. (Voorbeeld)",
+      "toegankelijkheid": null,
+      "kenmerken": ["stilte", "orgel", "koffie"],
+      "website": null,
+      "contact": null,
+      "samenGaan": false,
+      "foto": null,
+      "fotoAlt": null
+    },
+    {
+      "id": "voorbeeld-d",
+      "voorbeeld": true,
+      "naam": "Voorbeeldkerk D",
+      "traditie": "Voorbeeld van een kleine wijkgemeente",
+      "adres": null,
+      "postcode": null,
+      "wijk": "Wijk volgt",
+      "geo": null,
+      "diensten": [
+        { "dag": "zondag", "tijd": "09:30", "omschrijving": "Ochtenddienst (voorbeeldtijd)" },
+        { "dag": "zondag", "tijd": "17:00", "omschrijving": "Middagdienst met maaltijd, eens per maand (voorbeeldtijd)" }
+      ],
+      "sfeer": "Een kleine gemeente waar iedereen elkaar kent en nieuwe mensen snel een naam hebben. Piano en gitaar, korte overdenking, veel ruimte voor gesprek. (Voorbeeldtekst: de kerk schrijft dit zelf.)",
+      "kinderen": null,
+      "toegankelijkheid": "Alles op de begane grond. (Voorbeeld)",
+      "kenmerken": ["middag", "rolstoel", "koffie"],
+      "website": null,
+      "contact": null,
+      "samenGaan": true,
+      "foto": null,
+      "fotoAlt": null
+    }
+  ]
+}

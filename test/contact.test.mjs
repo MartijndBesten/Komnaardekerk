@@ -103,9 +103,9 @@ test('worker: zonder JavaScript volgt een redirect naar een gewone pagina', asyn
   const e = env();
   const r = await verwerk(verzoek({ ...GOED, t: '' }, { Accept: 'text/html' }), e, { maakMail, nu: NU });
   assert.equal(r.status, 303);
-  assert.equal(r.headers.get('Location'), '/even-praten/bedankt/');
+  assert.equal(r.headers.get('Location'), '/samen-naar-de-kerk/bedankt/');
   const fout = await verwerk(verzoek({ ...GOED, t: '', email: 'x' }, { Accept: 'text/html' }), e, { maakMail, nu: NU });
-  assert.equal(fout.headers.get('Location'), '/even-praten/niet-gelukt/');
+  assert.equal(fout.headers.get('Location'), '/samen-naar-de-kerk/niet-gelukt/');
 });
 
 test('worker: misbruikrem en mislukte verzending', async () => {

@@ -1,23 +1,25 @@
 {
   "_uitleg": "Algemene instellingen. 'modus' = 'concept' toont conceptlabels en blokkeert publicatie op het echte domein. Pas pas op 'productie' als alle punten in VRAGEN.md zijn afgehandeld; 'node scripts/build.mjs --productie' controleert dat.",
   "modus": "concept",
-  "naam": "Kom naar de kerk",
-  "domein": "https://komnaardekerk.nl",
+  "naam": "Kom naar de kerk.",
+  "domein": "https://komnaardekerk.nu",
   "plaats": "Houten",
-  "omschrijving": "Een open uitnodiging van de kerken in Houten. Je bent welkom, zoals je bent. Lees wat je kunt verwachten en vind een kerk bij jou in de buurt.",
+  "omschrijving": "Er is plek voor jou. Een uitnodiging van christelijke kerken in Houten en omgeving om Jezus Christus en de kerk te leren kennen. Lees wat je kunt verwachten en vind een kerk bij jou in de buurt.",
   "contact": {
-    "_uitleg": "status: 'uit' = geen formulier, alleen andere contactroutes. 'voorbeeld' = formulier zichtbaar maar verstuurt niets (alleen voor concept). 'aan' = verstuurt naar /api/contact. Zet alleen op 'aan' als de deelnemende kerken de opvolging echt geregeld hebben (zie VRAGEN.md V-004).",
+    "_uitleg": "status: 'uit' = geen formulier. 'voorbeeld' = formulier ingeklapt als voorbeeld, verstuurt niets (alleen concept). 'aan' = verstuurt naar /api/contact. Pas op 'aan' als er een verantwoordelijke organisatie is en de opvolging echt geregeld is (VRAGEN V-002, V-004).",
     "status": "voorbeeld",
     "reactietermijn": "binnen een paar dagen",
     "emailInitiatief": null
   },
   "bijbel": {
-    "_uitleg": "Controleer vóór publicatie de exacte tekst en de citeerregels van de vertaling (VRAGEN.md V-003). Zet daarna 'gecontroleerd' op true.",
+    "_uitleg": "Citeerregels NBG (https://www.bijbelgenootschap.nl/voorwaarden-citeren-bijbelvertalingen/, gelezen 8-11-2026): digitaal max. 100 verzen per week zonder toestemming bij niet-commercieel gebruik op beperkte schaal; tekst en spelling ongewijzigd; copyrightvermelding verplicht; op elke pagina met een citaat een verwijzing 'lees verder op debijbel.nl'. 'Missionair gebruik op uitgebreide schaal' vraagt vooraf toestemming (VRAGEN V-003). De exacte NBV21-tekst (hoofdletters Mij/Ik) is nog niet gecontroleerd: debijbel.nl blokkeerde automatische toegang. Zet 'gecontroleerd' pas op true na controle.",
     "tekst": "Kom naar Mij, jullie die vermoeid zijn en onder lasten gebukt gaan, dan zal Ik jullie rust geven.",
     "bron": "Matteüs 11:28",
     "vertaling": "NBV21",
     "rechten": "© Nederlands-Vlaams Bijbelgenootschap 2021",
-    "gecontroleerd": false
+    "gecontroleerd": false,
+    "bronvermelding": "NBV21 © Nederlands-Vlaams Bijbelgenootschap 2021",
+    "verderLezen": "https://www.debijbel.nl/bijbel/NBV21/MAT.11"
   },
   "hulplijnen": [
     {
@@ -35,5 +37,8 @@
       "web": "https://www.deluisterlijn.nl"
     }
   ],
-  "verwerkingsverantwoordelijke": null
+  "verwerkingsverantwoordelijke": null,
+  "domeinNaam": "komnaardekerk.nu",
+  "preview": "https://komnaardekerk.martijndenbesten.com",
+  "regio": "Houten en de omliggende dorpen"
 }

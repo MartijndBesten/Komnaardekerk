@@ -4,7 +4,7 @@ import { paginaKop, hulplijnen } from '../lib/onderdelen.mjs';
 // Kleine pagina's: bevestiging na het formulier zonder JavaScript, foutpagina, 404.
 
 export const bedankt = {
-  pagina: { pad: '/even-praten/bedankt/', titel: 'Dank je wel', omschrijving: 'Je bericht is verstuurd.', sitemap: false },
+  pagina: { pad: '/samen-naar-de-kerk/bedankt/', titel: 'Dank je wel', omschrijving: 'Je bericht is verstuurd.', sitemap: false },
   inhoud: (ctx) => html`
 ${paginaKop({ boven: 'Verstuurd', titel: 'Dank je <em>wel.</em>', lead: `Je bericht is aangekomen. Iemand neemt ${ctx.site.contact.reactietermijn} persoonlijk contact met je op.` })}
 <section class="tekstpagina"><div class="tekstpagina-binnen">
@@ -13,11 +13,11 @@ ${paginaKop({ boven: 'Verstuurd', titel: 'Dank je <em>wel.</em>', lead: `Je beri
 };
 
 export const nietGelukt = {
-  pagina: { pad: '/even-praten/niet-gelukt/', titel: 'Niet gelukt', omschrijving: 'Je bericht kon niet worden verstuurd.', sitemap: false },
+  pagina: { pad: '/samen-naar-de-kerk/niet-gelukt/', titel: 'Niet gelukt', omschrijving: 'Je bericht kon niet worden verstuurd.', sitemap: false },
   inhoud: (ctx) => html`
 ${paginaKop({ boven: 'Niet gelukt', titel: 'Dat ging helaas <em>mis.</em>', lead: 'Je bericht is niet verstuurd. Misschien ontbrak er iets, of was er een storing.' })}
 <section class="tekstpagina"><div class="tekstpagina-binnen">
-  <p><a class="knop knop--vol" href="/even-praten/">Probeer het opnieuw</a></p>
+  <p><a class="knop knop--vol" href="/samen-naar-de-kerk/">Probeer het opnieuw</a></p>
   <p>Lukt het niet? Neem dan rechtstreeks contact op met een van de <a href="/kerken/">kerken</a>.</p>
   ${hulplijnen(ctx.site)}
 </div></section>`

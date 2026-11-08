@@ -1,5 +1,7 @@
 import { html } from '../lib/html.mjs';
-import { faqLijst, paginaKop, samenGaan, boog } from '../lib/onderdelen.mjs';
+import { faqLijst, paginaKop, samenGaanTeaser } from '../lib/onderdelen.mjs';
+import { lijn } from '../lib/lijnen.mjs';
+import { raw } from '../lib/html.mjs';
 
 export const pagina = {
   pad: '/voor-het-eerst/',
@@ -63,7 +65,8 @@ export function inhoud(ctx) {
 ${paginaKop({
   boven: 'Voor het eerst',
   titel: 'Ergens voor het eerst binnenlopen is <em>altijd</em> een beetje spannend.',
-  lead: 'Hier lees je hoe een kerkdienst meestal gaat, zodat je weet wat je kunt verwachten. Geen kerktaal, geen verrassingen.'
+  lead: 'Hier lees je hoe een kerkdienst meestal gaat, zodat je weet wat je kunt verwachten. Geen kerktaal, geen verrassingen.',
+  lijnNaam: 'deur'
 })}
 
 <section class="route" aria-labelledby="route-kop">
@@ -104,15 +107,15 @@ ${paginaKop({
   <div class="verschil-binnen">
     <div>
       <h2 class="kop-2" id="verschil-kop">Waarom zijn er verschillende kerken?</h2>
-      <p>In de loop van tweeduizend jaar zijn christenen op verschillende manieren gaan samenkomen. Daarom zijn er katholieke, protestantse, evangelische en andere kerken. Ze verschillen in muziek, in vorm en soms in opvattingen.</p>
-      <p>Wat ze delen, is het belangrijkste: het geloof in God, in Jezus Christus en in de heilige Geest. Er is geen verkeerde kerk om mee te beginnen. Kies de deur waar je je bij voelt, en kijk gerust ook eens ergens anders.</p>
+      <p>In de loop van tweeduizend jaar zijn christenen op verschillende manieren gaan samenkomen. Daarom zijn er rooms-katholieke, protestantse, reformatorische en evangelische kerken. Ze verschillen in liturgie en muziek, in de sacramenten en de doop, en soms in opvattingen. Die verschillen zijn echt.</p>
+      <p>Wat ze verbindt, is het belangrijkste: het geloof in God de Vader, de Zoon en de Heilige Geest, en in Jezus Christus als Heer en Verlosser. Er is geen verkeerde kerk om mee te beginnen. Kies de deur waar je je bij voelt.</p>
       <p><a class="knop knop--vol" href="/kerken/">Bekijk de kerken in ${site.plaats}</a></p>
     </div>
-    ${boog({ briefing: 'interieur in ochtendlicht, een paar mensen op de achterste rij', concept, klasse: 'boog--klein' })}
+    <div class="verschil-lijn" aria-hidden="true">${raw(lijn('portaal'))}</div>
   </div>
 </section>
 
-${samenGaan({ concept })}
+${samenGaanTeaser()}
 `;
 }
 

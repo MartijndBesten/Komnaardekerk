@@ -14,14 +14,17 @@ import { fileURLToPath } from 'node:url';
 
 import { layout } from '../src/lib/layout.mjs';
 import { render } from '../src/lib/html.mjs';
-import { favicon } from '../src/lib/merk.mjs';
+import { icoonSvg } from '../src/lib/logo.mjs';
 import * as home from '../src/pages/home.mjs';
+import * as waarom from '../src/pages/waarom.mjs';
 import * as voorHetEerst from '../src/pages/voor-het-eerst.mjs';
 import * as kerkenPagina from '../src/pages/kerken.mjs';
-import * as geloof from '../src/pages/geloof.mjs';
-import * as evenPraten from '../src/pages/even-praten.mjs';
-import * as over from '../src/pages/over.mjs';
+import * as ontdek from '../src/pages/ontdek.mjs';
+import * as activiteiten from '../src/pages/activiteiten.mjs';
+import * as samen from '../src/pages/samen.mjs';
+import * as overOns from '../src/pages/over-ons.mjs';
 import * as privacy from '../src/pages/privacy.mjs';
+import * as ontwerp from '../src/pages/ontwerp.mjs';
 import { bedankt, nietGelukt, nietGevonden } from '../src/pages/extra.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -30,9 +33,19 @@ const args = new Set(process.argv.slice(2));
 const CHECK = args.has('--check');
 const PRODUCTIE = args.has('--productie');
 
-const PAGINAS = [home, voorHetEerst, kerkenPagina, geloof, evenPraten, over, privacy, bedankt, nietGelukt, nietGevonden];
+const PAGINAS = [home, waarom, voorHetEerst, kerkenPagina, ontdek, activiteiten, samen, overOns, privacy, ontwerp, bedankt, nietGelukt, nietGevonden];
 
-const KENMERKEN = new Set(['kinderen', 'oppas', 'rolstoel', 'ringleiding', 'orgel', 'band', 'stilte', 'middag', 'avond', 'koffie']);
+// Officiële Denckh-signatuur (byte-identiek aan MartijndBesten/denckh public/brand, regel DENCKH_MERKVERMELDING.md, B61).
+const DENCKH_HASH = {
+  'merk/denckh/denckh-logo-signature.svg': 'b8322458ef7f5b654da730d3c8cd02428eaa5e469e6aedd73479136a7eb1712f',
+  'merk/denckh/denckh-logo-signature-light.svg': '20bbb812a15920f38e15fcec68aad74de930197b33ae33a22fd7557ac4c09b97'
+};
+const STATUSSEN = new Set(['kandidaat', 'belangstelling', 'deelnemer']);
+const TRADITIES = new Set(['rooms-katholiek', 'protestants', 'reformatorisch', 'evangelisch', 'anders']);
+const GROEPEN = new Set(['geloof', 'ontmoeten', 'gezin', 'stilte', 'jongeren']);
+const MAX_LEEFTIJD_DAGEN = 90; // productie: gegevens mogen niet ouder zijn
+
+const KENMERKEN = new Set(['kinderen', 'oppas', 'middag', 'online']);
 const DAGEN = new Set(['zondag', 'zaterdag', 'vrijdag', 'donderdag', 'woensdag', 'dinsdag', 'maandag']);
 
 // Woorden die nooit live mogen. Hoofdletterongevoelig, op zichtbare tekst en attributen.
@@ -57,7 +70,12 @@ async function lijstBestanden(dir, basis = dir) {
 }
 
 // ---------- inhoudscontrole ----------
-function controleerInhoud({ site, kerken, gevoelens, vragen }, fouten) {
+const ISO = /^\d{4}-\d{2}-\d{2}$/;
+function dagenOud(iso, nu = new Date()) {
+  return Math.floor((nu - new Date(iso + 'T12:00:00Z')) / 86400000);
+}
+
+function controleerInhoud({ site, kerken, gevoelens, vragen, initiatieven, fotos, geloofsbasis }, fouten) {
   if (!['concept', 'productie'].includes(site.modus)) fouten.push(`site.modus moet 'concept' of 'productie' zijn, niet '${site.modus}'`);
   if (!['uit', 'voorbeeld', 'aan'].includes(site.contact?.status)) fouten.push('site.contact.status moet uit, voorbeeld of aan zijn');
   const ids = new Set();
@@ -66,34 +84,65 @@ function controleerInhoud({ site, kerken, gevoelens, vragen }, fouten) {
     if (!/^[a-z0-9-]+$/.test(k.id || '')) fouten.push(`${w}: id alleen kleine letters, cijfers en streepjes`);
     if (ids.has(k.id)) fouten.push(`${w}: dubbel id`);
     ids.add(k.id);
-    if (!k.naam) fouten.push(`${w}: naam ontbreekt`);
-    if (!k.sfeer) fouten.push(`${w}: sfeer ontbreekt`);
+    for (const veld of ['naam', 'plaats', 'website', 'traditie']) if (!k[veld]) fouten.push(`${w}: ${veld} ontbreekt`);
+    if (k.traditie && !TRADITIES.has(k.traditie)) fouten.push(`${w}: onbekende traditie '${k.traditie}'`);
     for (const m of k.kenmerken || []) if (!KENMERKEN.has(m)) fouten.push(`${w}: onbekend kenmerk '${m}'`);
     for (const d of k.diensten || []) {
       if (!DAGEN.has(d.dag)) fouten.push(`${w}: onbekende dag '${d.dag}'`);
       if (d.tijd && !/^([01]\d|2[0-3]):[0-5]\d$/.test(d.tijd)) fouten.push(`${w}: tijd '${d.tijd}' moet uu:mm zijn`);
     }
-    for (const u of [k.website]) if (u && !/^https:\/\//.test(u)) fouten.push(`${w}: website moet met https:// beginnen`);
-    if (k.foto && !k.fotoAlt) fouten.push(`${w}: foto zonder beschrijving (fotoAlt)`);
-    if (!k.voorbeeld) {
-      const tekst = JSON.stringify(k);
-      if (/voorbeeld/i.test(tekst)) fouten.push(`${w}: echte kerk bevat nog het woord 'voorbeeld'`);
-      if (!k.adres) fouten.push(`${w}: echte kerk zonder adres`);
-    }
+    if (k.website && !/^https:\/\//.test(k.website)) fouten.push(`${w}: website moet met https:// beginnen`);
+    if (!STATUSSEN.has(k.deelname?.status)) fouten.push(`${w}: deelname.status moet kandidaat, belangstelling of deelnemer zijn`);
+    if (k.deelname?.status !== 'deelnemer' && /\bpartner\b/i.test(JSON.stringify(k))) fouten.push(`${w}: 'partner' zonder deelname`);
+    if (!ISO.test(k.gecontroleerd || '')) fouten.push(`${w}: gecontroleerd moet een datum (JJJJ-MM-DD) zijn`);
+    if (!k.bronnen?.length) fouten.push(`${w}: geen bronnen`);
+    if (k.foto && !fotos[k.foto]) fouten.push(`${w}: onbekende foto '${k.foto}'`);
+    for (const c of k.contactpersonen || []) if (!c.toestemming) fouten.push(`${w}: contactpersoon zonder toestemming`);
+    if (/voorbeeld(kerk|tijd)/i.test(JSON.stringify(k))) fouten.push(`${w}: bevat nog voorbeeldinhoud`);
   }
+  for (const i of initiatieven.initiatieven) {
+    const w = `initiatief '${i.id}'`;
+    if (i.groep && !GROEPEN.has(i.groep)) fouten.push(`${w}: onbekende groep '${i.groep}'`);
+    if (i.groep && (!i.bron || !ISO.test(i.gecontroleerd || ''))) fouten.push(`${w}: bron en controledatum verplicht`);
+    for (const o of i.organisatoren || []) if (i.groep && !ids.has(o)) fouten.push(`${w}: organisator '${o}' staat niet in kerken.json`);
+  }
+  for (const [sleutel, f] of Object.entries(fotos)) {
+    if (sleutel.startsWith('_')) continue;
+    for (const veld of ['src', 'alt', 'credit', 'licentie', 'bron', 'w', 'h']) if (!f[veld]) fouten.push(`foto '${sleutel}': ${veld} ontbreekt`);
+  }
+  if (!geloofsbasis.artikelen?.length) fouten.push('geloofsbasis zonder artikelen');
   if (gevoelens.keuzes.length !== 6) fouten.push(`er horen 6 keuzes in gevoelens.json te staan (nu ${gevoelens.keuzes.length})`);
   for (const v of vragen.vragen) if (!v.vraag || !v.antwoord?.length) fouten.push(`vraag zonder tekst of antwoord: ${v.vraag}`);
 }
 
-function publicatiepoort({ site, kerken }, fouten) {
+// Productie toont alleen deelnemers met toestemming, en weigert verouderde of onbevestigde inhoud.
+function publicatiepoort({ site, kerken, initiatieven, fotos, geloofsbasis }, fouten) {
   if (site.modus !== 'productie') fouten.push("site.modus staat nog op 'concept'");
-  const voorbeelden = kerken.kerken.filter((k) => k.voorbeeld);
-  if (voorbeelden.length) fouten.push(`nog ${voorbeelden.length} voorbeeldkerk(en) in kerken.json`);
-  if (!kerken.kerken.some((k) => !k.voorbeeld)) fouten.push('geen enkele echte, deelnemende kerk');
+  const deelnemers = kerken.kerken.filter((k) => k.deelname?.status === 'deelnemer' && k.deelname?.toestemmingPublicatie);
+  if (!deelnemers.length) fouten.push('geen enkele deelnemende kerk met toestemming voor publicatie');
+  for (const k of deelnemers) if (dagenOud(k.gecontroleerd) > MAX_LEEFTIJD_DAGEN) fouten.push(`kerk '${k.id}': gegevens ouder dan ${MAX_LEEFTIJD_DAGEN} dagen`);
+  for (const i of initiatieven.initiatieven.filter((x) => x.groep && x.actueel)) {
+    if (dagenOud(i.gecontroleerd) > 60) fouten.push(`initiatief '${i.id}': gegevens ouder dan 60 dagen`);
+  }
   if (!site.bijbel.gecontroleerd) fouten.push('Bijbeltekst en citeerrechten nog niet gecontroleerd (bijbel.gecontroleerd)');
+  if (geloofsbasis.status !== 'vastgesteld') fouten.push("gezamenlijke geloofsbasis is nog een concept (geloofsbasis.status)");
   if (site.contact.status === 'voorbeeld') fouten.push("contactformulier staat op 'voorbeeld': zet op 'aan' (opvolging geregeld) of 'uit'");
   if (!site.verwerkingsverantwoordelijke) fouten.push('verwerkingsverantwoordelijke voor de privacyverklaring ontbreekt');
   if (!site.contact.emailInitiatief) fouten.push('contactadres van het initiatief ontbreekt');
+  for (const [s, f] of Object.entries(fotos)) if (!s.startsWith('_') && f.conceptbeeld) fouten.push(`foto '${s}' is een conceptbeeld`);
+}
+
+// Wat de productieversie mag tonen: alleen deelnemers met toestemming en hun activiteiten.
+function publiekeSelectie(content) {
+  if (content.site.modus !== 'productie') return content;
+  const ok = (k) => k.deelname?.status === 'deelnemer' && k.deelname?.toestemmingPublicatie;
+  const kerken = content.kerken.kerken.filter(ok);
+  const ids = new Set(kerken.map((k) => k.id));
+  return {
+    ...content,
+    kerken: { ...content.kerken, kerken, teVerifieren: [] },
+    initiatieven: { ...content.initiatieven, initiatieven: content.initiatieven.initiatieven.filter((i) => (i.organisatoren || []).every((o) => ids.has(o))) }
+  };
 }
 
 // ---------- HTML-controle ----------
@@ -129,6 +178,15 @@ function controleerHtml(bestanden, fouten) {
     if (!/<html lang="nl"/.test(h)) fouten.push(`${f}: lang="nl" ontbreekt`);
     if ((h.match(/<h1\b/g) || []).length !== 1) fouten.push(`${f}: moet precies één h1 hebben`);
   }
+  // afbeeldingen (src en srcset) moeten bestaan
+  for (const f of paginas) {
+    const h = bestanden[f].toString('utf8');
+    for (const m of h.matchAll(/<img\b[^>]*>/gi)) {
+      const a = attrs(m[0]);
+      const bronnen = [a.src, ...(a.srcset || '').split(',').map((x) => x.trim().split(/\s+/)[0])].filter(Boolean);
+      for (const b of bronnen) if (b.startsWith('/') && !(b.slice(1).split('?')[0] in bestanden)) fouten.push(`${f}: ontbrekende afbeelding ${b}`);
+    }
+  }
   // links en ankers
   for (const f of paginas) {
     const h = bestanden[f].toString('utf8');
@@ -152,20 +210,34 @@ function controleerHtml(bestanden, fouten) {
 
 // ---------- bouwen ----------
 async function bouw() {
-  const content = {
+  const ruw = {
     site: await json('site.json'),
     kerken: await json('kerken.json'),
     gevoelens: await json('gevoelens.json'),
-    vragen: await json('vragen.json')
+    vragen: await json('vragen.json'),
+    initiatieven: await json('initiatieven.json'),
+    fotos: await json('fotos.json'),
+    geloofsbasis: await json('geloofsbasis.json')
   };
   const fouten = [];
-  controleerInhoud(content, fouten);
-  if (PRODUCTIE) publicatiepoort(content, fouten);
+  controleerInhoud(ruw, fouten);
+  if (PRODUCTIE) publicatiepoort(ruw, fouten);
+  const content = publiekeSelectie(ruw);
+  // verrijken: foto-objecten en namen van organisatoren
+  const kerkNaam = Object.fromEntries(ruw.kerken.kerken.map((k) => [k.id, k.naam]));
+  content.kerken = { ...content.kerken, kerken: content.kerken.kerken.map((k) => ({ ...k, foto: k.foto ? content.fotos[k.foto] : null })) };
+  content.initiatieven = {
+    ...content.initiatieven,
+    initiatieven: content.initiatieven.initiatieven.map((i) => ({ ...i, organisatorNaam: (i.organisatoren || []).map((o) => kerkNaam[o] || o).join(' en ') }))
+  };
 
   const bestanden = {};
   const statisch = path.join(ROOT, 'src', 'static');
   for (const rel of await lijstBestanden(statisch)) bestanden[rel] = await readFile(path.join(statisch, rel));
-  bestanden['favicon.svg'] = Buffer.from(favicon());
+  bestanden['favicon.svg'] = Buffer.from(icoonSvg({ concept: 'A' }));
+  for (const [rel, hash] of Object.entries(DENCKH_HASH)) {
+    if (!bestanden[rel] || createHash('sha256').update(bestanden[rel]).digest('hex') !== hash) fouten.push(`${rel}: niet byte-identiek aan het officiële Denckh-logo`);
+  }
 
   const versie = { css: sha(bestanden['css/site.css']), js: sha(bestanden['js/site.js']) };
   const concept = content.site.modus !== 'productie';
@@ -174,6 +246,7 @@ async function bouw() {
   const htmlPaden = [];
   for (const mod of PAGINAS) {
     const pagina = { ...mod.pagina };
+    if (pagina.alleenConcept && !concept) continue;
     const ctx = { ...content, pad: pagina.pad, versie };
     if (mod.jsonld) pagina.jsonld = mod.jsonld(ctx);
     const uit = layout(ctx, pagina, mod.inhoud(ctx));

@@ -20,7 +20,7 @@
         "In de kerk zit je naast mensen die je misschien nog niet kent. Na afloop drinken ze vaak samen koffie. Niemand verwacht dat je meteen een gesprek begint, maar er is meestal wel iemand die het fijn vindt om je te leren kennen.",
         "Christenen geloven dat je voor God nooit een nummer bent. En dat omzien naar elkaar bij de kerk hoort."
       ],
-      "actie": { "tekst": "Liever niet alleen? Ga samen", "href": "/even-praten/#samen" },
+      "actie": { "tekst": "Liever niet alleen? Ga samen", "href": "/samen-naar-de-kerk/" },
       "hulplijn": false
     },
     {
@@ -31,7 +31,7 @@
         "In de kerk wordt niet om verdriet heen gepraat. Er wordt gebeden voor mensen die het moeilijk hebben, en er klinken woorden die al eeuwen troost geven. Je mag stil zijn. Je mag ook huilen.",
         "Christenen geloven dat God dichtbij is als je gebroken bent, en dat de dood niet het laatste woord heeft."
       ],
-      "actie": { "tekst": "Wil je met iemand praten?", "href": "/even-praten/" },
+      "actie": { "tekst": "Wil je met iemand praten?", "href": "/samen-naar-de-kerk/" },
       "hulplijn": true
     },
     {
@@ -52,7 +52,7 @@
         "Bestaat God? Wie was Jezus eigenlijk? Wat moet je met een boek van duizenden jaren oud? Goede vragen. Christenen stellen ze zelf ook.",
         "In de kerk hoor je hoe mensen de Bijbel lezen en wat geloven voor hun leven betekent. Je mag luisteren zonder het ermee eens te zijn. En je mag je vragen hardop stellen: na de dienst, bij de koffie of in een gesprek."
       ],
-      "actie": { "tekst": "Wat geloven christenen eigenlijk?", "href": "/geloof/" },
+      "actie": { "tekst": "Wat geloven christenen eigenlijk?", "href": "/ontdek-het-geloof/" },
       "hulplijn": false
     },
     {
