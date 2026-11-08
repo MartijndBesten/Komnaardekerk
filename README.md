@@ -1,89 +1,68 @@
-# komnaardekerk.nl
+# Kom naar de kerk.
 
-Een open uitnodiging van de kerken in Houten. Statische website (geen framework, geen CMS, geen cookies) met één kleine Cloudflare Worker voor het contactformulier.
+Een uitnodiging om Jezus Christus en de christelijke gemeente te leren kennen, namens kerken in Houten en de omliggende dorpen. Beoogd domein: **komnaardekerk.nu** (nog niet geregistreerd). Conceptpreview: **https://komnaardekerk.martijndenbesten.com** (noindex).
 
-**Status: concept.** Kerken, tijden en contactpersonen zijn gemarkeerde voorbeelden. Niet gepubliceerd. Open punten: `../VRAGEN.md`.
+**Status: concept, initiatief in ontwikkeling.** Geen enkele kerk is benaderd; alle kerken staan als `kandidaat` met openbare gegevens van hun eigen website. Open punten: `../VRAGEN.md` en `docs/LANCERING.md`.
 
-## Waarom geen Next.js?
+## Inhoud beheren (zonder code)
 
-Zes inhoudspagina's die zelden veranderen, door vrijwilligers te onderhouden. Een build zonder npm-pakketten (`node scripts/build.mjs`) levert kale HTML/CSS (± 390 kB totaal, waarvan 115 kB lettertypen), heeft geen framework-updates nodig en draait overal waar Node 22 staat. Zelfde recept als bouwsteen B97 (statische site met publicatiepoort). Wordt de site groter (agenda per kerk, meerdere beheerders zonder Git), dan is een headless CMS of Next.js een logische volgende stap.
+| Bestand | Wat |
+|---|---|
+| `content/kerken.json` | kerken: gegevens, diensten, kenmerken, **deelnamestatus**, bronnen, controledatum, foto |
+| `content/initiatieven.json` | missionaire activiteiten; `groep` bepaalt of en waar ze op de site komen |
+| `content/geloofsbasis.json` | gezamenlijke geloofstekst (status `concept` tot vastgesteld) |
+| `content/fotos.json` | foto's met maker, licentie, bron en uitsnede |
+| `content/site.json` | algemene instellingen, Bijbeltekst, contactformulier, hulplijnen |
+| `content/gevoelens.json`, `content/vragen.json` | zes keuzes op de homepage; praktische vragen |
+
+Een kerk wordt pas zichtbaar in de productieversie als `deelname.status` = `deelnemer` **en** `deelname.toestemmingPublicatie` = `true`. In de conceptversie staan alle gecontroleerde kerken, gemarkeerd als 'nog niet benaderd'. Overzichten voor mensen: `node scripts/overzicht.mjs` → `docs/KERKEN-OVERZICHT.md`, `docs/INITIATIEVEN.md`.
 
 ## Mappen
 
 | Map | Inhoud |
 |---|---|
-| `content/` | **Hier pas je teksten en kerken aan**: `kerken.json`, `site.json`, `gevoelens.json` (zes keuzes), `vragen.json` |
-| `src/pages/` | Pagina's (tekst + opbouw) |
-| `src/lib/` | Layout, onderdelen, beeldmerk |
-| `src/static/` | CSS, JS, lettertypen, merkbestanden |
-| `worker/` | Cloudflare Worker: `/api/contact` |
-| `scripts/` | `build.mjs` (bouwen + controles), `serve.mjs` (lokale server), `test-browser.mjs`, `merk.mjs` |
-| `test/` | Unit-tests (formulier, publicatiepoort met mutaties) |
-| `dist/` | Gegenereerde site. Nooit met de hand wijzigen; altijd samen met `src/`/`content/` committen |
-| `docs/` | Identiteit en fotografiebriefing |
+| `src/pages/` | pagina's: home, waarom-naar-de-kerk, voor-het-eerst, kerken, ontdek-het-geloof, activiteiten, samen-naar-de-kerk, over-ons, privacy, ontwerp (alleen concept) |
+| `src/lib/` | layout, onderdelen, `logo.mjs` (alle logovarianten), `lijnen.mjs` (lijnillustraties) |
+| `src/static/` | CSS, JS, lettertypen, foto's (webp), merk (`merk/logo/`, `merk/concepten/`, `merk/denckh/`) |
+| `merk/bron/` | woordmerk als letterpaden (gemaakt met `scripts/merk_paden.py`) |
+| `fotos/bron/` | originele foto's (Wikimedia Commons, CC BY-SA) |
+| `worker/` | Cloudflare Worker: `/api/contact` (fail-closed), bundel-Worker voor de preview |
+| `scripts/` | build, merk, fotos, overzicht, bundel, uitrol-preview, serve, test-browser, controleer-links |
+| `docs/` | MERK, FOTOGRAFIE, GELOOFSBASIS, KERKEN-OVERZICHT, INITIATIEVEN, KERKEN-UITNODIGEN, LANCERING, onderzoek/ |
+| `dist/` | gegenereerde site; nooit met de hand wijzigen, altijd mee committen |
 
-## Een kerk toevoegen of wijzigen
-
-1. Open `content/kerken.json` en kopieer een blok. Zet `"voorbeeld": false`.
-2. Vul alleen in wat de kerk zelf heeft aangeleverd en waarvoor toestemming is. Onbekend = `null`.
-3. `node scripts/build.mjs` → de build weigert bijvoorbeeld een tijd als `10 uur` (moet `10:00`), dubbele id's of het woord 'voorbeeld' bij een echte kerk.
-4. Kijk lokaal: `node scripts/serve.mjs` → http://localhost:8787
-
-## Controles en tests
+## Bouwen en testen
 
 ```bash
-npm install                       # alleen axe-core voor de toegankelijkheidstest
-node scripts/build.mjs --check    # dist/ actueel + controles (links, ankers, aria, CSP, verboden tekst)
-node --test test/*.test.mjs       # formulierlogica, Worker, publicatiepoort + 9 mutaties
-node scripts/test-browser.mjs     # eindgebruikerstests in Chromium (Playwright), axe, 320–1440 px
-npm run poort                     # publicatiepoort: weigert zolang er conceptinhoud is
+npm install                              # alleen axe-core (toegankelijkheidstest)
+node scripts/build.mjs                   # bouwen + controles
+node scripts/build.mjs --check           # dist/ actueel? (CI/poort)
+npm run poort                            # productiepoort: weigert zolang er conceptinhoud is
+node --test test/*.test.mjs              # 19 tests: formulier, Worker, headers, poort + 13 mutaties, productieselectie
+node scripts/test-browser.mjs            # 32 eindgebruikersscenario's in Chromium, axe, 320–1440 px
+node scripts/controleer-links.mjs        # externe links
 ```
 
-De browsertest schrijft schermafbeeldingen naar `test-resultaten/` (niet in Git). Tegen een live site: `TEST_BASE_URL=https://komnaardekerk.nl node scripts/test-browser.mjs`.
+Merk en foto's opnieuw maken: `node scripts/merk.mjs` (Playwright), `python3 scripts/fotos.py` (Pillow), woordmerkpaden `python3 scripts/merk_paden.py` (fonttools, uharfbuzz).
 
-## Contactformulier aanzetten
-
-Het formulier heeft drie standen in `content/site.json` → `contact.status`:
-
-- `voorbeeld` (nu): formulier zichtbaar, verstuurt niets, zegt dat ook eerlijk.
-- `uit`: geen formulier, alleen verwijzing naar de kerken.
-- `aan`: verstuurt naar `/api/contact`.
-
-Aan zetten alleen als de opvolging geregeld is (VRAGEN V-004), daarna:
-
-1. Cloudflare Email Routing aan op het domein, bestemmingsadres van de coördinator verifiëren.
-2. In `wrangler.jsonc`: `send_email`-binding `MAIL` met dat adres, `MAIL_VAN`, `MAIL_AAN`, `CONTACT_AAN: "ja"` en de `ratelimits`-binding.
-3. `contact.status` op `aan`, privacyverklaring aanvullen (verantwoordelijke, bewaartermijn).
-
-De Worker is fail-closed: zonder `CONTACT_AAN=ja` én mailconfiguratie geeft hij 503. Er wordt niets opgeslagen of gelogd behalve een fout-id.
-
-## Preview: komnaardekerk.martijndenbesten.com
-
-De conceptversie staat live op **https://komnaardekerk.martijndenbesten.com** (Worker `komnaardekerk-preview`, zone martijndenbesten.com). Hele site `noindex`, formulier aan serverkant uit. Uitgerolde versie: `/versie.json`.
-
-Omdat static assets vanuit een cloudsessie niet te uploaden zijn (B99), worden alle bestanden in één Worker-script ingebed:
+## Preview bijwerken
 
 ```bash
-node scripts/bundel.mjs                                   # dist/ controleren + .uitrol/komnaardekerk.mjs
-TEST_BUNDEL=1 node scripts/test-browser.mjs               # dezelfde suite tegen de bundel
-node scripts/uitrol-preview.mjs komnaardekerk.martijndenbesten.com   # herstelpunt, upload, domein
+node scripts/bundel.mjs                                  # dist/ + Worker → één script (geen static-assets-upload nodig)
+TEST_BUNDEL=1 node scripts/test-browser.mjs              # zelfde suite tegen de bundel
+node scripts/uitrol-preview.mjs komnaardekerk.martijndenbesten.com
 TEST_BASE_URL=https://komnaardekerk.martijndenbesten.com node scripts/test-browser.mjs
 ```
 
-Het uitrolscript stopt als het domein al aan een andere Worker hangt en bewaart de vorige versie in `.uitrol/vorige-versie.multipart`. Terugzetten: die versie opnieuw uploaden, of de Worker/het domein in het Cloudflare-dashboard verwijderen.
+Het subdomein hangt aan de Worker `komnaardekerk-preview`. Bijwerken wijzigt alleen het script, geen DNS. Het script stopt als het domein aan een andere Worker hangt en bewaart de vorige versie (`.uitrol/vorige-versie.multipart`). HTML krijgt `Cache-Control: no-transform`, zodat Cloudflare op deze zone geen Web Analytics inspuit.
 
-HTML krijgt `Cache-Control: no-transform`, zodat Cloudflare op deze zone geen Web Analytics-beacon inspuit (de zone heeft dat aan voor je andere sites; daar is niets aan veranderd).
+## Contactformulier
 
-## Uitrollen naar komnaardekerk.nl (nog niet gedaan)
+Drie standen in `content/site.json` → `contact.status`: `voorbeeld` (nu: ingeklapt, verstuurt niets en zegt dat), `uit`, `aan`. Pas aanzetten als er een verantwoordelijke organisatie is en de opvolging geregeld is (VRAGEN V-002, V-004); daarna Email Routing + `send_email`-binding, `CONTACT_AAN=ja` en een rate-limit (`wrangler.jsonc`). De Worker is fail-closed.
 
-Doel: Cloudflare Workers met static assets (`wrangler.jsonc`). Vanuit een Claude Code-cloudsessie kunnen statische assets niet worden geüpload (bouwsteen B99): uitrollen lokaal met `npx wrangler deploy` of via Workers Builds gekoppeld aan de repository. Vóór livegang: `npm run poort` moet slagen, daarna de browsertest tegen het echte domein. Op `*.workers.dev` staat `X-Robots-Tag: noindex`; in conceptmodus staat de hele site op noindex (via `_headers`, niet in de HTML).
+## Rechten
 
-## Privacy en beveiliging
-
-- Geen cookies, geen localStorage, geen analytics, geen externe verzoeken (getest).
-- Lettertypen zelf gehost. Strikte CSP zonder inline scripts of stijlen (door de build bewaakt).
-- Contactverzoek = mogelijk bijzonder persoonsgegeven (belangstelling voor geloof): uitdrukkelijke toestemming, minimale velden, geen opslag op de site.
-
-## Licenties
-
-Newsreader en Atkinson Hyperlegible Next: SIL Open Font License 1.1 (zie `src/static/fonts/`), verkleind tot Latijnse tekens en vaste gewichten.
+- Lettertypen Newsreader en Atkinson Hyperlegible Next: SIL OFL 1.1.
+- Foto's: Wikimedia Commons, CC BY-SA 4.0; naamsvermelding bij elke foto.
+- Bijbeltekst: NBV21 © Nederlands-Vlaams Bijbelgenootschap 2021, met verwijzing naar debijbel.nl (NBG-voorwaarden). Toestemming voor missionair gebruik: VRAGEN V-003.
+- Denckh-signatuurlogo: officieel bestand uit `MartijndBesten/denckh`, byte-identiek (hash in de build).
