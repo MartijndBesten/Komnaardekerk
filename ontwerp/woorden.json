@@ -1,0 +1,162 @@
+{
+  "_uitleg": "Ronde 6. Teksten voor de woorden op de homepage, taalniveau B2: korte zinnen, gewone woorden. Bijbelteksten zijn vrij weergegeven ('vrij naar'), want letterlijk citeren op deze schaal vraagt toestemming van het NBG (VRAGEN V-003). 'buiten' = geschikt voor een spandoek: ja | voorzichtig | nee. 'wissel' = komt voor in de wisselende woorden bovenaan. Keuzes van bezoekers worden nergens bewaard of verstuurd.",
+  "woorden": [
+    {
+      "id": "moe",
+      "woord": "Moe",
+      "wissel": true,
+      "buiten": "ja",
+      "buitenWaarom": "Herkent bijna iedereen. Geeft niemand een etiket.",
+      "herkenning": "Moe van je werk, van zorgen of van altijd maar doorgaan. Soms helpt slapen niet meer.",
+      "hoop": "Jezus zegt dat je bij Hem mag komen als je moe bent en veel te dragen hebt. Hij belooft rust. Dat is geen extra taak. Je mag komen zoals je bent.",
+      "bijbel": "vrij naar Matteüs 11:28",
+      "code": "MAT.11",
+      "kerk": "In de kerk hoef je niets te doen. Je mag gewoon zitten en luisteren.",
+      "hulp": "Ben je al lang uitgeput of somber? Ga dan ook naar je huisarts."
+    },
+    {
+      "id": "alleen",
+      "woord": "Alleen",
+      "wissel": true,
+      "buiten": "ja",
+      "buitenWaarom": "Als vraag goed. Niet ‘eenzaam’: dat is een etiket.",
+      "herkenning": "Je kunt je alleen voelen in een stil huis. Maar ook als er veel mensen om je heen zijn.",
+      "hoop": "God zegt: Ik laat je nooit los en Ik laat je nooit in de steek. Jezus zocht juist mensen op die aan de kant stonden.",
+      "bijbel": "vrij naar Hebreeën 13:5",
+      "code": "HEB.13",
+      "kerk": "In de kerk zitten mensen die je nog niet kent. Na afloop drinken ze vaak samen koffie. Blijf even, of ga gewoon naar huis.",
+      "hulp": null
+    },
+    {
+      "id": "zoekend",
+      "woord": "Zoekend",
+      "wissel": true,
+      "buiten": "ja",
+      "buitenWaarom": "Eerlijk en positief. Past bij iemand die bewust zoekt.",
+      "herkenning": "Er moet meer zijn dan werken, slapen en scrollen. Je weet nog niet wat. Maar je zoekt.",
+      "hoop": "Jezus zegt: zoek, en je zult vinden. Christenen geloven dat God ook naar jou zoekt.",
+      "bijbel": "vrij naar Matteüs 7:7",
+      "code": "MAT.7",
+      "kerk": "Je mag je vragen meenemen. Ook als je nog niet weet wat je gelooft.",
+      "hulp": null
+    },
+    {
+      "id": "gelukkig",
+      "woord": "Gelukkig",
+      "wissel": true,
+      "buiten": "voorzichtig",
+      "buitenWaarom": "Mooi tegenwicht, maar op straat kan ‘Gelukkig?’ uitdagend lezen (‘o ja?’). Eerst testen.",
+      "herkenning": "Het gaat goed met je. Mooi. Misschien vraag je je af waar al dat goede vandaan komt.",
+      "hoop": "Jezus zegt dat Hij gekomen is om mensen leven te geven: een vol en rijk leven. De kerk is er niet alleen voor slechte dagen.",
+      "bijbel": "vrij naar Johannes 10:10",
+      "code": "JHN.10",
+      "kerk": "Elke zondag vieren christenen dat het leven een geschenk is. Vier het mee.",
+      "hulp": null
+    },
+    {
+      "id": "nieuwsgierig",
+      "woord": "Nieuwsgierig",
+      "wissel": true,
+      "buiten": "ja",
+      "buitenWaarom": "Licht en vriendelijk. Het beste positieve woord voor buiten.",
+      "herkenning": "Je komt vaak langs een kerk. Wat gebeurt daar eigenlijk? Goede vraag.",
+      "hoop": "Twee mannen vroegen Jezus waar Hij woonde. Hij zei: kom maar mee, dan zie je het. Dat mag jij ook.",
+      "bijbel": "vrij naar Johannes 1:39",
+      "code": "JHN.1",
+      "kerk": "Kom gewoon een keer kijken. Je hoeft niets te zeggen of mee te doen.",
+      "hulp": null
+    },
+    {
+      "id": "gescheiden",
+      "woord": "Gescheiden",
+      "wissel": false,
+      "buiten": "nee",
+      "buitenWaarom": "Nooit buiten. In een dorp kennen mensen elkaar, en kerken denken er verschillend over.",
+      "herkenning": "Een relatie die stopt. Een huis dat ineens anders voelt. Misschien kinderen die heen en weer gaan.",
+      "hoop": "Jezus begon niet met een oordeel. Hij zocht mensen op bij wie het leven anders liep dan ze hoopten. God geneest mensen die gebroken zijn.",
+      "bijbel": "vrij naar Psalm 147:3",
+      "code": "PSA.147",
+      "kerk": "Je hoeft niets uit te leggen. Je bent welkom.",
+      "hulp": null
+    },
+    {
+      "id": "baan-kwijt",
+      "woord": "Baan kwijt",
+      "wissel": false,
+      "buiten": "nee",
+      "buitenWaarom": "Te persoonlijk voor buiten. Het kan voelen alsof je pijn wordt gebruikt om mensen te lokken.",
+      "herkenning": "Je baan kwijt. Dat raakt je geld. Maar ook je ritme, je collega’s en hoe je over jezelf denkt.",
+      "hoop": "Voor God hangt je waarde niet af van je werk. Jezus zegt: maak je geen zorgen over morgen. Je Vader in de hemel weet wat je nodig hebt.",
+      "bijbel": "vrij naar Matteüs 6:31-34",
+      "code": "MAT.6",
+      "kerk": "In de kerk ben je welkom, met of zonder baan. Niemand vraagt wat je doet.",
+      "hulp": "Voor werk en geld heb je ook praktische hulp nodig. Daarvoor kun je bij de gemeente terecht. De kerk komt daar niet voor in de plaats."
+    },
+    {
+      "id": "verdriet",
+      "woord": "Verdriet",
+      "wissel": false,
+      "buiten": "nee",
+      "buitenWaarom": "Te zwaar voor iedereen die langs fietst. Hoort op de site, waar je er zelf voor kiest.",
+      "herkenning": "Om iemand die er niet meer is. Om iets wat kapot is gegaan. Verdriet hoeft niet weg. Het mag er zijn.",
+      "hoop": "Jezus huilde toen zijn vriend Lazarus was gestorven. Christenen geloven dat Hij de dood heeft overwonnen. Daarom is er hoop, ook als het pijn doet.",
+      "bijbel": "vrij naar Johannes 11",
+      "code": "JHN.11",
+      "kerk": "In de kerk mag je stil zijn. Er wordt gebeden voor mensen die verdriet hebben.",
+      "hulp": "hulplijnen"
+    },
+    {
+      "id": "vastgelopen",
+      "woord": "Vastgelopen",
+      "wissel": false,
+      "buiten": "voorzichtig",
+      "buitenWaarom": "Herkenbaar en niet beschuldigend. Wel een lang woord: alleen op een breed doek.",
+      "herkenning": "Het lukt niet meer. In je werk, in je relatie of in je hoofd. Je weet niet welke kant je op moet.",
+      "hoop": "Jezus zegt: Ik ben de weg. Je hoeft niet eerst alles op orde te hebben om bij Hem te komen.",
+      "bijbel": "vrij naar Johannes 14:6",
+      "code": "JHN.14",
+      "kerk": "Een kerkdienst is een uur om even stil te staan. Zonder dat iemand iets van je vraagt.",
+      "hulp": "Kom je er echt niet uit? Praat er dan ook over met je huisarts."
+    },
+    {
+      "id": "dankbaar",
+      "woord": "Dankbaar",
+      "wissel": true,
+      "buiten": "voorzichtig",
+      "buitenWaarom": "Goed rond Dankdag (begin november). In de rest van het jaar minder sterk.",
+      "herkenning": "Je hebt meer gekregen dan je ooit kon verdienen. En je zou iemand willen bedanken.",
+      "hoop": "Christenen geloven dat alles wat goed is van God komt. Hij gaf ons zelfs zijn Zoon, Jezus.",
+      "bijbel": "vrij naar Jakobus 1:17",
+      "code": "JAS.1",
+      "kerk": "In de kerk zeggen mensen samen dank. Je mag meedoen of gewoon luisteren.",
+      "hulp": null
+    },
+    {
+      "id": "opnieuw-beginnen",
+      "woord": "Opnieuw beginnen",
+      "wissel": false,
+      "buiten": "nee",
+      "buitenWaarom": "Te lang voor een spandoek. Op de site sterk, vooral in januari.",
+      "herkenning": "Een nieuwe plek of een nieuwe fase. Of gewoon de wens om het anders te doen.",
+      "hoop": "Wie bij Jezus hoort, mag opnieuw beginnen. Het oude is voorbij. Dat is geen project om jezelf beter te maken. Je krijgt vergeving, als een cadeau.",
+      "bijbel": "vrij naar 2 Korintiërs 5:17",
+      "code": "2CO.5",
+      "kerk": "Nieuw in Houten? Hieronder vind je een kerk bij jou in de buurt.",
+      "hulp": null
+    }
+  ],
+  "nietGebruiken": [
+    {
+      "woord": "Eenzaam",
+      "waarom": "Een etiket. ‘Alleen?’ zegt hetzelfde zonder stempel."
+    },
+    {
+      "woord": "Depressief, burn-out",
+      "waarom": "Een diagnose. Wekt de indruk dat de kerk een behandeling is."
+    },
+    {
+      "woord": "Schuldig, zondaar",
+      "waarom": "Hoort in het gesprek over het geloof, niet op een spandoek. Leest op straat als oordeel."
+    }
+  ]
+}
