@@ -8,7 +8,8 @@
 import { readFileSync, writeFileSync, mkdirSync, rmSync, copyFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { beeldmerk, logo, logoStaand, favicon, KLEUR } from './merk.mjs';
+import { logoC, faviconC, merkC, ontmoetingFoto, LICHT } from './merk.mjs';
+const KLEUR = { kalk: LICHT.papier, inkt: LICHT.inkt };
 
 const HIER = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HIER, '..');
@@ -29,6 +30,7 @@ const FOTO = {
   'olv-bogen': { b: [600, 730], alt: 'Spitsbogen en een hoog glas-in-loodraam in de Onze Lieve Vrouw ten Hemelopnemingkerk in Houten.', maker: 'IdsVanHouten', bron: 'https://commons.wikimedia.org/wiki/File:HOUTEN_O.L.V._TEN_HEMELOPNEMING_01.jpg' },
   'olv-toren': { b: [600, 1000], alt: 'De spitse toren van de Onze Lieve Vrouw ten Hemelopnemingkerk in Houten tegen een blauwe lucht.', maker: 'Jan Dijkstra', bron: json('content/fotos.json')['rk-houten'].bron },
   'tgoy-gewelf': { b: [600, 900], alt: 'Het beschilderde gewelf van de Onze Lieve Vrouw ten Hemelopnemingkerk in ’t Goy, met in het midden een kruisbeeld.', maker: 'IdsVanHouten', bron: 'https://commons.wikimedia.org/wiki/File:%27T_GOY_O.L.V_TEN_HEMELOPNEMING_01.jpg' },
+  'weiland-smal': { b: [400, 441], alt: 'De toren van de Pleinkerk onder een wijde, lichte lucht.', maker: 'Jan Dijkstra', bron: 'https://commons.wikimedia.org/wiki/File:De_Nederlands_Hervormde_kerk_in_Houten.jpg' },
   'pleinkerk-deur': { b: [560], alt: 'De openstaande houten deur van de Pleinkerk. Binnen valt licht door gekleurd glas.', maker: 'IdsVanHouten', bron: json('content/fotos.json').held.bron }
 };
 function foto(k, { sizes = '100vw', laden = 'lazy', klasse = '' } = {}) {
@@ -42,14 +44,14 @@ const credit = (k) => `Foto: ${esc(FOTO[k].maker)}, <a href="${esc(FOTO[k].bron)
 const NAV = [['/wie-is-jezus/', 'Wie is Jezus?'], ['/de-eerste-keer/', 'De eerste keer'], ['/kerken/', 'Kerken'], ['/over/', 'Over']];
 function kop(actief) {
   return `<header class="kop"><div class="binnen kop-binnen">
-<a class="kop-logo" href="/">${logo({ detail: 'midden' })}</a>
+<a class="kop-logo" href="/">${logoC({ detail: 'midden' })}</a>
 <button type="button" class="menu-knop" aria-expanded="false" aria-controls="hoofdmenu" hidden>Menu</button>
 <nav id="hoofdmenu" class="hoofdmenu" aria-label="Hoofdmenu"><ul role="list">${NAV.map(([h, t]) => `<li><a href="${h}"${h === actief ? ' aria-current="page"' : ''}>${t}</a></li>`).join('')}</ul></nav>
 </div></header>`;
 }
 function voet() {
   return `<footer class="voet"><div class="binnen voet-raster">
-<div class="voet-merk"><a href="/">${logo({ inkt: KLEUR.kalk, licht: KLEUR.kalk, negatief: true, achtergrond: KLEUR.inkt, klasse: 'logo' })}</a><p>Een uitnodiging van christenen in Houten, Schalkwijk en ’t Goy.</p></div>
+<div class="voet-merk"><a href="/">${logoC({ inkt: LICHT.papier, merkOpties: { kruis: LICHT.papier } })}</a><p>Een uitnodiging van christenen in Houten, Schalkwijk en ’t Goy.</p></div>
 <nav aria-label="Onderaan"><ul role="list">${NAV.map(([h, t]) => `<li><a href="${h}">${t}</a></li>`).join('')}</ul></nav>
 <div class="voet-hulp"><p><strong>Gaat het echt niet goed met je?</strong> Bel je huisarts, of 113 Zelfmoordpreventie: <a href="tel:08000113">0800-0113</a> (gratis, dag en nacht). Of praat met De Luisterlijn: <a href="tel:0880767000">088 0767 000</a>.</p></div>
 </div>
@@ -65,7 +67,7 @@ function pagina({ titel, beschrijving, actief = null, inhoud, klasse = '' }) {
 <meta name="robots" content="noindex">
 <title>${esc(titel)}</title>
 <meta name="description" content="${esc(beschrijving)}">
-<meta name="theme-color" content="${KLEUR.kalk}">
+<meta name="theme-color" content="${LICHT.papier}">
 <link rel="icon" href="/gedeeld/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/gedeeld/stijl.css">
 <script src="/gedeeld/site.js" defer></script>
@@ -128,10 +130,9 @@ function hero() {
 <p class="hero-zin">Een uitnodiging van christenen uit Houten en omgeving. Je hoeft niets te weten en niets te kunnen. Kom zoals je bent.</p>
 <p class="knoppen"><a class="knop" href="/kerken/">Vind een kerk</a><a class="knop knop-lijn" href="#woorden">Wat houdt je bezig?</a></p>
 </div>
-<figure class="portaal-foto">
-<div class="portaal-kader"><div class="portaal-vorm">${foto('interieur-staand', { laden: 'eager', sizes: '(min-width: 62rem) 30rem, 80vw' })}</div>
-<svg class="portaal-lijn" viewBox="0 0 100 130" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M1 130V54A51 51 0 0 1 50 2.5A51 51 0 0 1 99 54V130"/></svg></div>
-<figcaption>De Pleinkerk in Houten. ${credit('interieur-staand')}</figcaption>
+<figure class="ontmoeting">
+${ontmoetingFoto({ src: '/gedeeld/foto/weiland-smal-441.webp', alt: 'Twee deurbogen die elkaar raken. In de spitsboog daartussen: de lucht boven de toren van de Pleinkerk in Houten.' })}
+<figcaption>Waar God en mens elkaar ontmoeten. ${credit('weiland-smal')}</figcaption>
 </figure>
 </div></section>`;
 }
@@ -321,10 +322,9 @@ kopieer('ontwerp/stijl.css', 'gedeeld/stijl.css');
 kopieer('ontwerp/site.js', 'gedeeld/site.js');
 kopieer('ontwerp/spitsboog-masker.svg', 'gedeeld/spitsboog-masker.svg');
 kopieer('src/static/merk/denckh/denckh-logo-signature-light.svg', 'gedeeld/denckh-logo-signature-light.svg');
-schrijf('gedeeld/favicon.svg', favicon());
-schrijf('gedeeld/beeldmerk.svg', beeldmerk());
-schrijf('gedeeld/logo.svg', logo({ detail: 'groot' }));
-schrijf('gedeeld/logo-staand.svg', logoStaand());
+schrijf('gedeeld/favicon.svg', faviconC());
+schrijf('gedeeld/beeldmerk.svg', merkC());
+schrijf('gedeeld/logo.svg', logoC({ detail: 'groot' }));
 
 const OMS = 'Kom naar de kerk. Er is plek voor jou. Een uitnodiging van christenen uit Houten, Schalkwijk en ’t Goy om Jezus en de kerk te leren kennen.';
 schrijf('index.html', pagina({ titel: 'Kom naar de kerk. Er is plek voor jou.', beschrijving: OMS, inhoud: `${hero()}${welkom()}${woordveld()}${jezusBlok()}${eersteKeerBlok()}${kerkenBlok()}`, klasse: 'thuis' }));

@@ -1,5 +1,7 @@
 # Ontwerp ‘Open deur’ (ronde 6): logo en website
 
+> **Vervangen door ronde 7, ‘Ontmoeting’: zie `ONTWERP-ONTMOETING.md`.** Pagina’s, teksten en ‘Na bevestiging’ hieronder gelden nog.
+
 Status: **uitgewerkt voorstel, wacht op bevestiging (VRAGEN V-016).** Live preview, `src/`, `content/` en `dist/` zijn ongewijzigd.
 Presentatie (privé): https://claude.ai/artifact/Sgpu5aAttrnsBmJbMF2zx4
 Spandoeken vallen buiten deze opdracht (worden door iemand anders gemaakt).

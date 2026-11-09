@@ -153,3 +153,102 @@ export function beeldmerk({ titel = 'Kom naar de kerk.', klasse = '', ...o } = {
   const aria = titel ? `role="img" aria-label="${titel}"` : 'aria-hidden="true" focusable="false"';
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 2 120 147"${klasse ? ` class="${klasse}"` : ''} ${aria}>${spitsboog(o)}</svg>`;
 }
+
+// ======================================================================================
+// RONDE 7 — GEKOZEN MERK: 'Ontmoeting' (verder uitgewerkt uit ontwerp C, ronde 5)
+// Twee deuren raken elkaar: links God (zee: hemel en levend water), rechts de mens (klei: Genesis 2:7).
+// Bewust geen blauw-wit-rood: verticale banen in die kleuren lezen als een vlag.
+// Waar ze elkaar raken, ontstaat helder licht in de vorm van een spitsboog, een kerkdeur.
+// Dunne bogen van licht gaan van die plek naar buiten. Op het punt waar ze elkaar raken
+// staat een klein kruis: in Jezus ontmoeten God en mens elkaar.
+// Vlak: geen verloop of gloed. Werkt in kleur, in één kleur, positief en negatief.
+// ======================================================================================
+const ATK = JSON.parse(readFileSync(new URL('./merk/atkinson.json', import.meta.url), 'utf8'));
+export const LICHT = {
+  wit: '#FFFFFF', papier: '#FCFAF6', inkt: '#1F2140', hemel: '#2C7480', dageraad: '#C8653F', licht: '#FCE7CF',
+  hemelZacht: '#E6F1F1', dageraadZacht: '#FBEBE2', blauwTekst: '#25646E', roodTekst: '#A64F2E'
+};
+export const PALET_C = [
+  ['Licht', LICHT.licht, 'het licht in het merk, warme vlakken'],
+  ['Papier', LICHT.papier, 'achtergrond'],
+  ['Zee', LICHT.hemel, 'God, de hemel, levend water; knoppen (als tekst: #25646E)'],
+  ['Klei', LICHT.dageraad, 'de mens, gemaakt uit klei; accenten (als tekst: #A64F2E)'],
+  ['Avond', LICHT.inkt, 'tekst, het kruis'],
+  ['Hemel zacht', LICHT.hemelZacht, 'lichte vlakken']
+];
+let _id = 0;
+const r2b = (n) => Math.round(n * 100) / 100;
+// overlap van de twee deuren, d naar buiten verschoven (echte offset van de spitsboog)
+function lens(d) {
+  const r = 30 + d;
+  const top = 30 - Math.sqrt(r * r - 15 * 15);
+  return `M${30 - d} 120V30A${r} ${r} 0 0 1 45 ${r2b(top)}A${r} ${r} 0 0 1 ${60 + d} 30V120`;
+}
+const deur = (x) => `M${x} 120V30A30 30 0 0 1 ${x + 60} 30V120Z`;
+// Versie 2: twee deurbogen als lijnen die in elkaar grijpen (geen kleurvlakken: banen lezen als vlag).
+// Even hoog: in Jezus kwam God op ooghoogte. Getoetst en afgevallen: hoog-laag (overlap wordt scheef, kruis botst).
+// Let op: in één kleur positief (alleen lijnen) kan het aan twee 'gouden bogen' doen denken; gebruik dan bij voorkeur negatief (licht gevuld).
+// Waar ze elkaar raken, ontstaat een spitsboog vol licht. Dunne lijnen van licht bovenin, het kruis op het raakpunt.
+const boogLijn = (x) => `M${x} 120V30A30 30 0 0 1 ${x + 60} 30V120`;
+export function ontmoeting({ links = LICHT.hemel, rechts = LICHT.dageraad, licht = LICHT.licht, kruis = LICHT.inkt, mono = null, negatief = false, detail = 'groot' } = {}) {
+  const L = mono || links, R = mono || rechts, X = mono || kruis;
+  // in één kleur: positief blijft het licht open (achtergrond); negatief is het licht vol
+  const vul = mono ? (negatief ? mono : 'none') : licht;
+  const sw = detail === 'klein' ? 13 : detail === 'midden' ? 10 : 8;
+  const id = `om${++_id}`;
+  // lichtlijnen: verschoven spitsbogen rond de overlap, alleen bovenin, binnen de deuren
+  // het licht valt onderaan een stukje naar buiten, naar jou toe
+  const lichtval = detail !== 'groot' || mono ? '' : `<path fill="${vul}" d="M${30 + sw / 2} 120H${60 - sw / 2}L68 128H22Z"/>`;
+  const lijnen = '';
+  const k = detail === 'klein' ? '' : detail === 'midden'
+    ? `<path fill="${X}" d="M43.2 -18H46.8V-1.5H43.2ZM38.4 -12.8H51.6V-9.2H38.4Z"/>`
+    : `<path fill="${X}" d="M43.7 -19H46.3V-2H43.7ZM38.8 -13.4H51.2V-10.8H38.8Z"/>`;
+  return `${vul !== 'none' ? `<path fill="${vul}" d="${lens(0)}Z"/>` : ''}${lijnen}${lichtval}`
+    + `<path fill="none" stroke="${R}" stroke-width="${sw}" d="${boogLijn(30)}"/>`
+    + `<path fill="none" stroke="${L}" stroke-width="${sw}" d="${boogLijn(0)}"/>`
+    + k;
+}
+const VB_C = { groot: '-6 -21 102 151', midden: '-7 -20 104 150', klein: '-8 -9 106 130' };
+export function merkC({ titel = 'Kom naar de kerk.', klasse = '', detail = 'groot', ...o } = {}) {
+  const aria = titel ? `role="img" aria-label="${titel}"` : 'aria-hidden="true" focusable="false"';
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${VB_C[detail]}"${klasse ? ` class="${klasse}"` : ''} ${aria}>${ontmoeting({ detail, ...o })}</svg>`;
+}
+export function faviconC({ maat = null } = {}) {
+  const m = maat ? ` width="${maat}" height="${maat}"` : '';
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"${m} role="img" aria-label="Kom naar de kerk."><rect width="120" height="120" rx="24" fill="${LICHT.licht}"/><g transform="translate(18 13) scale(0.8)">${ontmoeting({ detail: 'klein' })}</g></svg>`;
+}
+// woordmerk in Atkinson Hyperlegible Next 760; punt in dageraad
+export function logoC({ inkt = LICHT.inkt, punt = LICHT.dageraad, klasse = 'logo', detail = 'midden', titel = 'Kom naar de kerk.', merkOpties = {} } = {}) {
+  const w = ATK['Kom naar de kerk'];
+  const kap = w.kapHoogte || 700;
+  const mh = kap * 1.95; const s = mh / 150;
+  const gat = kap * 0.34;
+  const x = 104 * s + gat;
+  const top = -kap * 1.38;
+  const p = `<circle cx="${r2b(x + w.breedte + 82)}" cy="-62" r="62" fill="${punt}"/>`;
+  const breedte = x + w.breedte + 160;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 ${Math.round(top)} ${Math.ceil(breedte)} ${Math.ceil(mh)}" class="${klasse}" role="img" aria-label="${titel}"><g transform="translate(${7 * s} ${top + 20 * s}) scale(${s})">${ontmoeting({ detail, ...merkOpties })}</g><path transform="translate(${r2b(x)} 0)" fill="${inkt}" d="${w.d}"/>${p}</svg>`;
+}
+
+// Variant 'Ontmoeting hoog-laag' (getoetst): de boog van God staat hoger dan die van de mens.
+export function ontmoetingHL({ links = LICHT.hemel, rechts = LICHT.dageraad, licht = LICHT.licht, kruis = LICHT.inkt, mono = null, negatief = false, detail = 'groot', hoger = 16 } = {}) {
+  const L = mono || links, R = mono || rechts, X = mono || kruis;
+  const vul = mono ? (negatief ? mono : 'none') : licht;
+  const sw = detail === 'klein' ? 13 : detail === 'midden' ? 10 : 8;
+  const ysL = 30 - hoger;
+  // snijpunt van de cirkels (30, ysL) en (60, 30), beide straal 30
+  const dx = 30, dy = 30 - ysL, d = Math.hypot(dx, dy), a = d / 2, h = Math.sqrt(900 - a * a);
+  const mx = 30 + dx / 2, my = ysL + dy / 2;
+  const px = r2b(mx + (dy / d) * h), py = r2b(my - (dx / d) * h);
+  const lensHL = `M30 120V30A30 30 0 0 1 ${px} ${py}A30 30 0 0 1 60 ${ysL}V120Z`;
+  const k = detail === 'klein' ? '' : `<path fill="${X}" d="M${px - 1.3} ${py - 21}H${px + 1.3}V${py - 2}H${px - 1.3}ZM${px - 6.2} ${py - 15.4}H${px + 6.2}V${py - 12.8}H${px - 6.2}Z"/>`;
+  return `${vul !== 'none' ? `<path fill="${vul}" d="${lensHL}"/>` : ''}`
+    + `<path fill="none" stroke="${R}" stroke-width="${sw}" d="M30 120V30A30 30 0 0 1 90 30V120"/>`
+    + `<path fill="none" stroke="${L}" stroke-width="${sw}" d="M0 120V${ysL}A30 30 0 0 1 60 ${ysL}V120"/>` + k;
+}
+
+// Hero-beeld voor de website (geen logo): de spitsboog van licht toont een echte foto.
+export function ontmoetingFoto({ src, alt = '' } = {}) {
+  const id = `of${++_id}`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -22 102 152" class="hero-merk" role="img" aria-label="${alt}"><clipPath id="${id}"><path d="${lens(0)}Z"/></clipPath><path fill="${LICHT.licht}" d="${lens(0)}Z"/><image href="${src}" x="26" y="0" width="38" height="120" preserveAspectRatio="xMidYMid slice" clip-path="url(#${id})"/><path fill="${LICHT.licht}" d="M34 120H56L68 128H22Z"/><path fill="none" stroke="${LICHT.dageraad}" stroke-width="7" d="M30 120V30A30 30 0 0 1 90 30V120"/><path fill="none" stroke="${LICHT.hemel}" stroke-width="7" d="M0 120V30A30 30 0 0 1 60 30V120"/><path fill="${LICHT.inkt}" d="M43.7 -19H46.3V-2H43.7ZM38.8 -13.4H51.2V-10.8H38.8Z"/></svg>`;
+}
