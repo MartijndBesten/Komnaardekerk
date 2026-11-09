@@ -2640,6 +2640,21 @@ button[disabled] {
 .ow-variant--wit {
   background: #fff;
 }
+.ow-beeld {
+  margin: 0 0 2rem;
+  padding: clamp(1.5rem, 5vw, 3rem);
+  background: var(--nacht);
+  border-radius: var(--boog);
+  display: grid;
+  place-items: center;
+}
+.ow-beeld img {
+  width: min(17rem, 70%);
+  height: auto;
+}
+.ow-beeld ~ p {
+  max-width: 40rem;
+}
 .ow-variant--mos {
   background: var(--mos);
   color: #fff;
