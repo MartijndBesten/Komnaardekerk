@@ -1,5 +1,5 @@
-/* komnaardekerk.nl — stijlblad
-   Identiteit 'De open deur': warm papier, inkt, gedempt groen, een klei-accent en licht.
+/* komnaardekerk.nu — stijlblad
+   Identiteit 'Het raakpunt': warm papier en warm donker, wijnrood (God), terracotta (mens), goud en ivoor (licht).
    Koppen: Newsreader (optische maten). Tekst: Atkinson Hyperlegible Next (ontworpen voor
    leesbaarheid, ook bij slechtziendheid). Beide SIL OFL, zelf gehost (geen Google-verzoeken). */
 
@@ -26,30 +26,30 @@
 }
 
 :root {
-  --papier: #f5efe4;
-  --papier-licht: #fbf8f2;
-  --zand: #ece2d0;
-  --zand-diep: #e0d1b7;
-  --inkt: #1e2721;
-  --inkt-2: #4a544d;
-  --mos: #4c5b44;
-  --klei: #9c4325;
-  --klei-donker: #84351b;
-  --licht: #e3a63f;
-  --licht-zacht: #f0cf8c;
-  --licht-heel-zacht: #f8e6bf;
-  --nacht: #1b231e;
-  --rand: #6e746c;
-  --lijn: rgba(30, 39, 33, 0.22);
+  --papier: #fbf7f0;
+  --papier-licht: #fffdf8;
+  --zand: #f4ebdf;
+  --zand-diep: #eadcc9;
+  --inkt: #2a1b1e;
+  --inkt-2: #5a4a4d;
+  --mos: #7a2e3b;        /* wijnrood: God; was 'mos' */
+  --klei: #c9733f;       /* terracotta: de mens */
+  --klei-donker: #a64f2e;
+  --licht: #f0c24e;      /* goud: alleen in het licht */
+  --licht-zacht: #ffe9a8;
+  --licht-heel-zacht: #fdf1d6;
+  --nacht: #2a1b1e;
+  --rand: #7a6a6c;
+  --lijn: rgba(42, 27, 30, 0.2);
 
-  --kop: 'Kop', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+--kop: 'Kop', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
   --tekst: 'Tekst', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   --breedte: 78rem;
   --smal: 44rem;
   --goot: clamp(1rem, 4vw, 3rem);
   --sectie: clamp(4rem, 9vw, 9rem);
-  --boog: 1000px 1000px 0 0;
+  --boog: 1.25rem;
   --zacht: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
@@ -182,7 +182,7 @@ a:hover {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--mos);
+  color: var(--klei-donker);
   margin-bottom: 1.1rem;
 }
 
@@ -223,13 +223,48 @@ a:hover {
   color: var(--papier);
 }
 .knop--vol {
-  background: var(--inkt);
-  color: var(--papier);
-}
-.knop--vol:hover {
   background: var(--mos);
   border-color: var(--mos);
   color: var(--papier);
+}
+.knop--vol:hover {
+  background: var(--inkt);
+  border-color: var(--inkt);
+  color: var(--papier);
+}
+.knop--licht {
+  background: var(--papier);
+  border-color: var(--papier);
+  color: var(--inkt);
+}
+.knop--licht:hover {
+  background: var(--licht-zacht);
+  border-color: var(--licht-zacht);
+  color: var(--inkt);
+}
+.knop--omlijnd {
+  border-color: rgba(251, 247, 240, 0.7);
+  color: var(--papier);
+}
+.knop--omlijnd:hover {
+  background: var(--papier);
+  color: var(--inkt);
+}
+.tekstknop {
+  font: inherit;
+  font-size: 0.9rem;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0.4rem 0;
+  min-height: 2.75rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+  opacity: 0.85;
+}
+.tekstknop:hover {
+  opacity: 1;
 }
 .knop:active {
   transform: translateY(1px);
@@ -278,7 +313,7 @@ a:hover {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--klei-donker);
-  background: #f6dccd;
+  background: #fbeee6;
   border-radius: 999px;
   padding: 0.3em 0.8em;
   margin-bottom: 0.9rem;
@@ -390,10 +425,10 @@ main:focus {
 }
 .hoofdmenu-link:hover {
   color: var(--inkt);
-  border-bottom-color: var(--licht);
+  border-bottom-color: var(--klei);
 }
 .hoofdmenu-link[aria-current='page'] {
-  border-bottom-color: var(--klei);
+  border-bottom-color: var(--mos);
 }
 
 @media (max-width: 79.99rem) {
@@ -474,147 +509,87 @@ main:focus {
   }
 }
 
-/* ---------- held (homepage) ---------- */
+/* ---------- held (homepage): warm donker, het stralende merk, wisselende woorden ---------- */
 .held {
   position: relative;
   overflow: hidden;
+  background: var(--nacht);
+  color: var(--papier);
 }
 .held-binnen {
   max-width: var(--breedte);
   margin: 0 auto;
-  padding: clamp(1.5rem, 5vw, 4.5rem) var(--goot) clamp(3.5rem, 8vw, 7rem);
+  padding: clamp(2rem, 5vw, 4.5rem) var(--goot) clamp(3.5rem, 8vw, 6.5rem);
   display: grid;
-  gap: clamp(3rem, 6vw, 4rem);
+  gap: clamp(2rem, 5vw, 3rem);
   align-items: center;
 }
-.held-kop {
-  font-size: clamp(4.1rem, 1.6rem + 9.2vw, 9rem);
-  line-height: 0.94;
-  letter-spacing: -0.035em;
+.held-boven {
+  color: var(--licht-zacht);
 }
-.held-kop .nieuwe-regel {
-  display: block;
-  padding-left: 0.62em;
+.held-tekst {
+  container-type: inline-size;
+  min-width: 0;
 }
-.held-misschien {
-  margin-top: 2rem;
+.wissel-regel {
+  margin: 0;
+  min-height: 1em;
   font-family: var(--kop);
-  font-style: italic;
-  font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.6rem);
-  line-height: 1.4;
-  color: var(--inkt-2);
+  font-size: clamp(3.2rem, min(calc(150vw / var(--len, 4)), 9.5rem), 9.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
 }
-.held-misschien p + p {
-  margin-top: 0.15em;
+@supports (font-size: 1cqi) {
+  .wissel-regel {
+    font-size: clamp(3.2rem, min(calc(150cqi / var(--len, 4)), 9.5rem), 9.5rem);
+  }
+}
+.wissel {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--papier);
+  transition: opacity 0.7s var(--zacht), transform 0.7s var(--zacht);
+}
+.wissel:hover,
+.wissel:focus-visible {
+  color: var(--licht-zacht);
+}
+.wissel.weg {
+  opacity: 0;
+  transform: translateY(0.1em);
+}
+.wissel-knoppen {
+  display: flex;
+  gap: 1.3rem;
+  margin-top: 0.1rem;
+}
+.held .tekstknop {
+  color: var(--papier);
+  text-decoration-color: var(--licht-zacht);
+}
+.held-kop {
+  font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3rem);
+  line-height: 1.08;
+  margin-top: 1.4rem;
+}
+.held-kop em {
+  display: block;
+  color: var(--licht-zacht);
 }
 .held-lead {
-  margin-top: 1.25rem;
-  font-weight: 700;
+  color: var(--papier);
+  max-width: 34ch;
 }
-.held-beeld {
-  position: relative;
+.held .knoppen {
+  margin-top: 1.6rem;
+}
+.held-merk {
   justify-self: center;
-  width: min(19rem, 74vw);
-  padding: 1.1rem 1.1rem 0;
+  width: min(22rem, 78vw);
 }
-/* twee dunne bogen rond de foto: het portaal */
-.held-beeld::before,
-.held-beeld::after {
-  content: '';
-  position: absolute;
-  inset: 0 0 auto 0;
-  bottom: 3.2rem;
-  border: 1.5px solid var(--licht);
-  border-bottom: 0;
-  border-radius: var(--boog);
-  pointer-events: none;
-}
-.held-beeld::after {
-  inset: 0.55rem 0.55rem auto 0.55rem;
-  bottom: 3.2rem;
-  border-color: rgba(156, 67, 37, 0.35);
-}
-.held-boog {
-  position: relative;
-  aspect-ratio: 3 / 4;
-  border-radius: var(--boog);
-  overflow: hidden;
-  background: var(--licht-zacht);
-  perspective: 70rem;
-  isolation: isolate;
-  box-shadow: 0 2.5rem 4rem -2.5rem rgba(60, 40, 10, 0.45);
-}
-.held-foto {
-  margin: 0;
-  position: absolute;
-  inset: 0;
-}
-.held-foto img {
+.held-merk-svg {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.held-deurblad {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.2)),
-    var(--mos);
-  transform-origin: 0 50%;
-  box-shadow: inset 0 0 0 clamp(7px, 1vw, 12px) rgba(0, 0, 0, 0.12);
-  animation: deur-open 2.4s var(--zacht) 0.5s both;
-}
-.held-deurblad::before,
-.held-deurblad::after {
-  content: '';
-  position: absolute;
-  left: 18%;
-  right: 18%;
-  border: 2px solid rgba(255, 255, 255, 0.14);
-  border-radius: 6px;
-}
-.held-deurblad::before {
-  top: 30%;
-  height: 24%;
-}
-.held-deurblad::after {
-  top: 60%;
-  height: 28%;
-}
-.held-vloer {
-  display: block;
-  height: 3.2rem;
-  margin: 0 -40% 0 -10%;
-  background: linear-gradient(to bottom, var(--licht-zacht), rgba(240, 207, 140, 0));
-  clip-path: polygon(14% 0, 82% 0, 100% 100%, 0% 100%);
-  animation: vloer-licht 2.4s var(--zacht) 0.9s both;
-}
-.held-credit {
-  margin-top: 0.4rem;
-  text-align: center;
-}
-@keyframes deur-open {
-  0% {
-    transform: rotateY(0deg);
-    opacity: 1;
-  }
-  80% {
-    opacity: 1;
-  }
-  100% {
-    transform: rotateY(-105deg);
-    opacity: 0;
-    visibility: hidden;
-  }
-}
-@keyframes vloer-licht {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  height: auto;
 }
 .held .onthul {
   animation: opkomen 1s var(--zacht) both;
@@ -631,6 +606,9 @@ main:focus {
 .held .onthul:nth-child(5) {
   animation-delay: 0.4s;
 }
+.held-merk-svg {
+  animation: licht-aan 1.8s var(--zacht) 0.2s both;
+}
 @keyframes opkomen {
   from {
     opacity: 0;
@@ -641,14 +619,60 @@ main:focus {
     transform: none;
   }
 }
+@keyframes licht-aan {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
 @media (min-width: 56rem) {
   .held-binnen {
-    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: 4rem;
   }
-  .held-beeld {
-    width: min(24rem, 100%);
+  .held-merk {
+    width: min(28rem, 100%);
     justify-self: end;
-    margin-right: 4%;
+  }
+}
+
+/* ---------- in het kort ---------- */
+.kort {
+  background: var(--papier-licht);
+  border-bottom: 1px solid var(--lijn);
+}
+.kort-binnen {
+  max-width: var(--breedte);
+  margin: 0 auto;
+  padding: clamp(2.2rem, 4vw, 3rem) var(--goot);
+}
+.kort-lijst {
+  display: grid;
+  gap: 1.5rem;
+}
+.kort-item dt {
+  font-family: var(--kop);
+  font-size: 1.35rem;
+  line-height: 1.15;
+  margin-bottom: 0.35rem;
+}
+.kort-item dd {
+  margin: 0;
+  color: var(--inkt-2);
+}
+@media (min-width: 44rem) {
+  .kort-lijst {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 68rem) {
+  .kort-lijst {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2.4rem;
   }
 }
 
@@ -798,10 +822,47 @@ details[open] > summary .plusje {
 .keuze-antwoord .pijllink {
   margin-top: 0.75rem;
 }
-.keuze-hulp {
+.keuze-herkenning {
+  font-size: 1.15em;
+}
+.keuze-hoop {
+  margin: 1.25rem 0 1rem;
+  padding: 0 0 0 1.1rem;
+  border-left: 3px solid var(--mos);
+}
+.keuze-hoop p {
+  font-family: var(--kop);
+  font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.6rem);
+  line-height: 1.38;
+}
+.keuze-hoop footer {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--inkt-2);
+}
+.keuze-watnu {
   margin-top: 1.5rem !important;
+  font-weight: 700;
+}
+.keuze-stappen {
+  list-style: none;
+  padding: 0;
+  margin: 0.6rem 0 0.5rem;
+  display: grid;
+  gap: 0.5rem;
+}
+@media (min-width: 30rem) {
+  .keuze-stappen {
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  }
+}
+.keuze-stappen .knop {
+  width: 100%;
+}
+.keuze-hulp {
+  margin-top: 1.25rem !important;
   padding: 0.9rem 1.1rem;
-  border-left: 3px solid var(--licht);
+  border-left: 3px solid var(--klei);
   background: var(--papier);
   font-size: 0.9375rem;
 }
@@ -929,7 +990,7 @@ details[open] > summary .plusje {
   font-family: var(--kop);
   font-size: 2.6rem;
   line-height: 1;
-  color: var(--klei);
+  color: var(--klei-donker);
   margin-bottom: 0.8rem;
 }
 .stap-kop {
@@ -1965,7 +2026,7 @@ button[disabled] {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--klei);
+  color: var(--klei-donker);
   margin-bottom: 0.35rem;
 }
 
@@ -2236,7 +2297,7 @@ button[disabled] {
   font-family: var(--kop);
   font-style: italic;
   font-size: 1.4rem;
-  color: var(--klei);
+  color: var(--klei-donker);
 }
 .verhaal-tekst {
   max-width: 40rem;
@@ -2797,4 +2858,18 @@ button[disabled] {
   .kerk {
     grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
   }
+}
+
+/* ---------- klein merk als decoratie (vervangt de lijnillustraties) ---------- */
+.merkje {
+  width: 4.5rem;
+  height: auto;
+  opacity: 0.9;
+}
+.paginakop-lijn .merkje {
+  width: clamp(5rem, 12vw, 8rem);
+}
+/* stappen zonder lijnillustratie */
+.stap-nr {
+  display: block;
 }

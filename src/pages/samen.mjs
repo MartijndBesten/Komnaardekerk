@@ -1,6 +1,5 @@
 import { html } from '../lib/html.mjs';
 import { paginaKop, hulplijnen } from '../lib/onderdelen.mjs';
-import { lijn } from '../lib/lijnen.mjs';
 import { raw } from '../lib/html.mjs';
 
 export const pagina = {
@@ -126,7 +125,7 @@ ${paginaKop({
 <section class="praten" aria-labelledby="contact-kop">
   <div class="praten-binnen">
     <div class="praten-uitleg">
-      <span class="praten-lijn" aria-hidden="true">${raw(lijn('koffie'))}</span>
+      
       <h2 class="kop-2" id="contact-kop">Liever eerst iemand spreken?</h2>
       <p>Elke kerk heeft een eigen website met contactgegevens. Je kunt de kerk van je keuze gewoon mailen of bellen met je vraag, of vragen of iemand je bij de deur wil opwachten.</p>
       <p><a class="pijllink pijllink--sterk" href="/kerken/">Naar de kerken en hun contactgegevens</a></p>

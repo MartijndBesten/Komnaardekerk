@@ -1,6 +1,5 @@
 import { html } from '../lib/html.mjs';
 import { faqLijst, paginaKop, samenGaanTeaser } from '../lib/onderdelen.mjs';
-import { lijn } from '../lib/lijnen.mjs';
 import { raw } from '../lib/html.mjs';
 
 export const pagina = {
@@ -111,7 +110,7 @@ ${paginaKop({
       <p>Wat ze verbindt, is het belangrijkste: het geloof in God de Vader, de Zoon en de Heilige Geest, en in Jezus Christus als Heer en Verlosser. Er is geen verkeerde kerk om mee te beginnen. Kies de deur waar je je bij voelt.</p>
       <p><a class="knop knop--vol" href="/kerken/">Bekijk de kerken in ${site.plaats}</a></p>
     </div>
-    <div class="verschil-lijn" aria-hidden="true">${raw(lijn('portaal'))}</div>
+    
   </div>
 </section>
 

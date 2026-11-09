@@ -1,5 +1,6 @@
 import { esc, html, raw, alinea } from './html.mjs';
-import { lijn } from './lijnen.mjs';
+import { vlakSvg } from './logo.mjs';
+const merkje = () => vlakSvg({ donker: false, titel: '', klasse: 'merkje' });
 
 const MAANDEN = ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'];
 export function datum(iso) {
@@ -133,7 +134,7 @@ export function bijbeltekst(site, { klasse = '' } = {}) {
   </figure>`;
 }
 
-export function paginaKop({ boven, titel, lead, id = 'pagina-kop', beeld = null, lijnNaam = 'portaal' }) {
+export function paginaKop({ boven, titel, lead, id = 'pagina-kop', beeld = null }) {
   return html`<header class="paginakop${beeld ? ' paginakop--beeld' : ''}">
     <div class="paginakop-binnen">
       <div class="paginakop-tekst">
@@ -141,7 +142,7 @@ export function paginaKop({ boven, titel, lead, id = 'pagina-kop', beeld = null,
         <h1 class="kop-1" id="${id}">${raw(titel)}</h1>
         ${lead ? html`<p class="lead">${lead}</p>` : ''}
       </div>
-      ${beeld ? html`<div class="paginakop-beeld">${foto(beeld, { klasse: 'boog', laden: 'eager', sizes: '(min-width: 60rem) 30vw, 70vw' })}</div>` : html`<div class="paginakop-lijn" aria-hidden="true">${raw(lijn(lijnNaam))}</div>`}
+      ${beeld ? html`<div class="paginakop-beeld">${foto(beeld, { klasse: 'boog', laden: 'eager', sizes: '(min-width: 60rem) 30vw, 70vw' })}</div>` : html`<div class="paginakop-lijn" aria-hidden="true">${raw(merkje())}</div>`}
     </div>
   </header>`;
 }
@@ -149,7 +150,7 @@ export function paginaKop({ boven, titel, lead, id = 'pagina-kop', beeld = null,
 export function samenGaanTeaser() {
   return html`<section class="samen" aria-labelledby="samen-kop">
     <div class="samen-binnen">
-      <div class="samen-lijn" aria-hidden="true">${raw(lijn('samen'))}</div>
+      <div class="samen-lijn" aria-hidden="true">${raw(merkje())}</div>
       <div class="samen-tekst">
         <p class="bovenregel">Samen naar de kerk</p>
         <h2 id="samen-kop" class="kop-2">Vind je het spannend om alleen te gaan?</h2>

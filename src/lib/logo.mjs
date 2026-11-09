@@ -1,178 +1,145 @@
-// Logosysteem 'Kom naar de kerk.' — alle varianten als SVG uit code.
-// Woordmerkpaden: merk/bron/woordmerk-*.json (gemaakt met scripts/merk_paden.py uit Newsreader, OFL).
-// Concepten:
-//   A  'De open deur'        — boogvormige deuropening, deur op een kier, licht valt naar buiten
-//   B  'Portaal'             — drie geneste bogen (meerdere kerken, één ingang), licht in de kern
-//   C  'De punt is een deur' — woordmerk-gedreven: de punt achter 'kerk.' is een kleine verlichte deur
-// Gekozen richting: A + C (zie docs/MERK.md).
+// Logosysteem 'Kom naar de kerk.' — HET RAAKPUNT (definitief, 9 november 2026; zie docs/LOGO.md).
+// Naar de Schepping van Adam: God reikt van boven (wijnrood), de mens van onder (terracotta).
+// Waar ze elkaar bijna raken, breekt hemels licht door. Geen kruis, geen gebouw: de ontmoeting is het beeld.
+// Alles als SVG uit code, één bron voor scripts/merk.mjs en de pagina's.
+// Woordmerk: merk/bron/woordmerk-newsreader.json (Newsreader, OFL; gemaakt met scripts/merk_paden.py).
 
 import { readFileSync } from 'node:fs';
 
-const W500 = JSON.parse(readFileSync(new URL('../../merk/bron/woordmerk-500.json', import.meta.url), 'utf8'));
-const W400 = JSON.parse(readFileSync(new URL('../../merk/bron/woordmerk-400.json', import.meta.url), 'utf8'));
-
 export const KLEUREN = {
-  inkt: '#1E2721',
-  papier: '#F5EFE4',
-  licht: '#E3A63F',
-  lichtZacht: '#F0CF8C',
-  mos: '#4C5B44',
-  klei: '#9C4325'
+  nacht: '#2A1B1E', ivoor: '#FBF6EA', papier: '#FBF7F0',
+  god: '#7A2E3B', godLicht: '#C97E8A', mens: '#C9733F', mensLicht: '#EAA978',
+  wit: '#FFFBF0', licht: '#FFE9A8', goud: '#F0C24E', goudDiep: '#D9A032', amber: '#E0903A'
 };
+const K = KLEUREN;
+const r2 = (n) => Math.round(n * 100) / 100;
+const pol = (cx, cy, rad, deg) => { const a = ((deg - 90) * Math.PI) / 180; return [r2(cx + rad * Math.cos(a)), r2(cy + rad * Math.sin(a))]; };
+const ruis = (i) => { const x = Math.sin(i * 12.9898) * 43758.5453; return x - Math.floor(x); };
+let uid = 0;
 
-// Kleurschema's: kleur (op licht), donker (op inkt), zwart (1 kleur), wit (1 kleur, negatief)
-export const SCHEMA = {
-  kleur: { tekst: KLEUREN.inkt, kozijn: KLEUREN.inkt, licht: KLEUREN.licht, vloer: KLEUREN.lichtZacht, deur: KLEUREN.mos, punt: KLEUREN.licht },
-  donker: { tekst: KLEUREN.papier, kozijn: KLEUREN.papier, licht: KLEUREN.licht, vloer: '#8a6a3a', deur: KLEUREN.mos, punt: KLEUREN.licht },
-  zwart: { tekst: '#000', kozijn: '#000', licht: 'none', vloer: 'none', deur: '#000', punt: '#000' },
-  wit: { tekst: '#fff', kozijn: '#fff', licht: 'none', vloer: 'none', deur: '#fff', punt: '#fff' }
-};
-
-// ---------- beeldmerken (kader 0 0 100 120, dorpel op y=100) ----------
-function boog(cx, top, b, onder) {
-  // rondboog: halve cirkel boven, rechte zijden tot 'onder'
-  const r = b / 2;
-  return `M${cx - r} ${onder} V${top + r} A${r} ${r} 0 0 1 ${cx + r} ${top + r} V${onder}`;
+// ---------- armen: taps toelopend, van schouder (w0) naar vingertop (w1) ----------
+function armPad(P0, P1, R, w0, w1) {
+  const [x0, y0] = P0, [x1, y1] = P1;
+  const mx = (x0 + x1) / 2, my = (y0 + y1) / 2;
+  const dx = x1 - x0, dy = y1 - y0, d = Math.hypot(dx, dy);
+  const h = Math.sqrt(R * R - (d / 2) ** 2);
+  const cx = mx - (dy / d) * h, cy = my + (dx / d) * h;
+  const a0 = Math.atan2(y0 - cy, x0 - cx);
+  let a1 = Math.atan2(y1 - cy, x1 - cx);
+  while (a1 < a0) a1 += Math.PI * 2;
+  const n = 28, buiten = [], binnen = [];
+  for (let i = 0; i <= n; i++) {
+    const t = i / n, a = a0 + (a1 - a0) * t;
+    const w = w0 + (w1 - w0) * (t * t * (3 - 2 * t));
+    buiten.push([r2(cx + (R + w / 2) * Math.cos(a)), r2(cy + (R + w / 2) * Math.sin(a))]);
+    binnen.push([r2(cx + (R - w / 2) * Math.cos(a)), r2(cy + (R - w / 2) * Math.sin(a))]);
+  }
+  const L = (p) => p.join(' ');
+  return `M${L(buiten[0])}` + buiten.slice(1).map((p) => `L${L(p)}`).join('')
+    + `A${w1 / 2} ${w1 / 2} 0 0 1 ${L(binnen[n])}` + binnen.slice(0, n).reverse().map((p) => `L${L(p)}`).join('')
+    + `A${w0 / 2} ${w0 / 2} 0 0 1 ${L(buiten[0])}Z`;
+}
+function armen({ god, mens, kier = 15, w0 = 12.5, w1 = 7.5 }) {
+  const h = kier / 2;
+  return `<path d="${armPad([8, 108], [60 - h, 60], 52, w0, w1)}" fill="${mens}"/>`
+    + `<path d="${armPad([112, 12], [60 + h, 60], 52, w0, w1)}" fill="${god}"/>`;
+}
+function straal(cx, cy, r0, r1, deg, w) {
+  const d = ((w / 2 / r0) * 180) / Math.PI;
+  const [ax, ay] = pol(cx, cy, r0, deg - d), [bx, by] = pol(cx, cy, r0, deg + d), [tx, ty] = pol(cx, cy, r1, deg);
+  return `M${ax} ${ay}L${tx} ${ty}L${bx} ${by}Z`;
 }
 
-export function merkA(s = SCHEMA.kleur) {
-  // Rondboog (kozijn) met een deurblad op een kier: door de spleet valt licht naar buiten,
-  // als een baan over de grond. Leest als 'open deur', niet als boog of grafsteen.
-  const een = s.licht === 'none';
-  const kozijn = `${boog(50, 10, 60, 100)} Z`; // buitenmaat
-  const opening = `${boog(50, 16, 48, 100)} Z`; // binnenmaat
-  const spleet = 'M57 100 L64.5 20.9 A24 24 0 0 1 74 40 V100 Z';
-  const blad = 'M26 100 V40 A24 24 0 0 1 64.5 20.9 L57 100 Z';
-  return [
-    een ? '' : `<path d="M57 100 H74 L99 120 H38 Z" fill="${s.vloer}"/>`,
-    // 1 kleur: de spleet is een uitsparing (evenodd), zodat elke ondergrond erdoor zichtbaar is.
-    een ? `<path d="${kozijn} ${spleet}" fill-rule="evenodd" fill="${s.kozijn}"/>` : `<path d="${kozijn}" fill="${s.kozijn}"/><path d="${opening}" fill="${s.deur}"/><path d="${spleet}" fill="${s.licht}"/>`,
-    een ? '' : `<path d="${blad}" fill="${s.deur}"/>`
-  ].join('');
+// ---------- beeldmerk: gelaagd hemels licht (vanaf ± 48 px) ----------
+export function beeldmerkInhoud({ donker = true, sterkte = 1, kerst = false } = {}) {
+  const id = `rp${++uid}`;
+  const god = donker ? K.godLicht : K.god, mens = donker ? K.mensLicht : K.mens;
+  const gloedKleur = donker ? K.goud : K.amber;
+  const defs = `<defs><radialGradient id="${id}g"><stop offset="0" stop-color="${K.wit}"/><stop offset=".18" stop-color="${K.licht}" stop-opacity=".95"/><stop offset=".45" stop-color="${gloedKleur}" stop-opacity="${donker ? 0.55 : 0.33}"/><stop offset="1" stop-color="${gloedKleur}" stop-opacity="0"/></radialGradient><radialGradient id="${id}k"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="${K.wit}"/><stop offset="1" stop-color="${K.licht}"/></radialGradient></defs>`;
+  const gloed = `<circle cx="60" cy="60" r="${r2(58 * sterkte)}" fill="url(#${id}g)"/>`;
+  let bundels = '';
+  for (const [basis, f] of [[0, 1.08], [180, 0.92]]) {
+    [-26, -13, 0, 13, 26].forEach((d, i) => {
+      bundels += `<path d="${straal(60, 60, 6, 6 + [40, 52, 62, 52, 40][i] * sterkte * f, basis + d, [5, 6.5, 8, 6.5, 5][i])}" fill="${K.licht}" opacity="${[0.28, 0.4, 0.55, 0.4, 0.28][i]}"/>`;
+    });
+  }
+  let krans = '';
+  for (let i = 0; i < 72; i++) {
+    const deg = 5 * i + 2.5;
+    const open = Math.abs(Math.cos((deg * Math.PI) / 180));
+    const boven = Math.cos((deg * Math.PI) / 180) > 0 ? 1.08 : 0.94;
+    const lang = (10 + 30 * open + ruis(i) * 14) * sterkte * boven;
+    krans += `<path d="${straal(60, 60, 8, 8 + lang, deg, 0.7 + 0.9 * open)}" fill="${i % 3 ? K.licht : K.goud}" opacity="${r2(0.55 + 0.4 * open)}"/>`;
+  }
+  let hoofd = '';
+  for (const [basis, lens] of [[0, [62, 76, 62]], [180, [52, 62, 52]]]) {
+    [-9, 0, 9].forEach((d, i) => { hoofd += `<path d="${straal(60, 60, 8, 8 + lens[i] * sterkte, basis + d, 1.6)}" fill="${K.wit}" opacity=".9"/>`; });
+  }
+  const kern = `<circle cx="60" cy="60" r="${r2(11 * Math.sqrt(sterkte))}" fill="${K.licht}" opacity=".55"/><circle cx="60" cy="60" r="6.5" fill="url(#${id}k)"/>`;
+  const sterretjes = !kerst ? '' : [[22, 24, 1.6], [96, 20, 1.2], [104, 92, 1.5], [18, 96, 1.1], [60, 6, 1.3], [60, 114, 1.0]]
+    .map(([x, y, s]) => `<path transform="translate(${x} ${y}) scale(${s})" fill="${K.wit}" opacity=".9" d="M0 -3.2C.4 -1 1 -.4 3.2 0C1 .4 .4 1 0 3.2C-.4 1 -1 .4 -3.2 0C-1 -.4 -.4 -1 0 -3.2Z"/>`).join('');
+  return `${defs}${gloed}${bundels}${krans}${hoofd}${armen({ god, mens })}${kern}${sterretjes}`;
+}
+export const VIEWBOX = '-8 -20 136 156';
+const omhulsel = (vb, inhoud, { klasse = '', titel = 'Kom naar de kerk.' } = {}) =>
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb}"${klasse ? ` class="${klasse}"` : ''} ${titel ? `role="img" aria-label="${titel}"` : 'aria-hidden="true" focusable="false"'}>${inhoud}</svg>`;
+export const beeldmerkSvg = (o = {}) => omhulsel(VIEWBOX, beeldmerkInhoud(o), o);
+
+// ---------- vlak (16–48 px): geen verlopen, acht stralen, duidelijke kern ----------
+export function vlakInhoud({ donker = true } = {}) {
+  const god = donker ? K.godLicht : K.god, mens = donker ? K.mensLicht : K.mens;
+  let s = '';
+  for (const [basis, f] of [[0, 1.1], [180, 0.9]]) for (const d of [-22, 0, 22]) s += `<path d="${straal(60, 60, 9, 9 + (d ? 26 : 38) * f, basis + d, d ? 3.2 : 4)}" fill="${donker ? K.licht : K.goudDiep}"/>`;
+  return `<circle cx="60" cy="60" r="22" fill="${donker ? K.goud : K.licht}" opacity="${donker ? 0.35 : 0.6}"/>${s}${armen({ god, mens, kier: 20, w0: 14, w1: 10 })}<circle cx="60" cy="60" r="7" fill="${donker ? K.wit : K.goudDiep}"/>`;
+}
+export const vlakSvg = (o = {}) => omhulsel('0 0 120 120', vlakInhoud(o), o);
+
+// ---------- één kleur ----------
+export function monoInhoud({ kleur = K.nacht } = {}) {
+  let s = '';
+  for (const [basis, f] of [[0, 1.1], [180, 0.9]]) for (const d of [-32, -16, 0, 16, 32]) {
+    const midden = d === 0, buiten = Math.abs(d) === 32;
+    s += `<path d="${straal(60, 60, 11, 11 + (midden ? 40 : buiten ? 22 : 30) * f, basis + d, midden ? 5 : buiten ? 3.4 : 4.2)}" fill="${kleur}"/>`;
+  }
+  return `${s}${armen({ god: kleur, mens: kleur, kier: 22, w0: 14, w1: 10 })}<circle cx="60" cy="60" r="6.5" fill="${kleur}"/>`;
+}
+export const monoSvg = (o = {}) => omhulsel('0 0 120 120', monoInhoud(o), o);
+
+// app-icoon / favicon: warm donker vierkant met de vlakke versie
+export function icoonSvg({ rond = 26, achtergrond = K.nacht } = {}) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Kom naar de kerk."><rect width="120" height="120" rx="${rond}" fill="${achtergrond}"/><g transform="translate(6 6) scale(0.9)">${vlakInhoud({ donker: true })}</g></svg>`;
 }
 
-export function merkB(s = SCHEMA.kleur) {
-  const een = s.licht === 'none';
-  return [
-    een ? '' : `<path d="M36 104 H64 L80 120 H20 Z" fill="${s.vloer}"/>`,
-    een ? '' : `<path d="${boog(50, 40, 28, 100)} Z" fill="${s.licht}"/>`,
-    `<path d="${boog(50, 40, 28, 100)}" fill="none" stroke="${s.kozijn}" stroke-width="5"/>`,
-    `<path d="${boog(50, 26, 50, 100)}" fill="none" stroke="${s.kozijn}" stroke-width="5"/>`,
-    `<path d="${boog(50, 12, 72, 100)}" fill="none" stroke="${s.kozijn}" stroke-width="5"/>`,
-    `<path d="M10 102.5 H90" stroke="${s.kozijn}" stroke-width="5" stroke-linecap="round"/>`
-  ].join('');
+// ---------- woordmerk (Newsreader); de punt is een gouden lichtpunt ----------
+const NR = JSON.parse(readFileSync(new URL('../../merk/bron/woordmerk-newsreader.json', import.meta.url), 'utf8'));
+function woord(tekst, kleur, punt) {
+  const w = NR[tekst];
+  const p = punt ? `<circle cx="${r2(w.breedte + 150)}" cy="-95" r="88" fill="${punt}"/>` : '';
+  return { svg: `<path fill="${kleur}" d="${w.d}"/>${p}`, breedte: w.breedte + (punt ? 300 : 0) };
 }
-
-// De 'punt-deur': klein boogje (breedte 1, hoogte 1.45) — gebruikt als punt achter 'kerk.' en als minimaal merk.
-export function puntDeur(x, y, b, kleur) {
-  const r = b / 2;
-  const h = b * 1.55;
-  return `<path d="M${x} ${y} V${y - h + r} A${r} ${r} 0 0 1 ${x + b} ${y - h + r} V${y} Z" fill="${kleur}"/>`;
+const KAP = 1340;
+export function woordmerkSvg({ donker = false, klasse = '' } = {}) {
+  const t = woord('Kom naar de kerk', donker ? K.ivoor : K.nacht, donker ? K.goud : K.goudDiep);
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 ${-KAP * 1.08} ${Math.ceil(t.breedte + 40)} ${Math.ceil(KAP * 1.5)}"${klasse ? ` class="${klasse}"` : ''} role="img" aria-label="Kom naar de kerk."><title>Kom naar de kerk.</title>${t.svg}</svg>`;
 }
-
-export function merkC(s = SCHEMA.kleur) {
-  // Monogram 'K.' — de K uit het woordmerk met de punt-deur, op een rustig vlak.
-  const k = W500['K'];
-  const sc = 0.034; // letter-eenheden → kader
-  const vlak = s.kozijn === '#fff' || s.kozijn === KLEUREN.papier ? KLEUREN.inkt : KLEUREN.papier;
-  const letter = s.licht === 'none' ? s.kozijn : (vlak === KLEUREN.papier ? KLEUREN.inkt : KLEUREN.papier);
-  return [
-    s.licht === 'none' ? '' : `<rect x="0" y="10" width="100" height="100" rx="22" fill="${vlak}"/>`,
-    `<g transform="translate(17 83) scale(${sc})"><path d="${k.d}" fill="${letter}"/>${puntDeur(1600, 0, 330, s.licht === 'none' ? s.kozijn : s.punt)}</g>`
-  ].join('');
+// Liggend logo. vlak=true: de vlakke versie (voor klein gebruik, zoals de kop van de site).
+export function horizontaalSvg({ donker = false, vlak = false, mono = null, klasse = '' } = {}) {
+  const inkt = mono || (donker ? K.ivoor : K.nacht), punt = mono || (donker ? K.goud : K.goudDiep);
+  const t = woord('Kom naar de kerk', inkt, punt);
+  const mh = KAP * 2.1, s = mh / 156, x = 136 * s + KAP * 0.1;
+  const breedte = x + t.breedte + 40, top = -KAP * 1.46;
+  const merk = mono ? `<g transform="translate(${8 * s} ${top + 18 * s}) scale(${s})">${monoInhoud({ kleur: mono })}</g>`
+    : vlak ? `<g transform="translate(${8 * s} ${top + 18 * s}) scale(${s})">${vlakInhoud({ donker })}</g>`
+      : `<g transform="translate(${8 * s} ${top + 18 * s}) scale(${s})"><g transform="translate(8 20)">${beeldmerkInhoud({ donker })}</g></g>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 ${Math.round(top)} ${Math.ceil(breedte)} ${Math.ceil(mh)}"${klasse ? ` class="${klasse}"` : ''} role="img" aria-label="Kom naar de kerk."><title>Kom naar de kerk.</title>${merk}<g transform="translate(${r2(x)} 0)">${t.svg}</g></svg>`;
 }
-
-const MERKEN = { A: merkA, B: merkB, C: merkC };
-
-// ---------- woordmerk ----------
-// 'Kom naar de kerk' in paden + eigen punt (gewone punt of punt-deur).
-function woord(tekst, gewicht = 500) {
-  const bron = gewicht === 400 ? W400 : W500;
-  return bron[tekst];
-}
-
-export function woordmerk({ s = SCHEMA.kleur, punt = 'deur', regels = 1, gewicht = 500 } = {}) {
-  // Geeft { svg-inhoud, breedte, hoogte } in eenheden van de letter (upm 2000), basislijn regel 1 op y=asc.
-  const asc = 1500;
-  const regelafstand = 2150;
-  const delen = regels === 1 ? ['Kom naar de kerk'] : ['Kom naar', 'de kerk'];
-  let inhoud = '';
-  let breedte = 0;
-  delen.forEach((t, i) => {
-    const w = woord(t, gewicht);
-    const y = asc + i * regelafstand;
-    inhoud += `<path transform="translate(0 ${y})" d="${w.d}" fill="${s.tekst}"/>`;
-    let eind = w.breedte;
-    if (i === delen.length - 1) {
-      // punt na 'kerk'
-      if (punt === 'deur') {
-        inhoud += puntDeur(eind + 60, y, 300, s.punt);
-        eind += 60 + 300;
-      } else if (punt === 'gewoon') {
-        inhoud += `<circle cx="${eind + 150}" cy="${y - 110}" r="110" fill="${s.tekst}"/>`;
-        eind += 260;
-      }
-    }
-    breedte = Math.max(breedte, eind);
-  });
-  const hoogte = asc + (delen.length - 1) * regelafstand + 560;
-  return { inhoud, breedte, hoogte };
-}
-
-// ---------- samengestelde logo's ----------
-function svg(vb, inhoud, titel) {
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb}" role="img" aria-label="${titel}"><title>${titel}</title>${inhoud}</svg>`;
-}
-
-const TITEL = 'Kom naar de kerk.';
-
-export function beeldmerkSvg(concept = 'A', schema = 'kleur') {
-  return svg('0 0 100 120', MERKEN[concept](SCHEMA[schema]), TITEL);
-}
-
-export function woordmerkSvg({ schema = 'kleur', punt = 'deur', regels = 1, gewicht = 500 } = {}) {
-  const w = woordmerk({ s: SCHEMA[schema], punt, regels, gewicht });
-  return svg(`0 0 ${Math.ceil(w.breedte)} ${w.hoogte}`, w.inhoud, TITEL);
-}
-
-// Horizontaal: beeldmerk links, woordmerk rechts (beeldmerkhoogte ≈ 1,9 × kaphoogte).
-export function horizontaalSvg({ concept = 'A', schema = 'kleur', punt = 'deur', gewicht = 500 } = {}) {
-  const s = SCHEMA[schema];
-  const w = woordmerk({ s, punt, gewicht });
-  const mh = 2400; // merkhoogte in letter-eenheden
-  const schaal = mh / 120;
-  const mb = 100 * schaal;
-  const gat = 520;
-  const y0 = -120; // merk iets boven de kapregel
-  const merk = `<g transform="translate(0 ${y0}) scale(${schaal})">${MERKEN[concept](s)}</g>`;
-  const tekst = `<g transform="translate(${mb + gat} ${(mh + y0 - w.hoogte) / 2 + 380})">${w.inhoud}</g>`;
-  return svg(`0 ${y0} ${Math.ceil(mb + gat + w.breedte)} ${mh}`, merk + tekst, TITEL);
-}
-
-// Compact/staand: beeldmerk boven, woordmerk in twee regels eronder, gecentreerd.
-export function staandSvg({ concept = 'A', schema = 'kleur', punt = 'deur' } = {}) {
-  const s = SCHEMA[schema];
-  const w = woordmerk({ s, punt, regels: 2 });
-  const mh = 3600;
-  const schaal = mh / 120;
-  const mb = 100 * schaal;
-  const breedte = Math.max(w.breedte, mb);
-  const merk = `<g transform="translate(${(breedte - mb) / 2} 0) scale(${schaal})">${MERKEN[concept](s)}</g>`;
-  const tekst = `<g transform="translate(${(breedte - w.breedte) / 2} ${mh + 300})">${w.inhoud}</g>`;
-  return svg(`0 0 ${Math.ceil(breedte)} ${mh + 300 + w.hoogte}`, merk + tekst, TITEL);
-}
-
-// App-icoon / favicon: beeldmerk op een vlak met ruime marge.
-export function icoonSvg({ concept = 'A', achtergrond = KLEUREN.papier, schema = 'kleur', rond = 22 } = {}) {
-  if (concept === 'C') return svg('0 0 100 120', merkC(SCHEMA[schema]), TITEL).replace('viewBox="0 0 100 120"', 'viewBox="-10 0 120 120"');
-  return svg(
-    '0 0 120 120',
-    `<rect width="120" height="120" rx="${rond}" fill="${achtergrond}"/><g transform="translate(17 6) scale(0.86)">${MERKEN[concept](SCHEMA[schema])}</g>`,
-    TITEL
-  );
-}
-
-// Voor in de HTML-kop van de site (beeldmerk A, compact, decoratief).
-export function kopMerk(klasse = 'beeldmerk') {
-  return `<svg class="${klasse}" viewBox="0 0 100 120" aria-hidden="true" focusable="false">${merkA(SCHEMA.kleur).replace(/fill="#1E2721"/g, 'fill="currentColor"').replace(/stroke="#1E2721"/g, 'stroke="currentColor"')}</svg>`;
+export function staandSvg({ donker = false, mono = null, klasse = '' } = {}) {
+  const inkt = mono || (donker ? K.ivoor : K.nacht), punt = mono || (donker ? K.goud : K.goudDiep);
+  const a = woord('Kom naar', inkt, null), b = woord('de kerk', inkt, punt);
+  const lh = KAP * 1.3, mh = KAP * 3.4, s = mh / 156;
+  const breedte = Math.max(a.breedte, b.breedte, 136 * s);
+  const y1 = mh + KAP * 1.35;
+  const merk = mono ? `<g transform="translate(${r2((breedte - 120 * s) / 2)} ${28 * s}) scale(${s})">${monoInhoud({ kleur: mono })}</g>`
+    : `<g transform="translate(${r2((breedte - 136 * s) / 2 + 8 * s)} ${20 * s}) scale(${s})">${beeldmerkInhoud({ donker })}</g>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${Math.ceil(breedte)} ${Math.ceil(y1 + lh + KAP * 0.85)}"${klasse ? ` class="${klasse}"` : ''} role="img" aria-label="Kom naar de kerk."><title>Kom naar de kerk.</title>${merk}<g transform="translate(${r2((breedte - a.breedte) / 2)} ${y1})">${a.svg}</g><g transform="translate(${r2((breedte - b.breedte) / 2)} ${y1 + lh})">${b.svg}</g></svg>`;
 }

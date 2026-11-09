@@ -75,7 +75,7 @@ function dagenOud(iso, nu = new Date()) {
   return Math.floor((nu - new Date(iso + 'T12:00:00Z')) / 86400000);
 }
 
-function controleerInhoud({ site, kerken, gevoelens, vragen, initiatieven, fotos, geloofsbasis }, fouten) {
+function controleerInhoud({ site, kerken, woorden, vragen, initiatieven, fotos, geloofsbasis }, fouten) {
   if (!['concept', 'productie'].includes(site.modus)) fouten.push(`site.modus moet 'concept' of 'productie' zijn, niet '${site.modus}'`);
   if (!['uit', 'voorbeeld', 'aan'].includes(site.contact?.status)) fouten.push('site.contact.status moet uit, voorbeeld of aan zijn');
   const ids = new Set();
@@ -111,7 +111,12 @@ function controleerInhoud({ site, kerken, gevoelens, vragen, initiatieven, fotos
     for (const veld of ['src', 'alt', 'credit', 'licentie', 'bron', 'w', 'h']) if (!f[veld]) fouten.push(`foto '${sleutel}': ${veld} ontbreekt`);
   }
   if (!geloofsbasis.artikelen?.length) fouten.push('geloofsbasis zonder artikelen');
-  if (gevoelens.keuzes.length !== 6) fouten.push(`er horen 6 keuzes in gevoelens.json te staan (nu ${gevoelens.keuzes.length})`);
+  if (!(woorden.woorden?.length >= 6)) fouten.push('woorden.json: minstens zes woorden');
+  for (const w of woorden.woorden || []) {
+    for (const veld of ['id', 'woord', 'herkenning', 'hoop', 'bijbel', 'code', 'kerk']) if (!w[veld]) fouten.push(`woord '${w.id || '?'}': ${veld} ontbreekt`);
+    if (w.bijbel && !/^vrij naar /.test(w.bijbel)) fouten.push(`woord '${w.id}': Bijbeltekst moet 'vrij naar …' zijn zolang het NBG geen toestemming gaf (V-003)`);
+  }
+  if (!woorden.woorden.some((w) => w.wissel)) fouten.push('woorden.json: geen woorden gemarkeerd voor de wisseling (wissel: true)');
   for (const v of vragen.vragen) if (!v.vraag || !v.antwoord?.length) fouten.push(`vraag zonder tekst of antwoord: ${v.vraag}`);
 }
 
@@ -213,7 +218,7 @@ async function bouw() {
   const ruw = {
     site: await json('site.json'),
     kerken: await json('kerken.json'),
-    gevoelens: await json('gevoelens.json'),
+    woorden: await json('woorden.json'),
     vragen: await json('vragen.json'),
     initiatieven: await json('initiatieven.json'),
     fotos: await json('fotos.json'),

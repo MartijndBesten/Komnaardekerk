@@ -102,6 +102,8 @@ for (const pad of PAGINAS) {
     const { ctx, page } = await nieuwePagina({ viewport: { width: 1440, height: 900 } });
     const resp = await page.goto(BASIS + pad, { waitUntil: 'networkidle' });
     eis(resp.status() === 200, `status ${resp.status()}`);
+    // wisselende woorden stilzetten, anders scant axe midden in een overgang (woord tijdelijk doorzichtig)
+    if (await page.locator('[data-pauze]').count()) { await page.locator('[data-pauze]').click(); await page.waitForTimeout(800); }
     eis((await page.locator('h1').count()) === 1, 'niet precies één h1');
     const csp = resp.headers()['content-security-policy'] || '';
     eis(csp.includes("script-src 'self'"), 'CSP-header ontbreekt');
@@ -155,7 +157,7 @@ await scenario('Eerste indruk (5 seconden): kop, uitleg en twee acties direct zi
   await page.waitForTimeout(1500);
   const h1 = page.getByRole('heading', { level: 1 });
   eis((await h1.textContent()).includes('Er is plek voor jou'), 'hoofdtitel');
-  for (const naam of ['Ontdek de kerken', 'Wat kan ik verwachten?']) {
+  for (const naam of ['Vind een kerk', 'Wat houdt je bezig?']) {
     const knop = page.getByRole('link', { name: naam });
     const box = await knop.boundingBox();
     eis(box && box.y + box.height <= 844 + 20, `'${naam}' niet in beeld zonder scrollen (y=${box?.y})`);
@@ -165,13 +167,15 @@ await scenario('Eerste indruk (5 seconden): kop, uitleg en twee acties direct zi
   await ctx.close();
 });
 
-await scenario('Moeder die uitgeput is (mobiel): kiest "Ik ben moe", leest, wisselt naar "alleen", gaat naar ‘Samen naar de kerk’', async () => {
+await scenario('Moeder die uitgeput is (mobiel): kiest "Moe?", leest, wisselt naar "Alleen?", gaat naar ‘Samen naar de kerk’', async () => {
   const { ctx, page } = await nieuwePagina({ ...devices['Pixel 7'] });
   await page.goto(BASIS + '/', { waitUntil: 'networkidle' });
   const moe = page.locator('#gevoel-moe');
   await moe.locator('summary').click();
   eis(await moe.evaluate((d) => d.open), 'moe niet open');
-  eis(await moe.getByText('Een kerkdienst is een uur waarin niemand iets van je vraagt.').isVisible(), 'tekst niet zichtbaar');
+  eis(await moe.getByText('In de kerk hoef je niets te doen. Je mag gewoon zitten en luisteren.').isVisible(), 'tekst niet zichtbaar');
+  eis((await moe.getByRole('link', { name: 'Ontdek Jezus' }).count()) === 1, 'vervolgstap Ontdek Jezus ontbreekt');
+  eis((await moe.locator('a[href^="https://www.debijbel.nl/"]').count()) === 1, 'Bijbelverwijzing ontbreekt');
   const alleen = page.locator('#gevoel-alleen');
   await alleen.locator('summary').click();
   eis(await alleen.evaluate((d) => d.open), 'alleen niet open');
@@ -181,6 +185,28 @@ await scenario('Moeder die uitgeput is (mobiel): kiest "Ik ben moe", leest, wiss
   await page.waitForURL(/\/samen-naar-de-kerk\/$/);
   eis(await page.getByRole('heading', { name: 'Zo bereid je je voor' }).isVisible(), 'kop voorbereiden niet zichtbaar');
   eis(page._fouten.length === 0, page._fouten.join('\n'));
+  await ctx.close();
+});
+
+
+await scenario('Wisselende woorden: één tegelijk, stil bij focus, pauze en ‘ander woord’, klik opent de keuze', async () => {
+  const { ctx, page } = await nieuwePagina({ viewport: { width: 1280, height: 900 } });
+  await page.goto(BASIS + '/', { waitUntil: 'networkidle' });
+  const a = await page.locator('.wissel').textContent();
+  await page.waitForTimeout(5400);
+  eis(a !== (await page.locator('.wissel').textContent()), 'woord wisselt niet vanzelf');
+  await page.locator('.wissel').focus();
+  const b = await page.locator('.wissel').textContent();
+  await page.waitForTimeout(5000);
+  eis(b === (await page.locator('.wissel').textContent()), 'woord wisselt terwijl het focus heeft');
+  await page.locator('[data-pauze]').click();
+  eis((await page.locator('[data-pauze]').getAttribute('aria-pressed')) === 'true', 'pauze niet aria-pressed');
+  await page.locator('[data-ander]').click();
+  await page.waitForTimeout(800);
+  const id = await page.locator('.wissel').getAttribute('data-woord');
+  eis((await page.locator('.wissel').getAttribute('href')) === `#gevoel-${id}`, 'link volgt het woord niet');
+  await page.locator('.wissel').click();
+  eis(await page.locator(`#gevoel-${id}`).evaluate((d) => d.open), 'klik op het woord opent de keuze niet');
   await ctx.close();
 });
 
@@ -202,13 +228,13 @@ await scenario('Toetsenbord: overslaanlink, focus zichtbaar, keuzes met Enter en
   eis(await page.getByRole('link', { name: 'Naar de inhoud' }).isVisible(), 'overslaanlink niet zichtbaar bij focus');
   await page.keyboard.press('Enter');
   eis(await page.evaluate(() => document.activeElement.id === 'inhoud' || location.hash === '#inhoud'), 'focus niet naar inhoud');
-  await page.locator('#gevoel-rust summary').focus();
+  await page.locator('#gevoel-zoekend summary').focus();
   const outline = await page.evaluate(() => getComputedStyle(document.activeElement).outlineStyle);
   eis(outline !== 'none', 'geen zichtbare focus');
   await page.keyboard.press('Enter');
-  eis(await page.locator('#gevoel-rust').evaluate((d) => d.open), 'Enter opent keuze niet');
+  eis(await page.locator('#gevoel-zoekend').evaluate((d) => d.open), 'Enter opent keuze niet');
   await page.keyboard.press('Space');
-  eis(!(await page.locator('#gevoel-rust').evaluate((d) => d.open)), 'spatie sluit keuze niet');
+  eis(!(await page.locator('#gevoel-zoekend').evaluate((d) => d.open)), 'spatie sluit keuze niet');
   await ctx.close();
 });
 
@@ -426,18 +452,21 @@ await scenario('Zonder JavaScript: alle inhoud, menu en uitklappers bruikbaar', 
   await page.goto(BASIS + '/', { waitUntil: 'networkidle' });
   eis(await page.locator('#hoofdmenu').isVisible(), 'menu niet zichtbaar zonder JavaScript');
   eis(await page.locator('#hoofdmenu a[href="/kerken/"]').isVisible(), 'menu-links niet zichtbaar');
-  eis(await page.getByText('Je mag gewoon').isVisible(), 'onthul-inhoud verborgen zonder JS');
+  eis(await page.getByText('Je mag gewoon komen.').isVisible(), 'onthul-inhoud verborgen zonder JS');
   await page.locator('#gevoel-moe summary').click();
   eis(await page.locator('#gevoel-moe').evaluate((d) => d.open), 'details werkt niet');
   await ctx.close();
 });
 
-await scenario('Minder beweging: geen deuranimatie, foto en inhoud direct zichtbaar', async () => {
+await scenario('Minder beweging: woorden wisselen niet, merk en inhoud direct zichtbaar', async () => {
   const { ctx, page } = await nieuwePagina({ reducedMotion: 'reduce' });
   await page.goto(BASIS + '/', { waitUntil: 'networkidle' });
   await page.waitForTimeout(150);
-  eis(!(await page.locator('.held-deurblad').isVisible()), 'deurblad blijft voor de foto staan');
-  eis(await page.locator('.held-foto img').isVisible(), 'heldfoto niet zichtbaar');
+  const w1 = await page.locator('.wissel').textContent();
+  await page.waitForTimeout(5000);
+  eis(w1 === (await page.locator('.wissel').textContent()), 'woord wisselt ondanks minder beweging');
+  eis(!(await page.locator('[data-pauze]').isVisible()), 'pauzeknop overbodig bij minder beweging');
+  eis(await page.locator('.held-merk-svg').isVisible(), 'merk niet zichtbaar');
   const o = await page.locator('.niets-lijst li').first().evaluate((el) => getComputedStyle(el).opacity);
   eis(o === '1', `inhoud niet direct zichtbaar (opacity ${o})`);
   await ctx.close();

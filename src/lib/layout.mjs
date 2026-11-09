@@ -37,7 +37,7 @@ export function layout(ctx, pagina, inhoud) {
 <title>${esc(titel)}</title>
 <meta name="description" content="${esc(omschrijving)}">
 ${pagina.bestand === '404.html' ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${esc(canonical)}">`}
-<meta name="theme-color" content="#F5EFE4">
+<meta name="theme-color" content="#2A1B1E">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="nl_NL">
 <meta property="og:site_name" content="${esc(site.naam)}">
@@ -65,7 +65,7 @@ ${jsonld}
 <header class="kop">
   ${concept ? `<p class="conceptbalk"><strong>Concept</strong> · Nog geen officieel initiatief van de kerken. Kerken en activiteiten staan erop op basis van openbare informatie, ze zijn nog niet benaderd. <a href="/over-ons/#status">Meer over de status</a></p>` : ''}
   <div class="kop-binnen">
-    <a class="merk-link" href="/"><img class="kop-logo" src="/merk/logo/logo-horizontaal.svg" width="320" height="40" alt="${esc(site.naam)} Naar de startpagina"></a>
+    <a class="merk-link" href="/"><img class="kop-logo" src="/merk/logo/logo-horizontaal.svg" width="320" height="47" alt="${esc(site.naam)} Naar de startpagina"></a>
     <nav class="hoofdnav" aria-label="Hoofdmenu">
       <button class="menuknop" type="button" aria-expanded="false" aria-controls="hoofdmenu"><span class="menuknop-tekst">Menu</span><span class="menuknop-streepjes" aria-hidden="true"></span></button>
       <ul id="hoofdmenu" class="hoofdmenu">${navLinks(pad, 'hoofdmenu-link')}</ul>
@@ -78,7 +78,7 @@ ${render(inhoud)}
 <footer class="voet">
   <div class="voet-binnen">
     <div class="voet-merk">
-      <img class="voet-logo" src="/merk/logo/logo-staand-donker.svg" width="150" height="117" alt="${esc(site.naam)}">
+      <img class="voet-logo" src="/merk/logo/logo-staand-donker.svg" width="150" height="153" alt="${esc(site.naam)}">
       <p class="voet-zin">Een uitnodiging om Jezus Christus en de christelijke gemeente te leren kennen, in ${esc(site.regio)}.</p>
       <p class="voet-klein">Geen cookies. Geen tracking. Je hoeft je nergens voor aan te melden.</p>
     </div>

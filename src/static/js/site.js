@@ -32,6 +32,65 @@
     });
   }
 
+  /* ---------- wisselende woorden in de held ---------- */
+  var w = document.querySelector('.wissel');
+  if (w) {
+    var rustig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var lijst = JSON.parse(w.getAttribute('data-woorden') || '[]');
+    var regel = w.parentNode;
+    var knoppen = document.querySelector('.wissel-knoppen');
+    var pauze = document.querySelector('[data-pauze]');
+    var ander = document.querySelector('[data-ander]');
+    var i = 0;
+    var timer = null;
+    var vast = rustig;
+    var binnen = false;
+    var toon = function (n) {
+      i = (n + lijst.length) % lijst.length;
+      var zet = function () {
+        w.textContent = lijst[i].w;
+        w.setAttribute('href', '#gevoel-' + lijst[i].id);
+        w.setAttribute('data-woord', lijst[i].id);
+        regel.style.setProperty('--len', String(lijst[i].w.length));
+        w.classList.remove('weg');
+      };
+      if (rustig) {
+        zet();
+        return;
+      }
+      w.classList.add('weg');
+      setTimeout(zet, 700);
+    };
+    var plan = function () {
+      clearInterval(timer);
+      timer = null;
+      if (!vast && !binnen) timer = setInterval(function () { toon(i + 1); }, 4500);
+    };
+    regel.style.setProperty('--len', String(lijst[0] ? lijst[0].w.length : 4));
+    if (knoppen) knoppen.hidden = false;
+    if (rustig && pauze) pauze.hidden = true;
+    if (ander) ander.addEventListener('click', function () { toon(i + 1); });
+    if (pauze) {
+      pauze.addEventListener('click', function () {
+        vast = !vast;
+        pauze.setAttribute('aria-pressed', vast ? 'true' : 'false');
+        pauze.textContent = vast ? 'Verder' : 'Pauze';
+        plan();
+      });
+    }
+    var blok = w.closest('.wissel-blok') || regel;
+    blok.addEventListener('mouseenter', function () { binnen = true; plan(); });
+    blok.addEventListener('mouseleave', function () { binnen = false; plan(); });
+    blok.addEventListener('focusin', function () { binnen = true; plan(); });
+    blok.addEventListener('focusout', function () { binnen = false; plan(); });
+    // het woord opent de bijbehorende keuze
+    w.addEventListener('click', function () {
+      var doel = document.getElementById('gevoel-' + w.getAttribute('data-woord'));
+      if (doel && doel.tagName === 'DETAILS') doel.open = true;
+    });
+    plan();
+  }
+
   /* ---------- onthullen bij scrollen ---------- */
   var onthul = alle('main > :not(.held) .onthul');
   if ('IntersectionObserver' in window) {
