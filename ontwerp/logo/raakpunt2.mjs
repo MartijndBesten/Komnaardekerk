@@ -29,7 +29,8 @@ function straal(cx, cy, r0, r1, deg, w) {
 }
 
 // Het volle, hemelse licht. `sterkte` 1 = hero; op donker én licht.
-export function hemels({ donker = true, sterkte = 1 } = {}) {
+// `kerst: true` voegt losse sterretjes toe (alleen in de kersttijd); standaard uit.
+export function hemels({ donker = true, sterkte = 1, kerst = false } = {}) {
   const id = `h${++uid}`;
   const god = donker ? W.godLicht : W.god, mens = donker ? W.mensLicht : W.mens;
   const gloedKleur = donker ? W.goud : W.amber;
@@ -67,8 +68,8 @@ export function hemels({ donker = true, sterkte = 1 } = {}) {
   }
   // 5 kern
   const kern = `<circle cx="60" cy="60" r="${11 * Math.sqrt(sterkte)}" fill="${W.licht}" opacity=".55"/><circle cx="60" cy="60" r="${6.5}" fill="url(#${id}k)"/>`;
-  // sterretjes van licht, verspreid
-  const sterretjes = [[22, 24, 1.6], [96, 20, 1.2], [104, 92, 1.5], [18, 96, 1.1], [60, 8, 1.3], [60, 113, 1.0]]
+  // sterretjes van licht, verspreid: alleen met kerst
+  const sterretjes = !kerst ? '' : [[22, 24, 1.6], [96, 20, 1.2], [104, 92, 1.5], [18, 96, 1.1], [60, 8, 1.3], [60, 113, 1.0]]
     .map(([x, y, s]) => `<path transform="translate(${x} ${y}) scale(${s})" fill="${W.wit}" opacity=".9" d="M0 -3.2C.4 -1 1 -.4 3.2 0C1 .4 .4 1 0 3.2C-.4 1 -1 .4 -3.2 0C-1 -.4 -.4 -1 0 -3.2Z"/>`).join('');
   return `${defs}${gloed}${bundels}${krans}${hoofd}${armen({ god, mens })}${kern}${sterretjes}`;
 }
