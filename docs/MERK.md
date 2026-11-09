@@ -7,7 +7,7 @@ Het definitieve logo is **Het raakpunt** (9 november 2026). De volledige beschri
 - `src/lib/logo.mjs`: alle versies als SVG uit code (beeldmerk stralend, vlak, één kleur; logo liggend en staand; woordmerk; icoon).
 - `node scripts/merk.mjs` schrijft de bestanden naar `src/static/merk/` (SVG's, favicon-PNG's, app-icoon, deelbeeld voor sociale media).
 - `merk/bron/woordmerk-newsreader.json`: letterpaden van het woordmerk (Newsreader, OFL), gemaakt met `scripts/merk_paden.py`.
-- `/ontwerp/` (alleen in de conceptversie) toont alle versies, kleuren en regels.
+- `/ontwerp/` (alleen in de conceptversie) toont alleen het logo en de uitleg ervan; versies, kleuren en regels staan in [LOGO.md](LOGO.md).
 
 ## Geschiedenis (kort)
 
