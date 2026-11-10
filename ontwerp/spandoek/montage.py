@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Impressie: het spandoek in de lichtbak op de gevel, in een voorbeeldfoto (1600 x 888).
-Gebruik: python3 montage.py <foto.jpg> <uitmap>
+Gebruik: python3 montage.py <foto.jpg> <uitmap> [woord, standaard 'moe']
 De foto zelf blijft buiten git (herkomst en rechten onbekend); alleen dit script staat in de repo."""
 import sys
 from pathlib import Path
@@ -10,6 +10,7 @@ from PIL import Image, ImageFilter, ImageDraw, ImageFont
 HIER = Path(__file__).parent
 foto = Image.open(sys.argv[1]).convert('RGB')
 UIT = Path(sys.argv[2]); UIT.mkdir(parents=True, exist_ok=True)
+WOORD = sys.argv[3] if len(sys.argv) > 3 else 'moe'
 S = 4  # op 4x resolutie samenstellen, daarna terugschalen: scherpere randen
 # Hoekpunten van het bord in de foto (linksboven, rechtsboven, rechtsonder, linksonder), gemeten aan het
 # voorbeeldbord: de wand loopt schuin weg, dus het bord is in beeld geen rechte rechthoek.
@@ -43,7 +44,7 @@ def montage(doekpad):
 
 uit = {}
 for v in ('donker', 'licht'):
-    beeld = montage(HIER / f'spandoek-moe-{v}.png')
+    beeld = montage(HIER / f'spandoek-{WOORD}-{v}.png')
     beeld.save(UIT / f'gevel-{v}.jpg', quality=90)
     uit[v] = beeld
     print('✓', UIT / f'gevel-{v}.jpg')

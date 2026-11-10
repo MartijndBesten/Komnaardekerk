@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 // Spandoek voor de lichtbak op de gevel (verhouding 5,6:1, zoals het bord in de voorbeeldfoto), in de huisstijl van Het raakpunt.
 // Leesvolgorde voor wie langsrijdt: vraag → licht → uitnodiging.
-//   node ontwerp/spandoek/spandoek.mjs [woord]   → ontwerp/spandoek/spandoek-<woord>-{donker,licht}.png
+//   node ontwerp/spandoek/spandoek.mjs [woord] [adres]   → ontwerp/spandoek/spandoek-<woord>-{donker,licht}.png
+// Korte woorden (zoals 'Moe?') staan naast het adres; lange (zoals 'Vermoeid?!') erboven, met het beeldmerk rechts.
+//   node ontwerp/spandoek/spandoek.mjs 'Vermoeid?!' 'KOMNAARDEKERK.NU'
 import { writeFileSync, rmSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -16,6 +18,10 @@ try { pw = require(process.env.PLAYWRIGHT_MODULE || 'playwright'); } catch { pw 
 
 const WOORD = process.argv[2] || 'Moe?';
 const naam = WOORD.toLowerCase().replace(/[^a-z]/g, '');
+const ADRES = process.argv[3] || 'komnaardekerk.nu';
+const punt = ADRES.lastIndexOf('.');
+const adresHtml = `${ADRES.slice(0, punt)}<b>${ADRES.slice(punt)}</b>`;
+const GESTAPELD = WOORD.replace(/[^A-Za-z]/g, '').length > 5;
 const B = 3360, H = 600;
 const f = (n) => pathToFileURL(path.join(FONTS, n)).href;
 
@@ -34,7 +40,12 @@ const pagina = (v) => `<!doctype html><html lang="nl"><head><meta charset="utf-8
 .m::before{content:'';position:absolute;inset:-20%;background:radial-gradient(closest-side,${v.gloed},transparent)}
 .m svg{position:relative;width:100%;height:100%;display:block;overflow:visible}
 .u{font:700 182px/1 A;letter-spacing:-.01em;color:${v.url};white-space:nowrap}.u b{color:${v.nu};font-weight:700}
-</style></head><body><div class="d"><p class="w">${WOORD}</p><div class="m">${v.merk}</div><p class="u">komnaardekerk<b>.nu</b></p></div></body></html>`;
+${GESTAPELD ? `.d{padding:0 230px 0 120px}.t{display:flex;flex-direction:column;justify-content:center;gap:22px}
+.w{font-size:336px;transform:translateY(-6px);line-height:.92}.u{font-size:${ADRES === ADRES.toUpperCase() ? 158 : 180}px;letter-spacing:${ADRES === ADRES.toUpperCase() ? '.035em' : '-.01em'}}
+.m{width:480px;height:550px}.m::before{inset:-30% -75%;background:radial-gradient(closest-side,${v.gloed},transparent)}` : ''}
+</style></head><body><div class="d">${GESTAPELD
+  ? `<div class="t"><p class="w">${WOORD}</p><p class="u">${adresHtml}</p></div><div class="m">${v.merk}</div>`
+  : `<p class="w">${WOORD}</p><div class="m">${v.merk}</div><p class="u">${adresHtml}</p>`}</div></body></html>`;
 
 const TMP = path.join(HIER, '.tmp.html');
 const browser = await pw.chromium.launch();
