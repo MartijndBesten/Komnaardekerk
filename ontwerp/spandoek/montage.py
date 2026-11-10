@@ -4,25 +4,40 @@ Gebruik: python3 montage.py <foto.jpg> <uitmap>
 De foto zelf blijft buiten git (herkomst en rechten onbekend); alleen dit script staat in de repo."""
 import sys
 from pathlib import Path
+import numpy as np
 from PIL import Image, ImageFilter, ImageDraw, ImageFont
 
 HIER = Path(__file__).parent
 foto = Image.open(sys.argv[1]).convert('RGB')
 UIT = Path(sys.argv[2]); UIT.mkdir(parents=True, exist_ok=True)
 S = 4  # op 4x resolutie samenstellen, daarna terugschalen: scherpere randen
-X0, Y0, X1, Y1 = 494, 292, 662, 328  # buitenkant van de lichtbak in de foto
+# Hoekpunten van het bord in de foto (linksboven, rechtsboven, rechtsonder, linksonder), gemeten aan het
+# voorbeeldbord: de wand loopt schuin weg, dus het bord is in beeld geen rechte rechthoek.
+HOEKEN = [(494.5, 298.5), (661.5, 292.5), (661.5, 326.2), (494.5, 329.6)]
+
+def coeff(doel, bron):
+    """Coëfficiënten voor Image.transform(PERSPECTIVE): doel (in de foto) -> bron (in het doek)."""
+    A, B = [], []
+    for (x, y), (u, v) in zip(doel, bron):
+        A.append([x, y, 1, 0, 0, 0, -u * x, -u * y]); B.append(u)
+        A.append([0, 0, 0, x, y, 1, -v * x, -v * y]); B.append(v)
+    return np.linalg.solve(np.array(A, float), np.array(B, float)).tolist()
 
 def montage(doekpad):
     groot = foto.resize((foto.width * S, foto.height * S), Image.LANCZOS)
-    b, h = (X1 - X0) * S, (Y1 - Y0) * S
-    rand = 3 * S // 2
-    lijst = Image.new('RGB', (b, h), (62, 60, 58))
-    doek = Image.open(doekpad).convert('RGB').resize((b - 2 * rand, h - 2 * rand), Image.LANCZOS)
-    lijst.paste(doek, (rand, rand))
-    groot.paste(lijst, (X0 * S, Y0 * S))
+    doek = Image.open(doekpad).convert('RGB')
+    rand = round(doek.height * 0.045)  # smalle lijst van de lichtbak
+    bord = Image.new('RGB', (doek.width + 2 * rand, doek.height + 2 * rand), (62, 60, 58))
+    bord.paste(doek, (rand, rand))
+    doel = [(x * S, y * S) for x, y in HOEKEN]
+    bron = [(0, 0), (bord.width, 0), (bord.width, bord.height), (0, bord.height)]
+    c = coeff(doel, bron)
+    laag = bord.transform(groot.size, Image.PERSPECTIVE, c, Image.BICUBIC)
+    masker = Image.new('L', bord.size, 255).transform(groot.size, Image.PERSPECTIVE, c, Image.BICUBIC)
+    groot.paste(laag, (0, 0), masker)
     beeld = groot.resize(foto.size, Image.LANCZOS)
     # zachtheid van de foto overnemen
-    vlak = (X0 - 2, Y0 - 2, X1 + 2, Y1 + 2)
+    vlak = (490, 288, 666, 334)
     beeld.paste(beeld.crop(vlak).filter(ImageFilter.GaussianBlur(0.35)), vlak[:2])
     return beeld
 
