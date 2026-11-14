@@ -90,7 +90,14 @@ function controleerInhoud({ site, kerken, woorden, vragen, initiatieven, fotos, 
     for (const d of k.diensten || []) {
       if (!DAGEN.has(d.dag)) fouten.push(`${w}: onbekende dag '${d.dag}'`);
       if (d.tijd && !/^([01]\d|2[0-3]):[0-5]\d$/.test(d.tijd)) fouten.push(`${w}: tijd '${d.tijd}' moet uu:mm zijn`);
+      if (!['regulier', 'wisselend', 'bijzonder'].includes(d.soort)) fouten.push(`${w}: dienst zonder soort (regulier, wisselend of bijzonder)`);
+      if (!d.naam) fouten.push(`${w}: dienst zonder naam`);
+      if (d.soort === 'regulier' && !d.tijd && !d.toelichting) fouten.push(`${w}: een reguliere dienst zonder tijd heeft een toelichting nodig`);
+      if ('omschrijving' in d || 'agenda' in d) fouten.push(`${w}: gebruik naam/toelichting/soort in plaats van omschrijving/agenda`);
     }
+    const dubbel = (k.diensten || []).map((d) => `${d.dag} ${d.tijd} ${d.soort}`).filter((x, i, a) => a.indexOf(x) !== i);
+    if (dubbel.length) fouten.push(`${w}: dubbele dienst (${dubbel[0]})`);
+    if (k.rooster && !/^https:\/\//.test(k.rooster.url || '')) fouten.push(`${w}: rooster.url moet met https:// beginnen`);
     if (k.website && !/^https:\/\//.test(k.website)) fouten.push(`${w}: website moet met https:// beginnen`);
     if (!STATUSSEN.has(k.deelname?.status)) fouten.push(`${w}: deelname.status moet kandidaat, belangstelling of deelnemer zijn`);
     if (k.deelname?.status !== 'deelnemer' && /\bpartner\b/i.test(JSON.stringify(k))) fouten.push(`${w}: 'partner' zonder deelname`);

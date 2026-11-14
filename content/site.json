@@ -12,14 +12,31 @@
     "emailInitiatief": null
   },
   "bijbel": {
-    "_uitleg": "Citeerregels NBG (https://www.bijbelgenootschap.nl/voorwaarden-citeren-bijbelvertalingen/, gelezen 8-11-2026): digitaal max. 100 verzen per week zonder toestemming bij niet-commercieel gebruik op beperkte schaal; tekst en spelling ongewijzigd; copyrightvermelding verplicht; op elke pagina met een citaat een verwijzing 'lees verder op debijbel.nl'. 'Missionair gebruik op uitgebreide schaal' vraagt vooraf toestemming (VRAGEN V-003). De exacte NBV21-tekst (hoofdletters Mij/Ik) is nog niet gecontroleerd: debijbel.nl blokkeerde automatische toegang. Zet 'gecontroleerd' pas op true na controle.",
-    "tekst": "Kom naar Mij, jullie die vermoeid zijn en onder lasten gebukt gaan, dan zal Ik jullie rust geven.",
-    "bron": "Matteüs 11:28",
-    "vertaling": "NBV21",
-    "rechten": "© Nederlands-Vlaams Bijbelgenootschap 2021",
+    "_uitleg": "Mattheüs 11:28 hoort vast op de homepage (besluit Martijn, 14-11-2026). Zolang de vertaling niet is gekozen en de rechten niet rond zijn (VRAGEN V-003) toont de site een eigen, duidelijk gemarkeerde weergave ('weergave': 'parafrase'). Zet 'weergave' op 'citaat' en vul 'citaat' met een van de gecontroleerde vertalingen hieronder zodra dat mag; zet 'gecontroleerd' dan op true. Letterlijke teksten nooit aanpassen.",
+    "weergave": "parafrase",
+    "parafrase": "Kom bij Mij, iedereen die moe is en zwaar te dragen heeft. Bij Mij vind je rust.",
+    "bron": "Mattheüs 11:28",
+    "verderLezen": "https://www.debijbel.nl/bijbel/NBV21/MAT.11",
+    "citaat": null,
     "gecontroleerd": false,
-    "bronvermelding": "NBV21 © Nederlands-Vlaams Bijbelgenootschap 2021",
-    "verderLezen": "https://www.debijbel.nl/bijbel/NBV21/MAT.11"
+    "vertalingen": {
+      "NBV21": {
+        "tekst": "Kom allen bij Mij, jullie die vermoeid zijn en onder lasten gebukt gaan, Ik zal jullie rust geven.",
+        "verwijzing": "Matteüs 11:28",
+        "rechten": "© 2021 Nederlands-Vlaams Bijbelgenootschap",
+        "bron": "https://www.debijbel.nl/bijbel/NBV21/MAT.11",
+        "gelezen": "2026-11-14",
+        "voorwaarden": "https://www.bijbelgenootschap.nl/voorwaarden-citeren-bijbelvertalingen/ (gelezen 14-11-2026): digitaal max. 100 nieuwe verzen per week bij niet-commercieel gebruik op beperkte schaal; tekst en spelling ongewijzigd; copyrightvermelding; op elke pagina met een citaat 'lees verder op debijbel.nl'. Missionair gebruik op uitgebreide schaal: vooraf toestemming van het NBG."
+      },
+      "HSV": {
+        "tekst": "Kom naar Mij toe, allen die vermoeid en belast zijn, en Ik zal u rust geven.",
+        "verwijzing": "Mattheüs 11:28",
+        "rechten": "© Stichting HSV en Royal Jongbloed 2010-2017",
+        "bron": "https://www.debijbel.nl/bijbel/HSV/MAT.11",
+        "gelezen": "2026-11-14",
+        "voorwaarden": "Niet gecontroleerd: herzienestatenvertaling.nl was vanuit de cloudsessie niet bereikbaar."
+      }
+    }
   },
   "hulplijnen": [
     {

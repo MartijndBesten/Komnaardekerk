@@ -1,6 +1,6 @@
 import { html, raw } from '../lib/html.mjs';
 import { faqLijst, kerkCompact, bijbeltekst, samenGaanTeaser } from '../lib/onderdelen.mjs';
-import { beeldmerkInhoud, VIEWBOX } from '../lib/logo.mjs';
+import { beeldmerkInhoud, vlakSvg, VIEWBOX } from '../lib/logo.mjs';
 
 export const pagina = {
   pad: '/',
@@ -84,6 +84,13 @@ export function inhoud(ctx) {
   </div>
 </section>
 
+<section class="uitnodiging" aria-label="Een uitnodiging van Jezus">
+  <div class="uitnodiging-binnen onthul">
+    <span class="uitnodiging-merk" aria-hidden="true">${raw(vlakSvg({ donker: false, titel: '' }))}</span>
+    ${bijbeltekst(site, { klasse: 'uitnodiging-vers' })}
+  </div>
+</section>
+
 <section class="kort" aria-labelledby="kort-kop">
   <div class="kort-binnen">
     <h2 class="sr" id="kort-kop">In het kort</h2>
@@ -119,14 +126,15 @@ export function inhoud(ctx) {
 
 <section class="kern" aria-labelledby="kern-kop">
   <div class="kern-binnen">
-    <div class="kern-tekst">
+    <div class="kern-kop">
       <p class="bovenregel">Waar het om draait</p>
       <h2 class="kop-2" id="kern-kop">Wie is <em>Jezus?</em></h2>
+    </div>
+    <div class="kern-tekst">
       <p>Jezus zocht mensen op die anderen links lieten liggen. Hij at met ze, en vertelde over God als een vader die op je wacht. Hij stierf aan het kruis en stond op uit de dood.</p>
       <p>Christenen geloven dat Hij leeft, en dat je bij Hem mag komen. Dat noemen ze genade: je hoeft het niet te verdienen. De kerk is de plek waar mensen Hem samen leren kennen. Er is plek voor wie erbij wil komen.</p>
       <p class="knoppen"><a class="knop knop--vol" href="/ontdek-het-geloof/">Lees wie Jezus is</a> <a class="pijllink" href="/waarom-naar-de-kerk/">Waarom naar de kerk?</a></p>
     </div>
-    ${bijbeltekst(site, { klasse: 'kern-vers' })}
   </div>
 </section>
 

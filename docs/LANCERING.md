@@ -13,7 +13,7 @@ De productiepoort (`npm run poort`) bewaakt de technische punten. Deze lijst is 
 
 ## Inhoud en rechten
 
-- [ ] NBV21: exacte tekst Matteüs 11:28 controleren; NBG om toestemming vragen voor 'missionair gebruik' of binnen de voorwaarden blijven (V-003)
+- [ ] Mattheüs 11:28: vertaling kiezen (NBV21 of HSV; exacte teksten staan in `content/site.json`) en de rechthebbende om toestemming vragen; tot dan staat er een gemarkeerde eigen weergave (V-003)
 - [ ] Foto's: per kerk een eigen foto met toestemming; hero eventueel afwisselend, zodat niet één kerk (nu de Pleinkerk) het gezicht van het initiatief is (V-007)
 - [ ] Commons-foto's: CC BY-SA-naamsvermelding blijft staan; let op 'gelijk delen' bij bewerkte versies
 - [ ] Hulplijnnummers (113, De Luisterlijn) controleren op de officiële sites

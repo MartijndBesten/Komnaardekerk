@@ -329,15 +329,51 @@ await scenario('Geen fictieve of onbevestigde gegevens: elke kerk heeft status, 
   await ctx.close();
 });
 
-await scenario('Bijbelcitaat met bronvermelding en verwijzing naar debijbel.nl (NBG-voorwaarden)', async () => {
-  const { ctx, page } = await nieuwePagina();
+await scenario('Mattheüs 11:28: zichtbaar op de homepage, gemarkeerd als eigen weergave, met verwijzing naar debijbel.nl', async () => {
+  const { ctx, page } = await nieuwePagina({ viewport: { width: 390, height: 844 } });
   for (const pad of ['/', '/waarom-naar-de-kerk/', '/ontdek-het-geloof/']) {
     await page.goto(BASIS + pad, { waitUntil: 'networkidle' });
     const fig = page.locator('.bijbeltekst').first();
-    eis((await fig.textContent()).includes('© Nederlands-Vlaams Bijbelgenootschap 2021'), `${pad}: copyrightvermelding ontbreekt`);
+    const tekst = (await fig.textContent()).replace(/\s+/g, ' ');
+    eis(tekst.includes('Mattheüs 11:28'), `${pad}: verwijzing Mattheüs 11:28 ontbreekt`);
+    eis(/vrij weergegeven/i.test(tekst) && /geen Bijbelvertaling/i.test(tekst), `${pad}: niet gemarkeerd als eigen weergave`);
+    eis(!tekst.includes('©'), `${pad}: copyrightvermelding bij een eigen weergave`);
     eis((await fig.locator('a').getAttribute('href')).startsWith('https://www.debijbel.nl/'), `${pad}: verwijzing naar debijbel.nl ontbreekt`);
   }
+  // op de homepage: een eigen plek direct onder de opening, niet in een uitklapper
+  await page.goto(BASIS + '/', { waitUntil: 'networkidle' });
+  const blok = page.locator('section.uitnodiging');
+  eis((await blok.count()) === 1, 'homepage: sectie met Mattheüs 11:28 ontbreekt');
+  eis(await blok.locator('blockquote').isVisible(), 'homepage: de tekst is niet zichtbaar');
+  const volgorde = await page.evaluate(() => [...document.querySelectorAll('main > section')].map((s) => s.className.split(' ')[0]));
+  eis(volgorde.indexOf('uitnodiging') === 1, `homepage: tekst staat niet direct onder de opening (${volgorde.slice(0, 4).join(', ')})`);
+  eis((await page.locator('details .bijbeltekst').count()) === 0, 'homepage: tekst zit in een uitklapper');
   await ctx.close();
+});
+
+await scenario('Alle kerkdiensten zichtbaar: tweede dienst op de kerkenpagina en op de homepage (mobiel en desktop)', async () => {
+  for (const viewport of [{ width: 390, height: 844 }, { width: 1280, height: 800 }]) {
+    const { ctx, page } = await nieuwePagina({ viewport });
+    await page.goto(BASIS + '/kerken/', { waitUntil: 'networkidle' });
+    const sion = page.locator('.kerk#sionkerk');
+    const vast = sion.locator('.kerk-dienstgroep--regulier .kerk-tijden li');
+    eis((await vast.count()) === 2, `Sionkerk: verwacht 2 vaste diensten, zie ${await vast.count()}`);
+    const regels = (await vast.allTextContents()).map((t) => t.replace(/\s+/g, ' ').trim());
+    eis(regels[0].startsWith('Zondag 09.30 uur Morgendienst'), `Sionkerk morgendienst: ${regels[0]}`);
+    eis(regels[1].startsWith('Zondag 16.15 uur Middagdienst'), `Sionkerk middagdienst: ${regels[1]}`);
+    for (const li of await vast.all()) eis(await li.locator('.kerk-tijd').isVisible(), 'diensttijd niet zichtbaar');
+    eis(await sion.locator('.kerk-rooster a').isVisible(), 'Sionkerk: verwijzing naar de actuele agenda ontbreekt');
+    // elke kerk toont al haar diensten uit de gegevens, en een verwijzing naar de agenda
+    const telling = await page.evaluate(() => [...document.querySelectorAll('.kerk')].map((k) => [k.id, k.querySelectorAll('.kerk-tijden li').length, !!k.querySelector('.kerk-rooster a')]));
+    for (const [id, n, agenda] of telling) { eis(n >= 1, `${id}: geen diensten getoond`); eis(agenda, `${id}: geen verwijzing naar de agenda`); }
+    // bijzondere en wisselende diensten staan apart van de vaste
+    eis((await page.locator('.kerk#opstandingskerk .kerk-dienstgroep--bijzonder li').count()) >= 1, 'Opstandingskerk: maandelijkse vieringen niet apart getoond');
+    await page.goto(BASIS + '/', { waitUntil: 'networkidle' });
+    const kort = (await page.locator('.kerk-kort[data-kerk="sionkerk"] .kerk-kort-meta').textContent()).trim();
+    eis(kort === 'Zondag 09.30 en 16.15 uur', `homepage Sionkerk: ${kort}`);
+    eis(await page.locator('.kerk-kort[data-kerk="sionkerk"] .kerk-kort-meta').isVisible(), 'homepage: diensttijden niet zichtbaar');
+    await ctx.close();
+  }
 });
 
 await scenario('Eerlijke volgorde: de kerkenlijst wordt geschud (niet altijd dezelfde eerste kerk)', async () => {

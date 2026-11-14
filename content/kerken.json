@@ -1,5 +1,5 @@
 {
-  "_uitleg": "Kerken in de gemeente Houten. Bron: eigen websites, gecontroleerd op de datum in 'gecontroleerd'. deelname.status: 'kandidaat' (nog niet benaderd) | 'belangstelling' | 'deelnemer'. Alleen 'deelnemer' met toestemmingPublicatie=true mag in de productieversie (de build controleert dit). Contactpersonen alleen met hun eigen toestemming. Verzin nooit gegevens.",
+  "_uitleg": "Kerken in de gemeente Houten. Bron: eigen websites, gecontroleerd op de datum in 'gecontroleerd'. deelname.status: 'kandidaat' (nog niet benaderd) | 'belangstelling' | 'deelnemer'. Alleen 'deelnemer' met toestemmingPublicatie=true mag in de productieversie (de build controleert dit). Contactpersonen alleen met hun eigen toestemming. Verzin nooit gegevens. Diensten: 'soort' is 'regulier' (elke week, vaste tijd), 'wisselend' (dag of tijd wisselt; verwijs naar het rooster) of 'bijzonder' (maandelijks of een paar keer per jaar). 'rooster.url' is de actuele agenda van de kerk; ontbreekt die, dan verwijst de site naar de website. 'wekelijks': true bij een wisselende dienst betekent: wel elke week, maar op een wisselende tijd.",
   "kerken": [
     {
       "id": "sionkerk",
@@ -23,14 +23,15 @@
         {
           "dag": "zondag",
           "tijd": "09:30",
-          "omschrijving": "Morgendienst",
-          "agenda": true
+          "naam": "Morgendienst",
+          "soort": "regulier"
         },
         {
           "dag": "zondag",
           "tijd": "16:15",
-          "omschrijving": "Middagdienst (met bijbelclub voor jongere kinderen)",
-          "agenda": true
+          "naam": "Middagdienst",
+          "toelichting": "Met bijbelclub voor jongere kinderen.",
+          "soort": "regulier"
         }
       ],
       "kinderen": "Oppas in de crèche tijdens de diensten; tijdens de middagdiensten bijbelclub voor jongere kinderen (t/m groep 4).",
@@ -59,8 +60,8 @@
       "bronnen": [
         {
           "url": "https://www.hervormdhouten.nl/hervormde-gemeente-houten/",
-          "gecontroleerd": "2026-11-08",
-          "wat": "identiteit, adres, diensttijden, crèche, bijbelclub, autodienst"
+          "gecontroleerd": "2026-11-14",
+          "wat": "diensttijden: zondag 9.30 en 16.15 uur; identiteit, adres, crèche, bijbelclub, autodienst"
         },
         {
           "url": "https://www.hervormdhouten.nl/missionair-werk/",
@@ -83,10 +84,13 @@
           "wat": "PKN-kerkzoeker bevestigt Sionkerk, Eikenhout 221 (via JSON-data van de kerkzoeker)"
         }
       ],
-      "gecontroleerd": "2026-11-08",
+      "gecontroleerd": "2026-11-14",
       "betrouwbaarheid": "officiele-site",
       "opmerkingen": "Algemeen e-mailadres op de bron is het scriba-adres (scriba@hervormdhouten.nl); persoonsnaam en privéadres van de scriba niet overgenomen. Audio live via kerkdienstgemist: https://kerkdienstgemist.nl/stations/888-Hervormde-Gemeente-Houten-Sionkerk/events/live. Eet je mee-pagina zegt 'oktober tot en met mei', maar de datumlijst begint op 16 september.",
-      "verband": "Protestantse Kerk in Nederland"
+      "verband": "Protestantse Kerk in Nederland",
+      "rooster": {
+        "url": "https://www.hervormdhouten.nl/diensten/"
+      }
     },
     {
       "id": "pleinkerk",
@@ -110,14 +114,14 @@
         {
           "dag": "zondag",
           "tijd": "10:00",
-          "omschrijving": "Ochtenddienst (soms om 9.30 uur, zie het rooster op de website)",
-          "agenda": true
+          "naam": "Ochtenddienst",
+          "soort": "regulier"
         },
         {
           "dag": "zondag",
           "tijd": "18:30",
-          "omschrijving": "Avonddienst",
-          "agenda": true
+          "naam": "Avonddienst",
+          "soort": "regulier"
         }
       ],
       "kinderen": "Crècheopvang tijdens de ochtenddienst; vooraf contact opnemen (contactpersoon op de bron, niet overgenomen).",
@@ -144,14 +148,14 @@
       },
       "bronnen": [
         {
+          "url": "https://hhghouten.nl/kerkdiensten/",
+          "gecontroleerd": "2026-11-14",
+          "wat": "diensttijden: ochtenddienst 10.00 uur, avonddienst 18.30 uur"
+        },
+        {
           "url": "https://hhghouten.nl/",
           "gecontroleerd": "2026-11-08",
           "wat": "welkomsttekst, kerktijdenrooster (8 nov 09:30/18:30; 15 en 22 nov 10:00/18:30)"
-        },
-        {
-          "url": "https://hhghouten.nl/kerkdiensten/",
-          "gecontroleerd": "2026-11-08",
-          "wat": "Pleinkerk, Plein 27, 3991 ED; ochtend 10:00, avond 18:30; crèche; kerkdienstgemist (audio)"
         },
         {
           "url": "https://hhghouten.nl/kerkgebouw/",
@@ -169,7 +173,7 @@
           "wat": "Pleinkerk in erfpacht bij de HHG sinds 2009 (secundair)"
         }
       ],
-      "gecontroleerd": "2026-11-08",
+      "gecontroleerd": "2026-11-14",
       "betrouwbaarheid": "officiele-site",
       "opmerkingen": "Livestream is audio (kerkdienstgemist). Menu noemt o.a. zondagsschool, meidenclub, jeugdvereniging 16+, bijbelkring, maar die pagina's bestaan niet (404; ook niet in de WordPress-paginalijst); niet opgenomen. Geen missionaire activiteiten voor buitenstaanders gevonden. 'Lobbendijk' niet bevestigd; adres is Plein 27.",
       "verband": "Hersteld Hervormde Kerk"
@@ -196,26 +200,37 @@
         {
           "dag": "zondag",
           "tijd": "10:00",
-          "omschrijving": "Zondagmorgendienst (orgel, regelmatig combo, soms koor)",
-          "agenda": true
+          "naam": "Zondagmorgendienst",
+          "toelichting": "Orgel, regelmatig een combo, soms een koor.",
+          "soort": "regulier"
         },
         {
           "dag": "zondag",
           "tijd": "17:00",
-          "omschrijving": "Vesper, eerste zondag van de maand",
-          "agenda": false
+          "naam": "Vesper",
+          "toelichting": "Eerste zondag van de maand.",
+          "soort": "bijzonder"
         },
         {
           "dag": "zondag",
           "tijd": "20:00",
-          "omschrijving": "Stilteviering, derde zondag van de maand (september t/m april)",
-          "agenda": false
+          "naam": "Stilteviering",
+          "toelichting": "Derde zondag van de maand, september tot en met april.",
+          "soort": "bijzonder"
         },
         {
           "dag": "zondag",
           "tijd": "16:00",
-          "omschrijving": "Peuter-op-schoot-viering, meerdere keren per jaar (o.a. 8 november 2026)",
-          "agenda": false
+          "naam": "Peuter-op-schoot-viering",
+          "toelichting": "Een paar keer per jaar, meestal om 16.00 uur.",
+          "soort": "bijzonder"
+        },
+        {
+          "dag": "woensdag",
+          "tijd": "19:30",
+          "naam": "Vesper",
+          "toelichting": "In de adventsweken en in de Veertigdagentijd.",
+          "soort": "bijzonder"
         }
       ],
       "kinderen": "Crèche (tot 4 jaar), kindernevendienst groep 1-8, tienerprogramma INBTWN en Take a Break; Peuter-op-schoot-vieringen; kinderkoor/KinderKerstKoor.",
@@ -242,6 +257,11 @@
       },
       "bronnen": [
         {
+          "url": "https://www.protestantsegemeentehouten.nl/zondagmorgendienst/",
+          "gecontroleerd": "2026-11-14",
+          "wat": "zondagmorgendienst 10.00 uur; vespers (/vespers/), stilteviering (/stilteviering_1/) en peuter-op-schoot-viering (/peuter-op-schoot-viering_1/) op eigen pagina’s"
+        },
+        {
           "url": "https://www.protestantsegemeentehouten.nl/",
           "gecontroleerd": "2026-11-08",
           "wat": "welkomsttekst, adres, contact, agenda (8 nov 2026 10:00)"
@@ -260,11 +280,6 @@
           "url": "https://www.protestantsegemeentehouten.nl/hoe_vieren_we_onze_kerkdiensten",
           "gecontroleerd": "2026-11-08",
           "wat": "zondag 10 uur, vespers, stilteviering, peuter-op-schoot, kinderen"
-        },
-        {
-          "url": "https://www.protestantsegemeentehouten.nl/zondagmorgendienst/",
-          "gecontroleerd": "2026-11-08",
-          "wat": "10 uur, hoofdingang aan Dijkhoeve"
         },
         {
           "url": "https://www.protestantsegemeentehouten.nl/kerkdiensten",
@@ -302,10 +317,13 @@
           "wat": "controle: 'Elke zondag 10.00 uur, Het kant 1'"
         }
       ],
-      "gecontroleerd": "2026-11-08",
+      "gecontroleerd": "2026-11-14",
       "betrouwbaarheid": "officiele-site",
       "opmerkingen": "PKN-kerkzoeker (09.00 en 11.00) is verouderd; eigen site en geloveninhouten.nl zeggen één dienst om 10.00 uur. Kinderpagina's spreken nog van 'beide diensten' en 'de dienst van 11 uur' (verouderde tekst). Messy Church/Kliederkerk staat niet op de huidige eigen site; alleen in Houtens Nieuws 2024-2025 en de PKN-kerkzoeker. www.pghouten.nl heeft een niet-passend certificaat (CN=redirect.yourhosting.nl) en is vermoedelijk een oud domein. Persoonsnamen van contactpersonen niet overgenomen.",
-      "verband": "Protestantse Kerk in Nederland"
+      "verband": "Protestantse Kerk in Nederland",
+      "rooster": {
+        "url": "https://www.protestantsegemeentehouten.nl/kerkdiensten"
+      }
     },
     {
       "id": "de-lichtboog",
@@ -329,20 +347,22 @@
         {
           "dag": "zondag",
           "tijd": "09:30",
-          "omschrijving": "Samenkomst (crèche 0-4 jaar; Lichtkids voor basisschoolkinderen)",
-          "agenda": true
+          "naam": "Samenkomst",
+          "toelichting": "Crèche (0-4 jaar) en Lichtkids voor basisschoolkinderen.",
+          "soort": "regulier"
         },
         {
           "dag": "zondag",
           "tijd": "11:30",
-          "omschrijving": "Samenkomst",
-          "agenda": true
+          "naam": "Samenkomst",
+          "soort": "regulier"
         },
         {
           "dag": "zondag",
           "tijd": null,
-          "omschrijving": "In de zomer één samenkomst; zie de website voor de tijd",
-          "agenda": false
+          "naam": "Zomer",
+          "toelichting": "In de zomer is er één samenkomst; zie de website voor de tijd.",
+          "soort": "wisselend"
         }
       ],
       "kinderen": "Crèche met oppas voor de kleinsten; Lichtkids-programma per jaargroep voor basisschoolkinderen tijdens een deel van de dienst; Kidsclub (groep 5-8, eens per twee maanden, vrienden welkom); diensten met kinderen en samen-onderweg-diensten.",
@@ -369,14 +389,14 @@
       },
       "bronnen": [
         {
+          "url": "https://www.delichtboog.nl/go/wat-we-doen/samenkomsten/",
+          "gecontroleerd": "2026-11-14",
+          "wat": "samenkomsten: elke zondag 09.30 en 11.30 uur; in de zomer één samenkomst (tijd op de site niet eenduidig)"
+        },
+        {
           "url": "https://www.delichtboog.nl/",
           "gecontroleerd": "2026-11-08",
           "wat": "welkomsttekst, samenkomsttijden, zomerdienst 10:00, verwijzing Messy Church/PROEF!, livestreamlinks"
-        },
-        {
-          "url": "https://www.delichtboog.nl/go/wat-we-doen/samenkomsten/",
-          "gecontroleerd": "2026-11-08",
-          "wat": "09:30 en 11:30, zomer 10:30, crèche, Lichtkids"
         },
         {
           "url": "https://www.delichtboog.nl/go/wat-we-doen/kinderen/",
@@ -414,10 +434,13 @@
           "wat": "agenda november 2026 bevestigt samenkomsten 09:30 en 11:30"
         }
       ],
-      "gecontroleerd": "2026-11-08",
+      "gecontroleerd": "2026-11-14",
       "betrouwbaarheid": "officiele-site",
       "opmerkingen": "Algemeen e-mailadres: info@delichtboog.nl. Zomertijd tegenstrijdig (10:00 vs 10:30). Kerkwijzer-profiel (secundair, https://www.kerkwijzer.nl/kerk/de-lichtboog-2/) noemt o.a. band, Opwekking, NBV/BGT/HSV; niet overgenomen als feit van de eigen site.",
-      "verband": "Nederlandse Gereformeerde Kerken"
+      "verband": "Nederlandse Gereformeerde Kerken",
+      "rooster": {
+        "url": "https://www.delichtboog.nl/go/agenda/"
+      }
     },
     {
       "id": "het-kruispunt",
@@ -441,14 +464,15 @@
         {
           "dag": "zondag",
           "tijd": "10:00",
-          "omschrijving": "Ochtenddienst (crèche, Kidspoint)",
-          "agenda": true
+          "naam": "Ochtenddienst",
+          "toelichting": "Crèche en Kidspoint.",
+          "soort": "regulier"
         },
         {
           "dag": "zondag",
           "tijd": "16:30",
-          "omschrijving": "Middagdienst",
-          "agenda": true
+          "naam": "Middagdienst",
+          "soort": "regulier"
         }
       ],
       "kinderen": "Crèche 0 t/m 3 jaar (babygroep en peutergroep) tijdens de ochtenddienst; kindermoment en daarna Kidspoint voor basisschoolkinderen; Kidsclub om de week (7-9 jaar vrijdagavond, 10-12 jaar zaterdagavond); catechisatie en clubs voor tieners.",
@@ -476,6 +500,11 @@
       },
       "bronnen": [
         {
+          "url": "https://www.ngkhetkruispunt.nl/samenkomsten-2/samenkomsten",
+          "gecontroleerd": "2026-11-14",
+          "wat": "diensttijden: elke zondag 10.00 en 16.30 uur"
+        },
+        {
           "url": "https://www.ngkhetkruispunt.nl/",
           "gecontroleerd": "2026-11-08",
           "wat": "welkom, zelfomschrijving, eerstvolgende dienst 15 november 10:00"
@@ -489,11 +518,6 @@
           "url": "https://www.ngkhetkruispunt.nl/wie-zijn-we/wat-geloven-we",
           "gecontroleerd": "2026-11-08",
           "wat": "geloofsbasis, sacramenten"
-        },
-        {
-          "url": "https://www.ngkhetkruispunt.nl/samenkomsten-2/samenkomsten",
-          "gecontroleerd": "2026-11-08",
-          "wat": "10.00 en 16.30, crèche, Kidspoint, muziek"
         },
         {
           "url": "https://www.ngkhetkruispunt.nl/wat-doen-we/voor-de-kerk",
@@ -521,10 +545,13 @@
           "wat": "controle: 'Elke zondag 10.00 en 16.30, Het Spoor 51'"
         }
       ],
-      "gecontroleerd": "2026-11-08",
+      "gecontroleerd": "2026-11-14",
       "betrouwbaarheid": "officiele-site",
       "opmerkingen": "De site gaf een 403 op een kale curl-aanvraag, maar laadde normaal met de standaard ophaalhulp (geen botcontrole omzeild). Algemene e-mailadressen op de contactpagina zijn met JavaScript verborgen; contactformulier gekozen. Nieuwsberichten zijn deels oud (bv. 'zondagmiddag 1 oktober').",
-      "verband": "Nederlandse Gereformeerde Kerken"
+      "verband": "Nederlandse Gereformeerde Kerken",
+      "rooster": {
+        "url": "https://www.ngkhetkruispunt.nl/actueel/agenda"
+      }
     },
     {
       "id": "eskol-kerk",
@@ -548,14 +575,16 @@
         {
           "dag": "zondag",
           "tijd": "10:00",
-          "omschrijving": "Ochtenddienst",
-          "agenda": true
+          "naam": "Ochtenddienst",
+          "soort": "regulier"
         },
         {
           "dag": "zondag",
-          "tijd": "17:00",
-          "omschrijving": "Middagdienst; de tijd wisselt (in november en december vaak 18.30 uur), zie het rooster op de website",
-          "agenda": false
+          "tijd": null,
+          "naam": "Tweede dienst",
+          "toelichting": "Elke zondag, maar de tijd wisselt per week: soms in de middag, soms in de avond.",
+          "soort": "wisselend",
+          "wekelijks": true
         }
       ],
       "kinderen": "KinderBijbelTijd: livestream op zondag om 13.30 uur voor kinderen van 4 tot en met 8 jaar. KinderBijbelClub om de week op woensdag (4 tot 12 jaar).",
@@ -569,6 +598,7 @@
       "verwachten": null,
       "kenmerken": [
         "kinderen",
+        "middag",
         "online"
       ],
       "contactpersonen": [],
@@ -581,14 +611,14 @@
       },
       "bronnen": [
         {
+          "url": "https://eskol-kerk.nl/kerktijden/",
+          "gecontroleerd": "2026-11-14",
+          "wat": "rooster: elke zondag 10.00 uur en een tweede dienst met wisselende tijd (november-december 2026: tussen 16.00 en 19.00 uur)"
+        },
+        {
           "url": "https://eskol-kerk.nl/",
           "gecontroleerd": "2026-11-08",
           "wat": "kerktijdenrooster, KinderBijbelTijd, livestreamlinks"
-        },
-        {
-          "url": "https://eskol-kerk.nl/kerktijden/",
-          "gecontroleerd": "2026-11-08",
-          "wat": "actueel rooster november-december 2026"
         },
         {
           "url": "https://eskol-kerk.nl/activiteiten/",
@@ -641,10 +671,13 @@
           "wat": "controle: 'Elke zondag 10.00 en 17.00, Poldermolen 1'"
         }
       ],
-      "gecontroleerd": "2026-11-08",
+      "gecontroleerd": "2026-11-14",
       "betrouwbaarheid": "officiele-site",
       "opmerkingen": "Adres opgelost: Poldermolen 1, 3994 DD (eigen site en gergeminfo); Kerkwijzer 'De Molen 1' is fout. Tweede dienst: 'in de regel' 17:00, maar het actuele rooster wijkt in het winterseizoen af (meestal 18:30). Ook YouTube: https://www.youtube.com/channel/UCq7kozXyIWR_dDX1SFXrrTg/videos. Contactpersonen van activiteiten (namen, gmail, telefoon) niet overgenomen; functioneel adres voor de maaltijd: maaltijd@eskol-kerk.nl.",
-      "verband": "Gereformeerde Gemeenten"
+      "verband": "Gereformeerde Gemeenten",
+      "rooster": {
+        "url": "https://eskol-kerk.nl/kerktijden/"
+      }
     },
     {
       "id": "evangelie-gemeente-houten",
@@ -668,14 +701,16 @@
         {
           "dag": "zondag",
           "tijd": "10:00",
-          "omschrijving": "Samenkomst met eigentijdse muziek (Opwekking), Bijbeluitleg en gebed; kinderclubs tijdens de prediking",
-          "agenda": true
+          "naam": "Samenkomst",
+          "toelichting": "Eigentijdse muziek (Opwekking), Bijbeluitleg en gebed; kinderclubs tijdens de prediking.",
+          "soort": "regulier"
         },
         {
           "dag": "woensdag",
           "tijd": "20:00",
-          "omschrijving": "Bidstond, 20.00 tot 21.30 uur",
-          "agenda": false
+          "naam": "Bidstond",
+          "toelichting": "Van 20.00 tot 21.30 uur.",
+          "soort": "regulier"
         }
       ],
       "kinderen": "Elke zondag oppas voor 0-3 jaar (De Vonkjes); De Schatgravers (groep 1-4); De Fakkeldragers (groep 5-8); groep-8-lessen; tienergroep (open voor vrienden) en jeugdgroep.",
@@ -703,8 +738,8 @@
       "bronnen": [
         {
           "url": "https://evangeliegemeentehouten.nl/",
-          "gecontroleerd": "2026-11-08",
-          "wat": "welkomsttekst, visie, zondag 10.00 uur, adres Kamillehof 3991 GX"
+          "gecontroleerd": "2026-11-14",
+          "wat": "samenkomst iedere zondag 10.00 uur; bidstond woensdag 20.00-21.30 uur (/wat-doen-wij/); geen rooster op de site"
         },
         {
           "url": "https://evangeliegemeentehouten.nl/samenkomsten/",
@@ -737,7 +772,7 @@
           "wat": "controle: 'Elke zondag 10.00 uur, Heemlanden/ingang Kamillehof'"
         }
       ],
-      "gecontroleerd": "2026-11-08",
+      "gecontroleerd": "2026-11-14",
       "betrouwbaarheid": "officiele-site",
       "opmerkingen": "Locatie van de bidstond staat niet op de gelezen pagina's (een WebSearch-samenvatting noemde gebedsruimte 'De Tent', Boekweitoord 48 — niet bevestigd, niet ingevuld). Het ANBI-postadres op de site (p/a) is niet de samenkomstlocatie. Telefoonnummer van het secretariaat niet overgenomen.",
       "verband": "Pinkster- en evangeliegemeente (VPE)"
@@ -764,20 +799,30 @@
         {
           "dag": "zondag",
           "tijd": "11:00",
-          "omschrijving": "Viering ('Elke zondag om 11.00 uur'); afwisselend eucharistie- en woord- en communieviering",
-          "agenda": true
+          "naam": "Viering",
+          "toelichting": "Afwisselend een eucharistieviering en een woord- en communieviering.",
+          "soort": "regulier"
         },
         {
           "dag": "dinsdag",
           "tijd": "19:00",
-          "omschrijving": "Eucharistieviering in de dagkapel",
-          "agenda": false
+          "naam": "Eucharistieviering",
+          "toelichting": "In de dagkapel. Niet elke week.",
+          "soort": "wisselend"
+        },
+        {
+          "dag": "woensdag",
+          "tijd": "18:45",
+          "naam": "Taizégebed",
+          "toelichting": "Niet elke week.",
+          "soort": "wisselend"
         },
         {
           "dag": "zaterdag",
           "tijd": "19:00",
-          "omschrijving": "Meditatieve viering (niet wekelijks, zie het vieringenrooster)",
-          "agenda": false
+          "naam": "Meditatieve viering",
+          "toelichting": "Tweede zaterdag van de maand.",
+          "soort": "bijzonder"
         }
       ],
       "kinderen": "Kidskerk voor kinderen van 3 t/m 10 jaar met hun ouders, ongeveer zes keer per kerkseizoen (o.a. zondag 8 november 2026, 09:30).",
@@ -804,8 +849,8 @@
       "bronnen": [
         {
           "url": "https://pj23.nl/kerken/houten/",
-          "gecontroleerd": "2026-11-08",
-          "wat": "adres, zondag 11.00, contact, livestream, vieringen- en activiteitenrooster"
+          "gecontroleerd": "2026-11-14",
+          "wat": "‘Elke zondag om 11.00 uur’; vieringenrooster met dinsdag 19.00 uur (dagkapel), Taizégebed woensdag 18.45 uur en meditatieve viering zaterdag 19.00 uur (niet wekelijks)"
         },
         {
           "url": "https://pj23.nl/",
@@ -823,7 +868,7 @@
           "wat": "Bijbellezen NU, data en locatie"
         }
       ],
-      "gecontroleerd": "2026-11-08",
+      "gecontroleerd": "2026-11-14",
       "betrouwbaarheid": "officiele-site",
       "opmerkingen": "houten.pj23.nl is niet bereikbaar (host niet op de allowlist), maar dezelfde inhoud staat op pj23.nl/kerken/houten/. Engelstalige welkomstpagina: https://pj23.nl/our-lady-of-the-assumption-houten/. Parochiesecretariaat: Loerikseweg 12, info@pj23.nl. Het PJ23-bestuur heeft gemeld dat vóór 2030 vijf van de acht kerken aan de eredienst worden onttrokken; welke (naast Schalkwijk) is niet gecontroleerd.",
       "verband": "Rooms-katholiek, parochie H. Paus Johannes XXIII"
@@ -850,14 +895,16 @@
         {
           "dag": "zondag",
           "tijd": "10:30",
-          "omschrijving": "Zondagbijeenkomst met wisselende sprekers",
-          "agenda": true
+          "naam": "Zondagbijeenkomst",
+          "toelichting": "Met wisselende sprekers.",
+          "soort": "regulier"
         },
         {
           "dag": "woensdag",
           "tijd": null,
-          "omschrijving": "Gebedsavond (aanmelden via de gemeente)",
-          "agenda": false
+          "naam": "Gebedsavond",
+          "toelichting": "Elke week op woensdagavond. De tijd staat niet op de website; neem contact op met de gemeente.",
+          "soort": "regulier"
         }
       ],
       "kinderen": "De zondagse samenkomst is voor het hele gezin; een apart kinderprogramma wordt niet genoemd.",
@@ -881,8 +928,8 @@
       "bronnen": [
         {
           "url": "https://www.derivierhouten.nl/",
-          "gecontroleerd": "2026-11-08",
-          "wat": "zelfomschrijving, zondag 10:30 Zeilschip 6, evangelisatie"
+          "gecontroleerd": "2026-11-14",
+          "wat": "samenkomst elke zondag 10.30 uur; gebedswerk elke woensdagavond (/activiteiten/), zonder tijd"
         },
         {
           "url": "https://www.derivierhouten.nl/over-ons/",
@@ -905,7 +952,7 @@
           "wat": "nieuwsberichten zonder jaartal"
         }
       ],
-      "gecontroleerd": "2026-11-08",
+      "gecontroleerd": "2026-11-14",
       "betrouwbaarheid": "officiele-site",
       "opmerkingen": "Actualiteit van de site onzeker: nieuwsberichten zonder jaartal; een bericht noemt 'Glazeniersgilde' als locatie (afwijkend van Zeilschip 6). Het e-mailadres op de contactpagina (info@deriviergemeente.nl) hoort bij het domein van de zustergemeente in Wijk bij Duurstede; daarom contactformulier gekozen.",
       "verband": "Evangelische gemeente"
@@ -932,14 +979,16 @@
         {
           "dag": "zondag",
           "tijd": "09:30",
-          "omschrijving": "Niet elke week, zie het vieringenrooster op de website",
-          "agenda": false
+          "naam": "Viering",
+          "toelichting": "Niet elke week.",
+          "soort": "wisselend"
         },
         {
           "dag": "zaterdag",
           "tijd": "19:00",
-          "omschrijving": "Af en toe, zie het vieringenrooster",
-          "agenda": false
+          "naam": "Viering",
+          "toelichting": "Af en toe.",
+          "soort": "wisselend"
         }
       ],
       "kinderen": null,
@@ -963,8 +1012,8 @@
       "bronnen": [
         {
           "url": "https://pj23.nl/kerken/schalkwijk/",
-          "gecontroleerd": "2026-11-08",
-          "wat": "adres, zelfomschrijving, contact, vieringenrooster"
+          "gecontroleerd": "2026-11-14",
+          "wat": "vieringenrooster: zondag 09.30 uur niet elke week; af en toe zaterdag 19.00 uur"
         },
         {
           "url": "https://pj23.nl/herbestemmingsproces-h-michaelkerk/",
@@ -977,7 +1026,7 @@
           "wat": "Wikipedia noemt adres Jonkheer Ramweg 18 (afwijkend)"
         }
       ],
-      "gecontroleerd": "2026-11-08",
+      "gecontroleerd": "2026-11-14",
       "betrouwbaarheid": "officiele-site",
       "opmerkingen": "Belangrijk voor de site: het parochiebestuur heeft (19 november 2025) gecommuniceerd dat deze kerk vóór 2030 aan de eredienst onttrokken en verkocht moet zijn; herbestemmingsproces loopt. Adres tegenstrijdig: PJ23 'Jhr. Ramweg 17a, 3998 JP', Wikipedia 'Jonkheer Ramweg 18'; officiële bron aangehouden.",
       "verband": "Rooms-katholiek, parochie H. Paus Johannes XXIII"
@@ -1004,8 +1053,9 @@
         {
           "dag": "zondag",
           "tijd": "09:30",
-          "omschrijving": "Niet elke week, zie het vieringenrooster op de website",
-          "agenda": false
+          "naam": "Viering",
+          "toelichting": "Niet elke week.",
+          "soort": "wisselend"
         }
       ],
       "kinderen": null,
@@ -1029,11 +1079,11 @@
       "bronnen": [
         {
           "url": "https://pj23.nl/kerken/t-goy/",
-          "gecontroleerd": "2026-11-08",
-          "wat": "adres, zelfomschrijving, vieringenrooster; parochiecontact info@pj23.nl in voettekst"
+          "gecontroleerd": "2026-11-14",
+          "wat": "vieringenrooster: zondag 09.30 uur, niet elke week"
         }
       ],
-      "gecontroleerd": "2026-11-08",
+      "gecontroleerd": "2026-11-14",
       "betrouwbaarheid": "officiele-site",
       "opmerkingen": "Locatie-specifiek contact staat op https://pj23.nl/kerken/t-goy/contact/ (niet volledig uitgelezen); daarom het algemene parochieadres gebruikt.",
       "verband": "Rooms-katholiek, parochie H. Paus Johannes XXIII"

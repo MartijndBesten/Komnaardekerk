@@ -69,12 +69,46 @@ export function statusLabel(item) {
   return STATUS[s] ? html`<p class="label-status label-status--${s}">${STATUS[s]}</p>` : '';
 }
 
+// Diensten per soort (content/kerken.json): 'regulier' = elke week, 'wisselend' = dag of tijd wisselt (rooster nodig),
+// 'bijzonder' = maandelijks of een paar keer per jaar. Alles wordt getoond; alleen de vaste diensten krijgen een agendaknop.
+const uur = (t) => `${t.replace(':', '.')} uur`;
+const DIENSTSOORTEN = [
+  ['regulier', 'Elke week'],
+  ['wisselend', 'Wisselende tijden'],
+  ['bijzonder', 'Maandelijks of bijzonder']
+];
+const roosterVan = (kerk) => kerk.rooster?.url || kerk.website;
+
 function diensten(kerk) {
-  if (!kerk.diensten?.length) return html`<p class="kerk-leeg">Zie de website van de kerk voor de tijden.</p>`;
-  return html`<ul class="kerk-tijden">${kerk.diensten.map(
-    (d) => html`<li><span class="kerk-tijd">${DAG[d.dag] || d.dag}${d.tijd ? ` ${d.tijd.replace(':', '.')} uur` : ''}</span>${d.omschrijving ? html` <span class="kerk-tijd-uitleg">${d.omschrijving}</span>` : ''}
-      ${d.tijd && d.agenda !== false ? html`<button type="button" class="tekstknop agenda-knop" hidden data-agenda data-kerk="${kerk.naam}" data-dag="${d.dag}" data-tijd="${d.tijd}" data-adres="${[kerk.adres, kerk.postcode, kerk.plaats].filter(Boolean).join(', ')}">Zet in mijn agenda</button>` : ''}</li>`
-  )}</ul>`;
+  const rooster = roosterVan(kerk);
+  const actueel = rooster
+    ? html`<p class="kerk-rooster">Tijden kunnen afwijken, bijvoorbeeld op feestdagen. <a href="${rooster}" rel="noopener">Bekijk de actuele agenda<span class="sr"> van ${kerk.naam}</span></a>.</p>`
+    : '';
+  if (!kerk.diensten?.length) return html`<p class="kerk-leeg">Zie de website van de kerk voor de tijden.</p>${actueel}`;
+  const adres = [kerk.adres, kerk.postcode, kerk.plaats].filter(Boolean).join(', ');
+  return html`<div class="kerk-diensten">${DIENSTSOORTEN.map(([soort, kop]) => {
+    const lijst = kerk.diensten.filter((d) => (d.soort || 'regulier') === soort);
+    if (!lijst.length) return '';
+    return html`<div class="kerk-dienstgroep kerk-dienstgroep--${soort}">
+      <h4 class="kerk-dienstkop">${kop}</h4>
+      <ul class="kerk-tijden">${lijst.map(
+        (d) => html`<li><span class="kerk-tijd">${DAG[d.dag] || d.dag}${d.tijd ? ` ${uur(d.tijd)}` : ''}</span>${d.naam ? html` <span class="kerk-dienstnaam">${d.naam}</span>` : ''}${d.toelichting ? html` <span class="kerk-tijd-uitleg">${d.toelichting}</span>` : ''}
+          ${soort === 'regulier' && d.tijd ? html`<button type="button" class="tekstknop agenda-knop" hidden data-agenda data-kerk="${kerk.naam}" data-dag="${d.dag}" data-tijd="${d.tijd}" data-adres="${adres}">Zet in mijn agenda</button>` : ''}</li>`
+      )}</ul>
+    </div>`;
+  })}</div>${actueel}`;
+}
+
+// Korte regel voor de homepage: alle vaste zondagsdiensten, bijvoorbeeld 'Zondag 09.30 en 16.15 uur'.
+export function dienstenKort(kerk) {
+  const vast = (kerk.diensten || []).filter((d) => (d.soort || 'regulier') === 'regulier' && d.tijd);
+  const zondag = vast.filter((d) => d.dag === 'zondag');
+  const kies = zondag.length ? zondag : vast.slice(0, 1);
+  if (!kies.length) return (kerk.diensten || []).length ? 'Wisselende tijden · zie de agenda' : 'Tijden: zie website';
+  const tijden = kies.map((d) => d.tijd.replace(':', '.'));
+  const rij = tijden.length > 1 ? `${tijden.slice(0, -1).join(', ')} en ${tijden[tijden.length - 1]}` : tijden[0];
+  const wisselt = (kerk.diensten || []).some((d) => d.soort === 'wisselend' && d.wekelijks);
+  return `${DAG[kies[0].dag] || kies[0].dag} ${rij} uur${wisselt ? ' · tweede dienst op wisselende tijd' : ''}`;
 }
 
 function routeLink(kerk) {
@@ -116,21 +150,25 @@ export function kerkItem(kerk, { concept = true } = {}) {
 }
 
 export function kerkCompact(kerk) {
-  const eerste = kerk.diensten?.[0];
   return html`<li class="kerk-kort" data-kerk="${kerk.id}">
     <a href="/kerken/#${kerk.id}">
       <span class="kerk-kort-naam">${kerk.naam}</span>
-      <span class="kerk-kort-meta">${eerste?.tijd ? `${DAG[eerste.dag] || eerste.dag} ${eerste.tijd.replace(':', '.')} uur${eerste.agenda === false ? ' · zie rooster' : ''}` : 'Tijden: zie website'}</span>
+      <span class="kerk-kort-meta">${dienstenKort(kerk)}</span>
       <span class="kerk-kort-sfeer">${[kerk.verband || kerk.kerkverband, kerk.plaats].filter(Boolean).join(' · ')}</span>
     </a>
   </li>`;
 }
 
+// Mattheüs 11:28. Zolang vertaling en rechten niet rond zijn (VRAGEN V-003): een eigen weergave, duidelijk
+// gemarkeerd als 'vrij weergegeven'. Met site.bijbel.weergave === 'citaat' volgt de letterlijke tekst met bronvermelding.
 export function bijbeltekst(site, { klasse = '' } = {}) {
   const b = site.bijbel;
+  const citaat = b.weergave === 'citaat' && b.citaat;
   return html`<figure class="bijbeltekst ${klasse}">
-    <blockquote><p>${b.tekst}</p></blockquote>
-    <figcaption>Jezus, in ${b.bron} <span class="bijbel-vertaling">${b.bronvermelding} · <a href="${b.verderLezen}" rel="noopener">lees verder op debijbel.nl</a></span></figcaption>
+    <blockquote><p>${citaat ? citaat.tekst : b.parafrase}</p></blockquote>
+    <figcaption>${citaat
+      ? html`Jezus, in ${b.bron} <span class="bijbel-vertaling">${citaat.rechten} · <a href="${b.verderLezen}" rel="noopener">lees verder op debijbel.nl</a></span>`
+      : html`Jezus · vrij weergegeven naar ${b.bron} <span class="bijbel-vertaling">Dit is een eigen weergave, geen Bijbelvertaling · <a href="${b.verderLezen}" rel="noopener">lees de tekst op debijbel.nl</a></span>`}</figcaption>
   </figure>`;
 }
 
