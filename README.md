@@ -40,7 +40,7 @@ node scripts/build.mjs                   # bouwen + controles
 node scripts/build.mjs --check           # dist/ actueel? (CI/poort)
 npm run poort                            # productiepoort: weigert zolang er conceptinhoud is
 node --test test/*.test.mjs              # 19 tests: formulier, Worker, headers, poort + 13 mutaties, productieselectie
-node scripts/test-browser.mjs            # 33 eindgebruikersscenario's in Chromium, axe, 320–1440 px
+node scripts/test-browser.mjs            # 34 eindgebruikersscenario's in Chromium, axe, 320–1440 px
 node scripts/controleer-links.mjs        # externe links
 ```
 
