@@ -329,15 +329,23 @@ await scenario('Geen fictieve of onbevestigde gegevens: elke kerk heeft status, 
   await ctx.close();
 });
 
-await scenario('Mattheüs 11:28: zichtbaar op de homepage, gemarkeerd als eigen weergave, met verwijzing naar debijbel.nl', async () => {
+await scenario('Mattheüs 11:28: zichtbaar op de homepage, letterlijk citaat met bronvermelding (of gemarkeerde eigen weergave)', async () => {
   const { ctx, page } = await nieuwePagina({ viewport: { width: 390, height: 844 } });
+  const bijbel = JSON.parse(await readFile(path.join(ROOT, 'content', 'site.json'), 'utf8')).bijbel;
   for (const pad of ['/', '/waarom-naar-de-kerk/', '/ontdek-het-geloof/']) {
     await page.goto(BASIS + pad, { waitUntil: 'networkidle' });
     const fig = page.locator('.bijbeltekst').first();
     const tekst = (await fig.textContent()).replace(/\s+/g, ' ');
     eis(tekst.includes('Mattheüs 11:28'), `${pad}: verwijzing Mattheüs 11:28 ontbreekt`);
-    eis(/vrij weergegeven/i.test(tekst) && /geen Bijbelvertaling/i.test(tekst), `${pad}: niet gemarkeerd als eigen weergave`);
-    eis(!tekst.includes('©'), `${pad}: copyrightvermelding bij een eigen weergave`);
+    if (bijbel.weergave === 'citaat') {
+      const citaat = (await fig.locator('blockquote').textContent()).replace(/\s+/g, ' ').trim();
+      eis(citaat === bijbel.vertalingen[bijbel.citaat.vertaling].tekst, `${pad}: citaat wijkt af van de gecontroleerde tekst: ${citaat}`);
+      eis(tekst.includes('© 2021 Nederlands-Vlaams Bijbelgenootschap'), `${pad}: copyrightvermelding ontbreekt`);
+      eis(/lees verder op debijbel\.nl/.test(tekst), `${pad}: 'lees verder op debijbel.nl' ontbreekt`);
+    } else {
+      eis(/vrij weergegeven/i.test(tekst) && /geen Bijbelvertaling/i.test(tekst), `${pad}: niet gemarkeerd als eigen weergave`);
+      eis(!tekst.includes('©'), `${pad}: copyrightvermelding bij een eigen weergave`);
+    }
     eis((await fig.locator('a').getAttribute('href')).startsWith('https://www.debijbel.nl/'), `${pad}: verwijzing naar debijbel.nl ontbreekt`);
   }
   // op de homepage: een eigen plek direct onder de opening, niet in een uitklapper

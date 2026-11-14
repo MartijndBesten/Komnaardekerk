@@ -12,12 +12,16 @@
     "emailInitiatief": null
   },
   "bijbel": {
-    "_uitleg": "Mattheüs 11:28 hoort vast op de homepage (besluit Martijn, 14-11-2026). Zolang de vertaling niet is gekozen en de rechten niet rond zijn (VRAGEN V-003) toont de site een eigen, duidelijk gemarkeerde weergave ('weergave': 'parafrase'). Zet 'weergave' op 'citaat' en vul 'citaat' met een van de gecontroleerde vertalingen hieronder zodra dat mag; zet 'gecontroleerd' dan op true. Letterlijke teksten nooit aanpassen.",
-    "weergave": "parafrase",
+    "_uitleg": "Mattheüs 11:28 hoort vast op de homepage (besluit Martijn, 14-11-2026). Vertaling: NBV21 (keuze Martijn, 14-11-2026). 'weergave': 'citaat' toont de letterlijke tekst uit 'citaat' met copyrightvermelding en 'lees verder op debijbel.nl' (voorwaarden NBG voor digitaal, niet-commercieel gebruik op beperkte schaal). Letterlijke teksten nooit aanpassen. 'weergave': 'parafrase' toont de eigen weergave, gemarkeerd als 'vrij weergegeven'. 'gecontroleerd' blijft false tot het NBG toestemming gaf voor missionair gebruik op uitgebreide schaal (nodig vóór de lancering, VRAGEN V-003); de productiepoort controleert dit.",
+    "weergave": "citaat",
     "parafrase": "Kom bij Mij, iedereen die moe is en zwaar te dragen heeft. Bij Mij vind je rust.",
     "bron": "Mattheüs 11:28",
     "verderLezen": "https://www.debijbel.nl/bijbel/NBV21/MAT.11",
-    "citaat": null,
+    "citaat": {
+      "vertaling": "NBV21",
+      "tekst": "Kom allen bij Mij, jullie die vermoeid zijn en onder lasten gebukt gaan, Ik zal jullie rust geven.",
+      "rechten": "NBV21 © 2021 Nederlands-Vlaams Bijbelgenootschap"
+    },
     "gecontroleerd": false,
     "vertalingen": {
       "NBV21": {
