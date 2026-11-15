@@ -384,6 +384,20 @@ await scenario('Alle kerkdiensten zichtbaar: tweede dienst op de kerkenpagina en
   }
 });
 
+await scenario('Verwijzing naar Bijbelreis en Raadkoord onderaan elke pagina', async () => {
+  const { ctx, page } = await nieuwePagina({ viewport: { width: 390, height: 844 } });
+  for (const pad of ['/', '/kerken/', '/privacy/']) {
+    await page.goto(BASIS + pad, { waitUntil: 'domcontentloaded' });
+    const blok = page.locator('footer .voet-verwant');
+    for (const [naam, url] of [['Bijbelreis', 'https://bijbelreis.nl/'], ['Raadkoord', 'https://raadkoord.nl/']]) {
+      const a = blok.getByRole('link', { name: naam, exact: true });
+      eis((await a.count()) === 1, `${pad}: link naar ${naam} ontbreekt`);
+      eis((await a.getAttribute('href')) === url, `${pad}: ${naam} wijst naar ${await a.getAttribute('href')}`);
+    }
+  }
+  await ctx.close();
+});
+
 await scenario('Eerlijke volgorde: de kerkenlijst wordt geschud (niet altijd dezelfde eerste kerk)', async () => {
   const eersten = new Set();
   for (let i = 0; i < 12 && eersten.size < 2; i++) {

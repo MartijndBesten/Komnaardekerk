@@ -61,5 +61,20 @@
   "verwerkingsverantwoordelijke": null,
   "domeinNaam": "komnaardekerk.nu",
   "preview": "https://komnaardekerk.martijndenbesten.com",
-  "regio": "Houten en de omliggende dorpen"
+  "regio": "Houten en de omliggende dorpen",
+  "verwant": {
+    "_uitleg": "Verwante sites van dezelfde maker (Denckh), los van Kom naar de kerk en zonder samenwerking of gegevensuitwisseling. Op verzoek van Martijn (15-11-2026) onderaan elke pagina, zodat de sites naar elkaar verwijzen. Omschrijvingen gebaseerd op de eigen sites (gelezen 15-11-2026).",
+    "sites": [
+      {
+        "naam": "Bijbelreis",
+        "url": "https://bijbelreis.nl/",
+        "zin": "Op reis door de Bijbel: een atlas voor kinderen en ouders, met 150 verhalen op de kaart."
+      },
+      {
+        "naam": "Raadkoord",
+        "url": "https://raadkoord.nl/",
+        "zin": "Samen christelijke liederen raden: thuis, in de kerk, de klas of het koor."
+      }
+    ]
+  }
 }

@@ -90,6 +90,12 @@ ${render(inhoud)}
         ${concept ? '<li><a href="/ontwerp/">Ontwerp en merk (concept)</a></li>' : ''}
       </ul>
     </nav>
+    ${site.verwant?.sites?.length ? `<section class="voet-verwant" aria-labelledby="voet-verwant-kop">
+      <h2 class="voet-kop" id="voet-verwant-kop">Ook ontdekken</h2>
+      <ul>
+        ${site.verwant.sites.map((v) => `<li><a href="${esc(v.url)}" rel="noopener">${esc(v.naam)}</a><span>${esc(v.zin)}</span></li>`).join('\n        ')}
+      </ul>
+    </section>` : ''}
   </div>
   <div class="voet-onder">
     <p>${concept ? 'Conceptversie · ' : ''}${esc(site.domeinNaam)}</p>
