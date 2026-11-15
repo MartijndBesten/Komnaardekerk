@@ -2,7 +2,7 @@
 
 status: verhuisd naar de eigen repository MartijndBesten/komnaardekerk (15-11-2026); preview live op commit 8182ecb7 (workbench), livecontrole 32/32 groen
 next_actor: martijn
-updated: 2026-11-15 (Claude Code-cloudsessie, verhuizing naar eigen repository)
+updated: 2026-11-15 (Claude Code-cloudsessie, antwoorden V-019 en V-002 vastgelegd)
 
 ## Verhuizing (2026-11-15): eigen repository
 
@@ -15,7 +15,9 @@ updated: 2026-11-15 (Claude Code-cloudsessie, verhuizing naar eigen repository)
 
 **Workbench:** de branch `claude/kom-naar-kerk-website-e9e7sq` blijft staan als archief, met een verwijzing naar deze repository. `PROJECTS.md` op de workbench wordt alleen door ChatGPT bijgewerkt; de nieuwe plek moet daar nog worden vastgelegd.
 
-**Volgende stap:** Martijn: open vragen in `VRAGEN.md` (V-019 foto’s; toestemming NBG vóór de lancering). Een volgende uitrol gebeurt vanuit deze repository.
+**Antwoorden Martijn (15-11):** ‘Foto’s niet doen’ (V-019 verwerkt: geen foto’s van geloveninhouten.nl). ‘Ik blijf eigenaar voorlopig’ (V-002 deels beantwoord: Martijn is voorlopig eigenaar en verantwoordelijke; naam en contactadres op de site nog te kiezen). Niets aan de site veranderd.
+
+**Volgende stap:** Martijn: naam en contactadres voor ‘Over ons’ en de privacyverklaring (V-002); toestemming NBG vóór de lancering. Een volgende uitrol gebeurt vanuit deze repository.
 
 ## Ronde 16 (2026-11-15): geloveninhouten.nl bekeken
 

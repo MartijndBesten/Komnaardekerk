@@ -39,7 +39,7 @@ Onderzoek 2026-11-08: 11 kerken op hun eigen website gecontroleerd, 3 nog te ver
 
 ### V-002 — Wie is verantwoordelijk (afzender, AVG, contactadres)?
 
-status: open
+status: deels beantwoord
 gesteld_door: claude
 datum: 2026-11-08
 
@@ -53,7 +53,9 @@ De privacyverklaring en de pagina 'Over' kunnen niet af zonder verantwoordelijke
 
 **Antwoord**
 
-Nog niet beantwoord.
+Martijn, 15 november 2026: ‘Ik blijf eigenaar voorlopig.’ Martijn is dus voorlopig eigenaar van het initiatief (site, repository en straks het domein) en daarmee de verantwoordelijke.
+
+**Nog nodig vóór de lancering:** welke naam en welk contactadres komen op de site (pagina ‘Over ons’ en de privacyverklaring)? Bijvoorbeeld ‘Martijn den Besten’ met een apart adres als info@komnaardekerk.nu. Zonder dat blijft de publicatiepoort dicht. Claude zet geen persoonlijk e-mailadres op de site zonder uitdrukkelijk akkoord.
 
 **Verwerkt in**
 
@@ -426,7 +428,7 @@ Martijn, 14 november 2026: ‘Repo maak ik zelf.’
 
 ### V-019 — Foto’s en relatie met geloveninhouten.nl
 
-status: open
+status: verwerkt
 gesteld_door: claude
 datum: 2026-11-15
 
@@ -443,8 +445,10 @@ Foto’s van herkenbare mensen, en zeker van kinderen, mogen onder de AVG alleen
 
 Martijn, 15 november 2026, vraag 2: ‘Die andere site gaat offline.’ Daarmee vervalt de vraag over de verhouding tussen de twee sites. Vraag 1 (toestemming voor de foto’s) staat nog open; zonder antwoord worden de foto’s niet gebruikt.
 
+Martijn, 15 november 2026, vraag 1: ‘Foto’s niet doen.’
+
 **Verwerkt in**
 
-Nog niet verwerkt.
+De foto’s van geloveninhouten.nl worden niet gebruikt en zijn niet in de repository opgenomen. Er is niets aan de site veranderd.
 
 ## Beantwoorde en verwerkte vragen
