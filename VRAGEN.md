@@ -404,7 +404,7 @@ De echte site (`src/`, `content/woorden.json`, `scripts/merk.mjs`, `docs/LOGO.md
 
 ### V-018 — Eigen repository voor Kom naar de kerk
 
-status: beantwoord
+status: verwerkt
 gesteld_door: claude
 datum: 2026-11-14
 
@@ -422,7 +422,7 @@ Martijn, 14 november 2026: ‘Repo maak ik zelf.’
 
 **Verwerkt in**
 
-Nog niet: Claude zet de website over zodra de repository bestaat en aan de sessie is gekoppeld.
+15-11-2026: `MartijndBesten/komnaardekerk` gevuld met de volledige geschiedenis van `komnaardekerk/` (29 commits) plus `PROJECT.md`, `HANDOFF.md`, `VRAGEN.md` en een eigen `CLAUDE.md`. Build en tests vanuit de nieuwe repository groen.
 
 ### V-019 — Foto’s en relatie met geloveninhouten.nl
 
