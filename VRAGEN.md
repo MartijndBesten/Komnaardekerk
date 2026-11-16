@@ -132,6 +132,8 @@ Er is niets gepubliceerd (geen opdracht). Uitrol vanuit een cloudsessie kan stat
 
 **Aanvulling 2026-11-08:** het beoogde domein is nu **komnaardekerk.nu**. Een DNS-controle gaf NXDOMAIN: het domein staat niet in de .nu-zone en is vrijwel zeker nog vrij. Er is niets geregistreerd. **komnaardekerk.nl is wél geregistreerd** (bij Wix, zonder gepubliceerde site). Beslissing nodig: wie registreert komnaardekerk.nu (kosten, houder), en willen we navragen wie komnaardekerk.nl bezit?
 
+**Aanvulling 2026-11-16 (domeinnaam):** komnaardekerk.nl is al sinds 2018 geregistreerd (via Hostnet, eigenaar afgeschermd, toont nu een foutpagina van Wix). komnaardekerk.nu en komnaardekerk.com lijken vrij; kom-naar-de-kerk.nl, komnaardekerkhouten.nl en kerkinhouten.nl zijn vrij. **Beslissing nodig:** welke naam wordt het, welke varianten registreren we erbij (kosten ongeveer € 10–15 per naam per jaar, niet geverifieerd), en op wiens naam (bij voorkeur een organisatie met meer beheerders, met automatische verlenging)? Claude registreert niets.
+
 **Antwoord**
 
 Deels (2026-11-08): Martijn: "Koppel de website aan martijndenbesten.com". Uitgevoerd als preview op het subdomein komnaardekerk.martijndenbesten.com (de hoofdsite op martijndenbesten.com is ongemoeid gelaten). Open blijft: definitieve hosting/domein komnaardekerk.nl, DNS en mail.

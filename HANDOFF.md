@@ -2,7 +2,18 @@
 
 status: verhuisd naar de eigen repository MartijndBesten/komnaardekerk (15-11-2026); preview live op commit 8182ecb7 (workbench), livecontrole 32/32 groen
 next_actor: martijn
-updated: 2026-11-15 (Claude Code-cloudsessie, antwoorden V-019 en V-002 vastgelegd)
+updated: 2026-11-16 (Claude Code-cloudsessie, oude domeinnamen en veiligheid geloveninhouten.nl)
+
+## Oude domeinnamen en veiligheid (2026-11-16)
+
+**Context van Martijn:** geloofinhouten.nl is jaren geleden door iemand anders opgezet en gehackt; geloveninhouten.nl is 2–3 jaar geleden ontstaan rond de activiteitenmarkt; Martijn beheert die sinds kort. Donderdag overleg; daarna wil Martijn deze site naar de kerken sturen. Contactgegevens van derden staan bewust niet in deze repository.
+
+**Bevindingen (alleen kijken, niets geprobeerd, 16-11-2026):**
+- geloveninhouten.nl (WordPress 7.1.4, Elementor, Astra, PHP 8.4, Hostnet): het enige zichtbare account heeft een e-mailadres als naam, en dat is voor iedereen leesbaar via `/wp-json/wp/v2/users` (de helft van de inloggegevens ligt dus op straat). XML-RPC staat aan; `readme.html` en `license.txt` verraden de versie; geen beveiligingsheaders; diverse starterplug-ins (zipwp, gutenberg-templates, surerank, nps-survey) die niet nodig zijn. TLS in orde (Let’s Encrypt, geldig tot 21-01-2027). Geen statistiekplug-in: bezoekersaantallen van september zijn uit WordPress niet te halen.
+- geloofinhouten.nl: opnieuw geregistreerd op 18-06-2026 bij Dynadot (VS), stuurt door naar `kpk-gg.id`. Wie de oude eigenaar was, maakt voor het offline halen niet meer uit: de huidige houder is onbekend.
+- komnaardekerk.nl: **bezet sinds 2018** (via Hostnet, gekoppeld aan Wix, toont nu een foutpagina van Wix). Houder afgeschermd. komnaardekerk.nu en komnaardekerk.com geven geen DNS (waarschijnlijk vrij); kom-naar-de-kerk.nl, komnaardekerkhouten.nl en kerkinhouten.nl vrij volgens SIDN.
+
+**Advies aan Martijn (in de chat):** WordPress van geloveninhouten.nl weghalen en het domein laten doorverwijzen (houden, automatisch verlengen); tot dan wachtwoorden en accounts na de overdracht vervangen, updates, onnodige plug-ins weg, XML-RPC uit. Domeinen onder een organisatie met meer beheerders, met automatische verlenging, en de 2–3 voor de hand liggende varianten erbij. Houder van komnaardekerk.nl navragen (mogelijk een eerder kerkelijk initiatief). Zie V-005.
 
 ## Verhuizing (2026-11-15): eigen repository
 
