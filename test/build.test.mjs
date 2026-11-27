@@ -81,8 +81,10 @@ test('productieversie toont alleen deelnemende kerken met toestemming, zonder on
     assert.equal(r.status, 0, r.stderr);
     const kerken = readFileSync(path.join(dir, 'dist/kerken/index.html'), 'utf8');
     assert.ok(kerken.includes('De Lichtboog'));
-    const namen = [...kerken.matchAll(/class="kerk-naam">([^<]+)</g)].map((m) => m[1]);
+    const namen = [...kerken.matchAll(/class="kerkkaart-naam"><a href="[^"]+">([^<]+)</g)].map((m) => m[1]);
     assert.deepEqual(namen, ['De Lichtboog'], `kerkkaarten in productie: ${namen}`);
+    assert.ok(existsSync(path.join(dir, 'dist/kerken/de-lichtboog/index.html')), 'kerkpagina van de deelnemer ontbreekt');
+    assert.ok(!existsSync(path.join(dir, 'dist/kerken/sionkerk/index.html')), 'kerkpagina van een kandidaat in productie');
     assert.ok(!kerken.includes('Nog niet benaderd'), 'kandidaatlabel in productie');
     assert.ok(!existsSync(path.join(dir, 'dist/ontwerp/index.html')), 'ontwerppagina in productie');
     const headers = readFileSync(path.join(dir, 'dist/_headers'), 'utf8');

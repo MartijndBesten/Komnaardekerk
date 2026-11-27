@@ -148,7 +148,7 @@
   var filter = document.querySelector('[data-filter]');
   if (filter) {
     filter.hidden = false;
-    var kerken = alle('.kerk[data-kenmerken]');
+    var kerken = alle('[data-kerkenlijst] [data-kenmerken]');
     var uitkomst = filter.querySelector('[data-filter-uitkomst]');
     var geen = document.querySelector('[data-geen-resultaat]');
     var pas = function () {

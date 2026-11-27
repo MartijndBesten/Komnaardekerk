@@ -1,5 +1,5 @@
 import { html } from '../lib/html.mjs';
-import { kerkItem, paginaKop, datum } from '../lib/onderdelen.mjs';
+import { kerkKaart, kerkDetail, paginaKop, datum } from '../lib/onderdelen.mjs';
 
 export const pagina = {
   pad: '/kerken/',
@@ -14,6 +14,7 @@ const TRADITIES = [
   ['evangelisch', 'Evangelisch']
 ];
 const KENMERKEN = [
+  ['ochtend', 'Dienst op zondagochtend'],
   ['kinderen', 'Programma voor kinderen'],
   ['oppas', 'Oppas voor de kleintjes'],
   ['middag', 'Ook een middag- of avonddienst'],
@@ -31,7 +32,7 @@ export function inhoud(ctx) {
 ${paginaKop({
   boven: 'Kerken in Houten',
   titel: 'Elke kerk heeft een eigen sfeer. De deur staat <em>overal</em> open.',
-  lead: 'Rooms-katholiek, protestants, reformatorisch, evangelisch: de kerken verschillen in vorm en traditie. Hieronder vind je per kerk wanneer je welkom bent en hoe je contact legt.',
+  lead: 'Rooms-katholiek, protestants, reformatorisch, evangelisch: de kerken verschillen in vorm en traditie. Kies een kerk voor de tijden, het adres en hoe je contact legt.',
   beeld: fotos.dorp
 })}
 
@@ -62,9 +63,9 @@ ${paginaKop({
       </div>
       <p class="filter-uitkomst" role="status" aria-live="polite" data-filter-uitkomst></p>
     </div>
-    <div class="kerken" data-schud>
-      ${lijst.map((k) => kerkItem(k, { concept }))}
-    </div>
+    <ul class="kerkkaarten" data-schud data-kerkenlijst>
+      ${lijst.map((k) => kerkKaart(k, { kop: 'h3' }))}
+    </ul>
     <p class="geen-resultaat" data-geen-resultaat hidden>Geen kerk past bij al deze keuzes. Haal er eentje weg.</p>
     <p class="klein kerken-eerlijk">De volgorde wisselt bij elk bezoek, zodat geen kerk vooraan staat. De traditie is een grove indeling om je op weg te helpen; elke kerk vertelt op haar eigen website wie zij is.</p>
   </div>
@@ -96,4 +97,34 @@ export function jsonld(ctx) {
       address: { '@type': 'PostalAddress', streetAddress: k.adres, postalCode: k.postcode || undefined, addressLocality: k.plaats, addressCountry: 'NL' }
     }))
   };
+}
+
+// Eén pagina per kerk: /kerken/<id>/. Alle details staan alleen hier; de kaartjes vatten samen.
+export function paginas(content) {
+  const concept = content.site.modus !== 'productie';
+  return content.kerken.kerken.map((kerk) => ({
+    pagina: {
+      pad: `/kerken/${kerk.id}/`,
+      titel: `${kerk.naam}, ${kerk.plaats}`,
+      omschrijving: `${kerk.naam} in ${kerk.plaats}: wanneer de diensten zijn, waar de kerk staat, wat er is voor kinderen en hoe je contact legt.`
+    },
+    inhoud: (ctx) => html`
+<nav class="kruimel" aria-label="Kruimelpad"><div class="kruimel-binnen"><a href="/kerken/">← Alle kerken</a></div></nav>
+<section class="kerkpagina">
+  <div class="kerkpagina-binnen">
+    ${kerkDetail(kerk, { concept })}
+  </div>
+</section>
+<section class="kerkpagina-verder" aria-labelledby="verder-kop">
+  <div class="kerkpagina-verder-binnen">
+    <h2 class="kop-3" id="verder-kop">Liever niet alleen?</h2>
+    <p>Je kunt ook met iemand samen gaan. Iemand van de kerk wacht je dan op of zit naast je.</p>
+    <p class="knoppen"><a class="knop knop--vol" href="/samen-naar-de-kerk/?kerk=${kerk.id}">Samen gaan</a> <a class="pijllink" href="/voor-het-eerst/">Wat gebeurt er in een dienst?</a></p>
+  </div>
+</section>`,
+    jsonld: () => (kerk.deelname?.status === 'deelnemer' && kerk.deelname?.toestemmingPublicatie && kerk.adres
+      ? { '@context': 'https://schema.org', '@type': 'Church', name: kerk.naam, url: kerk.website || undefined,
+          address: { '@type': 'PostalAddress', streetAddress: kerk.adres, postalCode: kerk.postcode || undefined, addressLocality: kerk.plaats, addressCountry: 'NL' } }
+      : null)
+  }));
 }

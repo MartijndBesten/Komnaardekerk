@@ -1086,43 +1086,159 @@ details[open] > summary .plusje {
 .buurt {
   background: var(--zand);
 }
-.kerken-kort {
+/* ---------- kerkkaartjes (home en /kerken/) ---------- */
+.kerkkaarten {
   list-style: none;
   padding: 0;
   display: grid;
-  gap: 0 2rem;
+  gap: 1rem;
 }
-@media (min-width: 44rem) {
-  .kerken-kort {
+@media (min-width: 40rem) {
+  .kerkkaarten {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-.kerk-kort a {
-  display: grid;
-  gap: 0.3rem;
-  padding: 1.4rem 0 1.6rem;
-  border-top: 1.5px solid var(--inkt);
-  text-decoration: none;
-  transition: background-color 0.3s, padding 0.35s var(--zacht);
+@media (min-width: 64rem) {
+  .kerkkaarten {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
-.kerk-kort a:hover {
-  color: var(--inkt);
-  background: var(--papier);
-  padding-left: 1rem;
-  padding-right: 1rem;
+.kerkkaart {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.35rem 1.4rem 1.25rem;
+  background: var(--papier-licht);
+  border: 1px solid var(--lijn);
+  border-radius: var(--boog);
+  transition: transform 0.25s var(--zacht), box-shadow 0.25s var(--zacht), border-color 0.25s;
 }
-.kerk-kort-naam {
+.kerkkaart > * {
+  margin: 0;
+}
+.kerkkaart[hidden] {
+  display: none;
+}
+.kerkkaart:hover {
+  transform: translateY(-2px);
+  border-color: var(--mos);
+  box-shadow: 0 0.6rem 1.6rem -0.9rem rgba(42, 27, 30, 0.45);
+}
+.kerkkaart:focus-within {
+  outline: 3px solid var(--mos);
+  outline-offset: 3px;
+}
+.kerkkaart-plaats {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--klei-donker);
+}
+.kerkkaart-naam {
   font-family: var(--kop);
-  font-size: clamp(1.6rem, 1.3rem + 1vw, 2.1rem);
-  line-height: 1.1;
+  font-weight: 400;
+  font-size: clamp(1.45rem, 1.25rem + 0.7vw, 1.8rem);
+  line-height: 1.12;
+  margin: 0;
 }
-.kerk-kort-meta {
+.kerkkaart-naam a {
+  color: inherit;
+  text-decoration: none;
+}
+.kerkkaart-naam a:focus-visible {
+  outline: none;
+}
+.kerkkaart-naam a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--boog);
+}
+.kerkkaart-tijden {
+  font-weight: 700;
+  margin-top: 0.15rem;
+}
+.kerkkaart-extra {
+  font-size: 0.9375rem;
+  color: var(--inkt-2);
+}
+.kerkkaart-meer {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--mos);
+}
+.kerkkaart-meer::after {
+  content: ' →';
+  display: inline-block;
+  transition: transform 0.25s var(--zacht);
+}
+.kerkkaart:hover .kerkkaart-meer::after {
+  transform: translateX(4px);
+}
+/* op een telefoon compacter: elf kaartjes moeten niet eindeloos scrollen */
+@media (max-width: 39.99rem) {
+  .kerkkaarten {
+    gap: 0.6rem;
+  }
+  .kerkkaart {
+    padding: 0.95rem 2.6rem 0.95rem 1.1rem;
+    gap: 0.2rem;
+  }
+  .kerkkaart-meer {
+    display: none;
+  }
+  .kerkkaart::after {
+    content: '→';
+    position: absolute;
+    right: 1.1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 700;
+    color: var(--mos);
+  }
+}
+
+/* ---------- pagina per kerk ---------- */
+.kruimel-binnen {
+  max-width: var(--breedte);
+  margin: 0 auto;
+  padding: 1.25rem var(--goot) 0;
+}
+.kruimel a {
   font-weight: 700;
 }
-.kerk-kort-sfeer {
-  color: var(--inkt-2);
-  font-size: 0.9375rem;
+.kerkpagina-binnen,
+.kerkpagina-verder-binnen {
+  max-width: var(--breedte);
+  margin: 0 auto;
+  padding: clamp(1.5rem, 3vw, 2.5rem) var(--goot) clamp(2.5rem, 5vw, 4rem);
 }
+.kerk.kerk--pagina {
+  border-top: 0;
+  padding-top: 1rem;
+}
+.kerk--zonder-beeld {
+  max-width: 46rem;
+}
+@media (min-width: 56rem) {
+  .kerk.kerk--zonder-beeld {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.kerk-sectiekop {
+  font-family: var(--kop);
+  font-weight: 400;
+  font-size: 1.5rem;
+  margin-top: 2.25rem;
+}
+.kerkpagina-verder {
+  background: var(--zand);
+}
+
 .buurt-voet {
   margin-top: 2.5rem;
 }

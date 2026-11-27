@@ -1,5 +1,5 @@
 import { html, raw } from '../lib/html.mjs';
-import { faqLijst, kerkCompact, bijbeltekst, samenGaanTeaser } from '../lib/onderdelen.mjs';
+import { faqLijst, kerkKaart, bijbeltekst, samenGaanTeaser } from '../lib/onderdelen.mjs';
 import { beeldmerkInhoud, vlakSvg, VIEWBOX } from '../lib/logo.mjs';
 
 export const pagina = {
@@ -163,10 +163,10 @@ export function inhoud(ctx) {
       <h2 class="kop-2" id="buurt-kop">Kerken bij jou in de buurt</h2>
       <p class="lead">Elf kerken in Houten, Schalkwijk en ’t Goy. Protestants, evangelisch en katholiek. Ze geloven in dezelfde Heer en hebben dezelfde uitnodiging. Kies er gewoon één.</p>
     </div>
-    <ul class="kerken-kort" data-schud>
-      ${kerken.kerken.map((k) => kerkCompact(k))}
+    <ul class="kerkkaarten" data-schud>
+      ${kerken.kerken.map((k) => kerkKaart(k, { kop: 'h3' }))}
     </ul>
-    <p class="buurt-voet"><a class="knop knop--vol" href="/kerken/">Adres, tijden en route</a></p>
+    <p class="buurt-voet"><a class="knop knop--vol" href="/kerken/">Zoek op plaats en traditie</a></p>
     <p class="klein buurt-eerlijk">De volgorde wisselt bij elk bezoek, zodat geen kerk vooraan staat.${site.modus !== 'productie' ? ' Concept: de kerken zijn nog niet benaderd en doen (nog) niet mee.' : ''}</p>
   </div>
 </section>

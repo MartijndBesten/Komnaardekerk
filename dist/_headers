@@ -39,6 +39,39 @@ https://:versie.:worker.:sub.workers.dev/*
 /kerken/
   Cache-Control: no-cache, no-transform
 
+/kerken/sionkerk/
+  Cache-Control: no-cache, no-transform
+
+/kerken/pleinkerk/
+  Cache-Control: no-cache, no-transform
+
+/kerken/opstandingskerk/
+  Cache-Control: no-cache, no-transform
+
+/kerken/de-lichtboog/
+  Cache-Control: no-cache, no-transform
+
+/kerken/het-kruispunt/
+  Cache-Control: no-cache, no-transform
+
+/kerken/eskol-kerk/
+  Cache-Control: no-cache, no-transform
+
+/kerken/evangelie-gemeente-houten/
+  Cache-Control: no-cache, no-transform
+
+/kerken/olv-houten/
+  Cache-Control: no-cache, no-transform
+
+/kerken/de-rivier/
+  Cache-Control: no-cache, no-transform
+
+/kerken/h-michael-schalkwijk/
+  Cache-Control: no-cache, no-transform
+
+/kerken/olv-t-goy/
+  Cache-Control: no-cache, no-transform
+
 /ontdek-het-geloof/
   Cache-Control: no-cache, no-transform
 

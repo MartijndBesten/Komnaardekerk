@@ -256,7 +256,8 @@ async function bouw() {
 
   const sitemap = [];
   const htmlPaden = [];
-  for (const mod of PAGINAS) {
+  const allePaginas = PAGINAS.flatMap((mod) => [mod, ...(mod.paginas ? mod.paginas(content) : [])]);
+  for (const mod of allePaginas) {
     const pagina = { ...mod.pagina };
     if (pagina.alleenConcept && !concept) continue;
     const ctx = { ...content, pad: pagina.pad, versie };
