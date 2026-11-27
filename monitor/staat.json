@@ -1,6 +1,6 @@
 {
   "sionkerk|https://www.hervormdhouten.nl/": {
-    "hash": "8292e112ea745de6419d",
+    "hash": "2250147e0fe5bd84b8f7",
     "laatstGecontroleerd": "2026-11-27",
     "links": [
       "https://www.hervormdhouten.nl/wijkgericht-werken-en-bijbelkringen/",
@@ -16,7 +16,7 @@
     ]
   },
   "sionkerk|https://www.hervormdhouten.nl/missionair-werk/": {
-    "hash": "9a4c0123fcf79928b464",
+    "hash": "68a6b64304de6e5e613b",
     "laatstGecontroleerd": "2026-11-27",
     "links": [
       "https://www.hervormdhouten.nl/wijkgericht-werken-en-bijbelkringen/",
@@ -31,7 +31,7 @@
     ]
   },
   "pleinkerk|https://hhghouten.nl/kerkdiensten/": {
-    "hash": "da4d1b3c3f7b16526e77",
+    "hash": "efd7de39517899e891cf",
     "laatstGecontroleerd": "2026-11-27",
     "links": [
       "https://hhghouten.nl/creche"
@@ -69,22 +69,14 @@
     ]
   },
   "de-lichtboog|https://www.delichtboog.nl/": {
-    "hash": "e2e6cc10a849b456df4e",
+    "hash": "2aed4f6ef6ebf1e44566",
     "laatstGecontroleerd": "2026-11-27",
-    "links": [
-      "https://www.delichtboog.nl/go/wat-we-doen/jongeren/",
-      "https://www.delichtboog.nl/go/wat-we-doen/alpha-houten/"
-    ]
+    "links": []
   },
   "de-lichtboog|https://www.delichtboog.nl/go/agenda/": {
-    "hash": "dce5136beebb2b788e96",
+    "hash": "2aed4f6ef6ebf1e44566",
     "laatstGecontroleerd": "2026-11-27",
-    "links": [
-      "https://www.delichtboog.nl/go/wat-we-doen/jongeren/",
-      "https://www.delichtboog.nl/go/wat-we-doen/alpha-houten/",
-      "https://www.delichtboog.nl/agenda/741865/shalom-initiatief-aanbiddings-gebedsbijeenkomst.html",
-      "https://www.delichtboog.nl/agenda/752865/young-adult-night-17-bijbelstudie.html"
-    ]
+    "links": []
   },
   "het-kruispunt|https://www.ngkhetkruispunt.nl/": {
     "hash": "6da92265d723cf732454",
@@ -99,117 +91,78 @@
     "links": []
   },
   "eskol-kerk|https://eskol-kerk.nl/": {
-    "hash": "9f2c48c472006ff5f2d0",
+    "hash": "0b31fc54fd4cfe9a85c9",
     "laatstGecontroleerd": "2026-11-27",
-    "links": [
-      "https://eskol-kerk.nl/kinderbijbeltijd/",
-      "https://eskol-kerk.nl/activiteiten/kinderbijbelclub/"
-    ]
+    "links": []
   },
   "eskol-kerk|https://eskol-kerk.nl/kerktijden/": {
-    "hash": "f9f489a6feeb2e77024e",
+    "hash": "0b31fc54fd4cfe9a85c9",
     "laatstGecontroleerd": "2026-11-27",
-    "links": [
-      "https://eskol-kerk.nl/kinderbijbeltijd/",
-      "https://eskol-kerk.nl/activiteiten/kinderbijbelclub/"
-    ]
+    "links": []
   },
   "eskol-kerk|https://eskol-kerk.nl/activiteiten/": {
-    "hash": "05c45b44f965257a3421",
+    "hash": "0b31fc54fd4cfe9a85c9",
     "laatstGecontroleerd": "2026-11-27",
-    "links": [
-      "https://eskol-kerk.nl/kinderbijbeltijd/",
-      "https://eskol-kerk.nl/activiteiten/kinderbijbelclub/",
-      "https://eskol-kerk.nl/gratis-bijbel-aanvragen/"
-    ]
+    "links": []
   },
   "eskol-kerk|https://eskol-kerk.nl/activiteiten/kinderbijbelclub/": {
-    "hash": "3648c4abec63c488e1eb",
+    "hash": "0b31fc54fd4cfe9a85c9",
     "laatstGecontroleerd": "2026-11-27",
-    "links": [
-      "https://eskol-kerk.nl/kinderbijbeltijd/",
-      "https://eskol-kerk.nl/activiteiten/kinderbijbelclub/"
-    ]
+    "links": []
   },
   "eskol-kerk|https://eskol-kerk.nl/activiteiten/maaltijd/": {
-    "hash": "f5d3392158f842430631",
+    "hash": "0b31fc54fd4cfe9a85c9",
     "laatstGecontroleerd": "2026-11-27",
-    "links": [
-      "https://eskol-kerk.nl/kinderbijbeltijd/",
-      "https://eskol-kerk.nl/activiteiten/kinderbijbelclub/"
-    ]
+    "links": []
   },
   "eskol-kerk|https://eskol-kerk.nl/activiteiten/koffieochtend/": {
-    "hash": "07e7d68a04c83ec836a4",
+    "hash": "0b31fc54fd4cfe9a85c9",
     "laatstGecontroleerd": "2026-11-27",
-    "links": [
-      "https://eskol-kerk.nl/kinderbijbeltijd/",
-      "https://eskol-kerk.nl/activiteiten/kinderbijbelclub/"
-    ]
+    "links": []
   },
   "evangelie-gemeente-houten|https://evangeliegemeentehouten.nl/": {
-    "hash": "b58870e9c142ee08289a",
+    "hash": "6cee7bf3d83be4e0c597",
     "laatstGecontroleerd": "2026-11-27",
     "links": []
   },
   "olv-houten|https://pj23.nl/kerken/houten/": {
-    "hash": "17466ebef3ea2911db33",
+    "hash": "ef19414d584031a1211a",
     "laatstGecontroleerd": "2026-11-27",
-    "links": [
-      "https://pj23.nl/wat-wij-doen/voor-jongeren/",
-      "https://pj23.nl/blog/2026/11/26/kerstconcert-save-the-children-in-houten/",
-      "https://pj23.nl/blog/2026/11/16/kinderen-gezocht-voor-het-groot-houtens-kinderkerstkoor/",
-      "https://pj23.nl/blog/viering/eucharistieviering-151/",
-      "https://pj23.nl/blog/agenda/lezing-gods-menswording-door-mgr-h-woorts/",
-      "https://pj23.nl/blog/agenda/kerstconcert/",
-      "https://pj23.nl/blog/agenda/bijbellezen-nu-4/",
-      "https://pj23.nl/blog/agenda/bijbellezen-nu-5/",
-      "https://pj23.nl/blog/agenda/bijbellezen-nu-6/",
-      "https://pj23.nl/blog/agenda/bijbellezen-nu-7/"
-    ]
+    "links": []
   },
   "olv-houten|https://pj23.nl/blog/agenda/bijbellezen-nu-3/": {
-    "hash": "9076203ea00f70b37aa6",
+    "hash": "ef19414d584031a1211a",
     "laatstGecontroleerd": "2026-11-27",
-    "links": [
-      "https://pj23.nl/wat-wij-doen/voor-jongeren/",
-      "https://pj23.nl/blog/agenda/lezing-gods-menswording-door-mgr-h-woorts/",
-      "https://pj23.nl/blog/agenda/kerstconcert/",
-      "https://pj23.nl/blog/agenda/bijbellezen-nu-4/"
-    ]
+    "links": []
   },
   "de-rivier|https://www.derivierhouten.nl/": {
-    "hash": "bcfaef200ebf248f1e2b",
+    "hash": "e9bbbfedf3df8514e88e",
     "laatstGecontroleerd": "2026-11-27",
     "links": []
   },
   "h-michael-schalkwijk|https://pj23.nl/kerken/schalkwijk/": {
-    "hash": "907af041c862055a6eb0",
+    "hash": "ef19414d584031a1211a",
     "laatstGecontroleerd": "2026-11-27",
-    "links": [
-      "https://pj23.nl/wat-wij-doen/voor-jongeren/",
-      "https://pj23.nl/blog/2026/03/12/eerste-paasdag-in-t-goy/",
-      "https://pj23.nl/blog/viering/kerst-gezinsviering-schalkwijk/",
-      "https://pj23.nl/blog/viering/kerstdag-schalkwijk/"
-    ]
+    "links": []
   },
   "olv-t-goy|https://pj23.nl/kerken/t-goy/": {
-    "hash": "2ee83a3cf4f865344266",
+    "hash": "ef19414d584031a1211a",
     "laatstGecontroleerd": "2026-11-27",
-    "links": [
-      "https://pj23.nl/wat-wij-doen/voor-jongeren/",
-      "https://pj23.nl/blog/viering/kerstavond-t-goy-2/"
-    ]
+    "links": []
   },
   "maranatha-gemeente-houten|https://www.maranathagemeentehouten.nl/": {
-    "hash": "2e4011aa23a7f6d429ef",
+    "hash": "2d55a245735b0054c705",
     "laatstGecontroleerd": "2026-11-27",
-    "links": []
+    "links": [
+      "https://www.maranathagemeentehouten.nl/seminars/"
+    ]
   },
   "maranatha-gemeente-houten|https://www.maranathagemeentehouten.nl/agenda-voor-smartphone/": {
-    "hash": "88c07e1f5544ab1a78a8",
+    "hash": "532fc261891bfcd4c221",
     "laatstGecontroleerd": "2026-11-27",
-    "links": []
+    "links": [
+      "https://www.maranathagemeentehouten.nl/seminars/"
+    ]
   },
   "hervormd-schalkwijk|https://www.kerkenschalkwijk-tullentwaal.nl/schalkwijk-en-t-goy/": {
     "hash": "483adb4075bc1de15793",
@@ -240,7 +193,7 @@
     ]
   },
   "de-lichtboog|https://www.proefhouten.nl/": {
-    "hash": "93862d75dae4765e3473",
+    "hash": "aea8e4798021bcb54e71",
     "laatstGecontroleerd": "2026-11-27",
     "links": []
   },
@@ -253,12 +206,9 @@
     ]
   },
   "de-lichtboog|https://www.delichtboog.nl/go/meedoen/kennismaken/": {
-    "hash": "338572d527a9e1f6919d",
+    "hash": "2aed4f6ef6ebf1e44566",
     "laatstGecontroleerd": "2026-11-27",
-    "links": [
-      "https://www.delichtboog.nl/go/wat-we-doen/jongeren/",
-      "https://www.delichtboog.nl/go/wat-we-doen/alpha-houten/"
-    ]
+    "links": []
   },
   "opstandingskerk|https://www.protestantsegemeentehouten.nl/leerenleeskring/": {
     "hash": "c3091ada38d4ee3fef51",
@@ -285,41 +235,27 @@
     ]
   },
   "olv-houten|https://pj23.nl/blog/agenda/kerstconcert/": {
-    "hash": "678770e2b7952294b821",
+    "hash": "ef19414d584031a1211a",
     "laatstGecontroleerd": "2026-11-27",
-    "links": [
-      "https://pj23.nl/wat-wij-doen/voor-jongeren/",
-      "https://pj23.nl/blog/agenda/lezing-gods-menswording-door-mgr-h-woorts/",
-      "https://pj23.nl/blog/agenda/bijbellezen-nu-4/",
-      "https://pj23.nl/blog/agenda/bijbelleesgroep-lectio-divina-4/"
-    ]
+    "links": []
   },
   "h-michael-schalkwijk|https://pj23.nl/blog/viering/kerst-gezinsviering-schalkwijk/": {
-    "hash": "e26a3c184d1a9f272363",
+    "hash": "ef19414d584031a1211a",
     "laatstGecontroleerd": "2026-11-27",
-    "links": [
-      "https://pj23.nl/wat-wij-doen/voor-jongeren/",
-      "https://pj23.nl/blog/viering/eucharistieviering-151/"
-    ]
+    "links": []
   },
   "olv-t-goy|https://pj23.nl/blog/viering/kerstavond-t-goy-2/": {
-    "hash": "6ab00148bc1ad3622b38",
+    "hash": "ef19414d584031a1211a",
     "laatstGecontroleerd": "2026-11-27",
-    "links": [
-      "https://pj23.nl/wat-wij-doen/voor-jongeren/",
-      "https://pj23.nl/blog/viering/eucharistieviering-151/"
-    ]
+    "links": []
   },
   "h-michael-schalkwijk|https://pj23.nl/blog/viering/kerstdag-schalkwijk/": {
-    "hash": "b31268607e23827a5364",
+    "hash": "ef19414d584031a1211a",
     "laatstGecontroleerd": "2026-11-27",
-    "links": [
-      "https://pj23.nl/wat-wij-doen/voor-jongeren/",
-      "https://pj23.nl/blog/viering/eucharistieviering-151/"
-    ]
+    "links": []
   },
   "sionkerk|https://www.hervormdhouten.nl/feed/": {
-    "hash": "358516bfa640391b0cc7",
+    "hash": "31371253d0e0714c10d2",
     "laatstGecontroleerd": "2026-11-27",
     "links": [
       "https://www.hervormdhouten.nl/gebedsavonden/"
@@ -371,12 +307,12 @@
     "links": []
   },
   "de-rivier|https://www.derivierhouten.nl/feed/": {
-    "hash": "b3ec33b9f8fb64548696",
+    "hash": "6943cb0709bf4687c447",
     "laatstGecontroleerd": "2026-11-27",
     "links": []
   },
   "de-rivier|https://www.derivierhouten.nl/comments/feed/": {
-    "hash": "7dc9a08fbd893665eca0",
+    "hash": "6206e24d93f914a0c4eb",
     "laatstGecontroleerd": "2026-11-27",
     "links": []
   },
@@ -422,6 +358,11 @@
   },
   "de-lichtboog|https://www.proefhouten.nl/evenementen/?ical=1": {
     "hash": "e3b0c44298fc1c149afb",
+    "laatstGecontroleerd": "2026-11-27",
+    "links": []
+  },
+  "maranatha-gemeente-houten|https://calendar.google.com/calendar/ical/q0un3r0lmagnqmkk96g29ucnos%40group.calendar.google.com/public/basic.ics": {
+    "hash": "892f2c92671f2cc25f11",
     "laatstGecontroleerd": "2026-11-27",
     "links": []
   }
