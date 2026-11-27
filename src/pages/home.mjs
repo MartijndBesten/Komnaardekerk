@@ -76,7 +76,7 @@ function zondagochtend() {
     </fieldset>`;
   const stippen = [...STAPPEN.map((st) => [st.id, st.kop]), ['eind', 'Probeer het een keer']];
   return html`<div class="ochtend-raam"><div class="ochtend-zijkant"><div class="ochtend-keuzes" data-ochtend-keuzes hidden>
-      <p class="ochtend-uitleg">Maak het persoonlijk. Je keuze blijft op je eigen scherm.</p>
+      <p class="ochtend-uitleg">Je keuze blijft op je eigen scherm.</p>
       ${keuze('muziek', 'Hoe wordt er gezongen in de kerk die je kiest?', MUZIEK)}
       ${keuze('gezelschap', 'Hoe kom je?', GEZELSCHAP)}
       <p class="sr" role="status" data-ochtend-status></p>
@@ -200,7 +200,7 @@ export function inhoud(ctx) {
       <h2 class="kop-2" id="buurt-kop">Kerken bij jou in de buurt</h2>
       <p class="lead">${aantalWoord(kerken.kerken.length)} kerken in ${plaatsenZin(kerken.kerken)}. Protestants, evangelisch en katholiek. Ze geloven in dezelfde Heer en hebben dezelfde uitnodiging. Kies er gewoon één.</p>
     </div>
-    ${kerkenkaart(kerken.kerken, { kop: 'Kies een kerk op de kaart', kopNiveau: 3, tekst: 'Tik op een nummer of een naam: dan zie je de tijden, het adres en hoe je contact legt.' })}
+    ${kerkenkaart(kerken.kerken, { kopNiveau: 2 })}
     <p class="buurt-voet"><a class="knop knop--vol" href="/kerken/">Alle kerken: tijden, filters en route</a></p>
   </div>
 </section>
@@ -219,7 +219,6 @@ export function inhoud(ctx) {
     <div class="gevoel-intro">
       <p class="bovenregel">Kies wat bij je past</p>
       <h2 class="kop-2" id="gevoel-kop">Wat houdt je bezig?</h2>
-      <p class="gevoel-tekst">Kies een woord. Je leest een korte tekst, iets over de hoop van Jezus, en wat je daarna kunt doen.</p>
       <p class="gevoel-uitleg">Wat je hier kiest, blijft op je eigen scherm. We bewaren niets.</p>
     </div>
     <div class="gevoel-keuzes">

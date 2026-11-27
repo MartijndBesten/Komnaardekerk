@@ -145,6 +145,20 @@
         else b.removeAttribute('aria-current');
       });
     };
+    // Zolang je niets kiest, wisselt de zaal rustig tussen kerken met piano, orgel en band: kerken verschillen.
+    var STIJLEN = ['piano', 'orgel', 'band'];
+    var stijlGekozen = false;
+    var zaalInBeeld = false;
+    if (sceneFig && zaal && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (items) {
+        zaalInBeeld = items[0].isIntersecting;
+      }).observe(sceneFig);
+      setInterval(function () {
+        if (stijlGekozen || !zaalInBeeld || document.hidden) return;
+        var nu = STIJLEN.indexOf(zaal.getAttribute('data-muziek'));
+        zaal.setAttribute('data-muziek', STIJLEN[(nu + 1) % STIJLEN.length]);
+      }, 5000);
+    }
     if (sceneFig) {
       sceneFig.hidden = false;
       var rustigScroll = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -212,7 +226,10 @@
       }
       keuzes.addEventListener('change', function (e) {
         var veld = e.target;
-        if (zaal) zaal.setAttribute(veld.name === 'muziek' ? 'data-muziek' : 'data-mee', veld.value);
+        if (zaal && veld.name === 'muziek') {
+          stijlGekozen = STIJLEN.indexOf(veld.value) !== -1;
+          if (stijlGekozen) zaal.setAttribute('data-muziek', veld.value);
+        } else if (zaal) zaal.setAttribute('data-mee', veld.value);
         if (veld.name === 'muziek') {
           var tekst = ochtend.querySelector('[data-muziek-tekst]');
           var tag = ochtend.querySelector('[data-muziek-tag]');

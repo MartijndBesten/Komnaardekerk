@@ -39,7 +39,7 @@ export function zondagScene() {
   const muzieknoten = [0, 1, 2].map((n) => `<text class="noot noot-${n}" x="${118 + n * 16}" y="150">♪</text>`).join('');
   const stoom = [0, 1, 2].map((n) => `<path class="stoom stoom-${n}" d="M${236 + n * 14} 196q-3 -5 0 -9t0 -9"/>`).join('');
 
-  return `<svg class="zondag" viewBox="0 0 400 260" aria-hidden="true" focusable="false" data-stap="binnen">
+  return `<svg class="zondag" viewBox="0 0 400 260" aria-hidden="true" focusable="false" data-stap="binnen" data-muziek="piano">
   <defs>
     <linearGradient id="zs-licht" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a8" stop-opacity=".9"/><stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/></linearGradient>
     <radialGradient id="zs-gloed"><stop offset="0" stop-color="#fff6d8"/><stop offset=".5" stop-color="#ffe9a8" stop-opacity=".7"/><stop offset="1" stop-color="#f0c24e" stop-opacity="0"/></radialGradient>
@@ -53,13 +53,25 @@ export function zondagScene() {
     <g class="scherm-lied"><path d="M70 56h60M70 64h48M70 76h62M70 84h40"/></g>
     <g class="scherm-tekst"><path d="M70 58h70M70 65h70M70 72h64M70 79h70M70 86h50"/></g>
   </g>
-  <g class="orgel"><rect x="12" y="92" width="7" height="60" rx="2"/><rect x="22" y="80" width="7" height="72" rx="2"/><rect x="32" y="70" width="7" height="82" rx="2"/><rect x="42" y="80" width="7" height="72" rx="2"/><rect x="52" y="92" width="7" height="60" rx="2"/></g>
-  <g class="piano"><rect x="100" y="138" width="44" height="16" rx="2"/><path d="M103 141h38"/></g>
-  <g class="band"><g transform="translate(112 160)">${staand('#5a4a4d', 0.6)}</g><g transform="translate(140 160)">${staand('#a64f2e', 0.6)}</g><path class="gitaar" d="M106 150l14 -6"/><circle class="drum" cx="128" cy="154" r="6"/></g>
+  <!-- podium: altijd vooraan; per soort kerk een andere inrichting (data-muziek: orgel | piano | band) -->
+  <g class="liedbord"><rect x="306" y="46" width="40" height="44" rx="2"/><text x="326" y="62" text-anchor="middle">Ps 23</text><text x="326" y="76" text-anchor="middle">Gez 1</text></g>
+  <g class="lampen"><path class="lamp lamp-0" d="M110 0L92 140H128Z"/><path class="lamp lamp-1" d="M200 0L180 140H220Z"/><path class="lamp lamp-2" d="M290 0L272 140H308Z"/></g>
+  <path class="podium" d="M52 152V138H348V152Z"/><path class="podium-rand" d="M52 138H348"/>
+  <g class="orgel"><rect x="12" y="92" width="7" height="60" rx="2"/><rect x="22" y="80" width="7" height="72" rx="2"/><rect x="32" y="70" width="7" height="82" rx="2"/><rect x="42" y="80" width="7" height="72" rx="2"/><rect x="52" y="92" width="7" height="46" rx="2"/></g>
+  <g class="piano"><rect x="96" y="124" width="44" height="15" rx="2"/><path d="M99 127h38"/></g>
+  <g class="band">
+    <g class="drumstel"><circle cx="128" cy="128" r="7"/><circle cx="116" cy="132" r="4.5"/><circle cx="140" cy="132" r="4.5"/><path d="M112 124l-4 -6M144 124l4 -6"/></g>
+    <g transform="translate(98 138)">${staand('#5a4a4d', 0.6)}</g><path class="gitaar" d="M92 128l14 -6"/>
+    <g transform="translate(160 138)">${staand('#a64f2e', 0.6)}</g><path class="gitaar" d="M154 128l14 -6"/>
+    <g class="keys"><rect x="196" y="126" width="26" height="5" rx="1.5"/><path d="M200 131v7M218 131v7"/></g>
+    <g transform="translate(236 138)">${staand('#c9733f', 0.6)}</g><path class="microfoon" d="M244 138v-16M244 122l-4 -2"/>
+  </g>
   ${muzieknoten}
-  <g class="lessenaar"><path d="M256 152V126H284V152Z"/><path class="boek" d="M258 124l12 -4l12 4l-12 3Z"/><circle class="boek-gloed" cx="270" cy="121" r="16" fill="url(#zs-gloed)"/></g>
-  <g class="voorganger" transform="translate(270 126)">${staand('#2a1b1e', 0.62)}</g>
-  <g class="spreken"><path d="M290 102q8 -4 0 -8M296 106q12 -8 0 -16"/></g>
+  <g class="lessenaar"><path d="M258 138V118H282V138Z"/><path class="boek" d="M259 116l11 -4l11 4l-11 3Z"/><circle class="boek-gloed" cx="270" cy="113" r="16" fill="url(#zs-gloed)"/></g>
+  <g class="preekstoel"><path class="kansel-poot" d="M265 138V112H275V138Z"/><path class="kansel" d="M254 112V92H286V112Z"/><path class="trap" d="M286 136l12 -24"/><path class="klankbord" d="M250 70H290V74H250Z"/><circle class="boek-gloed" cx="270" cy="88" r="16" fill="url(#zs-gloed)"/></g>
+  <g class="voorganger">${staand('#2a1b1e', 0.62)}</g>
+  <g class="spreken"><path d="M290 96q8 -4 0 -8M296 100q12 -8 0 -16"/></g>
+  <g class="stijl-label"><rect x="8" y="8" width="88" height="17" rx="8.5"/><text class="stijl-orgel" x="52" y="20" text-anchor="middle">met een orgel</text><text class="stijl-piano" x="52" y="20" text-anchor="middle">met een piano</text><text class="stijl-band" x="52" y="20" text-anchor="middle">met een band</text></g>
   <g class="deur"><path class="deur-licht" d="M372 250V172H398V250Z" fill="url(#zs-gloed)"/><path class="deur-kozijn" d="M372 250V172H398"/></g>
   <g class="begroeter" transform="translate(358 248)">${staand('#7a2e3b', 0.95)}<g class="welkom"><rect x="-44" y="-62" width="40" height="16" rx="8"/><text x="-24" y="-51" text-anchor="middle">welkom!</text></g><g class="totziens"><rect x="-50" y="-62" width="46" height="16" rx="8"/><text x="-27" y="-51" text-anchor="middle">tot ziens!</text></g></g>
   <g class="zaal">${rijen.join('')}</g>

@@ -25,15 +25,15 @@ export function kaartNummers(kerken) {
 
 // De kaart. Elk punt is een link naar de pagina van die kerk (/kerken/<id>/).
 // legenda: true toont onder elke kaart de genummerde namen (homepage); op /kerken/ dragen de kaartjes het nummer.
-export function kerkenkaart(kerken, { legenda = true, kop = 'Kerken op de kaart', tekst = 'Tik op een nummer voor de tijden, het adres en hoe je contact legt.', kopNiveau = 2 } = {}) {
+// Geen gebruiksaanwijzing bij de kaart (besluit Martijn 27-11: dat begrijpt iedereen). kop: null = geen zichtbare kop.
+export function kerkenkaart(kerken, { legenda = true, kop = null, kopNiveau = 2 } = {}) {
   const geplaatsteKerken = new Map(kerken.map((kerk) => [kerk.id, kerk]));
   const nummers = kaartNummers(kerken);
   if (!nummers.size) return '';
   const k = (n, attrs, inhoud) => `<h${n} ${attrs}>${inhoud}</h${n}>`;
   return html`
-<section class="kerkenkaart" aria-labelledby="kaart-kop">
-  ${raw(k(kopNiveau, `class="kop-${kopNiveau}" id="kaart-kop"`, kop))}
-  <p>${tekst}</p>
+<section class="kerkenkaart" id="kaart" ${raw(kop ? 'aria-labelledby="kaart-kop"' : 'aria-label="Kaart met de kerken"')}>
+  ${kop ? raw(k(kopNiveau, `class="kop-${kopNiveau}" id="kaart-kop"`, kop)) : ''}
   <div class="kerkenkaart-panelen">
     ${kaarten.map(({ id, titel, breedte, hoogte, punten }) => {
       const zichtbaar = punten.filter(([kerkId]) => nummers.has(kerkId));
