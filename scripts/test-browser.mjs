@@ -248,10 +248,43 @@ await scenario('Een zondagochtend: tijdlijn groeit mee, keuzes passen de tekst a
     await page.waitForTimeout(800);
     eis((await vulling()) === 1, `tijdlijn niet vol aan het eind (${await vulling()})`);
     eis((await page.locator('#ochtend-eind a[href="/kerken/"]').textContent()).includes('Kies een kerk'), 'eindstap zonder knop naar de kerken');
+    // de getekende zaal volgt de ochtend en je keuzes
+    const zaal = page.locator('[data-ochtend-scene] svg');
+    eis(await page.locator('[data-ochtend-scene]').isVisible(), 'getekende zaal niet zichtbaar');
+    eis((await zaal.getAttribute('data-stap')) === 'eind', `zaal volgt het scrollen niet (${await zaal.getAttribute('data-stap')})`);
+    eis((await zaal.getAttribute('data-muziek')) === 'piano' && (await zaal.getAttribute('data-mee')) === 'kinderen', 'zaal volgt de keuzes niet');
+    await page.locator('.scene-stip[data-naar="bidden"]').click();
+    await page.waitForTimeout(300);
+    eis((await zaal.getAttribute('data-stap')) === 'bidden', 'stip springt niet naar de stap');
+    eis((await page.locator('.scene-stip[data-naar="bidden"]').getAttribute('aria-current')) === 'step', 'actieve stip niet gemarkeerd');
+    eis((await page.locator('[data-scene-titel]').textContent()).trim() === 'Er wordt gebeden', 'titel onder de zaal klopt niet');
+    await page.getByRole('radio', { name: 'Ik ga naar huis' }).check();
+    eis((await zaal.getAttribute('data-na')) === 'huis' && (await page.locator('[data-na-antwoord]').isVisible()), "keuze 'naar huis' werkt niet");
     // niets bewaard
     eis((await page.evaluate(() => localStorage.length + sessionStorage.length)) === 0, 'keuze opgeslagen');
     await ctx.close();
   }
+});
+
+await scenario('Zwevende knop Vind een kerk: alleen op de telefoon, weg bij de opening en bij de kerkenlijst', async () => {
+  const { ctx, page } = await nieuwePagina({ viewport: { width: 390, height: 844 } });
+  await page.goto(BASIS + '/', { waitUntil: 'networkidle' });
+  const knop = page.locator('[data-zweefknop]');
+  eis(!(await knop.isVisible()), 'knop zichtbaar over de opening');
+  await page.locator('#gevoel').scrollIntoViewIfNeeded();
+  await page.waitForTimeout(400);
+  eis(await knop.isVisible(), 'knop niet zichtbaar halverwege de pagina');
+  eis((await knop.getAttribute('href')) === '/kerken/', 'knop gaat niet naar de kerken');
+  await page.locator('section.buurt h2').scrollIntoViewIfNeeded();
+  await page.waitForTimeout(400);
+  eis(!(await knop.isVisible()), 'knop blijft staan terwijl de kerken in beeld zijn');
+  await ctx.close();
+  const d = await nieuwePagina({ viewport: { width: 1280, height: 800 } });
+  await d.page.goto(BASIS + '/', { waitUntil: 'networkidle' });
+  await d.page.locator('#gevoel').scrollIntoViewIfNeeded();
+  await d.page.waitForTimeout(400);
+  eis(!(await d.page.locator('[data-zweefknop]').isVisible()), 'zwevende knop op desktop');
+  await d.ctx.close();
 });
 
 await scenario('Verdriet: de keuze verwijst ook naar een hulplijn met belbare link', async () => {
@@ -359,11 +392,15 @@ await scenario('Geen fictieve of onbevestigde gegevens: elke kerk heeft status, 
     const naam = await k.locator('.kerk-naam').textContent();
     eis(/gecontroleerd op \d{1,2} \w+ 20\d\d/i.test(await k.locator('.kerk-controle').textContent()), `${naam}: geen controledatum`);
     eis((await k.locator('.kerk-controle a').getAttribute('href')).startsWith('https://'), `${naam}: geen bronlink`);
-    eis((await k.locator('.label-status').count()) === 1, `${naam}: geen deelnamestatus`);
     eis((await k.locator('a[href^="https://"]').first().getAttribute('href')) !== null, `${naam}: geen website`);
-    eis(!/(?:^|\s)deelnemer(?:s)?(?:\s|$)/i.test(await k.locator('.label-status').textContent()), `${naam}: ten onrechte deelnemer`);
+    eis(!/(?:^|\s)deelnemer(?:s)?(?:\s|$)/i.test(await k.textContent()), `${naam}: ten onrechte deelnemer`);
   }
   await page.goto(BASIS + '/kerken/', { waitUntil: 'networkidle' });
+  for (const pad of ['/', '/kerken/', '/kerken/sionkerk/', '/over-ons/']) {
+    await page.goto(BASIS + pad, { waitUntil: 'domcontentloaded' });
+    eis(!/niet benaderd|doen \(nog\) niet mee/i.test(await page.locator('body').textContent()), `${pad}: tekst 'nog niet benaderd' staat online`);
+  }
+  await page.goto(BASIS + '/kerken/', { waitUntil: 'domcontentloaded' });
   const tekst = await page.locator('main').textContent();
   eis(!/voorbeeldkerk|voorbeeldtijd|\bpartner\b/i.test(tekst), 'voorbeeld- of partnertekst gevonden');
   await page.goto(BASIS + '/activiteiten/', { waitUntil: 'networkidle' });
@@ -574,6 +611,7 @@ await scenario('Zonder JavaScript: alle inhoud, menu en uitklappers bruikbaar', 
   eis((await page.locator('.ochtend-stap').count()) === 6, 'zondagochtend: niet alle stappen');
   for (const st of await page.locator('.ochtend-kop').all()) eis(await st.isVisible(), 'zondagochtend: stap niet zichtbaar zonder JS');
   eis(!(await page.locator('[data-ochtend-keuzes]').isVisible()), 'zondagochtend: keuzes zichtbaar zonder JS');
+  eis(!(await page.locator('[data-ochtend-scene]').isVisible()), 'zondagochtend: tekening zonder JS zichtbaar');
   await page.locator('#ochtend-zingen summary').click();
   eis(await page.locator('#ochtend-zingen .ochtend-meer-inhoud').isVisible(), 'zondagochtend: uitklapper werkt niet zonder JS');
   await ctx.close();

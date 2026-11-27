@@ -1,6 +1,7 @@
 import { html, raw, esc } from '../lib/html.mjs';
 import { faqLijst, kerkKaart, bijbeltekst, samenGaanTeaser } from '../lib/onderdelen.mjs';
 import { beeldmerkInhoud, vlakSvg, VIEWBOX } from '../lib/logo.mjs';
+import { zondagScene } from '../lib/zondag-scene.mjs';
 
 export const pagina = {
   pad: '/',
@@ -72,11 +73,20 @@ function zondagochtend() {
       <legend>${legenda}</legend>
       <div class="ochtend-chips">${opties.map(([w, l]) => html`<label class="chip"><input type="radio" name="${naam}" value="${w}"> <span>${l}</span></label>`)}</div>
     </fieldset>`;
-  return html`<div class="ochtend-raam"><div class="ochtend-keuzes" data-ochtend-keuzes hidden>
+  const stippen = [...STAPPEN.map((st) => [st.id, st.kop]), ['eind', 'Probeer het een keer']];
+  return html`<div class="ochtend-raam"><div class="ochtend-zijkant"><div class="ochtend-keuzes" data-ochtend-keuzes hidden>
       <p class="ochtend-uitleg">Maak het persoonlijk. Je keuze blijft op je eigen scherm.</p>
       ${keuze('muziek', 'Hoe wordt er gezongen in de kerk die je kiest?', MUZIEK)}
       ${keuze('gezelschap', 'Hoe kom je?', GEZELSCHAP)}
       <p class="sr" role="status" data-ochtend-status></p>
+    </div>
+    <figure class="ochtend-scene" data-ochtend-scene hidden>
+      ${raw(zondagScene())}
+      <figcaption class="scene-onder">
+        <span class="scene-titel" aria-hidden="true" data-scene-titel>${STAPPEN[0].kop}</span>
+        <span class="scene-stippen" role="group" aria-label="Spring naar een moment van de ochtend">${stippen.map(([id, kop], i) => html`<button type="button" class="scene-stip" data-naar="${id}" aria-label="Stap ${i + 1}: ${kop}"${i === 0 ? raw(' aria-current="step"') : ''}></button>`)}</span>
+      </figcaption>
+    </figure>
     </div>
     <ol class="ochtend" data-ochtend>
       ${STAPPEN.map((st, i) => html`<li class="ochtend-stap" id="ochtend-${st.id}">
@@ -85,6 +95,11 @@ function zondagochtend() {
         <h3 class="ochtend-kop">${st.kop}${st.muziek ? html` <span class="ochtend-tag" data-muziek-tag hidden></span>` : ''}</h3>
         <p class="ochtend-tekst"${st.muziek ? raw(` data-muziek-tekst data-standaard="${esc(st.tekst)}" data-orgel="${esc(st.muziek.orgel)}" data-piano="${esc(st.muziek.piano)}" data-band="${esc(st.muziek.band)}"`) : ''}>${st.tekst}</p>
         ${st.tips ? html`${Object.entries(st.tips).map(([w, t]) => html`<p class="ochtend-tip" data-tip="${w}" hidden>${t}${w === 'samen' && st.id === 'binnen' ? html` Ken je niemand? <a href="/samen-naar-de-kerk/">Ga samen met iemand van de kerk</a>.` : ''}</p>`)}` : ''}
+        ${st.id === 'koffie' ? html`<fieldset class="ochtend-keuze ochtend-na" data-na-keuze hidden>
+          <legend>En jij?</legend>
+          <div class="ochtend-chips"><label class="chip"><input type="radio" name="na" value="blijf"> <span>Ik blijf even</span></label><label class="chip"><input type="radio" name="na" value="huis"> <span>Ik ga naar huis</span></label></div>
+          <p class="ochtend-na-antwoord" data-na-antwoord hidden>Allebei is goed.</p>
+        </fieldset>` : ''}
         <details class="ochtend-meer">
           <summary>Wat kan ik doen? Wat hoeft niet?</summary>
           <div class="ochtend-meer-inhoud">
@@ -244,7 +259,7 @@ export function inhoud(ctx) {
       ${kerken.kerken.map((k) => kerkKaart(k, { kop: 'h3' }))}
     </ul>
     <p class="buurt-voet"><a class="knop knop--vol" href="/kerken/">Zoek op plaats en traditie</a></p>
-    <p class="klein buurt-eerlijk">De volgorde wisselt bij elk bezoek, zodat geen kerk vooraan staat.${site.modus !== 'productie' ? ' Concept: de kerken zijn nog niet benaderd en doen (nog) niet mee.' : ''}</p>
+    <p class="klein buurt-eerlijk">De volgorde wisselt bij elk bezoek, zodat geen kerk vooraan staat.</p>
   </div>
 </section>
 
@@ -265,6 +280,8 @@ ${actief.length
   : ''}
 
 ${samenGaanTeaser()}
+
+<a class="zweefknop" href="/kerken/" data-zweefknop hidden>Vind een kerk</a>
 
 <section class="slot" aria-labelledby="slot-kop">
   <div class="slot-binnen">

@@ -54,13 +54,13 @@ ${paginaKop({
   <div class="status-binnen">
     <h2 class="kop-2" id="status" tabindex="-1">Waar staan we nu?</h2>
     <dl class="status-lijst">
-      <div><dt>Deelnemende kerken</dt><dd>${deelnemers.length ? deelnemers.map((k) => k.naam).join(', ') : 'Nog geen. Het initiatief moet nog aan de kerken worden voorgelegd.'}</dd></div>
-      <div><dt>Belangstelling getoond</dt><dd>${belangstelling.length ? belangstelling.map((k) => k.naam).join(', ') : 'Nog geen.'}</dd></div>
+      ${deelnemers.length ? html`<div><dt>Deelnemende kerken</dt><dd>${deelnemers.map((k) => k.naam).join(', ')}</dd></div>` : ''}
+      ${belangstelling.length ? html`<div><dt>Belangstelling getoond</dt><dd>${belangstelling.map((k) => k.naam).join(', ')}</dd></div>` : ''}
       <div><dt>Organisatie</dt><dd>${site.verwerkingsverantwoordelijke ? site.verwerkingsverantwoordelijke.naam : 'Nog niet formeel georganiseerd. Er is nog geen stichting of samenwerkingsverband dat verantwoordelijk is.'}</dd></div>
       <div><dt>Geloofsbasis</dt><dd>Een eerste concept, nog niet besproken met de kerken. <a href="/ontdek-het-geloof/#geloofsbasis">Lees het concept</a>.</dd></div>
       <div><dt>Persoonlijk contact via de site</dt><dd>${site.contact.status === 'aan' ? 'Actief.' : 'Nog niet actief. Neem contact op met een kerk via haar eigen website.'}</dd></div>
     </dl>
-    ${concept ? html`<p class="klein">Deze conceptversie is gemaakt om het idee zichtbaar te maken en aan kerken voor te leggen. Kerken en activiteiten staan erop op basis van openbare informatie van hun eigen websites.</p>` : ''}
+    ${concept ? html`<p class="klein">Kerken en activiteiten staan erop met openbare informatie van hun eigen websites.</p>` : ''}
   </div>
 </section>
 

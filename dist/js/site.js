@@ -119,13 +119,52 @@
   var ochtend = document.querySelector('[data-ochtend]');
   if (ochtend) {
     var stappen = alle('.ochtend-stap', ochtend);
+    var vastTot = 0; // na een klik op een stip even niet laten verspringen door het scrollen
     var vul = function () {
       var bereikt = alle('.ochtend-stap.bereikt', ochtend);
       var laatste = bereikt[bereikt.length - 1];
       var deel = laatste ? Math.min(1, (laatste.offsetTop + 12) / Math.max(1, ochtend.offsetHeight - 12)) : 0;
       if (laatste === stappen[stappen.length - 1]) deel = 1;
       ochtend.style.setProperty('--vulling', String(deel));
+      if (toonScene) toonScene(laatste || stappen[0]);
     };
+
+    // de getekende zaal volgt de laatst bereikte stap
+    var sceneFig = document.querySelector('[data-ochtend-scene]');
+    var zaal = sceneFig && sceneFig.querySelector('svg');
+    var sceneTitel = sceneFig && sceneFig.querySelector('[data-scene-titel]');
+    var stipKnoppen = sceneFig ? alle('[data-naar]', sceneFig) : [];
+    var toonScene = function (stap) {
+      if (!zaal || !stap) return;
+      var id = stap.id.replace('ochtend-', '');
+      zaal.setAttribute('data-stap', id);
+      var kop = stap.querySelector('.ochtend-kop');
+      if (sceneTitel && kop) sceneTitel.textContent = kop.firstChild.textContent.trim();
+      stipKnoppen.forEach(function (b) {
+        if (b.getAttribute('data-naar') === id) b.setAttribute('aria-current', 'step');
+        else b.removeAttribute('aria-current');
+      });
+    };
+    if (sceneFig) {
+      sceneFig.hidden = false;
+      var rustigScroll = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      stipKnoppen.forEach(function (b) {
+        b.addEventListener('click', function () {
+          var doel = document.getElementById('ochtend-' + b.getAttribute('data-naar'));
+          if (!doel) return;
+          var n = stappen.indexOf(doel);
+          stappen.forEach(function (st, k) {
+            st.classList.toggle('bereikt', k <= n);
+          });
+          vastTot = 0;
+          vul();
+          vastTot = Date.now() + 1400;
+          // op een telefoon staat de zaal bovenaan vast: scroll zo dat de stap eronder begint
+          var boven = window.matchMedia('(max-width: 63.99rem)').matches ? sceneFig.offsetHeight + 16 : 80;
+          window.scrollTo({ top: doel.getBoundingClientRect().top + window.pageYOffset - boven, behavior: rustigScroll ? 'auto' : 'smooth' });
+        });
+      });
+    }
     if ('IntersectionObserver' in window) {
       // een stap telt als 'bereikt' zodra hij boven het midden van het scherm komt
       var lijnIO = new IntersectionObserver(
@@ -134,9 +173,9 @@
             var boven = it.boundingClientRect.top < (it.rootBounds ? it.rootBounds.bottom : window.innerHeight);
             it.target.classList.toggle('bereikt', it.isIntersecting || boven);
           });
-          vul();
+          if (Date.now() > vastTot) vul();
         },
-        { rootMargin: '0px 0px -45% 0px', threshold: 0 }
+        { rootMargin: '0px 0px -62% 0px', threshold: 0 }
       );
       stappen.forEach(function (st) {
         lijnIO.observe(st);
@@ -162,8 +201,18 @@
       keuzes.hidden = false;
       var status = keuzes.querySelector('[data-ochtend-status]');
       var NAAM = { orgel: 'orgel', piano: 'piano', band: 'band' };
+      var naKeuze = ochtend.querySelector('[data-na-keuze]');
+      if (naKeuze) {
+        naKeuze.hidden = false;
+        naKeuze.addEventListener('change', function (e) {
+          if (zaal) zaal.setAttribute('data-na', e.target.value);
+          var antwoord = naKeuze.querySelector('[data-na-antwoord]');
+          if (antwoord) antwoord.hidden = false;
+        });
+      }
       keuzes.addEventListener('change', function (e) {
         var veld = e.target;
+        if (zaal) zaal.setAttribute(veld.name === 'muziek' ? 'data-muziek' : 'data-mee', veld.value);
         if (veld.name === 'muziek') {
           var tekst = ochtend.querySelector('[data-muziek-tekst]');
           var tag = ochtend.querySelector('[data-muziek-tag]');
@@ -183,6 +232,27 @@
         }
       });
     }
+  }
+
+  /* ---------- zwevende knop 'Vind een kerk' (alleen telefoon, alleen homepage) ---------- */
+  // Zichtbaar na de opening; weg zodra de kerken, het slot of de voet in beeld zijn.
+  var zweef = document.querySelector('[data-zweefknop]');
+  if (zweef && 'IntersectionObserver' in window) {
+    var inBeeld = {};
+    var stoppers = alle('.held, .buurt, .slot, .voet');
+    var zetZweef = function () {
+      var weg = stoppers.some(function (el, n) { return inBeeld[n]; });
+      zweef.hidden = weg;
+    };
+    var zweefIO = new IntersectionObserver(function (items) {
+      items.forEach(function (it) {
+        inBeeld[stoppers.indexOf(it.target)] = it.isIntersecting;
+      });
+      zetZweef();
+    });
+    stoppers.forEach(function (el) {
+      zweefIO.observe(el);
+    });
   }
 
   /* ---------- exclusieve uitklappers (terugval voor oudere browsers) ---------- */

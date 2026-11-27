@@ -59,8 +59,8 @@ export function hulplijnen(site, { kop = 'Heb je nú iemand nodig?' } = {}) {
 const DAG = { zondag: 'Zondag', zaterdag: 'Zaterdag', vrijdag: 'Vrijdag', donderdag: 'Donderdag', woensdag: 'Woensdag', dinsdag: 'Dinsdag', maandag: 'Maandag' };
 
 const STATUS = {
-  kandidaat: 'Nog niet benaderd · openbare gegevens van de eigen website',
-  belangstelling: 'Heeft belangstelling getoond · nog geen deelnemer',
+  kandidaat: null, // besluit Martijn 27-11: geen label 'nog niet benaderd' online
+  belangstelling: null,
   deelnemer: null
 };
 

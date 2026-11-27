@@ -39,7 +39,7 @@ ${paginaKop({
 <section class="kerkenlijst" aria-labelledby="lijst-kop">
   <div class="kerkenlijst-binnen">
     ${concept
-      ? html`<div class="melding" role="note"><p><strong>Over deze lijst.</strong> Dit is een concept. De kerken hieronder zijn nog niet benaderd en doen (nog) niet mee aan dit initiatief. De gegevens komen van hun eigen websites en zijn gecontroleerd op ${datum(laatste)}. Kijk voor actuele tijden altijd even op de website van de kerk.</p></div>`
+      ? html`<div class="melding" role="note"><p><strong>Over deze lijst.</strong> De gegevens komen van de eigen websites van de kerken en zijn gecontroleerd op ${datum(laatste)}. Kijk voor actuele tijden altijd even op de website van de kerk.</p></div>`
       : ''}
     <h2 class="sr" id="lijst-kop">Alle kerken</h2>
     <div class="filter" data-filter hidden>

@@ -56,6 +56,7 @@ ${pagina.bestand === '404.html' ? '<meta name="robots" content="noindex">' : `<l
 <link rel="preload" href="/fonts/newsreader-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/atkinson-next.woff2" as="font" type="font/woff2" crossorigin>
 ${pagina.preload ? `<link rel="preload" href="${esc(pagina.preload.href)}" as="image" type="image/webp"${pagina.preload.srcset ? ` imagesrcset="${esc(pagina.preload.srcset)}" imagesizes="${esc(pagina.preload.sizes)}"` : ''} fetchpriority="high">` : ''}
+<script src="/js/vroeg.js?v=${versie.vroeg}"></script>
 <link rel="stylesheet" href="/css/site.css?v=${versie.css}">
 <script src="/js/site.js?v=${versie.js}" defer></script>
 ${jsonld}
@@ -63,7 +64,7 @@ ${jsonld}
 <body${thema}>
 <a class="overslaan" href="#inhoud">Naar de inhoud</a>
 <header class="kop">
-  ${concept ? `<p class="conceptbalk"><strong>Concept</strong> · Nog geen officieel initiatief van de kerken. Kerken en activiteiten staan erop op basis van openbare informatie, ze zijn nog niet benaderd. <a href="/over-ons/#status">Meer over de status</a></p>` : ''}
+  ${concept ? `<p class="conceptbalk"><strong>Conceptversie</strong> · Deze site is nog in ontwikkeling. De gegevens van de kerken komen van hun eigen websites. <a href="/over-ons/#status">Meer over dit initiatief</a></p>` : ''}
   <div class="kop-binnen">
     <a class="merk-link" href="/"><img class="kop-logo" src="/merk/logo/logo-horizontaal.svg" width="320" height="47" alt="${esc(site.naam)} Naar de startpagina"></a>
     <nav class="hoofdnav" aria-label="Hoofdmenu">

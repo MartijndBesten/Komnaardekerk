@@ -25,14 +25,15 @@
 <link rel="preload" href="/fonts/newsreader-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/atkinson-next.woff2" as="font" type="font/woff2" crossorigin>
 
-<link rel="stylesheet" href="/css/site.css?v=eb75107e94">
-<script src="/js/site.js?v=e1558414b0" defer></script>
+<script src="/js/vroeg.js?v=3d908442b5"></script>
+<link rel="stylesheet" href="/css/site.css?v=966f32c076">
+<script src="/js/site.js?v=e54339398d" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Kom naar de kerk.","url":"https://komnaardekerk.nu/","inLanguage":"nl-NL","description":"Er is plek voor jou. Een uitnodiging van christelijke kerken in Houten en omgeving om Jezus Christus en de kerk te leren kennen. Lees wat je kunt verwachten en vind een kerk bij jou in de buurt."}</script>
 </head>
 <body>
 <a class="overslaan" href="#inhoud">Naar de inhoud</a>
 <header class="kop">
-  <p class="conceptbalk"><strong>Concept</strong> · Nog geen officieel initiatief van de kerken. Kerken en activiteiten staan erop op basis van openbare informatie, ze zijn nog niet benaderd. <a href="/over-ons/#status">Meer over de status</a></p>
+  <p class="conceptbalk"><strong>Conceptversie</strong> · Deze site is nog in ontwikkeling. De gegevens van de kerken komen van hun eigen websites. <a href="/over-ons/#status">Meer over dit initiatief</a></p>
   <div class="kop-binnen">
     <a class="merk-link" href="/"><img class="kop-logo" src="/merk/logo/logo-horizontaal.svg" width="320" height="47" alt="Kom naar de kerk. Naar de startpagina"></a>
     <nav class="hoofdnav" aria-label="Hoofdmenu">
@@ -293,7 +294,7 @@
       <h2 class="kop-2" id="dienst-kop">Een zondagochtend, ongeveer zo.</h2>
       <p class="lead">Elke kerk doet het net even anders, maar dit kom je bijna overal tegen. Een dienst duurt meestal een uur tot anderhalf uur. De tijden hieronder zijn ongeveer.</p>
     </div>
-    <div class="ochtend-raam"><div class="ochtend-keuzes" data-ochtend-keuzes hidden>
+    <div class="ochtend-raam"><div class="ochtend-zijkant"><div class="ochtend-keuzes" data-ochtend-keuzes hidden>
       <p class="ochtend-uitleg">Maak het persoonlijk. Je keuze blijft op je eigen scherm.</p>
       <fieldset class="ochtend-keuze">
       <legend>Hoe wordt er gezongen in de kerk die je kiest?</legend>
@@ -305,6 +306,45 @@
     </fieldset>
       <p class="sr" role="status" data-ochtend-status></p>
     </div>
+    <figure class="ochtend-scene" data-ochtend-scene hidden>
+      <svg class="zondag" viewBox="0 0 400 260" aria-hidden="true" focusable="false" data-stap="binnen">
+  <defs>
+    <linearGradient id="zs-licht" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a8" stop-opacity=".9"/><stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/></linearGradient>
+    <radialGradient id="zs-gloed"><stop offset="0" stop-color="#fff6d8"/><stop offset=".5" stop-color="#ffe9a8" stop-opacity=".7"/><stop offset="1" stop-color="#f0c24e" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect class="muur" width="400" height="152"/>
+  <path class="vloer" d="M0 152H400V260H0Z"/>
+  <path class="raam" d="M188 104V44Q200 22 212 44V104Z"/>
+  <path class="stralen" d="M188 104L150 260H250L212 104Z" fill="url(#zs-licht)"/>
+  <g class="scherm"><rect x="58" y="42" width="96" height="54" rx="3"/>
+    <g class="scherm-welkom"><circle cx="106" cy="69" r="11" fill="url(#zs-gloed)"/></g>
+    <g class="scherm-lied"><path d="M70 56h60M70 64h48M70 76h62M70 84h40"/></g>
+    <g class="scherm-tekst"><path d="M70 58h70M70 65h70M70 72h64M70 79h70M70 86h50"/></g>
+  </g>
+  <g class="orgel"><rect x="12" y="92" width="7" height="60" rx="2"/><rect x="22" y="80" width="7" height="72" rx="2"/><rect x="32" y="70" width="7" height="82" rx="2"/><rect x="42" y="80" width="7" height="72" rx="2"/><rect x="52" y="92" width="7" height="60" rx="2"/></g>
+  <g class="piano"><rect x="100" y="138" width="44" height="16" rx="2"/><path d="M103 141h38"/></g>
+  <g class="band"><g transform="translate(112 160)"><g transform="scale(0.6)"><circle cx="0" cy="-31" r="6" fill="#5a4a4d"/><path d="M-8 0V-14Q-8 -23 0 -23Q8 -23 8 -14V0Z" fill="#5a4a4d"/></g></g><g transform="translate(140 160)"><g transform="scale(0.6)"><circle cx="0" cy="-31" r="6" fill="#a64f2e"/><path d="M-8 0V-14Q-8 -23 0 -23Q8 -23 8 -14V0Z" fill="#a64f2e"/></g></g><path class="gitaar" d="M106 150l14 -6"/><circle class="drum" cx="128" cy="154" r="6"/></g>
+  <text class="noot noot-0" x="118" y="150">♪</text><text class="noot noot-1" x="134" y="150">♪</text><text class="noot noot-2" x="150" y="150">♪</text>
+  <g class="lessenaar"><path d="M256 152V126H284V152Z"/><path class="boek" d="M258 124l12 -4l12 4l-12 3Z"/><circle class="boek-gloed" cx="270" cy="121" r="16" fill="url(#zs-gloed)"/></g>
+  <g class="voorganger" transform="translate(270 126)"><g transform="scale(0.62)"><circle cx="0" cy="-31" r="6" fill="#2a1b1e"/><path d="M-8 0V-14Q-8 -23 0 -23Q8 -23 8 -14V0Z" fill="#2a1b1e"/></g></g>
+  <g class="spreken"><path d="M290 102q8 -4 0 -8M296 106q12 -8 0 -16"/></g>
+  <g class="deur"><path class="deur-licht" d="M372 250V172H398V250Z" fill="url(#zs-gloed)"/><path class="deur-kozijn" d="M372 250V172H398"/></g>
+  <g class="begroeter" transform="translate(358 248)"><g transform="scale(0.95)"><circle cx="0" cy="-31" r="6" fill="#7a2e3b"/><path d="M-8 0V-14Q-8 -23 0 -23Q8 -23 8 -14V0Z" fill="#7a2e3b"/></g><g class="welkom"><rect x="-44" y="-62" width="40" height="16" rx="8"/><text x="-24" y="-51" text-anchor="middle">welkom!</text></g><g class="totziens"><rect x="-50" y="-62" width="46" height="16" rx="8"/><text x="-27" y="-51" text-anchor="middle">tot ziens!</text></g></g>
+  <g class="zaal"><g class="mens"><circle cx="110" cy="159.5" r="3.3" fill="#7a2e3b"/><path d="M104.4 172Q104.4 163.8 110 163.8Q115.6 163.8 115.6 172Z" fill="#7a2e3b"/></g><g class="mens"><circle cx="135" cy="159.5" r="3.3" fill="#c9733f"/><path d="M129.4 172Q129.4 163.8 135 163.8Q140.6 163.8 140.6 172Z" fill="#c9733f"/></g><g class="mens"><circle cx="185" cy="159.5" r="3.3" fill="#5a4a4d"/><path d="M179.4 172Q179.4 163.8 185 163.8Q190.6 163.8 190.6 172Z" fill="#5a4a4d"/></g><g class="mens"><circle cx="228" cy="159.5" r="3.3" fill="#a64f2e"/><path d="M222.4 172Q222.4 163.8 228 163.8Q233.6 163.8 233.6 172Z" fill="#a64f2e"/></g><g class="mens"><circle cx="270" cy="159.5" r="3.3" fill="#8c6b5e"/><path d="M264.4 172Q264.4 163.8 270 163.8Q275.6 163.8 275.6 172Z" fill="#8c6b5e"/></g><rect class="bank" x="92" y="170" width="200" height="4.3" rx="2"/><g class="mens"><circle cx="92" cy="180.4" r="4" fill="#b48a74"/><path d="M85.3 195Q85.3 185.6 92 185.6Q98.7 185.6 98.7 195Z" fill="#b48a74"/></g><g class="mens"><circle cx="150" cy="180.4" r="4" fill="#6b3a45"/><path d="M143.3 195Q143.3 185.6 150 185.6Q156.7 185.6 156.7 195Z" fill="#6b3a45"/></g><g class="mens"><circle cx="176" cy="180.4" r="4" fill="#7a2e3b"/><path d="M169.3 195Q169.3 185.6 176 185.6Q182.7 185.6 182.7 195Z" fill="#7a2e3b"/></g><g class="mens"><circle cx="240" cy="180.4" r="4" fill="#c9733f"/><path d="M233.3 195Q233.3 185.6 240 185.6Q246.7 185.6 246.7 195Z" fill="#c9733f"/></g><g class="mens"><circle cx="290" cy="180.4" r="4" fill="#5a4a4d"/><path d="M283.3 195Q283.3 185.6 290 185.6Q296.7 185.6 296.7 195Z" fill="#5a4a4d"/></g><rect class="bank" x="72" y="193" width="238" height="5.2" rx="2"/><g class="mens"><circle cx="70" cy="202.2" r="4.7" fill="#a64f2e"/><path d="M62.2 219Q62.2 208.3 70 208.3Q77.8 208.3 77.8 219Z" fill="#a64f2e"/></g><g class="mens"><circle cx="98" cy="202.2" r="4.7" fill="#8c6b5e"/><path d="M90.2 219Q90.2 208.3 98 208.3Q105.8 208.3 105.8 219Z" fill="#8c6b5e"/></g><g class="mens"><circle cx="200" cy="202.2" r="4.7" fill="#b48a74"/><path d="M192.2 219Q192.2 208.3 200 208.3Q207.8 208.3 207.8 219Z" fill="#b48a74"/></g><g class="mens"><circle cx="228" cy="202.2" r="4.7" fill="#6b3a45"/><path d="M220.2 219Q220.2 208.3 228 208.3Q235.8 208.3 235.8 219Z" fill="#6b3a45"/></g><g class="mens"><circle cx="300" cy="202.2" r="4.7" fill="#7a2e3b"/><path d="M292.2 219Q292.2 208.3 300 208.3Q307.8 208.3 307.8 219Z" fill="#7a2e3b"/></g><rect class="bank" x="50" y="217" width="278" height="6.1" rx="2"/><g class="mens"><circle cx="48" cy="226" r="5.4" fill="#c9733f"/><path d="M39 245Q39 233 48 233Q57 233 57 245Z" fill="#c9733f"/></g><g class="mens"><circle cx="120" cy="226" r="5.4" fill="#5a4a4d"/><path d="M111 245Q111 233 120 233Q129 233 129 245Z" fill="#5a4a4d"/></g><g class="mens"><circle cx="150" cy="226" r="5.4" fill="#a64f2e"/><path d="M141 245Q141 233 150 233Q159 233 159 245Z" fill="#a64f2e"/></g><g class="mens"><circle cx="250" cy="226" r="5.4" fill="#8c6b5e"/><path d="M241 245Q241 233 250 233Q259 233 259 245Z" fill="#8c6b5e"/></g><rect class="bank" x="26" y="243" width="320" height="7" rx="2"/></g>
+  <g class="mens samen-zit"><circle cx="306" cy="226" r="5.4" fill="#e2a06a"/><path d="M297 245Q297 233 306 233Q315 233 315 245Z" fill="#e2a06a"/></g><g class="mens kind-zit"><circle cx="308" cy="230.8" r="3.9" fill="#e2a06a"/><path d="M301.5 245Q301.5 235.8 308 235.8Q314.5 235.8 314.5 245Z" fill="#e2a06a"/></g><g class="mens jij-zit"><circle cx="328" cy="226" r="5.4" fill="#f0c24e"/><path d="M319 245Q319 233 328 233Q337 233 337 245Z" fill="#f0c24e"/></g>
+  <g class="stilte"><rect width="400" height="260"/><circle cx="150" cy="190" r="22" fill="url(#zs-gloed)"/><circle cx="240" cy="210" r="18" fill="url(#zs-gloed)"/><circle cx="328" cy="222" r="20" fill="url(#zs-gloed)"/></g>
+  <g class="koffie"><rect class="tafel" x="214" y="198" width="74" height="8" rx="3"/><path class="tafel-poot" d="M222 206v22M280 206v22"/><g class="kopjes"><rect x="232" y="190" width="8" height="8" rx="2"/><rect x="246" y="190" width="8" height="8" rx="2"/><rect x="260" y="190" width="8" height="8" rx="2"/></g><path class="stoom stoom-0" d="M236 196q-3 -5 0 -9t0 -9"/><path class="stoom stoom-1" d="M250 196q-3 -5 0 -9t0 -9"/><path class="stoom stoom-2" d="M264 196q-3 -5 0 -9t0 -9"/>
+    <g transform="translate(200 236)"><g transform="scale(0.9)"><circle cx="0" cy="-31" r="6" fill="#7a2e3b"/><path d="M-8 0V-14Q-8 -23 0 -23Q8 -23 8 -14V0Z" fill="#7a2e3b"/></g></g><g transform="translate(300 238)"><g transform="scale(0.92)"><circle cx="0" cy="-31" r="6" fill="#5a4a4d"/><path d="M-8 0V-14Q-8 -23 0 -23Q8 -23 8 -14V0Z" fill="#5a4a4d"/></g></g><g transform="translate(120 230)"><g transform="scale(0.85)"><circle cx="0" cy="-31" r="6" fill="#c9733f"/><path d="M-8 0V-14Q-8 -23 0 -23Q8 -23 8 -14V0Z" fill="#c9733f"/></g></g><g transform="translate(140 232)"><g transform="scale(0.85)"><circle cx="0" cy="-31" r="6" fill="#8c6b5e"/><path d="M-8 0V-14Q-8 -23 0 -23Q8 -23 8 -14V0Z" fill="#8c6b5e"/></g></g><g transform="translate(70 238)"><g transform="scale(0.9)"><circle cx="0" cy="-31" r="6" fill="#a64f2e"/><path d="M-8 0V-14Q-8 -23 0 -23Q8 -23 8 -14V0Z" fill="#a64f2e"/></g></g></g>
+  <g class="loper samen-loopt"><g transform="scale(1)"><circle cx="0" cy="-31" r="6" fill="#e2a06a"/><path d="M-8 0V-14Q-8 -23 0 -23Q8 -23 8 -14V0Z" fill="#e2a06a"/></g></g>
+  <g class="loper kind-loopt"><g transform="scale(0.7)"><circle cx="0" cy="-31" r="6" fill="#e2a06a"/><path d="M-8 0V-14Q-8 -23 0 -23Q8 -23 8 -14V0Z" fill="#e2a06a"/></g></g>
+  <g class="loper jij-loopt"><g transform="scale(1)"><circle cx="0" cy="-31" r="6" stroke="#d9a032" stroke-width="1.2" fill="#f0c24e"/><path d="M-8 0V-14Q-8 -23 0 -23Q8 -23 8 -14V0Z" stroke="#d9a032" stroke-width="1.2" fill="#f0c24e"/></g><text class="jij-label" x="0" y="-44" text-anchor="middle">jij</text></g>
+</svg>
+      <figcaption class="scene-onder">
+        <span class="scene-titel" aria-hidden="true" data-scene-titel>Je komt binnen</span>
+        <span class="scene-stippen" role="group" aria-label="Spring naar een moment van de ochtend"><button type="button" class="scene-stip" data-naar="binnen" aria-label="Stap 1: Je komt binnen" aria-current="step"></button><button type="button" class="scene-stip" data-naar="zingen" aria-label="Stap 2: Er wordt gezongen"></button><button type="button" class="scene-stip" data-naar="lezen" aria-label="Stap 3: Er wordt gelezen en uitgelegd"></button><button type="button" class="scene-stip" data-naar="bidden" aria-label="Stap 4: Er wordt gebeden"></button><button type="button" class="scene-stip" data-naar="koffie" aria-label="Stap 5: En daarna: koffie"></button><button type="button" class="scene-stip" data-naar="eind" aria-label="Stap 6: Probeer het een keer"></button></span>
+      </figcaption>
+    </figure>
+    </div>
     <ol class="ochtend" data-ochtend>
       <li class="ochtend-stap" id="ochtend-binnen">
         <span class="ochtend-punt" aria-hidden="true"></span>
@@ -312,6 +352,7 @@
         <h3 class="ochtend-kop">Je komt binnen</h3>
         <p class="ochtend-tekst">Bij de deur staat vaak iemand die je begroet. Ga zitten waar je wilt. De teksten en liederen staan op een scherm of in een boekje.</p>
         <p class="ochtend-tip" data-tip="alleen" hidden>Zeg bij de deur gerust dat je voor het eerst bent. Dan helpt iemand je op weg.</p><p class="ochtend-tip" data-tip="samen" hidden>Spreek af waar je elkaar ziet, bijvoorbeeld bij de ingang. Dan ga je samen naar binnen. Ken je niemand? <a href="/samen-naar-de-kerk/">Ga samen met iemand van de kerk</a>.</p><p class="ochtend-tip" data-tip="kinderen" hidden>Veel kerken hebben oppas voor kleine kinderen of iets voor de grotere. Op de pagina van elke kerk zie je wat er is.</p>
+        
         <details class="ochtend-meer">
           <summary>Wat kan ik doen? Wat hoeft niet?</summary>
           <div class="ochtend-meer-inhoud">
@@ -324,6 +365,7 @@
         <p class="ochtend-tijd"><span class="sr">Stap 2, </span>Het begin</p>
         <h3 class="ochtend-kop">Er wordt gezongen <span class="ochtend-tag" data-muziek-tag hidden></span></h3>
         <p class="ochtend-tekst" data-muziek-tekst data-standaard="Met orgel, piano of een band: dat verschilt per kerk. Meezingen mag, luisteren ook." data-orgel="Met een orgel zing je vaak psalmen en liederen uit een boek of van het scherm. Meezingen mag, luisteren ook." data-piano="Met een piano klinkt het vaak wat rustiger. De woorden staan meestal op een scherm. Meezingen mag, luisteren ook." data-band="Met een band zijn het vaak nieuwere liederen, met de tekst op een scherm. Sommige mensen staan, anderen blijven zitten. Allebei is goed.">Met orgel, piano of een band: dat verschilt per kerk. Meezingen mag, luisteren ook.</p>
+        
         
         <details class="ochtend-meer">
           <summary>Wat kan ik doen? Wat hoeft niet?</summary>
@@ -338,6 +380,7 @@
         <h3 class="ochtend-kop">Er wordt gelezen en uitgelegd</h3>
         <p class="ochtend-tekst">Iemand leest uit de Bijbel. De voorganger legt uit wat die tekst betekent voor ons leven nu. Dat heet de preek.</p>
         
+        
         <details class="ochtend-meer">
           <summary>Wat kan ik doen? Wat hoeft niet?</summary>
           <div class="ochtend-meer-inhoud">
@@ -350,6 +393,7 @@
         <p class="ochtend-tijd"><span class="sr">Stap 4, </span>Tegen het eind</p>
         <h3 class="ochtend-kop">Er wordt gebeden</h3>
         <p class="ochtend-tekst">Voor de stad, voor de wereld, voor mensen die ziek zijn of verdriet hebben. Je mag je ogen sluiten of gewoon stil zijn.</p>
+        
         
         <details class="ochtend-meer">
           <summary>Wat kan ik doen? Wat hoeft niet?</summary>
@@ -364,6 +408,11 @@
         <h3 class="ochtend-kop">En daarna: koffie</h3>
         <p class="ochtend-tekst">In veel kerken blijven mensen na afloop nog even. Je mag aanschuiven, of gewoon naar huis gaan.</p>
         <p class="ochtend-tip" data-tip="alleen" hidden>Wil je blijven? Ga gewoon bij iemand staan. Mensen vinden het fijn als je er bent.</p><p class="ochtend-tip" data-tip="samen" hidden>Even napraten bij de koffie, of samen weer naar huis: allebei goed.</p><p class="ochtend-tip" data-tip="kinderen" hidden>Kinderen mogen gewoon mee naar de koffie. Vaak is er ook iets te drinken voor ze.</p>
+        <fieldset class="ochtend-keuze ochtend-na" data-na-keuze hidden>
+          <legend>En jij?</legend>
+          <div class="ochtend-chips"><label class="chip"><input type="radio" name="na" value="blijf"> <span>Ik blijf even</span></label><label class="chip"><input type="radio" name="na" value="huis"> <span>Ik ga naar huis</span></label></div>
+          <p class="ochtend-na-antwoord" data-na-antwoord hidden>Allebei is goed.</p>
+        </fieldset>
         <details class="ochtend-meer">
           <summary>Wat kan ik doen? Wat hoeft niet?</summary>
           <div class="ochtend-meer-inhoud">
@@ -488,7 +537,7 @@
   </li>
     </ul>
     <p class="buurt-voet"><a class="knop knop--vol" href="/kerken/">Zoek op plaats en traditie</a></p>
-    <p class="klein buurt-eerlijk">De volgorde wisselt bij elk bezoek, zodat geen kerk vooraan staat. Concept: de kerken zijn nog niet benaderd en doen (nog) niet mee.</p>
+    <p class="klein buurt-eerlijk">De volgorde wisselt bij elk bezoek, zodat geen kerk vooraan staat.</p>
   </div>
 </section>
 
@@ -517,6 +566,8 @@
       </div>
     </div>
   </section>
+
+<a class="zweefknop" href="/kerken/" data-zweefknop hidden>Vind een kerk</a>
 
 <section class="slot" aria-labelledby="slot-kop">
   <div class="slot-binnen">

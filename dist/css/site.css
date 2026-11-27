@@ -1026,6 +1026,17 @@ details[open] > summary .plusje {
 .ochtend-keuzes[hidden] {
   display: none;
 }
+.ochtend-na {
+  margin-top: 1rem !important;
+}
+.ochtend-na[hidden] {
+  display: none;
+}
+.ochtend-na-antwoord {
+  margin-top: 0.5rem;
+  font-weight: 700;
+  color: var(--mos);
+}
 .ochtend-uitleg {
   font-size: 0.9375rem;
   color: var(--inkt-2);
@@ -1238,23 +1249,264 @@ html:not(.js) .ochtend-punt {
 .ochtend-eind .ochtend-kop {
   color: var(--mos);
 }
+/* ---------- de getekende kerkzaal ---------- */
+.ochtend-scene {
+  margin: 0 0 2rem;
+}
+.ochtend-scene[hidden] {
+  display: none;
+}
+.zondag {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--boog);
+  background: #f4ebdf;
+}
+.scene-onder {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem 1rem;
+  padding: 0.6rem 0.2rem 0;
+}
+.scene-titel {
+  font-family: var(--kop);
+  font-size: 1.15rem;
+  color: var(--inkt);
+}
+.scene-stippen {
+  display: flex;
+  gap: 0.15rem;
+}
+.scene-stip {
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+.scene-stip::before {
+  content: '';
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--lijn);
+  transition: transform 0.3s var(--zacht), background-color 0.3s;
+}
+.scene-stip[aria-current='step']::before {
+  background: var(--klei);
+  transform: scale(1.35);
+}
+.scene-stip:focus-visible {
+  outline: 3px solid var(--mos);
+  outline-offset: 1px;
+  border-radius: 50%;
+}
+/* telefoon: de zaal blijft bovenaan staan terwijl je door de stappen scrolt */
+@media (max-width: 63.99rem) {
+  .ochtend-zijkant {
+    display: contents;
+  }
+  .ochtend-scene {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    margin: 0 calc(-1 * var(--goot)) 1.5rem;
+    padding: 0.5rem var(--goot) 0.5rem;
+    background: var(--papier);
+    box-shadow: 0 0.6rem 0.9rem -0.8rem rgba(42, 27, 30, 0.35);
+  }
+  .zondag {
+    max-height: 30vh;
+    width: auto;
+    margin: 0 auto;
+  }
+  .scene-onder {
+    flex-wrap: nowrap;
+    padding-top: 0.35rem;
+  }
+  .scene-titel {
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+  .scene-stip {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
 @media (min-width: 64rem) {
-  /* desktop: tijdlijn links, keuzes rechts ernaast en zichtbaar tijdens het scrollen */
+  /* desktop: tijdlijn links; de zaal en de keuzes rechts, zichtbaar tijdens het scrollen */
   .ochtend-raam {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(16rem, 22rem);
-    grid-template-areas: 'lijn keuzes';
+    grid-template-columns: minmax(0, 1fr) minmax(20rem, 28rem);
+    grid-template-areas: 'lijn zijkant';
     gap: 4rem;
     align-items: start;
   }
   .ochtend-raam > .ochtend {
     grid-area: lijn;
   }
-  .ochtend-raam > .ochtend-keuzes {
-    grid-area: keuzes;
+  .ochtend-zijkant {
+    grid-area: zijkant;
     position: sticky;
-    top: 6rem;
-    margin-bottom: 0;
+    top: 1.5rem;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 1.25rem;
+  }
+  .ochtend-zijkant .ochtend-keuzes,
+  .ochtend-zijkant .ochtend-scene {
+    margin: 0;
+  }
+}
+
+/* tekening: vaste kleuren */
+.zondag text {
+  font-family: var(--tekst);
+}
+.zondag .muur { fill: #f4ebdf; }
+.zondag .vloer { fill: #eadcc9; }
+.zondag .raam { fill: #fff6d8; stroke: #d9c2a6; stroke-width: 2; }
+.zondag .bank { fill: #8c5a3c; }
+.zondag .scherm > rect { fill: #fffdf8; stroke: #cdb9a6; stroke-width: 2; }
+.zondag .scherm path { stroke: #7a6a6c; stroke-width: 3; stroke-linecap: round; fill: none; }
+.zondag .orgel rect { fill: #d9a032; }
+.zondag .piano rect { fill: #2a1b1e; }
+.zondag .piano path { stroke: #fffdf8; stroke-width: 4; stroke-dasharray: 2 1.5; }
+.zondag .gitaar { stroke: #c9733f; stroke-width: 3; stroke-linecap: round; }
+.zondag .drum { fill: #7a2e3b; }
+.zondag .noot { font-size: 18px; fill: #c9733f; }
+.zondag .lessenaar > path:first-child { fill: #7a2e3b; }
+.zondag .boek { fill: #fffdf8; }
+.zondag .spreken { stroke: #7a6a6c; stroke-width: 2; fill: none; stroke-linecap: round; }
+.zondag .deur-kozijn { stroke: #5a4a4d; stroke-width: 3; fill: none; }
+.zondag .welkom rect { fill: #fffdf8; stroke: #d9c2a6; }
+.zondag .welkom text { font-size: 9px; font-weight: 700; fill: #2a1b1e; }
+.zondag .stilte rect { fill: #2a1b1e; opacity: 0.32; }
+.zondag .tafel, .zondag .tafel-poot { fill: #8c5a3c; stroke: #8c5a3c; stroke-width: 3; }
+.zondag .kopjes rect { fill: #fffdf8; stroke: #c9733f; stroke-width: 1.5; }
+.zondag .stoom { stroke: #b9a28f; stroke-width: 1.5; fill: none; stroke-linecap: round; }
+.zondag .jij-label { font-size: 11px; font-weight: 700; fill: #a64f2e; }
+
+/* tekening: wat er per moment te zien is */
+.zondag .stralen,
+.zondag .scherm g,
+.zondag .orgel,
+.zondag .piano,
+.zondag .band,
+.zondag .noot,
+.zondag .boek-gloed,
+.zondag .spreken,
+.zondag .deur-licht,
+.zondag .welkom,
+.zondag .stilte,
+.zondag .koffie,
+.zondag .zaal .mens,
+.zondag .bank,
+.zondag .jij-zit,
+.zondag .samen-zit,
+.zondag .kind-zit,
+.zondag .loper {
+  transition: opacity 0.7s var(--zacht), transform 1.4s var(--zacht);
+}
+.zondag .stralen { opacity: 0.35; }
+.zondag[data-stap='zingen'] .stralen { opacity: 0.55; }
+.zondag[data-stap='lezen'] .stralen { opacity: 0.75; }
+.zondag[data-stap='bidden'] .stralen { opacity: 0.2; }
+.zondag[data-stap='koffie'] .stralen,
+.zondag[data-stap='eind'] .stralen { opacity: 0.6; }
+
+.zondag .scherm g { opacity: 0; }
+.zondag:is([data-stap='binnen'], [data-stap='koffie'], [data-stap='eind']) .scherm-welkom,
+.zondag[data-stap='zingen'] .scherm-lied,
+.zondag[data-stap='lezen'] .scherm-tekst { opacity: 1; }
+
+.zondag .orgel,
+.zondag .piano,
+.zondag .band { opacity: 0; }
+.zondag[data-muziek='orgel'] .orgel,
+.zondag[data-muziek='piano'] .piano,
+.zondag[data-muziek='band'] .band { opacity: 1; }
+
+.zondag .noot { opacity: 0; }
+.zondag[data-stap='zingen'] .noot { animation: noot-op 2.6s ease-in-out infinite; }
+.zondag[data-stap='zingen'] .noot-1 { animation-delay: 0.8s; }
+.zondag[data-stap='zingen'] .noot-2 { animation-delay: 1.6s; }
+@keyframes noot-op {
+  0% { opacity: 0; transform: translate(0, 0); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translate(10px, -46px); }
+}
+
+.zondag .boek-gloed,
+.zondag .spreken { opacity: 0; }
+.zondag[data-stap='lezen'] .boek-gloed,
+.zondag[data-stap='lezen'] .spreken { opacity: 1; }
+
+.zondag .stilte { opacity: 0; }
+.zondag[data-stap='bidden'] .stilte { opacity: 1; }
+
+.zondag .deur-licht { opacity: 0.15; }
+.zondag[data-stap='binnen'] .deur-licht { opacity: 0.85; }
+.zondag[data-stap='eind'] .deur-licht,
+.zondag[data-stap='koffie'][data-na='huis'] .deur-licht { opacity: 1; }
+.zondag .welkom,
+.zondag .totziens { opacity: 0; transition: opacity 0.7s var(--zacht); }
+.zondag[data-stap='binnen'] .welkom,
+.zondag[data-stap='eind'] .totziens,
+.zondag[data-stap='koffie'][data-na='huis'] .totziens { opacity: 1; }
+.zondag .totziens rect { fill: #fffdf8; stroke: #d9c2a6; }
+.zondag .totziens text { font-size: 9px; font-weight: 700; fill: #2a1b1e; }
+
+/* koffie: de banken lopen leeg, mensen staan rond de tafel */
+.zondag .koffie { opacity: 0; }
+.zondag[data-stap='koffie'] .koffie { opacity: 1; }
+.zondag[data-stap='koffie'] .zaal .mens,
+.zondag[data-stap='eind'] .zaal .mens { opacity: 0; }
+.zondag[data-stap='koffie'] .bank,
+.zondag[data-stap='eind'] .bank { opacity: 0.4; }
+.zondag[data-stap='koffie'] .stoom { animation: stoom 2.4s ease-in-out infinite; }
+.zondag[data-stap='koffie'] .stoom-1 { animation-delay: 0.7s; }
+.zondag[data-stap='koffie'] .stoom-2 { animation-delay: 1.4s; }
+@keyframes stoom {
+  0% { opacity: 0; transform: translateY(0); }
+  40% { opacity: 0.9; }
+  100% { opacity: 0; transform: translateY(-8px); }
+}
+
+/* jij (en wie er meekomt): lopen naar de bank, zitten, staan bij de koffie, gaan weer naar buiten */
+.zondag .jij-zit,
+.zondag .samen-zit,
+.zondag .kind-zit { opacity: 0; }
+.zondag:is([data-stap='zingen'], [data-stap='lezen'], [data-stap='bidden']) .jij-zit { opacity: 1; transition-delay: 0.9s; }
+.zondag[data-mee='samen']:is([data-stap='zingen'], [data-stap='lezen'], [data-stap='bidden']) .samen-zit,
+.zondag[data-mee='kinderen']:is([data-stap='zingen'], [data-stap='lezen'], [data-stap='bidden']) .kind-zit { opacity: 1; transition-delay: 0.9s; }
+
+.zondag .jij-loopt { transform: translate(388px, 250px); }
+.zondag .samen-loopt,
+.zondag .kind-loopt { opacity: 0; transform: translate(371px, 250px); }
+.zondag[data-mee='samen'] .samen-loopt,
+.zondag[data-mee='kinderen'] .kind-loopt { opacity: 1; }
+.zondag:is([data-stap='zingen'], [data-stap='lezen'], [data-stap='bidden']) .jij-loopt { transform: translate(328px, 250px); opacity: 0; }
+.zondag:is([data-stap='zingen'], [data-stap='lezen'], [data-stap='bidden']) :is(.samen-loopt, .kind-loopt) { transform: translate(307px, 250px); opacity: 0; }
+.zondag[data-stap='koffie'] .jij-loopt { transform: translate(272px, 254px); }
+.zondag[data-stap='koffie'] :is(.samen-loopt, .kind-loopt) { transform: translate(252px, 254px); }
+.zondag[data-stap='koffie'][data-na='huis'] .jij-loopt { transform: translate(388px, 250px); }
+.zondag[data-stap='koffie'][data-na='huis'] :is(.samen-loopt, .kind-loopt) { transform: translate(371px, 250px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .zondag .noot,
+  .zondag .stoom {
+    animation: none !important;
+  }
+  .zondag[data-stap='zingen'] .noot,
+  .zondag[data-stap='koffie'] .stoom {
+    opacity: 1;
   }
 }
 .dienst-vragen {
@@ -1407,6 +1659,43 @@ html:not(.js) .ochtend-punt {
     transform: translateY(-50%);
     font-weight: 700;
     color: var(--mos);
+  }
+}
+
+/* ---------- zwevende knop op de telefoon ---------- */
+.zweefknop {
+  position: fixed;
+  z-index: 20;
+  right: 1rem;
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  padding: 0.85rem 1.3rem;
+  border-radius: 999px;
+  background: var(--mos);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 0.5rem 1.4rem -0.4rem rgba(42, 27, 30, 0.55);
+  animation: opkomen 0.35s var(--zacht);
+}
+.zweefknop:hover {
+  color: #fff;
+  background: #5e2230;
+}
+.zweefknop:focus-visible {
+  outline: 3px solid var(--licht);
+  outline-offset: 3px;
+}
+.zweefknop[hidden] {
+  display: none;
+}
+@media (min-width: 48rem) {
+  .zweefknop {
+    display: none !important;
+  }
+}
+@media print {
+  .zweefknop {
+    display: none !important;
   }
 }
 
