@@ -22,7 +22,7 @@ export function layout(ctx, pagina, inhoud) {
   const titel = pagina.titel ? `${pagina.titel} · ${site.naam}` : `${site.naam} Er is plek voor jou · ${site.regio}`;
   const omschrijving = pagina.omschrijving || site.omschrijving;
   const canonical = site.domein + pad;
-  const concept = site.modus !== 'productie';
+  const concept = site.modus === 'concept';
   const jsonld = pagina.jsonld
     ? `<script type="application/ld+json">${JSON.stringify(pagina.jsonld).replace(/</g, '\\u003c')}</script>`
     : '';
@@ -63,7 +63,7 @@ ${jsonld}
 <body${thema}>
 <a class="overslaan" href="#inhoud">Naar de inhoud</a>
 <header class="kop">
-  ${concept ? `<p class="conceptbalk"><strong>Concept</strong> · Nog geen officieel initiatief van de kerken. Kerken en activiteiten staan erop op basis van openbare informatie, ze zijn nog niet benaderd. <a href="/over-ons/#status">Meer over de status</a></p>` : ''}
+  ${concept ? `<p class="conceptbalk"><strong>Concept</strong> · Nog geen officieel initiatief van de kerken. Kerken en activiteiten staan erop op basis van openbare informatie, ze zijn nog niet benaderd. </p>` : ''}
   <div class="kop-binnen">
     <a class="merk-link" href="/"><img class="kop-logo" src="/merk/logo/logo-horizontaal.svg" width="320" height="47" alt="${esc(site.naam)} Naar de startpagina"></a>
     <nav class="hoofdnav" aria-label="Hoofdmenu">

@@ -1,8 +1,6 @@
 # Kom naar de kerk.
 
-Een uitnodiging om Jezus Christus en de christelijke gemeente te leren kennen, namens kerken in Houten en de omliggende dorpen. Beoogd domein: **komnaardekerk.nu** (nog niet geregistreerd). Conceptpreview: **https://komnaardekerk.martijndenbesten.com** (noindex).
-
-**Status: concept, initiatief in ontwikkeling.** Geen enkele kerk is benaderd; alle kerken staan als `kandidaat` met openbare gegevens van hun eigen website. Open punten: `../VRAGEN.md` en `docs/LANCERING.md`.
+Een informatief overzicht van kerken en kerkelijke activiteiten in Houten en omgeving. De bestaande preview staat op **https://komnaardekerk.martijndenbesten.com** (noindex). Het beoogde hoofddomein is **komnaardekerk.nu**.
 
 ## Inhoud beheren (zonder code)
 
@@ -15,7 +13,7 @@ Een uitnodiging om Jezus Christus en de christelijke gemeente te leren kennen, n
 | `content/site.json` | algemene instellingen, Bijbeltekst, contactformulier, hulplijnen |
 | `content/woorden.json`, `content/vragen.json` | de woorden op de homepage (‘Wat houdt je bezig?’), met Bijbelgedachte en vervolgstappen; praktische vragen |
 
-Een kerk wordt pas zichtbaar in de productieversie als `deelname.status` = `deelnemer` **en** `deelname.toestemmingPublicatie` = `true`. In de conceptversie staan alle gecontroleerde kerken, gemarkeerd als 'nog niet benaderd'. Overzichten voor mensen: `node scripts/overzicht.mjs` → `docs/KERKEN-OVERZICHT.md`, `docs/INITIATIEVEN.md`.
+In modus `overzicht` staan gecontroleerde openbare bezoekgegevens zonder deelnamelabel. Modus `productie` toont deelnemers met toestemming en heeft een aparte publicatiepoort. Zie [de wekelijkse broncontrole](docs/MONITORING.md) voor de verwerking van agenda’s en de uitrol.
 
 ## Mappen
 
@@ -39,8 +37,8 @@ npm install                              # alleen axe-core (toegankelijkheidstes
 node scripts/build.mjs                   # bouwen + controles
 node scripts/build.mjs --check           # dist/ actueel? (CI/poort)
 npm run poort                            # productiepoort: weigert zolang er conceptinhoud is
-node --test test/*.test.mjs              # 19 tests: formulier, Worker, headers, poort + 13 mutaties, productieselectie
-node scripts/test-browser.mjs            # 35 eindgebruikersscenario's in Chromium, axe, 320–1440 px
+node --test test/*.test.mjs              # formulier, Worker, headers, publicatiepoort en agenda
+node scripts/test-browser.mjs            # eindgebruikersscenario's in Chromium en axe, 320–1440 px
 node scripts/controleer-links.mjs        # externe links
 ```
 
@@ -59,11 +57,11 @@ Het subdomein hangt aan de Worker `komnaardekerk-preview`. Bijwerken wijzigt all
 
 ## Contactformulier
 
-Drie standen in `content/site.json` → `contact.status`: `voorbeeld` (nu: ingeklapt, verstuurt niets en zegt dat), `uit`, `aan`. Pas aanzetten als er een verantwoordelijke organisatie is en de opvolging geregeld is (VRAGEN V-002, V-004); daarna Email Routing + `send_email`-binding, `CONTACT_AAN=ja` en een rate-limit (`wrangler.jsonc`). De Worker is fail-closed.
+Drie standen in `content/site.json` → `contact.status`: `voorbeeld` (interne demonstratie), `uit` (actuele instelling), `aan`. Pas aanzetten als er een verantwoordelijke organisatie is en de opvolging geregeld is (VRAGEN V-002, V-004); daarna Email Routing + `send_email`-binding, `CONTACT_AAN=ja` en een rate-limit (`wrangler.jsonc`). De Worker is fail-closed.
 
 ## Rechten
 
 - Lettertypen Newsreader en Atkinson Hyperlegible Next: SIL OFL 1.1.
 - Foto's: Wikimedia Commons, CC BY-SA 4.0; naamsvermelding bij elke foto.
-- Bijbeltekst: NBV21 © Nederlands-Vlaams Bijbelgenootschap 2021, met verwijzing naar debijbel.nl (NBG-voorwaarden). Toestemming voor missionair gebruik: VRAGEN V-003.
+- Bijbeltekst: Mattheüs 11:28 in eigen woorden, met verwijzing naar debijbel.nl. Het letterlijke NBV21-citaat is voorbereid met bron- en rechtenvermelding. Toestemming voor de formele lancering blijft open in VRAGEN V-003.
 - Denckh-signatuurlogo: officieel bestand uit `MartijndBesten/denckh`, byte-identiek (hash in de build).

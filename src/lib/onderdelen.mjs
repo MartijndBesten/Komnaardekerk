@@ -58,17 +58,6 @@ export function hulplijnen(site, { kop = 'Heb je nú iemand nodig?' } = {}) {
 
 const DAG = { zondag: 'Zondag', zaterdag: 'Zaterdag', vrijdag: 'Vrijdag', donderdag: 'Donderdag', woensdag: 'Woensdag', dinsdag: 'Dinsdag', maandag: 'Maandag' };
 
-const STATUS = {
-  kandidaat: 'Nog niet benaderd · openbare gegevens van de eigen website',
-  belangstelling: 'Heeft belangstelling getoond · nog geen deelnemer',
-  deelnemer: null
-};
-
-export function statusLabel(item) {
-  const s = item.deelname?.status || 'kandidaat';
-  return STATUS[s] ? html`<p class="label-status label-status--${s}">${STATUS[s]}</p>` : '';
-}
-
 // Diensten per soort (content/kerken.json): 'regulier' = elke week, 'wisselend' = dag of tijd wisselt (rooster nodig),
 // 'bijzonder' = maandelijks of een paar keer per jaar. Alles wordt getoond; alleen de vaste diensten krijgen een agendaknop.
 const uur = (t) => `${t.replace(':', '.')} uur`;
@@ -117,13 +106,12 @@ function routeLink(kerk) {
   return html`<a class="pijllink" href="https://www.openstreetmap.org/search?query=${q}" rel="noopener">Route<span class="sr"> naar ${kerk.naam} (OpenStreetMap)</span></a>`;
 }
 
-export function kerkItem(kerk, { concept = true } = {}) {
+export function kerkItem(kerk) {
   const kenmerken = (kerk.kenmerken || []).join(' ');
   const c = kerk.contactroute;
   return html`<article class="kerk" id="${kerk.id}" data-kenmerken="${kenmerken}" data-plaats="${kerk.plaats}" data-traditie="${kerk.traditie}">
-    <div class="kerk-beeld">${boog({ foto: kerk.foto, briefing: concept ? 'van deze kerk, met toestemming van de gemeente' : '', concept, sizes: '(min-width: 56rem) 28vw, 80vw' })}</div>
+    <div class="kerk-beeld">${boog({ foto: kerk.foto, sizes: '(min-width: 56rem) 28vw, 80vw' })}</div>
     <div class="kerk-tekst">
-      ${statusLabel(kerk)}
       <h3 class="kerk-naam">${kerk.naam}</h3>
       <p class="kerk-traditie">${[kerk.verband || kerk.kerkverband, kerk.plaats].filter(Boolean).join(' · ')}</p>
       ${diensten(kerk)}
@@ -144,7 +132,7 @@ export function kerkItem(kerk, { concept = true } = {}) {
         ${kerk.website ? html`<a class="pijllink" href="${kerk.website}" rel="noopener">Website<span class="sr"> van ${kerk.naam}</span></a>` : ''}
         ${routeLink(kerk)}
       </p>
-      <p class="kerk-controle">Gegevens gecontroleerd op ${datum(kerk.gecontroleerd)}${kerk.bronnen?.length ? html` · <a href="${kerk.bronnen[0].url}" rel="noopener">bron</a>` : ''}.</p>
+      <p class="kerk-controle">Bron gecontroleerd op ${datum(kerk.bronnen?.[0]?.gecontroleerd || kerk.gecontroleerd)}${kerk.bronnen?.length ? html` · <a href="${kerk.bronnen[0].url}" rel="noopener">bron</a>` : ''}.</p>
     </div>
   </article>`;
 }

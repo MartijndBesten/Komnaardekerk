@@ -25,6 +25,10 @@ Van eerste concept naar een hoogwaardige, werkende site voor een missionair init
 
 Iemand zonder kerkelijke achtergrond laten voelen: *misschien is er ook voor mij een plek*, en de stap naar een eerste kerkbezoek concreet kleiner maken. Geen website óver kerken.
 
+## Actualisatie 27 november 2026
+
+De bestaande preview is bestemd voor een informatief kerkenoverzicht op basis van gecontroleerde openbare bronnen. Deelname en rechten worden afzonderlijk bijgehouden. De formele productiepoort en de voorwaarden voor de officiële lancering blijven gelden. De site gebruikt voorlopig de eigen weergave van Mattheüs 11:28. Het contactformulier staat uit. De broncontrole hergebruikt delen uit workbench-PR #147 en de planning uit #148. Zie `docs/MONITORING.md` en `HANDOFF.md`.
+
 ## Scope
 
 ### Wel

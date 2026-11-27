@@ -1,5 +1,5 @@
 import { html } from '../lib/html.mjs';
-import { kerkItem, paginaKop, datum } from '../lib/onderdelen.mjs';
+import { kerkItem, paginaKop } from '../lib/onderdelen.mjs';
 
 export const pagina = {
   pad: '/kerken/',
@@ -21,25 +21,21 @@ const KENMERKEN = [
 ];
 
 export function inhoud(ctx) {
-  const { site, kerken, fotos } = ctx;
-  const concept = site.modus !== 'productie';
+  const { kerken, fotos } = ctx;
   const lijst = kerken.kerken;
   const plaatsen = [...new Set(lijst.map((k) => k.plaats))];
   const tradities = TRADITIES.filter(([t]) => lijst.some((k) => k.traditie === t));
-  const laatste = lijst.map((k) => k.gecontroleerd).sort().pop();
   return html`
 ${paginaKop({
   boven: 'Kerken in Houten',
-  titel: 'Elke kerk heeft een eigen sfeer. De deur staat <em>overal</em> open.',
+  titel: 'Vind een <em>kerk</em> bij jou in de buurt.',
   lead: 'Rooms-katholiek, protestants, reformatorisch, evangelisch: de kerken verschillen in vorm en traditie. Hieronder vind je per kerk wanneer je welkom bent en hoe je contact legt.',
   beeld: fotos.dorp
 })}
 
 <section class="kerkenlijst" aria-labelledby="lijst-kop">
   <div class="kerkenlijst-binnen">
-    ${concept
-      ? html`<div class="melding" role="note"><p><strong>Over deze lijst.</strong> Dit is een concept. De kerken hieronder zijn nog niet benaderd en doen (nog) niet mee aan dit initiatief. De gegevens komen van hun eigen websites en zijn gecontroleerd op ${datum(laatste)}. Kijk voor actuele tijden altijd even op de website van de kerk.</p></div>`
-      : ''}
+    <p>De informatie komt van de kerken zelf. Bekijk hun agenda voor wijzigingen en diensten op feestdagen.</p>
     <h2 class="sr" id="lijst-kop">Alle kerken</h2>
     <div class="filter" data-filter hidden>
       <div class="filter-groep">
@@ -63,23 +59,13 @@ ${paginaKop({
       <p class="filter-uitkomst" role="status" aria-live="polite" data-filter-uitkomst></p>
     </div>
     <div class="kerken" data-schud>
-      ${lijst.map((k) => kerkItem(k, { concept }))}
+      ${lijst.map((k) => kerkItem(k))}
     </div>
     <p class="geen-resultaat" data-geen-resultaat hidden>Geen kerk past bij al deze keuzes. Haal er eentje weg.</p>
     <p class="klein kerken-eerlijk">De volgorde wisselt bij elk bezoek, zodat geen kerk vooraan staat. De traditie is een grove indeling om je op weg te helpen; elke kerk vertelt op haar eigen website wie zij is.</p>
   </div>
 </section>
 
-${kerken.teVerifieren?.length
-  ? html`<section class="ontbreekt" aria-labelledby="ontbreekt-kop">
-  <div class="ontbreekt-binnen">
-    <h2 class="kop-3" id="ontbreekt-kop">Nog niet gecontroleerd</h2>
-    <p>Deze kerken en gemeenschappen hebben we nog niet op een eigen website kunnen controleren. We vullen ze aan zodra de gegevens kloppen.</p>
-    <ul class="lijst-eenvoudig">${kerken.teVerifieren.map((k) => html`<li>${k.naam}${k.plaats ? `, ${k.plaats}` : ''}</li>`)}</ul>
-    <p>Staat jouw kerk er niet bij, of klopt er iets niet? Lees <a href="/over-ons/#meedoen">hoe kerken kunnen meedoen</a>.</p>
-  </div>
-</section>`
-  : ''}
 `;
 }
 

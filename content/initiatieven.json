@@ -12,7 +12,7 @@
       "website": "https://alphahouten.nl/",
       "bron": "https://alphahouten.nl/",
       "gecontroleerd": "2026-11-08",
-      "actueel": true,
+      "actueel": false,
       "opmerkingen": "Aanmelden via formulier op de site of info@alphahouten.nl. Reeks is in september gestart; nieuwe instroom halverwege is niet vermeld. Lichtboog: 'Een aantal keer per jaar starten we een Alpha-cursus' (https://www.delichtboog.nl/go/wat-we-doen/alpha-houten/); data van een volgende ronde niet gevonden.",
       "organisatoren": [
         "het-kruispunt",
@@ -36,7 +36,7 @@
       "website": "https://alphahouten.nl/#alpha-lunch",
       "bron": "https://alphahouten.nl/",
       "gecontroleerd": "2026-11-08",
-      "actueel": true,
+      "actueel": false,
       "opmerkingen": "Organisator afgeleid van de voettekst van alphahouten.nl ('Alpha wordt georganiseerd door NGK Het Kruispunt Houten en De Lichtboog Houten'); niet apart voor Alpha Lunch vermeld.",
       "organisatoren": [
         "het-kruispunt",
@@ -124,7 +124,7 @@
       "soort": "maaltijd",
       "organisator": "de-lichtboog-ngk-houten",
       "omschrijving": "Gratis interculturele maaltijd waarbij mensen uit verschillende landen en culturen samen eten en verhalen delen.",
-      "wanneer": "Zondag vanaf 17.30 uur, op 22 november, 6 en 20 december 2026.",
+      "wanneer": "Zondag 6 en 20 december 2026 vanaf 17.30 uur.",
       "waar": "PROEF! in De Spot, Het Wed 12, Houten",
       "website": "https://www.proefhouten.nl/",
       "bron": "https://www.proefhouten.nl/",
@@ -139,7 +139,8 @@
         "toestemmingPublicatie": false
       },
       "groep": "ontmoeten",
-      "opgenomen": true
+      "opgenomen": true,
+      "totDatum": "2026-12-20"
     },
     {
       "id": "messy-church-park-schoneveld",
@@ -171,7 +172,7 @@
       "soort": "maaltijd",
       "organisator": "sionkerk-hervormde-gemeente-houten",
       "omschrijving": "Maandelijks diner in de Sionkerk voor iedereen, van jong tot oud; geopend met gebed en met een korte meditatie tussendoor, afsluitend koffie of thee. Ruimte voor ongeveer 30 gasten; EUR 6,00 per persoon; vooraf opgeven.",
-      "wanneer": "Derde woensdag van de maand, 18.00 tot 19.30 uur. Volgende data: 18 november en 16 december 2026.",
+      "wanneer": "Van oktober tot en met mei, elke derde woensdag van de maand van 18.00 tot 19.30 uur.",
       "waar": "Sionkerk, Eikenhout 221, Houten",
       "website": "https://www.hervormdhouten.nl/eetjemee/",
       "bron": "https://www.hervormdhouten.nl/eetjemee/",
@@ -218,7 +219,7 @@
       "soort": "gespreksgroep / bijbelontdekgroep",
       "organisator": "rk-olv-ten-hemelopneming-houten",
       "omschrijving": "Samen een Bijbeltekst lezen en verkennen wat die vandaag kan betekenen, met afwisselende werkvormen. Geen voorbereiding of voorkennis nodig; ook bedoeld voor wie nieuwsgierig is naar geloof. Instappen kan het hele jaar.",
-      "wanneer": "Maandagavond 20.00 tot 22.00 uur, op 9 november en 21 december 2026, daarna vanaf februari 2027.",
+      "wanneer": "Maandag 21 december 2026, van 20.00 tot 22.00 uur.",
       "waar": "Acaciazaal, De Pastorie, Loerikseweg 12, Houten",
       "website": "https://pj23.nl/blog/agenda/bijbellezen-nu-3/",
       "bron": "https://pj23.nl/blog/agenda/bijbellezen-nu-3/",
@@ -233,7 +234,8 @@
         "toestemmingPublicatie": false
       },
       "groep": "geloof",
-      "opgenomen": true
+      "opgenomen": true,
+      "totDatum": "2026-12-21"
     },
     {
       "id": "taize-gebed-houten",
@@ -241,7 +243,7 @@
       "soort": "gebed / stilte",
       "organisator": "rk-olv-ten-hemelopneming-houten",
       "omschrijving": "Korte gebedsbijeenkomst van een half uur in Taizé-stijl.",
-      "wanneer": "Woensdag 18 november, 2 december en 23 december 2026, 18.45-19.15 uur",
+      "wanneer": "Woensdag 2 en 23 december 2026, van 18.45 tot 19.15 uur.",
       "waar": "O.L.V. ten Hemelopneming, Loerikseweg 10, Houten",
       "website": "https://pj23.nl/blog/agenda/taizegebed-2/",
       "bron": "https://pj23.nl/kerken/houten/",
@@ -256,7 +258,8 @@
         "toestemmingPublicatie": false
       },
       "groep": "stilte",
-      "opgenomen": true
+      "opgenomen": true,
+      "totDatum": "2026-12-23"
     },
     {
       "id": "kidskerk-houten",
@@ -269,7 +272,7 @@
       "website": "https://pj23.nl/wat-wij-doen/voor-kinderen/",
       "bron": "https://pj23.nl/wat-wij-doen/voor-kinderen/",
       "gecontroleerd": "2026-11-08",
-      "actueel": true,
+      "actueel": false,
       "opmerkingen": "Volgende data na 8 november 2026 niet gecontroleerd.",
       "organisatoren": [
         "olv-houten"
@@ -303,7 +306,8 @@
       },
       "groep": null,
       "opgenomen": false,
-      "nietOpgenomenOmdat": "bedoeld voor nieuwe leden van de gemeente"
+      "nietOpgenomenOmdat": "bedoeld voor nieuwe leden van de gemeente",
+      "totDatum": "2027-01-21"
     },
     {
       "id": "de-rivier-straatevangelisatie",
@@ -373,7 +377,8 @@
         "toestemmingPublicatie": false
       },
       "groep": "geloof",
-      "opgenomen": true
+      "opgenomen": true,
+      "totDatum": "2026-12-23"
     },
     {
       "gecontroleerd": "2026-11-08",
@@ -453,7 +458,7 @@
       "soort": "kinderclub",
       "organisator": "eskol-kerk-gereformeerde-gemeente-houten",
       "omschrijving": "Club voor kinderen van 4-12 jaar met een Bijbelverhaal, liedjes, knutselen en spel; kinderen mogen vriendjes meenemen die nog weinig van God weten.",
-      "wanneer": "Om de woensdag 14.30-15.30 uur; o.a. 11 en 25 november, 9 december 2026, 6 en 20 januari 2027",
+      "wanneer": "Op woensdag 9 december 2026, 6 en 20 januari 2027, van 14.30 tot 15.30 uur.",
       "waar": "Eskol-kerk, Poldermolen 1, Houten",
       "website": "https://eskol-kerk.nl/activiteiten/kinderbijbelclub/",
       "bron": "https://eskol-kerk.nl/activiteiten/kinderbijbelclub/",
@@ -467,7 +472,8 @@
         "toestemmingPublicatie": false
       },
       "groep": "gezin",
-      "opgenomen": true
+      "opgenomen": true,
+      "totDatum": "2027-01-20"
     },
     {
       "gecontroleerd": "2026-11-08",
@@ -476,7 +482,7 @@
       "soort": "maaltijd",
       "organisator": "eskol-kerk-gereformeerde-gemeente-houten",
       "omschrijving": "Maandelijkse maaltijd voor mensen van de kerk en daarbuiten, elke keer met een ander menu; vooraf aanmelden.",
-      "wanneer": "11 november en 9 december 2026; 13 januari, 10 februari, 10 maart en 14 april 2027; inloop 17.00, begin 17.30 (tot 20.00)",
+      "wanneer": "9 december 2026, 13 januari, 10 februari, 10 maart, 14 april en 12 mei 2027. Inloop 17.00 uur, aan tafel om 17.30 uur.",
       "waar": "Eskol-kerk, Poldermolen 1, Houten",
       "website": "https://eskol-kerk.nl/activiteiten/maaltijd/",
       "bron": "https://eskol-kerk.nl/activiteiten/maaltijd/",
@@ -490,7 +496,8 @@
         "toestemmingPublicatie": false
       },
       "groep": "ontmoeten",
-      "opgenomen": true
+      "opgenomen": true,
+      "totDatum": "2027-05-12"
     },
     {
       "gecontroleerd": "2026-11-08",
@@ -514,6 +521,72 @@
       },
       "groep": "ontmoeten",
       "opgenomen": true
+    },
+    {
+      "id": "kerstconcert-houten-2026",
+      "naam": "Kerstconcert in Houten",
+      "groep": "vieringen",
+      "organisatoren": [
+        "olv-houten"
+      ],
+      "omschrijving": "Houtense kerkkoren zingen voor Save the Children. Het programmaboekje is het toegangsbewijs en kost € 2.",
+      "waar": "Loerikseweg 10, Houten",
+      "bron": "https://pj23.nl/blog/agenda/kerstconcert/",
+      "website": "https://pj23.nl/blog/agenda/kerstconcert/",
+      "gecontroleerd": "2026-11-27",
+      "actueel": true,
+      "opgenomen": true,
+      "start": "2026-12-13T15:00:00+01:00",
+      "doelgroep": "iedereen"
+    },
+    {
+      "id": "kerst-gezinsviering-schalkwijk-2026",
+      "naam": "Kerstviering voor het gezin in Schalkwijk",
+      "groep": "vieringen",
+      "organisatoren": [
+        "h-michael-schalkwijk"
+      ],
+      "omschrijving": "Vier kerstavond met een woord- en gebedsviering.",
+      "waar": "Jhr. Ramweg 17a, Schalkwijk",
+      "bron": "https://pj23.nl/blog/viering/kerst-gezinsviering-schalkwijk/",
+      "website": "https://pj23.nl/blog/viering/kerst-gezinsviering-schalkwijk/",
+      "gecontroleerd": "2026-11-27",
+      "actueel": true,
+      "opgenomen": true,
+      "start": "2026-12-24T19:00:00+01:00",
+      "doelgroep": "gezinnen"
+    },
+    {
+      "id": "kerstavond-t-goy-2026",
+      "naam": "Kerstavond in ’t Goy",
+      "groep": "vieringen",
+      "organisatoren": [
+        "olv-t-goy"
+      ],
+      "omschrijving": "Een woord- en communieviering op kerstavond.",
+      "waar": "Beusichemseweg 104, 't Goy",
+      "bron": "https://pj23.nl/blog/viering/kerstavond-t-goy-2/",
+      "website": "https://pj23.nl/blog/viering/kerstavond-t-goy-2/",
+      "gecontroleerd": "2026-11-27",
+      "actueel": true,
+      "opgenomen": true,
+      "start": "2026-12-24T19:00:00+01:00"
+    },
+    {
+      "id": "kerstdag-schalkwijk-2026",
+      "naam": "Viering op eerste kerstdag in Schalkwijk",
+      "groep": "vieringen",
+      "organisatoren": [
+        "h-michael-schalkwijk"
+      ],
+      "omschrijving": "Een eucharistieviering op eerste kerstdag.",
+      "waar": "Jhr. Ramweg 17a, Schalkwijk",
+      "bron": "https://pj23.nl/blog/viering/kerstdag-schalkwijk/",
+      "website": "https://pj23.nl/blog/viering/kerstdag-schalkwijk/",
+      "gecontroleerd": "2026-11-27",
+      "actueel": true,
+      "opgenomen": true,
+      "start": "2026-12-25T09:30:00+01:00"
     }
   ]
 }

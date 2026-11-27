@@ -26,7 +26,7 @@ test('dist/ is actueel', () => {
 test('publicatiepoort weigert de conceptversie met alle open punten', () => {
   const r = bouw(ROOT, '--check', '--productie');
   assert.equal(r.status, 1);
-  for (const m of ['modus', 'deelnemende kerk', 'Bijbeltekst', 'geloofsbasis', "'voorbeeld'", 'verwerkingsverantwoordelijke', 'contactadres']) {
+  for (const m of ['modus', 'deelnemende kerk', 'Bijbeltekst', 'geloofsbasis', 'verwerkingsverantwoordelijke', 'contactadres']) {
     assert.ok(r.stderr.includes(m), `melding over ${m} ontbreekt:\n${r.stderr}`);
   }
 });
@@ -41,7 +41,7 @@ test('mutaties worden gevangen', () => {
     ['verboden tekst', 'content/vragen.json', (s) => s.replace('Ja. Kerkdiensten', 'TODO Kerkdiensten'), 'verboden inhoud'],
     ['ontbrekende afbeelding', 'content/fotos.json', (s) => s.replace('"/foto/rk-houten.webp"', '"/foto/bestaat-niet.webp"'), 'ontbrekende afbeelding'],
     ['gewijzigd Denckh-logo', 'src/static/merk/denckh/denckh-logo-signature-light.svg', (s) => s + '<!-- -->', 'niet byte-identiek'],
-    ['dode link', 'src/pages/kerken.mjs', (s) => s.replace('/over-ons/#meedoen', '/bestaat-niet/'), 'dode link'],
+    ['dode link', 'src/pages/home.mjs', (s) => s.replace('/activiteiten/', '/bestaat-niet/'), 'dode link'],
     ['dood anker', 'src/lib/onderdelen.mjs', (s) => s.replace('href="/samen-naar-de-kerk/">Een eerste bezoek', 'href="/samen-naar-de-kerk/#weg">Een eerste bezoek'), 'dood anker'],
     ['inline style', 'src/pages/ontdek.mjs', (s) => s.replace('<section class="verhaal"', '<section style="color:red" class="verhaal"'), 'inline style'],
     ['externe bron', 'src/lib/layout.mjs', (s) => s.replace('<link rel="stylesheet"', '<script src="https://cdn.invalid/x.js"></script><link rel="stylesheet"'), 'externe bron'],
