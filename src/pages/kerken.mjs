@@ -107,9 +107,9 @@ export function paginas(content) {
 </section>
 <section class="kerkpagina-verder" aria-labelledby="verder-kop">
   <div class="kerkpagina-verder-binnen">
-    <h2 class="kop-3" id="verder-kop">Liever niet alleen?</h2>
-    <p>Je kunt ook met iemand samen gaan. Iemand van de kerk wacht je dan op of zit naast je.</p>
-    <p class="knoppen"><a class="knop knop--vol" href="/samen-naar-de-kerk/?kerk=${kerk.id}">Samen gaan</a> <a class="pijllink" href="/voor-het-eerst/">Wat gebeurt er in een dienst?</a></p>
+    <h2 class="kop-3" id="verder-kop">Je mag gewoon binnenlopen</h2>
+    <p>Je hoeft je niet aan te melden. Liever niet alleen? Neem iemand mee die je kent.</p>
+    <p class="knoppen"><a class="knop knop--vol" href="/#ochtend">Hoe gaat een kerkdienst ongeveer?</a> <a class="pijllink" href="/#kerken">Andere kerken op de kaart</a></p>
   </div>
 </section>`,
     jsonld: () => (kerk.deelname?.status === 'deelnemer' && kerk.deelname?.toestemmingPublicatie && kerk.adres

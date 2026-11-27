@@ -26,7 +26,7 @@ const STAPPEN = [
     kan: 'Je jas ophangen. Een boekje pakken als dat er ligt. Gaan zitten waar je wilt: achterin is prima.',
     hoeft: 'Je hoeft je niet aan te melden en niets te betalen. Je hoeft niemand te kennen.',
     tips: {
-      alleen: 'Zeg bij de deur gerust dat je voor het eerst bent. Dan helpt iemand je op weg.',
+      alleen: 'Als je wilt, kun je bij de deur zeggen dat je voor het eerst bent. Hoeft niet.',
       samen: 'Spreek af waar je elkaar ziet, bijvoorbeeld bij de ingang. Dan ga je samen naar binnen.',
       kinderen: 'Veel kerken hebben oppas voor kleine kinderen of iets voor de grotere. Op de pagina van elke kerk zie je wat er is.'
     }
@@ -95,7 +95,7 @@ function zondagochtend() {
         <p class="ochtend-tijd"><span class="sr">Stap ${i + 1}, </span>${st.tijd}</p>
         <h3 class="ochtend-kop">${st.kop}${st.muziek ? html` <span class="ochtend-tag" data-muziek-tag hidden></span>` : ''}</h3>
         <p class="ochtend-tekst"${st.muziek ? raw(` data-muziek-tekst data-standaard="${esc(st.tekst)}" data-orgel="${esc(st.muziek.orgel)}" data-piano="${esc(st.muziek.piano)}" data-band="${esc(st.muziek.band)}"`) : ''}>${st.tekst}</p>
-        ${st.tips ? html`${Object.entries(st.tips).map(([w, t]) => html`<p class="ochtend-tip" data-tip="${w}" hidden>${t}${w === 'samen' && st.id === 'binnen' ? html` Ken je niemand? <a href="/samen-naar-de-kerk/">Ga samen met iemand van de kerk</a>.` : ''}</p>`)}` : ''}
+        ${st.tips ? html`${Object.entries(st.tips).map(([w, t]) => html`<p class="ochtend-tip" data-tip="${w}" hidden>${t}</p>`)}` : ''}
         ${st.id === 'koffie' ? html`<fieldset class="ochtend-keuze ochtend-na" data-na-keuze hidden>
           <legend>En jij?</legend>
           <div class="ochtend-chips"><label class="chip"><input type="radio" name="na" value="blijf"> <span>Ik blijf even</span></label><label class="chip"><input type="radio" name="na" value="huis"> <span>Ik ga naar huis</span></label></div>
@@ -176,7 +176,7 @@ export function inhoud(ctx) {
       <h1 class="held-kop onthul" id="held-kop">Kom naar de kerk. <em>Er is plek voor jou.</em></h1>
       <p class="lead held-lead onthul">Een uitnodiging van christenen uit Houten en omgeving. Bekijk waar en wanneer je naar een kerkdienst kunt. Kom zoals je bent.</p>
       <p class="knoppen onthul">
-        <a class="knop knop--licht" href="/kerken/">Vind een kerk</a>
+        <a class="knop knop--licht" href="#kerken">Vind een kerk</a>
         <a class="knop knop--omlijnd" href="#gevoel">Wat houdt je bezig?</a>
       </p>
     </div>
@@ -190,6 +190,18 @@ export function inhoud(ctx) {
   <div class="uitnodiging-binnen onthul">
     <span class="uitnodiging-merk" aria-hidden="true">${raw(vlakSvg({ donker: false, titel: '' }))}</span>
     ${bijbeltekst(site, { klasse: 'uitnodiging-vers' })}
+  </div>
+</section>
+
+<section class="buurt" id="kerken" aria-labelledby="buurt-kop">
+  <div class="buurt-binnen">
+    <div class="sectiekop">
+      <p class="bovenregel">Waar kun je heen?</p>
+      <h2 class="kop-2" id="buurt-kop">Kerken bij jou in de buurt</h2>
+      <p class="lead">${aantalWoord(kerken.kerken.length)} kerken in ${plaatsenZin(kerken.kerken)}. Protestants, evangelisch en katholiek. Ze geloven in dezelfde Heer en hebben dezelfde uitnodiging. Kies er gewoon één.</p>
+    </div>
+    ${kerkenkaart(kerken.kerken, { kop: 'Kies een kerk op de kaart', kopNiveau: 3, tekst: 'Tik op een nummer of een naam: dan zie je de tijden, het adres en hoe je contact legt.' })}
+    <p class="buurt-voet"><a class="knop knop--vol" href="/kerken/">Alle kerken: tijden, filters en route</a></p>
   </div>
 </section>
 
@@ -240,7 +252,7 @@ export function inhoud(ctx) {
   </div>
 </section>
 
-<section class="dienst" aria-labelledby="dienst-kop">
+<section class="dienst" id="ochtend" aria-labelledby="dienst-kop">
   <div class="dienst-binnen">
     <div class="sectiekop">
       <p class="bovenregel">Wat gebeurt er in de kerk?</p>
@@ -252,18 +264,6 @@ export function inhoud(ctx) {
       <h3 class="kop-3">Wat mensen vaak willen weten</h3>
       ${faqLijst(homeVragen, 'homevraag')}
     </div>
-  </div>
-</section>
-
-<section class="buurt" aria-labelledby="buurt-kop">
-  <div class="buurt-binnen">
-    <div class="sectiekop">
-      <p class="bovenregel">Waar kun je heen?</p>
-      <h2 class="kop-2" id="buurt-kop">Kerken bij jou in de buurt</h2>
-      <p class="lead">${aantalWoord(kerken.kerken.length)} kerken in ${plaatsenZin(kerken.kerken)}. Protestants, evangelisch en katholiek. Ze geloven in dezelfde Heer en hebben dezelfde uitnodiging. Kies er gewoon één.</p>
-    </div>
-    ${kerkenkaart(kerken.kerken, { kop: 'Kies een kerk op de kaart', kopNiveau: 3, tekst: 'Tik op een nummer of een naam: dan zie je de tijden, het adres en hoe je contact legt.' })}
-    <p class="buurt-voet"><a class="knop knop--vol" href="/kerken/">Alle kerken: tijden, filters en route</a></p>
   </div>
 </section>
 

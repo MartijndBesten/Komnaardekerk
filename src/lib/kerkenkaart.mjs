@@ -49,7 +49,7 @@ export function kerkenkaart(kerken, { legenda = true, kop = 'Kerken op de kaart'
             const kerk = geplaatsteKerken.get(kerkId);
             return html`<a class="kerkenkaart-punt" href="/kerken/${kerkId}/" aria-label="${nummers.get(kerkId)}. ${kerk.naam}">
               ${dx || dy ? html`<line x1="${x}" y1="${y}" x2="${x + dx}" y2="${y + dy}"/><circle cx="${x}" cy="${y}" r="0.85"/>` : ''}
-              <circle class="kerkenkaart-stip" cx="${x + dx}" cy="${y + dy}" r="3.15"/>
+              <circle class="kerkenkaart-stip" cx="${x + dx}" cy="${y + dy}" r="3.7"/>
               <text x="${x + dx}" y="${y + dy}" dy=".35em" aria-hidden="true">${nummers.get(kerkId)}</text>
             </a>`;
           })}

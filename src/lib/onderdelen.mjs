@@ -203,8 +203,8 @@ export function samenGaanTeaser() {
       <div class="samen-tekst">
         <p class="bovenregel">Samen naar de kerk</p>
         <h2 id="samen-kop" class="kop-2">Vind je het spannend om alleen te gaan?</h2>
-        <p class="lead">Dat snappen we. Lees hoe je een eerste bezoek voorbereidt, en neem gerust iemand mee: een vriend, een buurvrouw, je kind. Kerken zijn gewend aan nieuwe gezichten.</p>
-        <p><a class="knop knop--vol" href="/samen-naar-de-kerk/">Een eerste bezoek voorbereiden</a></p>
+        <p class="lead">Nieuwsgierig naar een kerkdienst? Je mag gewoon binnenlopen. Wil je liever samen met iemand gaan? Dat kan natuurlijk ook.</p>
+        <p><a class="knop knop--vol" href="/samen-naar-de-kerk/">Ga gerust eens kijken</a></p>
       </div>
     </div>
   </section>`;

@@ -1,8 +1,19 @@
 # HANDOFF
 
-status: live staat main (3d050bc4, informatief overzicht met kaart en broncontrole); op branch claude/kerken-en-zondagochtend staan kaart met klikbare punten, pagina per kerk, genummerde kaartjes en de interactieve zondagochtend, samengevoegd met main en getest, nog niet live
+status: homepage met kerkkaart direct na Mattheüs 11:28, pagina per kerk, interactieve zondagochtend, teksten zonder ‘voorbereiden’; samengevoegd in main en uitgerold op het previewadres (zie hieronder)
 next_actor: martijn
-updated: 2026-11-27 (Claude Code-cloudsessie; samengevoegd met het werk van Codex)
+updated: 2026-11-27 (Claude Code-cloudsessie, homepage en uitrol)
+
+## Homepage, kerkkaart centraal en uitnodigende teksten (2026-11-27)
+
+**Opdracht Martijn:** kaart direct zichtbaar en centraal op de homepage (volgorde: opening → Mattheüs 11:28 → kaart → de rest), geen nadruk op ‘voorbereiden’, geen ongedekte beloftes, snel en gecontroleerd live.
+
+**Gedaan**
+- Homepage: `held` → `uitnodiging` (Mattheüs 11:28) → `buurt` (kaart Houten + dorpen met genummerde, klikbare punten en daaronder namen + vaste zondagstijden) → `kort` → woorden → Jezus → zondagochtend (`#ochtend`) → rest. ‘Vind een kerk’ in de opening springt naar `#kerken` op de homepage. Kaartpunten iets groter (r 3,7) voor de vinger.
+- Teksten: knop ‘Ga gerust eens kijken’; teaser ‘Nieuwsgierig naar een kerkdienst? Je mag gewoon binnenlopen…’; `/samen-naar-de-kerk/`: titel ‘Je bent welkom. Ook als je voor het eerst komt.’, ‘Handig om te weten, maar niets moet’ met tips zonder nummers (geen stappenplan); kerkpagina: ‘Je mag gewoon binnenlopen’ zonder belofte dat iemand je opwacht; zondagochtend: geen link ‘ga samen met iemand van de kerk’ en de tip bij de deur als ‘als je wilt … hoeft niet’.
+- Mattheüs 11:28 staat op `main` als gemarkeerde eigen weergave (keuze van PR #1, Codex); niet teruggezet, omdat de NBG-toestemming er nog niet is.
+
+**Tests:** build + `--check` groen; unit 23/23; browser 36/36 (nieuw: kaart direct na Mattheüs en binnen twee schermhoogtes na de opening op mobiel, geen ‘voorbereiden’ of opvangbelofte op de belangrijkste pagina’s). Korte visuele controle 375 en 1440 px.
 
 ## Kerken, zondagochtend en ‘niet benaderd’ (2026-11-27)
 

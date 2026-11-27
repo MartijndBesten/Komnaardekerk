@@ -1691,6 +1691,27 @@ html:not(.js) .ochtend-punt {
   }
 }
 
+/* ---------- samen: tips, geen stappenplan ---------- */
+.tips-lijst {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 1.75rem 2.5rem;
+  margin-top: 1.5rem;
+}
+.tip {
+  border-top: 1px solid var(--lijn);
+  padding-top: 1rem;
+}
+.tip .kop-3 {
+  margin-bottom: 0.4rem;
+}
+@media (min-width: 44rem) {
+  .tips-lijst {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 /* ---------- pagina per kerk ---------- */
 .kruimel-binnen {
   max-width: var(--breedte);
@@ -3703,7 +3724,8 @@ a.kerkenkaart-punt:focus-visible {
 }
 .kerkenkaart-punt text {
   fill: #fff;
-  font-size: 3.7px;
+  font-size: 4.2px;
+  pointer-events: none;
   text-anchor: middle;
   font-weight: 700;
 }

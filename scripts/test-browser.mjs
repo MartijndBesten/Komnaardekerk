@@ -179,7 +179,7 @@ await scenario('Moeder die uitgeput is (mobiel): kiest "Moe?", leest, wisselt na
   await page.screenshot({ path: path.join(UIT, 'mobiel-keuze-alleen.png') });
   await alleen.getByRole('link', { name: /Ga samen/ }).click();
   await page.waitForURL(/\/samen-naar-de-kerk\/$/);
-  eis(await page.getByRole('heading', { name: 'Zo bereid je je voor' }).isVisible(), 'kop voorbereiden niet zichtbaar');
+  eis(await page.getByRole('heading', { name: 'Handig om te weten, maar niets moet' }).isVisible(), 'kop met tips niet zichtbaar');
   eis(page._fouten.length === 0, page._fouten.join('\n'));
   await ctx.close();
 });
@@ -267,7 +267,7 @@ await scenario('Zwevende knop Vind een kerk: alleen op de telefoon, weg bij de o
   await page.goto(BASIS + '/', { waitUntil: 'networkidle' });
   const knop = page.locator('[data-zweefknop]');
   eis(!(await knop.isVisible()), 'knop zichtbaar over de opening');
-  await page.locator('#gevoel').scrollIntoViewIfNeeded();
+  await page.locator('#ochtend').evaluate((el) => window.scrollTo(0, el.getBoundingClientRect().top + scrollY));
   await page.waitForTimeout(400);
   eis(await knop.isVisible(), 'knop niet zichtbaar halverwege de pagina');
   eis((await knop.getAttribute('href')) === '/kerken/', 'knop gaat niet naar de kerken');
@@ -277,7 +277,7 @@ await scenario('Zwevende knop Vind een kerk: alleen op de telefoon, weg bij de o
   await ctx.close();
   const d = await nieuwePagina({ viewport: { width: 1280, height: 800 } });
   await d.page.goto(BASIS + '/', { waitUntil: 'networkidle' });
-  await d.page.locator('#gevoel').scrollIntoViewIfNeeded();
+  await d.page.locator('#ochtend').evaluate((el) => window.scrollTo(0, el.getBoundingClientRect().top + scrollY));
   await d.page.waitForTimeout(400);
   eis(!(await d.page.locator('[data-zweefknop]').isVisible()), 'zwevende knop op desktop');
   await d.ctx.close();
@@ -393,9 +393,11 @@ await scenario('Geen fictieve of onbevestigde gegevens: elke kerk heeft een bron
     eis(!/(?:^|\s)deelnemer(?:s)?(?:\s|$)/i.test(await k.textContent()), `${naam}: ten onrechte deelnemer`);
   }
   await page.goto(BASIS + '/kerken/', { waitUntil: 'networkidle' });
-  for (const pad of ['/', '/kerken/', '/kerken/sionkerk/', '/over-ons/']) {
+  for (const pad of ['/', '/kerken/', '/kerken/sionkerk/', '/over-ons/', '/samen-naar-de-kerk/', '/voor-het-eerst/']) {
     await page.goto(BASIS + pad, { waitUntil: 'domcontentloaded' });
-    eis(!/niet benaderd|doen \(nog\) niet mee/i.test(await page.locator('body').textContent()), `${pad}: tekst 'nog niet benaderd' staat online`);
+    const t = await page.locator('body').textContent();
+    eis(!/niet benaderd|doen \(nog\) niet mee/i.test(t), `${pad}: tekst 'nog niet benaderd' staat online`);
+    eis(!/voorbereid|bezoek voorbereiden|bereid je (je )?voor|stap voor stap|wacht je (dan )?op/i.test(t), `${pad}: tekst over voorbereiden of een belofte van opvang`);
   }
   await page.goto(BASIS + '/kerken/', { waitUntil: 'domcontentloaded' });
   const tekst = await page.locator('main').textContent();
@@ -435,6 +437,12 @@ await scenario('Mattheüs 11:28: zichtbaar op de homepage, letterlijk citaat met
   eis(await blok.locator('blockquote').isVisible(), 'homepage: de tekst is niet zichtbaar');
   const volgorde = await page.evaluate(() => [...document.querySelectorAll('main > section')].map((s) => s.className.split(' ')[0]));
   eis(volgorde.indexOf('uitnodiging') === 1, `homepage: tekst staat niet direct onder de opening (${volgorde.slice(0, 4).join(', ')})`);
+  eis(volgorde.indexOf('buurt') === 2, `homepage: kerkkaart staat niet direct na Mattheüs 11:28 (${volgorde.slice(0, 4).join(', ')})`);
+  // de kaart is meteen zichtbaar, zonder klikken, op een telefoon binnen twee schermhoogtes na de opening
+  const kaartTop = await page.locator('.buurt .kerkenkaart-beeld').first().evaluate((el) => el.getBoundingClientRect().top + scrollY);
+  const heldEind = await page.locator('section.held').evaluate((el) => el.getBoundingClientRect().bottom + scrollY);
+  eis(kaartTop - heldEind < 844 * 2, `homepage: kaart staat te ver weg (${Math.round(kaartTop - heldEind)} px na de opening)`);
+  eis(await page.locator('.buurt a.kerkenkaart-punt').first().isVisible(), 'homepage: kaartpunten niet zichtbaar');
   eis((await page.locator('details .bijbeltekst').count()) === 0, 'homepage: tekst zit in een uitklapper');
   await ctx.close();
 });
