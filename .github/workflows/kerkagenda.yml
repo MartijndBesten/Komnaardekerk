@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   controle:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     permissions:
       contents: write
@@ -68,7 +68,7 @@ jobs:
   uitrol:
     if: needs.controle.outputs.commit != '' && vars.KNDK_AUTOMATISCHE_PREVIEW == 'ja'
     needs: controle
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     environment: kerkoverzicht-preview
     steps:

@@ -58,5 +58,5 @@ test('RSS, Atom en iCal leveren signalen voor beoordeling', () => {
   const invoer = `BEGIN:VCALENDAR\r\nBEGIN:VEVENT\r\nSUMMARY:Kerstviering\r\nDTSTART;TZID=Europe/Amsterdam:20261224T190000\r\nEND:VEVENT\r\nEND:VCALENDAR
     <rss><channel><item><title>Alpha-cursus</title><link>${website}alpha/</link></item></channel></rss>
     <feed><entry><title>Jongerenavond</title><link href="${website}jeugd/"/></entry></feed>`;
-  assert.deepEqual(feedItems(invoer, website).map(({naam}) => naam), ['Kerstviering', 'Alpha-cursus', 'Jongerenavond']);
+  assert.deepEqual(feedItems(invoer, website, nu).map(({naam}) => naam), ['Kerstviering', 'Alpha-cursus', 'Jongerenavond']);
 });

@@ -184,7 +184,7 @@
       "opmerkingen": "Livestream is audio (kerkdienstgemist). Menu noemt o.a. zondagsschool, meidenclub, jeugdvereniging 16+, bijbelkring, maar die pagina's bestaan niet (404; ook niet in de WordPress-paginalijst); niet opgenomen. Geen missionaire activiteiten voor buitenstaanders gevonden. 'Lobbendijk' niet bevestigd; adres is Plein 27.",
       "verband": "Hersteld Hervormde Kerk",
       "rooster": {
-        "url": "https://hhghouten.nl/kerkdiensten",
+        "url": "https://hhghouten.nl/kerkdiensten/",
         "toelichting": "De ochtendtijd wisselt soms."
       }
     },
@@ -1133,6 +1133,9 @@
         "status": "kandidaat",
         "toestemmingPublicatie": false
       },
+      "feeds": [
+        "https://calendar.google.com/calendar/ical/q0un3r0lmagnqmkk96g29ucnos%40group.calendar.google.com/public/basic.ics"
+      ],
       "rooster": {
         "url": "https://www.maranathagemeentehouten.nl/agenda-voor-smartphone/",
         "toelichting": "Bekijk de agenda van de gemeente."

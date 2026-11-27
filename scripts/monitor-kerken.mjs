@@ -13,7 +13,7 @@ const MON = path.join(ROOT, 'monitor');
 const MAX_BYTES = 900_000;
 const MAX_PAGES = 90;
 const MAX_EVENTS = 30;
-const KEYWORDS = /kerst|paas|pasen|pinkster|alpha|messy church|advent|nieuwjaar|oudjaar|bijbel|evangelie|geloof|zangdienst|gezinsdienst|jeugddienst|gebeds|missionair|belijdenis|open kerk|jongeren|jeugdavond|tiener|advent|kerstnacht|herdenk|stille week|passion/i;
+const KEYWORDS = /kerst|paas|pasen|pinkster|alpha|messy church|advent|nieuwjaar|oudjaar|bijbel|evangelie|geloof|zangdienst|gezinsdienst|jeugddienst|gebeds|missionair|belijdenis|open kerk|seminar|jongeren|jeugdavond|tiener|advent|kerstnacht|herdenk|stille week|passion/i;
 const hash = (x) => createHash('sha256').update(x).digest('hex').slice(0, 20);
 const veilig = (x, max = 130) => String(x || '').replace(/<[^>]*>/g, '').replace(/[<>{}\r\n\[\]]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, max);
 const canon = (x) => veilig(x, 300).toLocaleLowerCase('nl-NL').replace(/[\s,.-]/g, '');
@@ -166,12 +166,16 @@ function feedLinks(tekst, bron) {
   }))].slice(0, 5);
 }
 
-export function feedItems(tekst, bron) {
+export function feedItems(tekst, bron, now = new Date()) {
   const items = [];
   for (const [, blok] of tekst.replace(/\r?\n[ \t]/g, '').matchAll(/BEGIN:VEVENT\r?\n([\s\S]*?)\r?\nEND:VEVENT/gi)) {
     const veld = (key) => blok.match(new RegExp('^' + key + '(?:;[^:\\r\\n]*)?:(.+)$', 'im'))?.[1]?.trim();
     const naam = veilig(veld('SUMMARY'));
-    if (KEYWORDS.test(naam)) items.push({ naam, url: veiligeUrl(veld('URL'), bron) || bron, datum: veilig(veld('DTSTART'), 32) });
+    const datum = veilig(veld('DTSTART'), 32);
+    const dag = datum.slice(0, 8);
+    if (KEYWORDS.test(naam) && /^\d{8}$/.test(dag) && dag >= kalenderDag(now).replaceAll('-', '')) {
+      items.push({ naam, url: veiligeUrl(veld('URL'), bron) || bron, datum });
+    }
   }
   for (const [, blok] of tekst.matchAll(/<(?:item|entry)\b[^>]*>([\s\S]*?)<\/(?:item|entry)>/gi)) {
     const naam = veilig(blok.match(/<title\b[^>]*>\s*(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/i)?.[1]);
@@ -222,7 +226,7 @@ export async function controleer({ kerken, initiatieven, vorige = {}, fetcher = 
       for (const url of feedLinks(tekst, bron.url)) {
         if (lijst.length < MAX_PAGES && !lijst.some((b) => b.kerkId === kerk.id && b.url === url)) lijst.push({ url, kerkId: kerk.id, auto: false });
       }
-      for (const item of feedItems(tekst, bron.url)) {
+      for (const item of feedItems(tekst, bron.url, now)) {
         rapport.voorstellen.push({ ...item, kerk: kerk.id, reden: 'Feedmelding. Controleer op de oorspronkelijke aankondiging.' });
       }
       for (const event of gebeurtenissen(tekst)) {
