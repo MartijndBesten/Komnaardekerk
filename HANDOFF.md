@@ -1,8 +1,16 @@
 # HANDOFF
 
-status: verhuisd naar de eigen repository MartijndBesten/komnaardekerk (15-11-2026); preview live op commit 8182ecb7 (workbench), livecontrole 32/32 groen
+status: informatieve bezoekersversie en wekelijkse broncontrole gebouwd
 next_actor: martijn
-updated: 2026-11-16 (Claude Code-cloudsessie, oude domeinnamen en veiligheid geloveninhouten.nl)
+updated: 2026-11-27
+
+## Actualisatie 27 november 2026
+
+- Bezoekersversie `overzicht` met noindex, zonder ontwerppagina, deelnamelabels, interne geloofsbasis en demonstratieformulier. De route voor contact loopt via de kerk. Mattheüs 11:28 staat als eigen weergave met bronlink op de site.
+- Bevestigde bezoekgegevens toegevoegd voor Maranatha Gemeente Houten, Hervormde gemeente Schalkwijk en ’t Goy en Hervormde gemeente Tull en ’t Waal en Honswijk. Bestaande bronnen voor de door Gerard genoemde kerken gecontroleerd en waar nodig bijgewerkt. Sudanese Gospel Mission vermeldt Houten op de eigen website. Er is geen actuele bevestiging van diensten bij de Bogermanschool gevonden. De gegevens blijven in het interne verificatieoverzicht.
+- Vier kerstactiviteiten van PJ23 toegevoegd. Enkele verstreken of onzekere aankondigingen verwijderd uit het zichtbare overzicht. Zie contentbestanden voor bronnen en data.
+- Wekelijkse monitor en GitHub Actions toegevoegd. Lokaal zijn bevestiging, dubbele invoer, annulering, verlopen data, feedformaten en bronfouten getest. De scan tegen openbare bronnen haalde 62 van 64 bronnen op, met 38 signalen ter beoordeling. Zie `docs/MONITORING.md`.
+- Er is geen openbaar DNS-record voor komnaardekerk.nu gevonden. Cloudflare-uitrol vereist toegang tot de bestaande Worker. Voor de formele lancering blijven de naam en contactgegevens van de verantwoordelijke (V-002), gebruiksrechten voor de NBV21 (V-003), domein (V-005) en formele deelnametoestemming open.
 
 ## Oude domeinnamen en veiligheid (2026-11-16)
 

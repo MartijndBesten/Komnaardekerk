@@ -1,0 +1,102 @@
+name: Wekelijkse kerkagenda
+
+on:
+  schedule:
+    - cron: '17 7 * * 1'
+  workflow_dispatch:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kerkagenda-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  controle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    outputs:
+      commit: ${{ steps.inhoud.outputs.commit }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - run: npx --yes --package=playwright@1.58.2 playwright install --with-deps chromium
+      - name: Zoek de geïnstalleerde Playwright-module
+        run: |
+          module="$(find "$(npm config get cache)/_npx" -path '*/node_modules/playwright/package.json' -print -quit)"
+          test -n "$module"
+          echo "PLAYWRIGHT_MODULE=${module%/package.json}" >> "$GITHUB_ENV"
+      - name: Controleer de bronnen
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: node scripts/monitor-kerken.mjs --write
+      - uses: actions/upload-artifact@v4
+        if: always() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        with:
+          name: kerkagenda-rapport
+          path: monitor/
+          if-no-files-found: ignore
+      - name: Bouw en test
+        run: |
+          npm run build
+          npm test
+      - name: Bewaar gecontroleerde wijzigingen
+        id: inhoud
+        env:
+          GH_TOKEN: ${{ github.token }}
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- content/initiatieven.json dist/ monitor/staat.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Werk kerkagenda bij na broncontrole'
+            git -c credential.helper= -c 'credential.helper=!gh auth git-credential' push origin HEAD:refs/heads/main
+          fi
+          if ! git diff --quiet "${{ github.sha }}" HEAD -- content/initiatieven.json dist/; then
+            echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          fi
+
+  uitrol:
+    if: needs.controle.outputs.commit != '' && vars.KNDK_AUTOMATISCHE_PREVIEW == 'ja'
+    needs: controle
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: kerkoverzicht-preview
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.controle.outputs.commit }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Controleer versie en bouw de Worker
+        run: |
+          test "$(git rev-parse HEAD)" = "$(git ls-remote origin refs/heads/main | cut -f1)"
+          npm run check
+          if test "$(jq -r .modus content/site.json)" = productie; then npm run poort; fi
+          node scripts/bundel.mjs
+      - name: Publiceer op de bestaande preview en controleer de versie
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          node scripts/uitrol-preview.mjs komnaardekerk.martijndenbesten.com
+          url=https://komnaardekerk.martijndenbesten.com
+          verwacht="$(git rev-parse --short=8 HEAD)"
+          for poging in {1..6}; do
+            if curl -fsS "$url/versie.json" | jq -e --arg commit "$verwacht" '.commit == $commit'; then
+              curl -fsSI "$url/activiteiten/" | tr -d '\r' | grep -Eiq '^x-robots-tag:.*noindex'
+              curl -fsS "$url/kerken/" -o /dev/null
+              exit 0
+            fi
+            sleep 5
+          done
+          exit 1

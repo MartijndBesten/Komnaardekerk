@@ -59,6 +59,11 @@
       },
       "bronnen": [
         {
+          "url": "https://www.hervormdhouten.nl/diensten/",
+          "gecontroleerd": "2026-11-27",
+          "wat": "Dienstrooster"
+        },
+        {
           "url": "https://www.hervormdhouten.nl/hervormde-gemeente-houten/",
           "gecontroleerd": "2026-11-14",
           "wat": "diensttijden: zondag 9.30 en 16.15 uur; identiteit, adres, crèche, bijbelclub, autodienst"
@@ -115,7 +120,8 @@
           "dag": "zondag",
           "tijd": "10:00",
           "naam": "Ochtenddienst",
-          "soort": "regulier"
+          "soort": "regulier",
+          "toelichting": "Meestal om 10.00 uur. Soms begint de ochtenddienst om 09.30 uur."
         },
         {
           "dag": "zondag",
@@ -148,14 +154,14 @@
       },
       "bronnen": [
         {
+          "url": "https://hhghouten.nl/",
+          "gecontroleerd": "2026-11-27",
+          "wat": "Bezoekadres en dienstrooster"
+        },
+        {
           "url": "https://hhghouten.nl/kerkdiensten/",
           "gecontroleerd": "2026-11-14",
           "wat": "diensttijden: ochtenddienst 10.00 uur, avonddienst 18.30 uur"
-        },
-        {
-          "url": "https://hhghouten.nl/",
-          "gecontroleerd": "2026-11-08",
-          "wat": "welkomsttekst, kerktijdenrooster (8 nov 09:30/18:30; 15 en 22 nov 10:00/18:30)"
         },
         {
           "url": "https://hhghouten.nl/kerkgebouw/",
@@ -176,7 +182,11 @@
       "gecontroleerd": "2026-11-14",
       "betrouwbaarheid": "officiele-site",
       "opmerkingen": "Livestream is audio (kerkdienstgemist). Menu noemt o.a. zondagsschool, meidenclub, jeugdvereniging 16+, bijbelkring, maar die pagina's bestaan niet (404; ook niet in de WordPress-paginalijst); niet opgenomen. Geen missionaire activiteiten voor buitenstaanders gevonden. 'Lobbendijk' niet bevestigd; adres is Plein 27.",
-      "verband": "Hersteld Hervormde Kerk"
+      "verband": "Hersteld Hervormde Kerk",
+      "rooster": {
+        "url": "https://hhghouten.nl/kerkdiensten",
+        "toelichting": "De ochtendtijd wisselt soms."
+      }
     },
     {
       "id": "opstandingskerk",
@@ -257,6 +267,11 @@
       },
       "bronnen": [
         {
+          "url": "https://www.protestantsegemeentehouten.nl/kerkdiensten",
+          "gecontroleerd": "2026-11-27",
+          "wat": "Dienstrooster"
+        },
+        {
           "url": "https://www.protestantsegemeentehouten.nl/zondagmorgendienst/",
           "gecontroleerd": "2026-11-14",
           "wat": "zondagmorgendienst 10.00 uur; vespers (/vespers/), stilteviering (/stilteviering_1/) en peuter-op-schoot-viering (/peuter-op-schoot-viering_1/) op eigen pagina’s"
@@ -280,11 +295,6 @@
           "url": "https://www.protestantsegemeentehouten.nl/hoe_vieren_we_onze_kerkdiensten",
           "gecontroleerd": "2026-11-08",
           "wat": "zondag 10 uur, vespers, stilteviering, peuter-op-schoot, kinderen"
-        },
-        {
-          "url": "https://www.protestantsegemeentehouten.nl/kerkdiensten",
-          "gecontroleerd": "2026-11-08",
-          "wat": "rooster november 2026"
         },
         {
           "url": "https://www.protestantsegemeentehouten.nl/tijdens_kerkdienst/",
@@ -389,14 +399,14 @@
       },
       "bronnen": [
         {
+          "url": "https://www.delichtboog.nl/",
+          "gecontroleerd": "2026-11-27",
+          "wat": "Gewone zondagstijden en zomerrooster"
+        },
+        {
           "url": "https://www.delichtboog.nl/go/wat-we-doen/samenkomsten/",
           "gecontroleerd": "2026-11-14",
           "wat": "samenkomsten: elke zondag 09.30 en 11.30 uur; in de zomer één samenkomst (tijd op de site niet eenduidig)"
-        },
-        {
-          "url": "https://www.delichtboog.nl/",
-          "gecontroleerd": "2026-11-08",
-          "wat": "welkomsttekst, samenkomsttijden, zomerdienst 10:00, verwijzing Messy Church/PROEF!, livestreamlinks"
         },
         {
           "url": "https://www.delichtboog.nl/go/wat-we-doen/kinderen/",
@@ -501,8 +511,8 @@
       "bronnen": [
         {
           "url": "https://www.ngkhetkruispunt.nl/samenkomsten-2/samenkomsten",
-          "gecontroleerd": "2026-11-14",
-          "wat": "diensttijden: elke zondag 10.00 en 16.30 uur"
+          "gecontroleerd": "2026-11-27",
+          "wat": "Diensttijden en Kidspoint, via zoekindex van de eigen website"
         },
         {
           "url": "https://www.ngkhetkruispunt.nl/",
@@ -611,14 +621,14 @@
       },
       "bronnen": [
         {
+          "url": "https://eskol-kerk.nl/",
+          "gecontroleerd": "2026-11-27",
+          "wat": "Adres en wisselende zondagstijden"
+        },
+        {
           "url": "https://eskol-kerk.nl/kerktijden/",
           "gecontroleerd": "2026-11-14",
           "wat": "rooster: elke zondag 10.00 uur en een tweede dienst met wisselende tijd (november-december 2026: tussen 16.00 en 19.00 uur)"
-        },
-        {
-          "url": "https://eskol-kerk.nl/",
-          "gecontroleerd": "2026-11-08",
-          "wat": "kerktijdenrooster, KinderBijbelTijd, livestreamlinks"
         },
         {
           "url": "https://eskol-kerk.nl/activiteiten/",
@@ -738,8 +748,8 @@
       "bronnen": [
         {
           "url": "https://evangeliegemeentehouten.nl/",
-          "gecontroleerd": "2026-11-14",
-          "wat": "samenkomst iedere zondag 10.00 uur; bidstond woensdag 20.00-21.30 uur (/wat-doen-wij/); geen rooster op de site"
+          "gecontroleerd": "2026-11-27",
+          "wat": "Bezoekadres, ingang en zondagse samenkomst"
         },
         {
           "url": "https://evangeliegemeentehouten.nl/samenkomsten/",
@@ -825,7 +835,7 @@
           "soort": "bijzonder"
         }
       ],
-      "kinderen": "Kidskerk voor kinderen van 3 t/m 10 jaar met hun ouders, ongeveer zes keer per kerkseizoen (o.a. zondag 8 november 2026, 09:30).",
+      "kinderen": "Kidskerk voor kinderen van 3 tot en met 10 jaar met hun ouders. Bekijk de agenda van de parochie voor data.",
       "toegankelijkheid": null,
       "livestream": "https://www.youtube.com/@rk-kerkhouten545",
       "contactroute": {
@@ -849,8 +859,8 @@
       "bronnen": [
         {
           "url": "https://pj23.nl/kerken/houten/",
-          "gecontroleerd": "2026-11-14",
-          "wat": "‘Elke zondag om 11.00 uur’; vieringenrooster met dinsdag 19.00 uur (dagkapel), Taizégebed woensdag 18.45 uur en meditatieve viering zaterdag 19.00 uur (niet wekelijks)"
+          "gecontroleerd": "2026-11-27",
+          "wat": "Bezoekadres en zondagse viering"
         },
         {
           "url": "https://pj23.nl/",
@@ -871,7 +881,11 @@
       "gecontroleerd": "2026-11-14",
       "betrouwbaarheid": "officiele-site",
       "opmerkingen": "houten.pj23.nl is niet bereikbaar (host niet op de allowlist), maar dezelfde inhoud staat op pj23.nl/kerken/houten/. Engelstalige welkomstpagina: https://pj23.nl/our-lady-of-the-assumption-houten/. Parochiesecretariaat: Loerikseweg 12, info@pj23.nl. Het PJ23-bestuur heeft gemeld dat vóór 2030 vijf van de acht kerken aan de eredienst worden onttrokken; welke (naast Schalkwijk) is niet gecontroleerd.",
-      "verband": "Rooms-katholiek, parochie H. Paus Johannes XXIII"
+      "verband": "Rooms-katholiek, parochie H. Paus Johannes XXIII",
+      "rooster": {
+        "url": "https://pj23.nl/kerken/houten/",
+        "toelichting": "Bekijk de vieringen in Houten."
+      }
     },
     {
       "id": "de-rivier",
@@ -928,8 +942,8 @@
       "bronnen": [
         {
           "url": "https://www.derivierhouten.nl/",
-          "gecontroleerd": "2026-11-14",
-          "wat": "samenkomst elke zondag 10.30 uur; gebedswerk elke woensdagavond (/activiteiten/), zonder tijd"
+          "gecontroleerd": "2026-11-27",
+          "wat": "Bezoekadres en zondagse samenkomst"
         },
         {
           "url": "https://www.derivierhouten.nl/over-ons/",
@@ -1087,6 +1101,114 @@
       "betrouwbaarheid": "officiele-site",
       "opmerkingen": "Locatie-specifiek contact staat op https://pj23.nl/kerken/t-goy/contact/ (niet volledig uitgelezen); daarom het algemene parochieadres gebruikt.",
       "verband": "Rooms-katholiek, parochie H. Paus Johannes XXIII"
+    },
+    {
+      "id": "maranatha-gemeente-houten",
+      "naam": "Maranatha Gemeente Houten",
+      "plaats": "Houten",
+      "adres": "Glazeniersgilde 18",
+      "postcode": "3994 BM",
+      "website": "https://www.maranathagemeentehouten.nl/",
+      "traditie": "evangelisch",
+      "verband": "Evangelische gemeente",
+      "kenmerken": [],
+      "diensten": [
+        {
+          "dag": "zondag",
+          "tijd": "10:00",
+          "naam": "Kerkdienst",
+          "soort": "regulier",
+          "toelichting": "De samenkomst is in de aula van de school."
+        }
+      ],
+      "bronnen": [
+        {
+          "url": "https://www.maranathagemeentehouten.nl/",
+          "gecontroleerd": "2026-11-27",
+          "wat": "Naam, bezoekadres en zondagse dienst."
+        }
+      ],
+      "gecontroleerd": "2026-11-27",
+      "deelname": {
+        "status": "kandidaat",
+        "toestemmingPublicatie": false
+      },
+      "rooster": {
+        "url": "https://www.maranathagemeentehouten.nl/agenda-voor-smartphone/",
+        "toelichting": "Bekijk de agenda van de gemeente."
+      }
+    },
+    {
+      "id": "hervormd-schalkwijk",
+      "naam": "Hervormde gemeente Schalkwijk en ’t Goy",
+      "plaats": "Schalkwijk",
+      "adres": "Brink 10",
+      "postcode": "3998 JL",
+      "website": "https://www.kerkenschalkwijk-tullentwaal.nl/schalkwijk-en-t-goy/",
+      "traditie": "protestants",
+      "verband": "Protestantse Kerk in Nederland",
+      "kenmerken": [],
+      "diensten": [
+        {
+          "dag": "zondag",
+          "tijd": "10:00",
+          "naam": "Kerkdienst",
+          "soort": "regulier",
+          "toelichting": "De kerken houden ook gezamenlijke diensten. Kijk in het rooster in welk gebouw de dienst is."
+        }
+      ],
+      "bronnen": [
+        {
+          "url": "https://www.kerkenschalkwijk-tullentwaal.nl/schalkwijk-en-t-goy/",
+          "gecontroleerd": "2026-11-27",
+          "wat": "Naam, bezoekadres en zondagse dienst."
+        }
+      ],
+      "gecontroleerd": "2026-11-27",
+      "deelname": {
+        "status": "kandidaat",
+        "toestemmingPublicatie": false
+      },
+      "rooster": {
+        "url": "https://www.kerkenschalkwijk-tullentwaal.nl/preekrooster-3/",
+        "toelichting": "Bekijk per zondag waar de dienst plaatsvindt."
+      }
+    },
+    {
+      "id": "t-waal-en-honswijk",
+      "naam": "Hervormde gemeente Tull en ’t Waal en Honswijk",
+      "plaats": "Tull en ’t Waal",
+      "adres": "Waalseweg 71",
+      "postcode": "3999 NR",
+      "website": "https://www.kerkenschalkwijk-tullentwaal.nl/t-waal-en-honswijk/",
+      "traditie": "protestants",
+      "verband": "Protestantse Kerk in Nederland",
+      "kenmerken": [],
+      "diensten": [
+        {
+          "dag": "zondag",
+          "tijd": "10:00",
+          "naam": "Kerkdienst",
+          "soort": "regulier",
+          "toelichting": "De kerken houden ook gezamenlijke diensten. Kijk in het rooster in welk gebouw de dienst is."
+        }
+      ],
+      "bronnen": [
+        {
+          "url": "https://www.kerkenschalkwijk-tullentwaal.nl/t-waal-en-honswijk/",
+          "gecontroleerd": "2026-11-27",
+          "wat": "Naam, bezoekadres en zondagse dienst."
+        }
+      ],
+      "gecontroleerd": "2026-11-27",
+      "deelname": {
+        "status": "kandidaat",
+        "toestemmingPublicatie": false
+      },
+      "rooster": {
+        "url": "https://www.kerkenschalkwijk-tullentwaal.nl/preekrooster-3/",
+        "toelichting": "Bekijk per zondag waar de dienst plaatsvindt."
+      }
     }
   ],
   "teVerifieren": [
@@ -1094,42 +1216,17 @@
       "id": "sudanese-gospel-mission",
       "naam": "Sudanese Gospel Mission",
       "plaats": "Houten",
-      "reden": "Geen bron gevonden die een samenkomst in Houten bevestigt. WebSearch vond alleen een algemene (ongeverifieerde) vermelding op globalhand.org van een organisatie van Soedanese vluchtelingen in Nederland, zonder Houtense locatie. Niet opnemen zonder bevestiging.",
-      "bronnen": []
-    },
-    {
-      "id": "hervormd-schalkwijk",
-      "naam": "Hervormde Kerk Schalkwijk",
-      "plaats": "Schalkwijk",
-      "reden": "Officiële site blijft onleesbaar: zowel https://hervormdschalkwijk.nl als https://www.hervormdschalkwijk.nl leveren een certificaat voor 'webreus.nl' (naam komt niet overeen); TLS-controle niet uitgeschakeld. geloveninhouten.nl noemt de dorpskerken niet. Diensttijden, kinderwerk, contact en geloofsbasis blijven onbekend.",
+      "reden": "De eigen site noemt Houten als vestigingsplaats. De contactpagina bewijst geen samenkomst bij de Bogermanschool. Actuele bezoekinformatie ontbreekt.",
       "bronnen": [
         {
-          "url": "https://protestantsekerk.nl/kerkzoeker/hervormde-gemeente-schalkwijk/",
-          "gecontroleerd": "2026-11-08",
-          "wat": "naam, adres, website; geen diensttijden vermeld"
+          "url": "https://sudanesegospelmission.org/",
+          "gecontroleerd": "2026-11-27",
+          "wat": "Organisatie en vestigingsplaats; geen bezoekadres of dienstrooster."
         },
         {
-          "url": "https://nl.wikipedia.org/wiki/Hervormde_kerk_(Schalkwijk)",
-          "gecontroleerd": "2026-11-08",
-          "wat": "kerkgebouw aan de Brink 10 (secundair)"
-        }
-      ]
-    },
-    {
-      "id": "t-waal-en-honswijk",
-      "naam": "Dorpskerk Tull en 't Waal",
-      "plaats": "Tull en 't Waal",
-      "reden": "Officiële site kerktullentwaal.nl (met en zonder www) blijft onbereikbaar ondanks de allowlist: de proxy geeft 502 en de naam lost niet op. Mogelijk is het domein vervallen; WebSearch vond geen andere site. Let op: officiële gemeentenaam is 'Hervormde gemeente 't Waal en Honswijk'. Tijd 10.00 uur alleen uit de PKN-kerkzoeker.",
-      "bronnen": [
-        {
-          "url": "https://protestantsekerk.nl/kerkzoeker/hervormde-gemeente-t-waal-en-honswijk/",
-          "gecontroleerd": "2026-11-08",
-          "wat": "naam, Dorpskerk, adres, website, kerktijd 10.00"
-        },
-        {
-          "url": "https://nl.wikipedia.org/wiki/Hervormde_Kerk_(Tull_en_%27t_Waal)",
-          "gecontroleerd": "2026-11-08",
-          "wat": "kerkgebouw aan de Waalseweg 71 (secundair)"
+          "url": "https://sudanesegospelmission.org/contact/",
+          "gecontroleerd": "2026-11-27",
+          "wat": "Contactpagina; geen actuele dienstgegevens."
         }
       ]
     }

@@ -42,7 +42,7 @@ const DENCKH_HASH = {
 };
 const STATUSSEN = new Set(['kandidaat', 'belangstelling', 'deelnemer']);
 const TRADITIES = new Set(['rooms-katholiek', 'protestants', 'reformatorisch', 'evangelisch', 'anders']);
-const GROEPEN = new Set(['geloof', 'ontmoeten', 'gezin', 'stilte', 'jongeren']);
+const GROEPEN = new Set(activiteiten.GROEPEN.map(([groep]) => groep));
 const MAX_LEEFTIJD_DAGEN = 90; // productie: gegevens mogen niet ouder zijn
 
 const KENMERKEN = new Set(['kinderen', 'oppas', 'middag', 'online']);
@@ -76,7 +76,7 @@ function dagenOud(iso, nu = new Date()) {
 }
 
 function controleerInhoud({ site, kerken, woorden, vragen, initiatieven, fotos, geloofsbasis }, fouten) {
-  if (!['concept', 'productie'].includes(site.modus)) fouten.push(`site.modus moet 'concept' of 'productie' zijn, niet '${site.modus}'`);
+  if (!['concept', 'overzicht', 'productie'].includes(site.modus)) fouten.push(`site.modus moet 'concept', 'overzicht' of 'productie' zijn, niet '${site.modus}'`);
   if (!['uit', 'voorbeeld', 'aan'].includes(site.contact?.status)) fouten.push('site.contact.status moet uit, voorbeeld of aan zijn');
   const ids = new Set();
   for (const k of kerken.kerken) {
@@ -107,8 +107,14 @@ function controleerInhoud({ site, kerken, woorden, vragen, initiatieven, fotos, 
     for (const c of k.contactpersonen || []) if (!c.toestemming) fouten.push(`${w}: contactpersoon zonder toestemming`);
     if (/voorbeeld(kerk|tijd)/i.test(JSON.stringify(k))) fouten.push(`${w}: bevat nog voorbeeldinhoud`);
   }
+  const activiteitenIds = new Set();
   for (const i of initiatieven.initiatieven) {
     const w = `initiatief '${i.id}'`;
+    if (!/^[a-z0-9-]+$/.test(i.id || '') || activiteitenIds.has(i.id)) fouten.push(`${w}: ontbrekend, ongeldig of dubbel id`);
+    activiteitenIds.add(i.id);
+    if (i.actueel && i.groep && (!/^https:\/\//.test(i.bron || '') || !i.organisatoren?.length)) fouten.push(`${w}: officiële HTTPS-bron en organisator verplicht`);
+    if (i.start && !Number.isFinite(Date.parse(i.start))) fouten.push(`${w}: ongeldige starttijd`);
+    if (i.totDatum && !ISO.test(i.totDatum)) fouten.push(`${w}: ongeldige einddatum`);
     if (i.groep && !GROEPEN.has(i.groep)) fouten.push(`${w}: onbekende groep '${i.groep}'`);
     if (i.groep && (!i.bron || !ISO.test(i.gecontroleerd || ''))) fouten.push(`${w}: bron en controledatum verplicht`);
     for (const o of i.organisatoren || []) if (i.groep && !ids.has(o)) fouten.push(`${w}: organisator '${o}' staat niet in kerken.json`);
@@ -129,7 +135,7 @@ function controleerInhoud({ site, kerken, woorden, vragen, initiatieven, fotos, 
 
 // Productie toont alleen deelnemers met toestemming, en weigert verouderde of onbevestigde inhoud.
 function publicatiepoort({ site, kerken, initiatieven, fotos, geloofsbasis }, fouten) {
-  if (site.modus !== 'productie') fouten.push("site.modus staat nog op 'concept'");
+  if (site.modus !== 'productie') fouten.push("site.modus moet op 'productie' staan");
   const deelnemers = kerken.kerken.filter((k) => k.deelname?.status === 'deelnemer' && k.deelname?.toestemmingPublicatie);
   if (!deelnemers.length) fouten.push('geen enkele deelnemende kerk met toestemming voor publicatie');
   for (const k of deelnemers) if (dagenOud(k.gecontroleerd) > MAX_LEEFTIJD_DAGEN) fouten.push(`kerk '${k.id}': gegevens ouder dan ${MAX_LEEFTIJD_DAGEN} dagen`);
@@ -245,7 +251,10 @@ async function bouw() {
 
   const bestanden = {};
   const statisch = path.join(ROOT, 'src', 'static');
-  for (const rel of await lijstBestanden(statisch)) bestanden[rel] = await readFile(path.join(statisch, rel));
+  for (const rel of await lijstBestanden(statisch)) {
+    if (content.site.modus !== 'concept' && rel.startsWith('merk/concepten/')) continue;
+    bestanden[rel] = await readFile(path.join(statisch, rel));
+  }
   bestanden['favicon.svg'] = Buffer.from(icoonSvg({ concept: 'A' }));
   for (const [rel, hash] of Object.entries(DENCKH_HASH)) {
     if (!bestanden[rel] || createHash('sha256').update(bestanden[rel]).digest('hex') !== hash) fouten.push(`${rel}: niet byte-identiek aan het officiële Denckh-logo`);
@@ -258,12 +267,12 @@ async function bouw() {
   const htmlPaden = [];
   for (const mod of PAGINAS) {
     const pagina = { ...mod.pagina };
-    if (pagina.alleenConcept && !concept) continue;
+    if (pagina.alleenConcept && content.site.modus !== 'concept') continue;
     const ctx = { ...content, pad: pagina.pad, versie };
     if (mod.jsonld) pagina.jsonld = mod.jsonld(ctx);
     const uit = layout(ctx, pagina, mod.inhoud(ctx));
     const bestand = pagina.bestand || `${pagina.pad.slice(1)}index.html`;
-    bestanden[bestand] = Buffer.from(uit);
+    bestanden[bestand] = Buffer.from(uit.replace(/^[ \t]+$/gm, ''));
     htmlPaden.push(pagina.bestand ? `/${pagina.bestand}` : pagina.pad);
     if (pagina.sitemap !== false) sitemap.push(content.site.domein + pagina.pad);
   }

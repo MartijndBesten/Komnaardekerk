@@ -1,19 +1,19 @@
 {
-  "_uitleg": "Algemene instellingen. 'modus' = 'concept' toont conceptlabels en blokkeert publicatie op het echte domein. Pas pas op 'productie' als alle punten in VRAGEN.md zijn afgehandeld; 'node scripts/build.mjs --productie' controleert dat.",
-  "modus": "concept",
+  "_uitleg": "Overzicht: informatieve site met noindex. Productie: officiële lancering na controle van de voorwaarden in VRAGEN.md.",
+  "modus": "overzicht",
   "naam": "Kom naar de kerk.",
   "domein": "https://komnaardekerk.nu",
   "plaats": "Houten",
-  "omschrijving": "Er is plek voor jou. Een uitnodiging van christelijke kerken in Houten en omgeving om Jezus Christus en de kerk te leren kennen. Lees wat je kunt verwachten en vind een kerk bij jou in de buurt.",
+  "omschrijving": "Vind een kerk in Houten of een dorp in de buurt. Bekijk de tijden van kerkdiensten, ontdek wat je kunt verwachten en lees over het christelijk geloof.",
   "contact": {
     "_uitleg": "status: 'uit' = geen formulier. 'voorbeeld' = formulier ingeklapt als voorbeeld, verstuurt niets (alleen concept). 'aan' = verstuurt naar /api/contact. Pas op 'aan' als er een verantwoordelijke organisatie is en de opvolging echt geregeld is (VRAGEN V-002, V-004).",
-    "status": "voorbeeld",
+    "status": "uit",
     "reactietermijn": "binnen een paar dagen",
     "emailInitiatief": null
   },
   "bijbel": {
     "_uitleg": "Mattheüs 11:28 hoort vast op de homepage (besluit Martijn, 14-11-2026). Vertaling: NBV21 (keuze Martijn, 14-11-2026). 'weergave': 'citaat' toont de letterlijke tekst uit 'citaat' met copyrightvermelding en 'lees verder op debijbel.nl' (voorwaarden NBG voor digitaal, niet-commercieel gebruik op beperkte schaal). Letterlijke teksten nooit aanpassen. 'weergave': 'parafrase' toont de eigen weergave, gemarkeerd als 'vrij weergegeven'. 'gecontroleerd' blijft false tot het NBG toestemming gaf voor missionair gebruik op uitgebreide schaal (nodig vóór de lancering, VRAGEN V-003); de productiepoort controleert dit.",
-    "weergave": "citaat",
+    "weergave": "parafrase",
     "parafrase": "Kom bij Mij, iedereen die moe is en zwaar te dragen heeft. Bij Mij vind je rust.",
     "bron": "Mattheüs 11:28",
     "verderLezen": "https://www.debijbel.nl/bijbel/NBV21/MAT.11",

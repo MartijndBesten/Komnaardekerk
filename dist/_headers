@@ -21,6 +21,9 @@
 /samen-naar-de-kerk/niet-gelukt/*
   X-Robots-Tag: noindex
 
+https://komnaardekerk.martijndenbesten.com/*
+  X-Robots-Tag: noindex
+
 https://:worker.:sub.workers.dev/*
   X-Robots-Tag: noindex
 
@@ -52,9 +55,6 @@ https://:versie.:worker.:sub.workers.dev/*
   Cache-Control: no-cache, no-transform
 
 /privacy/
-  Cache-Control: no-cache, no-transform
-
-/ontwerp/
   Cache-Control: no-cache, no-transform
 
 /samen-naar-de-kerk/bedankt/
