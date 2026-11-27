@@ -1,4 +1,5 @@
 import { html } from '../lib/html.mjs';
+import { kerkenkaart } from '../lib/kerkenkaart.mjs';
 import { kerkItem, paginaKop } from '../lib/onderdelen.mjs';
 
 export const pagina = {
@@ -32,6 +33,8 @@ ${paginaKop({
   lead: 'Rooms-katholiek, protestants, reformatorisch, evangelisch: de kerken verschillen in vorm en traditie. Hieronder vind je per kerk wanneer je welkom bent en hoe je contact legt.',
   beeld: fotos.dorp
 })}
+
+${kerkenkaart(lijst)}
 
 <section class="kerkenlijst" aria-labelledby="lijst-kop">
   <div class="kerkenlijst-binnen">

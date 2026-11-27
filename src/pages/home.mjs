@@ -1,3 +1,4 @@
+import { heeftKaartpunten } from '../lib/kerkenkaart.mjs';
 import { html, raw } from '../lib/html.mjs';
 import { faqLijst, kerkCompact, bijbeltekst, samenGaanTeaser } from '../lib/onderdelen.mjs';
 import { beeldmerkInhoud, vlakSvg, VIEWBOX } from '../lib/logo.mjs';
@@ -24,11 +25,9 @@ const STAPPEN = [
 ];
 
 const NIETS = [
-  'Je hoeft niet eerst je leven op orde te hebben.',
-  'Je hoeft niet alles te begrijpen.',
-  'Je hoeft niet zeker te weten wat je gelooft.',
-  'Je hoeft de liederen niet te kennen.',
-  'Je hoeft je niet netjes aan te kleden.'
+  'Ook als je nog nooit in een kerk bent geweest.',
+  'Ook als je vragen hebt over het geloof.',
+  'Draag wat je prettig vindt.'
 ];
 
 const BIJBEL = 'https://www.debijbel.nl/bijbel/NBV21/';
@@ -72,7 +71,7 @@ export function inhoud(ctx) {
         <p class="wissel-knoppen" hidden><button type="button" class="tekstknop" data-ander>Ander woord</button><button type="button" class="tekstknop" data-pauze aria-pressed="false">Pauze</button></p>
       </div>
       <h1 class="held-kop onthul" id="held-kop">Kom naar de kerk. <em>Er is plek voor jou.</em></h1>
-      <p class="lead held-lead onthul">Een uitnodiging van christenen uit Houten en omgeving. Je hoeft niets te weten en niets te kunnen. Kom zoals je bent.</p>
+      <p class="lead held-lead onthul">Een uitnodiging van christenen uit Houten en omgeving. Bekijk waar en wanneer je naar een kerkdienst kunt. Kom zoals je bent.</p>
       <p class="knoppen onthul">
         <a class="knop knop--licht" href="/kerken/">Vind een kerk</a>
         <a class="knop knop--omlijnd" href="#gevoel">Wat houdt je bezig?</a>
@@ -116,7 +115,7 @@ export function inhoud(ctx) {
 
 <section class="niets" aria-labelledby="niets-kop">
   <div class="niets-binnen">
-    <h2 class="sr" id="niets-kop">Je hoeft niets</h2>
+    <h2 class="sr" id="niets-kop">Voor het eerst naar de kerk</h2>
     <ul class="niets-lijst">
       ${NIETS.map((r) => html`<li class="onthul">${r}</li>`)}
     </ul>
@@ -166,7 +165,7 @@ export function inhoud(ctx) {
     <ul class="kerken-kort" data-schud>
       ${kerken.kerken.map((k) => kerkCompact(k))}
     </ul>
-    <p class="buurt-voet"><a class="knop knop--vol" href="/kerken/">Adres, tijden en route</a></p>
+    <p class="buurt-voet"><a class="knop knop--vol" href="/kerken/">Adres, tijden en route</a> ${heeftKaartpunten(kerken.kerken) ? html`<a class="knop" href="/kerken/#kaart-kop">Bekijk de kaart</a>` : ''}</p>
     <p class="klein buurt-eerlijk">De volgorde wisselt bij elk bezoek, zodat geen kerk vooraan staat.</p>
   </div>
 </section>

@@ -105,7 +105,7 @@
       "traditie": "reformatorisch",
       "plaats": "Houten",
       "adres": "Plein 27",
-      "postcode": "3991 ED",
+      "postcode": "3991 DL",
       "website": "https://hhghouten.nl/",
       "zelfomschrijving": {
         "tekst": "We hopen dat je de informatie op de website waardevol vindt en dat we je binnenkort mogen ontmoeten, hetzij tijdens een kerkdienst, hetzij bij één van onze activiteiten.",
@@ -153,6 +153,11 @@
         "notitie": "Nog niet benaderd."
       },
       "bronnen": [
+        {
+          "url": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Plein%2027%20Houten&fq=type%3Aadres&rows=1",
+          "gecontroleerd": "2026-11-27",
+          "wat": "BAG-adres Plein 27: postcode 3991 DL. De kerkwebsite vermeldt een afwijkende postcode."
+        },
         {
           "url": "https://hhghouten.nl/",
           "gecontroleerd": "2026-11-27",
