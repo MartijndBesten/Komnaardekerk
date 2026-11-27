@@ -210,6 +210,50 @@ await scenario('Wisselende woorden: één tegelijk, stil bij focus, pauze en ‘
   await ctx.close();
 });
 
+await scenario('Een zondagochtend: tijdlijn groeit mee, keuzes passen de tekst aan, alles met toetsenbord (mobiel en desktop)', async () => {
+  for (const viewport of [{ width: 390, height: 844 }, { width: 1280, height: 800 }]) {
+    const { ctx, page } = await nieuwePagina({ viewport });
+    await page.goto(BASIS + '/', { waitUntil: 'networkidle' });
+    const lijn = page.locator('[data-ochtend]');
+    const vulling = () => lijn.evaluate((el) => parseFloat(getComputedStyle(el).getPropertyValue('--vulling')) || 0);
+    eis((await vulling()) === 0, 'tijdlijn is al gevuld voordat je erbij bent');
+    // muziek kiezen past stap 2 aan (en terug)
+    const zingen = page.locator('#ochtend-zingen .ochtend-tekst');
+    const algemeen = (await zingen.textContent()).trim();
+    await page.getByRole('radio', { name: 'Band' }).check();
+    eis(/band/i.test(await zingen.textContent()) && (await zingen.textContent()).trim() !== algemeen, 'muziekkeuze past de tekst niet aan');
+    eis((await page.locator('#ochtend-zingen [data-muziek-tag]').textContent()).trim() === 'Band', 'label bij de stap ontbreekt');
+    eis(/aangepast/.test(await page.locator('[data-ochtend-status]').textContent()), 'geen melding voor schermlezers');
+    await page.getByRole('radio', { name: 'Weet ik nog niet' }).check();
+    eis((await zingen.textContent()).trim() === algemeen, 'terug naar de algemene tekst lukt niet');
+    eis(!(await page.locator('#ochtend-zingen [data-muziek-tag]').isVisible()), 'label blijft staan');
+    // toetsenbord: pijltjes in de groep kiezen een andere optie
+    await page.getByRole('radio', { name: 'Orgel' }).focus();
+    await page.keyboard.press('ArrowRight');
+    eis(await page.getByRole('radio', { name: 'Piano' }).isChecked(), 'kiezen met de pijltjes werkt niet');
+    eis(/piano/i.test(await zingen.textContent()), 'pianotekst niet getoond');
+    // gezelschap: alleen de passende tips
+    await page.getByRole('radio', { name: 'Met kinderen' }).check();
+    eis((await page.locator('.ochtend-tip:visible').count()) === 2, 'verwacht 2 tips (binnenkomen en koffie)');
+    eis((await page.locator('.ochtend-tip[data-tip="kinderen"]:visible').count()) === 2, 'verkeerde tips zichtbaar');
+    // uitklapper per stap
+    const meer = page.locator('#ochtend-bidden .ochtend-meer');
+    await meer.locator('summary').focus();
+    await page.keyboard.press('Enter');
+    eis(await meer.evaluate((d) => d.open), 'uitklapper opent niet met Enter');
+    eis(/Dit hoeft niet/.test(await meer.textContent()), "'Wat hoeft niet' ontbreekt");
+    // scrollen naar het eind vult de lijn helemaal
+    await page.locator('#ochtend-eind').scrollIntoViewIfNeeded();
+    await page.evaluate(() => window.scrollBy(0, 300));
+    await page.waitForTimeout(800);
+    eis((await vulling()) === 1, `tijdlijn niet vol aan het eind (${await vulling()})`);
+    eis((await page.locator('#ochtend-eind a[href="/kerken/"]').textContent()).includes('Kies een kerk'), 'eindstap zonder knop naar de kerken');
+    // niets bewaard
+    eis((await page.evaluate(() => localStorage.length + sessionStorage.length)) === 0, 'keuze opgeslagen');
+    await ctx.close();
+  }
+});
+
 await scenario('Verdriet: de keuze verwijst ook naar een hulplijn met belbare link', async () => {
   const { ctx, page } = await nieuwePagina();
   await page.goto(BASIS + '/#gevoel-verdriet', { waitUntil: 'networkidle' });
@@ -526,6 +570,12 @@ await scenario('Zonder JavaScript: alle inhoud, menu en uitklappers bruikbaar', 
   eis(await page.getByText('Je mag gewoon komen.').isVisible(), 'onthul-inhoud verborgen zonder JS');
   await page.locator('#gevoel-moe summary').click();
   eis(await page.locator('#gevoel-moe').evaluate((d) => d.open), 'details werkt niet');
+  // zondagochtend: gewone lijst met alle stappen, uitklappers werken, keuzes (die JS nodig hebben) verborgen
+  eis((await page.locator('.ochtend-stap').count()) === 6, 'zondagochtend: niet alle stappen');
+  for (const st of await page.locator('.ochtend-kop').all()) eis(await st.isVisible(), 'zondagochtend: stap niet zichtbaar zonder JS');
+  eis(!(await page.locator('[data-ochtend-keuzes]').isVisible()), 'zondagochtend: keuzes zichtbaar zonder JS');
+  await page.locator('#ochtend-zingen summary').click();
+  eis(await page.locator('#ochtend-zingen .ochtend-meer-inhoud').isVisible(), 'zondagochtend: uitklapper werkt niet zonder JS');
   await ctx.close();
 });
 

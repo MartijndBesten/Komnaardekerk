@@ -25,8 +25,8 @@
 <link rel="preload" href="/fonts/newsreader-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/atkinson-next.woff2" as="font" type="font/woff2" crossorigin>
 
-<link rel="stylesheet" href="/css/site.css?v=91fb7af6eb">
-<script src="/js/site.js?v=9f5f90e78a" defer></script>
+<link rel="stylesheet" href="/css/site.css?v=eb75107e94">
+<script src="/js/site.js?v=e1558414b0" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Kom naar de kerk.","url":"https://komnaardekerk.nu/","inLanguage":"nl-NL","description":"Er is plek voor jou. Een uitnodiging van christelijke kerken in Houten en omgeving om Jezus Christus en de kerk te leren kennen. Lees wat je kunt verwachten en vind een kerk bij jou in de buurt."}</script>
 </head>
 <body>
@@ -291,11 +291,95 @@
     <div class="sectiekop">
       <p class="bovenregel">Wat gebeurt er in de kerk?</p>
       <h2 class="kop-2" id="dienst-kop">Een zondagochtend, ongeveer zo.</h2>
-      <p class="lead">Elke kerk doet het net even anders, maar dit kom je bijna overal tegen. Een dienst duurt meestal een uur tot anderhalf uur.</p>
+      <p class="lead">Elke kerk doet het net even anders, maar dit kom je bijna overal tegen. Een dienst duurt meestal een uur tot anderhalf uur. De tijden hieronder zijn ongeveer.</p>
     </div>
-    <ol class="stappen">
-      <li class="stap onthul"><span class="stap-nr">Stap 1</span><h3 class="stap-kop">Je komt binnen</h3><p>Bij de deur staat vaak iemand die je begroet. Ga zitten waar je wilt. De teksten en liederen staan op een scherm of in een boekje.</p></li><li class="stap onthul"><span class="stap-nr">Stap 2</span><h3 class="stap-kop">Er wordt gezongen</h3><p>Met orgel, piano of een band: dat verschilt per kerk. Meezingen mag, luisteren ook.</p></li><li class="stap onthul"><span class="stap-nr">Stap 3</span><h3 class="stap-kop">Er wordt gelezen en uitgelegd</h3><p>Iemand leest uit de Bijbel. De voorganger legt uit wat die tekst betekent voor ons leven nu. Dat heet de preek.</p></li><li class="stap onthul"><span class="stap-nr">Stap 4</span><h3 class="stap-kop">Er wordt gebeden</h3><p>Voor de stad, voor de wereld, voor mensen die ziek zijn of verdriet hebben. Je mag je ogen sluiten of gewoon stil zijn.</p></li><li class="stap onthul"><span class="stap-nr">Stap 5</span><h3 class="stap-kop">En daarna: koffie</h3><p>In veel kerken blijven mensen na afloop nog even. Je mag aanschuiven, of gewoon naar huis gaan.</p></li>
-    </ol>
+    <div class="ochtend-raam"><div class="ochtend-keuzes" data-ochtend-keuzes hidden>
+      <p class="ochtend-uitleg">Maak het persoonlijk. Je keuze blijft op je eigen scherm.</p>
+      <fieldset class="ochtend-keuze">
+      <legend>Hoe wordt er gezongen in de kerk die je kiest?</legend>
+      <div class="ochtend-chips"><label class="chip"><input type="radio" name="muziek" value="orgel"> <span>Orgel</span></label><label class="chip"><input type="radio" name="muziek" value="piano"> <span>Piano</span></label><label class="chip"><input type="radio" name="muziek" value="band"> <span>Band</span></label><label class="chip"><input type="radio" name="muziek" value="weet-niet"> <span>Weet ik nog niet</span></label></div>
+    </fieldset>
+      <fieldset class="ochtend-keuze">
+      <legend>Hoe kom je?</legend>
+      <div class="ochtend-chips"><label class="chip"><input type="radio" name="gezelschap" value="alleen"> <span>Alleen</span></label><label class="chip"><input type="radio" name="gezelschap" value="samen"> <span>Met iemand anders</span></label><label class="chip"><input type="radio" name="gezelschap" value="kinderen"> <span>Met kinderen</span></label></div>
+    </fieldset>
+      <p class="sr" role="status" data-ochtend-status></p>
+    </div>
+    <ol class="ochtend" data-ochtend>
+      <li class="ochtend-stap" id="ochtend-binnen">
+        <span class="ochtend-punt" aria-hidden="true"></span>
+        <p class="ochtend-tijd"><span class="sr">Stap 1, </span>Een paar minuten van tevoren</p>
+        <h3 class="ochtend-kop">Je komt binnen</h3>
+        <p class="ochtend-tekst">Bij de deur staat vaak iemand die je begroet. Ga zitten waar je wilt. De teksten en liederen staan op een scherm of in een boekje.</p>
+        <p class="ochtend-tip" data-tip="alleen" hidden>Zeg bij de deur gerust dat je voor het eerst bent. Dan helpt iemand je op weg.</p><p class="ochtend-tip" data-tip="samen" hidden>Spreek af waar je elkaar ziet, bijvoorbeeld bij de ingang. Dan ga je samen naar binnen. Ken je niemand? <a href="/samen-naar-de-kerk/">Ga samen met iemand van de kerk</a>.</p><p class="ochtend-tip" data-tip="kinderen" hidden>Veel kerken hebben oppas voor kleine kinderen of iets voor de grotere. Op de pagina van elke kerk zie je wat er is.</p>
+        <details class="ochtend-meer">
+          <summary>Wat kan ik doen? Wat hoeft niet?</summary>
+          <div class="ochtend-meer-inhoud">
+            <p><strong>Dit kan:</strong> Je jas ophangen. Een boekje pakken als dat er ligt. Gaan zitten waar je wilt: achterin is prima.</p>
+            <p><strong>Dit hoeft niet:</strong> Je hoeft je niet aan te melden en niets te betalen. Je hoeft niemand te kennen.</p>
+          </div>
+        </details>
+      </li><li class="ochtend-stap" id="ochtend-zingen">
+        <span class="ochtend-punt" aria-hidden="true"></span>
+        <p class="ochtend-tijd"><span class="sr">Stap 2, </span>Het begin</p>
+        <h3 class="ochtend-kop">Er wordt gezongen <span class="ochtend-tag" data-muziek-tag hidden></span></h3>
+        <p class="ochtend-tekst" data-muziek-tekst data-standaard="Met orgel, piano of een band: dat verschilt per kerk. Meezingen mag, luisteren ook." data-orgel="Met een orgel zing je vaak psalmen en liederen uit een boek of van het scherm. Meezingen mag, luisteren ook." data-piano="Met een piano klinkt het vaak wat rustiger. De woorden staan meestal op een scherm. Meezingen mag, luisteren ook." data-band="Met een band zijn het vaak nieuwere liederen, met de tekst op een scherm. Sommige mensen staan, anderen blijven zitten. Allebei is goed.">Met orgel, piano of een band: dat verschilt per kerk. Meezingen mag, luisteren ook.</p>
+        
+        <details class="ochtend-meer">
+          <summary>Wat kan ik doen? Wat hoeft niet?</summary>
+          <div class="ochtend-meer-inhoud">
+            <p><strong>Dit kan:</strong> Meezingen, of gewoon luisteren en de tekst meelezen.</p>
+            <p><strong>Dit hoeft niet:</strong> Je hoeft de liederen niet te kennen. Je hoeft ook niet mooi te zingen.</p>
+          </div>
+        </details>
+      </li><li class="ochtend-stap" id="ochtend-lezen">
+        <span class="ochtend-punt" aria-hidden="true"></span>
+        <p class="ochtend-tijd"><span class="sr">Stap 3, </span>Na ongeveer een kwartier</p>
+        <h3 class="ochtend-kop">Er wordt gelezen en uitgelegd</h3>
+        <p class="ochtend-tekst">Iemand leest uit de Bijbel. De voorganger legt uit wat die tekst betekent voor ons leven nu. Dat heet de preek.</p>
+        
+        <details class="ochtend-meer">
+          <summary>Wat kan ik doen? Wat hoeft niet?</summary>
+          <div class="ochtend-meer-inhoud">
+            <p><strong>Dit kan:</strong> Luisteren en meelezen, in een Bijbel of op het scherm. Onthouden wat je raakt.</p>
+            <p><strong>Dit hoeft niet:</strong> Je hoeft niet alles te begrijpen. Je hoeft het ook niet overal mee eens te zijn.</p>
+          </div>
+        </details>
+      </li><li class="ochtend-stap" id="ochtend-bidden">
+        <span class="ochtend-punt" aria-hidden="true"></span>
+        <p class="ochtend-tijd"><span class="sr">Stap 4, </span>Tegen het eind</p>
+        <h3 class="ochtend-kop">Er wordt gebeden</h3>
+        <p class="ochtend-tekst">Voor de stad, voor de wereld, voor mensen die ziek zijn of verdriet hebben. Je mag je ogen sluiten of gewoon stil zijn.</p>
+        
+        <details class="ochtend-meer">
+          <summary>Wat kan ik doen? Wat hoeft niet?</summary>
+          <div class="ochtend-meer-inhoud">
+            <p><strong>Dit kan:</strong> Je ogen dichtdoen, of gewoon stil zijn. In stilte zelf iets tegen God zeggen.</p>
+            <p><strong>Dit hoeft niet:</strong> Je hoeft niet hardop te bidden. Gaat er een collectezak of schaal rond? Geven mag, doorgeven is ook goed.</p>
+          </div>
+        </details>
+      </li><li class="ochtend-stap" id="ochtend-koffie">
+        <span class="ochtend-punt" aria-hidden="true"></span>
+        <p class="ochtend-tijd"><span class="sr">Stap 5, </span>Na ongeveer een uur tot anderhalf uur</p>
+        <h3 class="ochtend-kop">En daarna: koffie</h3>
+        <p class="ochtend-tekst">In veel kerken blijven mensen na afloop nog even. Je mag aanschuiven, of gewoon naar huis gaan.</p>
+        <p class="ochtend-tip" data-tip="alleen" hidden>Wil je blijven? Ga gewoon bij iemand staan. Mensen vinden het fijn als je er bent.</p><p class="ochtend-tip" data-tip="samen" hidden>Even napraten bij de koffie, of samen weer naar huis: allebei goed.</p><p class="ochtend-tip" data-tip="kinderen" hidden>Kinderen mogen gewoon mee naar de koffie. Vaak is er ook iets te drinken voor ze.</p>
+        <details class="ochtend-meer">
+          <summary>Wat kan ik doen? Wat hoeft niet?</summary>
+          <div class="ochtend-meer-inhoud">
+            <p><strong>Dit kan:</strong> Een kop koffie of thee pakken en even blijven. Een vraag stellen aan wie naast je staat.</p>
+            <p><strong>Dit hoeft niet:</strong> Je hoeft niet te blijven. Meteen naar huis gaan is ook goed.</p>
+          </div>
+        </details>
+      </li>
+      <li class="ochtend-stap ochtend-eind" id="ochtend-eind">
+        <span class="ochtend-punt" aria-hidden="true"></span>
+        <p class="ochtend-tijd">En dan?</p>
+        <h3 class="ochtend-kop">Probeer het een keer</h3>
+        <p class="ochtend-tekst">Je weet nu ongeveer hoe het gaat. De rest ontdek je gewoon.</p>
+        <p class="knoppen"><a class="knop knop--vol" href="/kerken/">Kies een kerk voor komende zondag</a> <a class="pijllink" href="/voor-het-eerst/">Meer over een eerste keer</a></p>
+      </li>
+    </ol></div>
     <div class="dienst-vragen">
       <h3 class="kop-3">Wat mensen vaak willen weten</h3>
       <div class="vragenlijst">
@@ -323,7 +407,6 @@
         <div class="vraag-antwoord"><p>Dan ben je net zo welkom. Je hoeft niets te geloven om te komen luisteren. Veel mensen in de kerk hebben zelf twijfels en vragen gehad, of hebben die nog steeds.</p></div>
       </details>
   </div>
-      <p><a class="pijllink pijllink--sterk" href="/voor-het-eerst/">Alles over een eerste bezoek</a></p>
     </div>
   </div>
 </section>

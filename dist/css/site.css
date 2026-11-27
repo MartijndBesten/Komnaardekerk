@@ -1012,41 +1012,249 @@ details[open] > summary .plusje {
   margin-top: 0.2rem;
 }
 
-/* ---------- kerkdienst ---------- */
-.stappen {
-  list-style: none;
-  padding: 0;
+/* ---------- kerkdienst: een zondagochtend als tijdlijn ---------- */
+.ochtend-keuzes {
   display: grid;
-  gap: 2.25rem 2rem;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+  padding: 1.25rem 1.35rem 1.4rem;
+  background: var(--papier-licht);
+  border: 1px solid var(--lijn);
+  border-radius: var(--boog);
+  max-width: 50rem;
 }
-.stap {
-  border-top: 1.5px solid var(--inkt);
-  padding-top: 1.1rem;
+.ochtend-keuzes[hidden] {
+  display: none;
 }
-.stap-nr {
-  display: block;
-  font-family: var(--kop);
-  font-size: 2.6rem;
-  line-height: 1;
-  color: var(--klei-donker);
-  margin-bottom: 0.8rem;
-}
-.stap-kop {
-  font-size: 1.15em;
-  margin: 0 0 0.4rem;
-  line-height: 1.3;
-}
-.stap p {
+.ochtend-uitleg {
+  font-size: 0.9375rem;
   color: var(--inkt-2);
 }
-@media (min-width: 40rem) {
-  .stappen {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.ochtend-keuze {
+  border: 0;
+  padding: 0;
+  margin: 0;
 }
-@media (min-width: 72rem) {
-  .stappen {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+.ochtend-keuze legend {
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+.ochtend-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.chip {
+  position: relative;
+  display: inline-flex;
+}
+.chip input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.chip span {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  min-height: 2.75rem;
+  line-height: 1.75rem;
+  border: 1.5px solid var(--inkt);
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  transition: background-color 0.2s, color 0.2s;
+}
+.chip input:checked + span {
+  background: var(--mos);
+  border-color: var(--mos);
+  color: #fff;
+}
+.chip input:checked + span::before {
+  content: '✓ ';
+}
+.chip input:focus-visible + span {
+  outline: 3px solid var(--mos);
+  outline-offset: 3px;
+}
+.chip:hover span {
+  background: var(--zand-diep);
+}
+.chip:hover input:checked + span {
+  background: var(--mos);
+}
+
+.ochtend {
+  --vulling: 1;
+  position: relative;
+  list-style: none;
+  padding: 0 0 0 2.75rem;
+  margin: 0;
+  max-width: 50rem;
+}
+/* de lijn: grijs spoor en een gouden vulling die meegroeit bij het scrollen */
+.ochtend::before,
+.ochtend::after {
+  content: '';
+  position: absolute;
+  left: 0.7rem;
+  top: 0.6rem;
+  bottom: 0.6rem;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--lijn);
+}
+.ochtend::after {
+  background: linear-gradient(var(--licht), var(--klei));
+  transform-origin: top;
+  transform: scaleY(var(--vulling));
+  transition: transform 0.6s var(--zacht);
+}
+.js .ochtend {
+  --vulling: 0;
+}
+.ochtend-stap {
+  position: relative;
+  padding-bottom: 2.5rem;
+}
+.ochtend-stap:last-child {
+  padding-bottom: 0;
+}
+.ochtend-stap > * {
+  margin: 0;
+}
+.ochtend-punt {
+  position: absolute;
+  left: -2.75rem;
+  top: 0.15rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-left: 0.15rem;
+  border-radius: 50%;
+  background: var(--papier);
+  border: 3px solid var(--lijn);
+  z-index: 1;
+  transition: border-color 0.4s, background-color 0.4s;
+}
+.ochtend-stap.bereikt .ochtend-punt,
+html:not(.js) .ochtend-punt {
+  border-color: var(--klei);
+  background: var(--licht-zacht);
+  animation: licht-aan 0.8s var(--zacht);
+}
+.ochtend-tijd {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--klei-donker);
+}
+.ochtend-kop {
+  font-family: var(--kop);
+  font-weight: 400;
+  font-size: clamp(1.45rem, 1.2rem + 1vw, 1.9rem);
+  line-height: 1.15;
+  margin: 0.3rem 0 0.5rem !important;
+}
+.ochtend-tag {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0.4rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: var(--licht-heel-zacht);
+  font-family: var(--tekst);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--mos);
+}
+.ochtend-tag[hidden] {
+  display: none;
+}
+.ochtend-tekst {
+  color: var(--inkt-2);
+  max-width: 38rem;
+}
+.ochtend-tip {
+  margin-top: 0.75rem !important;
+  padding: 0.7rem 1rem;
+  border-left: 3px solid var(--licht);
+  background: var(--licht-heel-zacht);
+  font-size: 0.9375rem;
+  max-width: 38rem;
+}
+.ochtend-tip:not([hidden]) {
+  animation: opkomen 0.5s var(--zacht);
+}
+.ochtend-meer {
+  margin-top: 0.8rem !important;
+  max-width: 38rem;
+}
+.ochtend-meer summary {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.75rem;
+  font-weight: 700;
+  color: var(--mos);
+  text-decoration: underline;
+  text-decoration-color: var(--licht);
+  text-underline-offset: 0.25em;
+}
+.ochtend-meer summary::-webkit-details-marker {
+  display: none;
+}
+.ochtend-meer summary::before {
+  content: '+';
+  display: inline-grid;
+  place-items: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  font-size: 0.95rem;
+  line-height: 1;
+  transition: transform 0.3s var(--zacht);
+}
+.ochtend-meer[open] summary::before {
+  content: '−';
+}
+.ochtend-meer-inhoud {
+  padding: 0.4rem 0 0.2rem;
+}
+.ochtend-meer-inhoud p + p {
+  margin-top: 0.5rem;
+}
+.js .ochtend-meer[open] > .ochtend-meer-inhoud {
+  animation: openklappen 0.5s var(--zacht);
+}
+.ochtend-eind .knoppen {
+  margin-top: 1.25rem !important;
+  align-items: center;
+  gap: 1rem 1.5rem;
+}
+.ochtend-eind .ochtend-kop {
+  color: var(--mos);
+}
+@media (min-width: 64rem) {
+  /* desktop: tijdlijn links, keuzes rechts ernaast en zichtbaar tijdens het scrollen */
+  .ochtend-raam {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 22rem);
+    grid-template-areas: 'lijn keuzes';
+    gap: 4rem;
+    align-items: start;
+  }
+  .ochtend-raam > .ochtend {
+    grid-area: lijn;
+  }
+  .ochtend-raam > .ochtend-keuzes {
+    grid-area: keuzes;
+    position: sticky;
+    top: 6rem;
+    margin-bottom: 0;
   }
 }
 .dienst-vragen {
@@ -1400,6 +1608,10 @@ details[open] > summary .plusje {
   border-top: 1px solid var(--lijn);
 }
 .route-stap .stap-nr {
+  display: block;
+  font-family: var(--kop);
+  line-height: 1;
+  color: var(--klei-donker);
   font-size: 2rem;
   margin: 0.15rem 0 0;
 }
@@ -2242,19 +2454,6 @@ button[disabled] {
 .lijn [fill='currentColor'].lijn-licht {
   fill: var(--licht);
   stroke: none;
-}
-.stap-lijn {
-  width: 3.4rem;
-  margin-bottom: 0.9rem;
-}
-.stap .stap-nr {
-  font-family: var(--tekst);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--klei-donker);
-  margin-bottom: 0.35rem;
 }
 
 /* ---------- foto's ---------- */

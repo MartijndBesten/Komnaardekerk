@@ -1,4 +1,4 @@
-import { html, raw } from '../lib/html.mjs';
+import { html, raw, esc } from '../lib/html.mjs';
 import { faqLijst, kerkKaart, bijbeltekst, samenGaanTeaser } from '../lib/onderdelen.mjs';
 import { beeldmerkInhoud, vlakSvg, VIEWBOX } from '../lib/logo.mjs';
 
@@ -15,13 +15,93 @@ const KORT = [
   ['Waar kun je heen?', 'Naar een kerkdienst op zondag. Of eerst naar een avond met eten en gesprek, zoals Alpha.']
 ];
 
+// Een zondagochtend, ongeveer zo. Tijden zijn bewust ‘ongeveer’ en relatief: elke kerk begint op een eigen tijd.
+// NIEUWE TEKST (27-11-2026, ter controle door Martijn): tijd, kan, hoeft, muziek en tips.
 const STAPPEN = [
-  ['Je komt binnen', 'Bij de deur staat vaak iemand die je begroet. Ga zitten waar je wilt. De teksten en liederen staan op een scherm of in een boekje.'],
-  ['Er wordt gezongen', 'Met orgel, piano of een band: dat verschilt per kerk. Meezingen mag, luisteren ook.'],
-  ['Er wordt gelezen en uitgelegd', 'Iemand leest uit de Bijbel. De voorganger legt uit wat die tekst betekent voor ons leven nu. Dat heet de preek.'],
-  ['Er wordt gebeden', 'Voor de stad, voor de wereld, voor mensen die ziek zijn of verdriet hebben. Je mag je ogen sluiten of gewoon stil zijn.'],
-  ['En daarna: koffie', 'In veel kerken blijven mensen na afloop nog even. Je mag aanschuiven, of gewoon naar huis gaan.']
+  {
+    id: 'binnen', tijd: 'Een paar minuten van tevoren', kop: 'Je komt binnen',
+    tekst: 'Bij de deur staat vaak iemand die je begroet. Ga zitten waar je wilt. De teksten en liederen staan op een scherm of in een boekje.',
+    kan: 'Je jas ophangen. Een boekje pakken als dat er ligt. Gaan zitten waar je wilt: achterin is prima.',
+    hoeft: 'Je hoeft je niet aan te melden en niets te betalen. Je hoeft niemand te kennen.',
+    tips: {
+      alleen: 'Zeg bij de deur gerust dat je voor het eerst bent. Dan helpt iemand je op weg.',
+      samen: 'Spreek af waar je elkaar ziet, bijvoorbeeld bij de ingang. Dan ga je samen naar binnen.',
+      kinderen: 'Veel kerken hebben oppas voor kleine kinderen of iets voor de grotere. Op de pagina van elke kerk zie je wat er is.'
+    }
+  },
+  {
+    id: 'zingen', tijd: 'Het begin', kop: 'Er wordt gezongen',
+    tekst: 'Met orgel, piano of een band: dat verschilt per kerk. Meezingen mag, luisteren ook.',
+    muziek: {
+      orgel: 'Met een orgel zing je vaak psalmen en liederen uit een boek of van het scherm. Meezingen mag, luisteren ook.',
+      piano: 'Met een piano klinkt het vaak wat rustiger. De woorden staan meestal op een scherm. Meezingen mag, luisteren ook.',
+      band: 'Met een band zijn het vaak nieuwere liederen, met de tekst op een scherm. Sommige mensen staan, anderen blijven zitten. Allebei is goed.'
+    },
+    kan: 'Meezingen, of gewoon luisteren en de tekst meelezen.',
+    hoeft: 'Je hoeft de liederen niet te kennen. Je hoeft ook niet mooi te zingen.'
+  },
+  {
+    id: 'lezen', tijd: 'Na ongeveer een kwartier', kop: 'Er wordt gelezen en uitgelegd',
+    tekst: 'Iemand leest uit de Bijbel. De voorganger legt uit wat die tekst betekent voor ons leven nu. Dat heet de preek.',
+    kan: 'Luisteren en meelezen, in een Bijbel of op het scherm. Onthouden wat je raakt.',
+    hoeft: 'Je hoeft niet alles te begrijpen. Je hoeft het ook niet overal mee eens te zijn.'
+  },
+  {
+    id: 'bidden', tijd: 'Tegen het eind', kop: 'Er wordt gebeden',
+    tekst: 'Voor de stad, voor de wereld, voor mensen die ziek zijn of verdriet hebben. Je mag je ogen sluiten of gewoon stil zijn.',
+    kan: 'Je ogen dichtdoen, of gewoon stil zijn. In stilte zelf iets tegen God zeggen.',
+    hoeft: 'Je hoeft niet hardop te bidden. Gaat er een collectezak of schaal rond? Geven mag, doorgeven is ook goed.'
+  },
+  {
+    id: 'koffie', tijd: 'Na ongeveer een uur tot anderhalf uur', kop: 'En daarna: koffie',
+    tekst: 'In veel kerken blijven mensen na afloop nog even. Je mag aanschuiven, of gewoon naar huis gaan.',
+    kan: 'Een kop koffie of thee pakken en even blijven. Een vraag stellen aan wie naast je staat.',
+    hoeft: 'Je hoeft niet te blijven. Meteen naar huis gaan is ook goed.',
+    tips: {
+      alleen: 'Wil je blijven? Ga gewoon bij iemand staan. Mensen vinden het fijn als je er bent.',
+      samen: 'Even napraten bij de koffie, of samen weer naar huis: allebei goed.',
+      kinderen: 'Kinderen mogen gewoon mee naar de koffie. Vaak is er ook iets te drinken voor ze.'
+    }
+  }
 ];
+const MUZIEK = [['orgel', 'Orgel'], ['piano', 'Piano'], ['band', 'Band'], ['weet-niet', 'Weet ik nog niet']];
+const GEZELSCHAP = [['alleen', 'Alleen'], ['samen', 'Met iemand anders'], ['kinderen', 'Met kinderen']];
+
+function zondagochtend() {
+  const keuze = (naam, legenda, opties) => html`<fieldset class="ochtend-keuze">
+      <legend>${legenda}</legend>
+      <div class="ochtend-chips">${opties.map(([w, l]) => html`<label class="chip"><input type="radio" name="${naam}" value="${w}"> <span>${l}</span></label>`)}</div>
+    </fieldset>`;
+  return html`<div class="ochtend-raam"><div class="ochtend-keuzes" data-ochtend-keuzes hidden>
+      <p class="ochtend-uitleg">Maak het persoonlijk. Je keuze blijft op je eigen scherm.</p>
+      ${keuze('muziek', 'Hoe wordt er gezongen in de kerk die je kiest?', MUZIEK)}
+      ${keuze('gezelschap', 'Hoe kom je?', GEZELSCHAP)}
+      <p class="sr" role="status" data-ochtend-status></p>
+    </div>
+    <ol class="ochtend" data-ochtend>
+      ${STAPPEN.map((st, i) => html`<li class="ochtend-stap" id="ochtend-${st.id}">
+        <span class="ochtend-punt" aria-hidden="true"></span>
+        <p class="ochtend-tijd"><span class="sr">Stap ${i + 1}, </span>${st.tijd}</p>
+        <h3 class="ochtend-kop">${st.kop}${st.muziek ? html` <span class="ochtend-tag" data-muziek-tag hidden></span>` : ''}</h3>
+        <p class="ochtend-tekst"${st.muziek ? raw(` data-muziek-tekst data-standaard="${esc(st.tekst)}" data-orgel="${esc(st.muziek.orgel)}" data-piano="${esc(st.muziek.piano)}" data-band="${esc(st.muziek.band)}"`) : ''}>${st.tekst}</p>
+        ${st.tips ? html`${Object.entries(st.tips).map(([w, t]) => html`<p class="ochtend-tip" data-tip="${w}" hidden>${t}${w === 'samen' && st.id === 'binnen' ? html` Ken je niemand? <a href="/samen-naar-de-kerk/">Ga samen met iemand van de kerk</a>.` : ''}</p>`)}` : ''}
+        <details class="ochtend-meer">
+          <summary>Wat kan ik doen? Wat hoeft niet?</summary>
+          <div class="ochtend-meer-inhoud">
+            <p><strong>Dit kan:</strong> ${st.kan}</p>
+            <p><strong>Dit hoeft niet:</strong> ${st.hoeft}</p>
+          </div>
+        </details>
+      </li>`)}
+      <li class="ochtend-stap ochtend-eind" id="ochtend-eind">
+        <span class="ochtend-punt" aria-hidden="true"></span>
+        <p class="ochtend-tijd">En dan?</p>
+        <h3 class="ochtend-kop">Probeer het een keer</h3>
+        <p class="ochtend-tekst">Je weet nu ongeveer hoe het gaat. De rest ontdek je gewoon.</p>
+        <p class="knoppen"><a class="knop knop--vol" href="/kerken/">Kies een kerk voor komende zondag</a> <a class="pijllink" href="/voor-het-eerst/">Meer over een eerste keer</a></p>
+      </li>
+    </ol></div>`;
+}
 
 const NIETS = [
   'Je hoeft niet eerst je leven op orde te hebben.',
@@ -143,15 +223,12 @@ export function inhoud(ctx) {
     <div class="sectiekop">
       <p class="bovenregel">Wat gebeurt er in de kerk?</p>
       <h2 class="kop-2" id="dienst-kop">Een zondagochtend, ongeveer zo.</h2>
-      <p class="lead">Elke kerk doet het net even anders, maar dit kom je bijna overal tegen. Een dienst duurt meestal een uur tot anderhalf uur.</p>
+      <p class="lead">Elke kerk doet het net even anders, maar dit kom je bijna overal tegen. Een dienst duurt meestal een uur tot anderhalf uur. De tijden hieronder zijn ongeveer.</p>
     </div>
-    <ol class="stappen">
-      ${STAPPEN.map(([kop, tekst], i) => html`<li class="stap onthul"><span class="stap-nr">Stap ${i + 1}</span><h3 class="stap-kop">${kop}</h3><p>${tekst}</p></li>`)}
-    </ol>
+    ${zondagochtend()}
     <div class="dienst-vragen">
       <h3 class="kop-3">Wat mensen vaak willen weten</h3>
       ${faqLijst(homeVragen, 'homevraag')}
-      <p><a class="pijllink pijllink--sterk" href="/voor-het-eerst/">Alles over een eerste bezoek</a></p>
     </div>
   </div>
 </section>

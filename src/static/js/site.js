@@ -114,6 +114,77 @@
     });
   }
 
+  /* ---------- een zondagochtend: tijdlijn die meegroeit, en keuzes die de tekst aanpassen ---------- */
+  // Niets wordt opgeslagen: de keuzes gelden alleen zolang deze pagina open is.
+  var ochtend = document.querySelector('[data-ochtend]');
+  if (ochtend) {
+    var stappen = alle('.ochtend-stap', ochtend);
+    var vul = function () {
+      var bereikt = alle('.ochtend-stap.bereikt', ochtend);
+      var laatste = bereikt[bereikt.length - 1];
+      var deel = laatste ? Math.min(1, (laatste.offsetTop + 12) / Math.max(1, ochtend.offsetHeight - 12)) : 0;
+      if (laatste === stappen[stappen.length - 1]) deel = 1;
+      ochtend.style.setProperty('--vulling', String(deel));
+    };
+    if ('IntersectionObserver' in window) {
+      // een stap telt als 'bereikt' zodra hij boven het midden van het scherm komt
+      var lijnIO = new IntersectionObserver(
+        function (items) {
+          items.forEach(function (it) {
+            var boven = it.boundingClientRect.top < (it.rootBounds ? it.rootBounds.bottom : window.innerHeight);
+            it.target.classList.toggle('bereikt', it.isIntersecting || boven);
+          });
+          vul();
+        },
+        { rootMargin: '0px 0px -45% 0px', threshold: 0 }
+      );
+      stappen.forEach(function (st) {
+        lijnIO.observe(st);
+      });
+    } else {
+      stappen.forEach(function (st) {
+        st.classList.add('bereikt');
+      });
+      vul();
+    }
+    // een stap openen markeert hem ook als bereikt
+    alle('.ochtend-meer', ochtend).forEach(function (d) {
+      d.addEventListener('toggle', function () {
+        if (d.open) {
+          d.closest('.ochtend-stap').classList.add('bereikt');
+          vul();
+        }
+      });
+    });
+
+    var keuzes = document.querySelector('[data-ochtend-keuzes]');
+    if (keuzes) {
+      keuzes.hidden = false;
+      var status = keuzes.querySelector('[data-ochtend-status]');
+      var NAAM = { orgel: 'orgel', piano: 'piano', band: 'band' };
+      keuzes.addEventListener('change', function (e) {
+        var veld = e.target;
+        if (veld.name === 'muziek') {
+          var tekst = ochtend.querySelector('[data-muziek-tekst]');
+          var tag = ochtend.querySelector('[data-muziek-tag]');
+          var w = NAAM[veld.value];
+          tekst.textContent = (w && tekst.getAttribute('data-' + w)) || tekst.getAttribute('data-standaard');
+          if (tag) {
+            tag.hidden = !w;
+            tag.textContent = w ? veld.parentNode.textContent.trim() : '';
+          }
+          if (status) status.textContent = w ? 'De stap ‘Er wordt gezongen’ is aangepast.' : 'De stap ‘Er wordt gezongen’ toont weer de algemene tekst.';
+        }
+        if (veld.name === 'gezelschap') {
+          alle('.ochtend-tip', ochtend).forEach(function (tip) {
+            tip.hidden = tip.getAttribute('data-tip') !== veld.value;
+          });
+          if (status) status.textContent = 'Er staat nu een tip bij ‘Je komt binnen’ en bij ‘En daarna: koffie’.';
+        }
+      });
+    }
+  }
+
   /* ---------- exclusieve uitklappers (terugval voor oudere browsers) ---------- */
   alle('details[name]').forEach(function (d) {
     d.addEventListener('toggle', function () {
