@@ -2,6 +2,8 @@
 
 Een informatief overzicht van kerken en kerkelijke activiteiten in Houten en omgeving. De bestaande preview staat op **https://komnaardekerk.martijndenbesten.com** (noindex). Het beoogde hoofddomein is **komnaardekerk.nu**.
 
+Voor de actuele liveversie, toegang met een ander GitHub-account en uitrol op verzoek, zie [HANDOFF.md](HANDOFF.md).
+
 ## Inhoud beheren (zonder code)
 
 | Bestand | Wat |

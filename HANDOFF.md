@@ -1,8 +1,16 @@
 # HANDOFF
 
-status: informatieve bezoekersversie en wekelijkse broncontrole gebouwd
+status: informatief kerkenoverzicht live op het bestaande previewadres, broncontrole actief
 next_actor: martijn
 updated: 2026-11-27
+
+## Verder werken met een ander GitHub-account
+
+De openbare repository `MartijndBesten/Komnaardekerk` en branch `main` bevatten de broncode, kerkgegevens, kaarten, gebouwde bestanden en GitHub Actions. De website draait op [het bestaande adres](https://komnaardekerk.martijndenbesten.com/) met `noindex`. Openbare livecontrole op 27 november 2026 bevestigde commit [3d050bc4](https://github.com/MartijndBesten/Komnaardekerk/commit/3d050bc4), het bijgewerkte welkomstblok en de kaart met 14 kerkpunten op mobiel en desktop. Zie de [geslaagde uitrol](https://github.com/MartijndBesten/Komnaardekerk/actions/runs/45989981479). De eerdere fout bij Cloudflare-authenticatie is opgelost voor de bestaande GitHub-omgeving.
+
+- Lezen en klonen kan zonder uitnodiging. Voor pushen naar deze repository en het starten van de uitrolworkflow heeft het andere account schrijfrechten nodig. De repositorybeheerder kan het account uitnodigen via **Settings → Collaborators**. Controleer ook eventuele goedkeuringsregels van de GitHub-omgeving.
+- Begin bij `README.md` voor bouwen, testen en inhoud beheren. De kaartpunten staan in `src/lib/kerkenkaart-data.json`. Controleer bij een nieuw of gewijzigd bezoekadres ook het bijbehorende kaartpunt.
+- Het Cloudflare-token blijft opgeslagen als GitHub-omgevingssecret. Bij een verhuizing naar een andere repository moet een beheerder de omgeving en haar secret daar opnieuw instellen.
 
 ## Uitrol op verzoek
 
