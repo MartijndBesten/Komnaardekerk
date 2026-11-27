@@ -487,7 +487,7 @@ Je besloot op 27-11 dat de kerken op de site blijven staan, ook zonder dat ze zi
 
 **Waarom nodig**
 
-Zonder aanpassing toont de productieversie nul kerken zolang er geen toestemmingen zijn. Met aanpassing blijft de regel: nooit ‘partner’ of ‘deelnemer’ noemen zonder toestemming.
+Zonder aanpassing toont de productieversie nul kerken zolang er geen toestemmingen zijn. Met aanpassing blijft de regel: nooit ‘partner’ of ‘deelnemer’ noemen zonder toestemming. **Aanvulling 27-11:** in `main` staat inmiddels de modus ‘overzicht’ (door Codex): die toont alle kerken met openbare informatie, zonder conceptbalk, en zo draait de preview nu. Waarschijnlijk is ‘overzicht’ de stand waarmee je live wilt; dan blijft ‘productie’ voor later, als kerken echt deelnemen.
 
 **Antwoord**
 
