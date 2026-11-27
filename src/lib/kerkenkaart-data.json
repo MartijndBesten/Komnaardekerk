@@ -1,0 +1,88 @@
+[
+  {
+    "id": "houten",
+    "titel": "Houten",
+    "breedte": 887,
+    "hoogte": 1004,
+    "punten": [
+      [
+        "sionkerk",
+        39.09,
+        69.02
+      ],
+      [
+        "pleinkerk",
+        30.95,
+        44.99
+      ],
+      [
+        "opstandingskerk",
+        41.23,
+        16.96
+      ],
+      [
+        "de-lichtboog",
+        81.82,
+        35.63
+      ],
+      [
+        "het-kruispunt",
+        74.06,
+        60.56
+      ],
+      [
+        "eskol-kerk",
+        67.58,
+        46.89
+      ],
+      [
+        "evangelie-gemeente-houten",
+        43.81,
+        26.94
+      ],
+      [
+        "olv-houten",
+        36.21,
+        47.78
+      ],
+      [
+        "de-rivier",
+        15.67,
+        84.23
+      ],
+      [
+        "maranatha-gemeente-houten",
+        64.94,
+        22.46
+      ]
+    ]
+  },
+  {
+    "id": "dorpen",
+    "titel": "Dorpen rond Houten",
+    "breedte": 1411,
+    "hoogte": 1061,
+    "punten": [
+      [
+        "h-michael-schalkwijk",
+        55.04,
+        77.14
+      ],
+      [
+        "olv-t-goy",
+        88.91,
+        66.2
+      ],
+      [
+        "hervormd-schalkwijk",
+        62.83,
+        84.27
+      ],
+      [
+        "t-waal-en-honswijk",
+        13.19,
+        64.51
+      ]
+    ]
+  }
+]
