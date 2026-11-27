@@ -4,6 +4,11 @@ status: homepage met kerkkaart direct na Mattheüs 11:28, pagina per kerk, inter
 next_actor: martijn
 updated: 2026-11-27 (Claude Code-cloudsessie, homepage en uitrol)
 
+## Kaart zonder uitleg; kerkzaal in drie soorten (2026-11-27)
+
+- Besluit Martijn: geen gebruiksaanwijzingen (‘Tik op een nummer…’) — de kaart spreekt voor zich. Weg: kop ‘Kies een kerk op de kaart’ en de uitlegregels op home en `/kerken/`, ‘Kies een woord…’ en ‘Maak het persoonlijk.’
+- Getekende kerkzaal: altijd een podium; met orgel een preekstoel met klankbord, liedbord en orgel; met piano lessenaar en scherm; met band drums, gitaren, keyboard, zanger en lampen die bij het zingen bewegen. Zonder keuze wisselt de zaal elke 5 s tussen de drie (niet bij ‘minder beweging’); een label linksboven noemt de soort.
+
 ## Homepage, kerkkaart centraal en uitnodigende teksten (2026-11-27)
 
 **Opdracht Martijn:** kaart direct zichtbaar en centraal op de homepage (volgorde: opening → Mattheüs 11:28 → kaart → de rest), geen nadruk op ‘voorbereiden’, geen ongedekte beloftes, snel en gecontroleerd live.

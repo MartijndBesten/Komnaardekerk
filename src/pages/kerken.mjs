@@ -32,11 +32,11 @@ export function inhoud(ctx) {
 ${paginaKop({
   boven: 'Kerken in Houten',
   titel: 'Vind een <em>kerk</em> bij jou in de buurt.',
-  lead: 'Rooms-katholiek, protestants, reformatorisch, evangelisch: de kerken verschillen in vorm en traditie. Kies een kerk op de kaart of in de lijst voor de tijden, het adres en hoe je contact legt.',
+  lead: 'Rooms-katholiek, protestants, reformatorisch, evangelisch: de kerken verschillen in vorm en traditie.',
   beeld: fotos.dorp
 })}
 
-${kerkenkaart(lijst, { legenda: false, tekst: 'Tik op een nummer. Hetzelfde nummer staat op het kaartje in de lijst hieronder.' })}
+${kerkenkaart(lijst, { legenda: false, kopNiveau: 1 })}
 
 <section class="kerkenlijst" aria-labelledby="lijst-kop">
   <div class="kerkenlijst-binnen">

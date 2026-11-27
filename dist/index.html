@@ -26,8 +26,8 @@
 <link rel="preload" href="/fonts/atkinson-next.woff2" as="font" type="font/woff2" crossorigin>
 
 <script src="/js/vroeg.js?v=3d908442b5"></script>
-<link rel="stylesheet" href="/css/site.css?v=e46e8d4a86">
-<script src="/js/site.js?v=af52305a95" defer></script>
+<link rel="stylesheet" href="/css/site.css?v=732a478c73">
+<script src="/js/site.js?v=bd3a54dc46" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Kom naar de kerk.","url":"https://komnaardekerk.nu/","inLanguage":"nl-NL","description":"Vind een kerk in Houten of een dorp in de buurt. Bekijk de tijden van kerkdiensten, ontdek wat je kunt verwachten en lees over het christelijk geloof."}</script>
 </head>
 <body>
@@ -83,12 +83,11 @@
       <p class="lead">Veertien kerken in Houten, Schalkwijk, &#39;t Goy en Tull en ’t Waal. Protestants, evangelisch en katholiek. Ze geloven in dezelfde Heer en hebben dezelfde uitnodiging. Kies er gewoon één.</p>
     </div>
 
-<section class="kerkenkaart" aria-labelledby="kaart-kop">
-  <h3 class="kop-3" id="kaart-kop">Kies een kerk op de kaart</h3>
-  <p>Tik op een nummer of een naam: dan zie je de tijden, het adres en hoe je contact legt.</p>
+<section class="kerkenkaart" id="kaart" aria-label="Kaart met de kerken">
+
   <div class="kerkenkaart-panelen">
     <section class="kerkenkaart-paneel" aria-labelledby="kaart-houten">
-        <h4 class="kop-3" id="kaart-houten">Houten</h4>
+        <h3 class="kop-3" id="kaart-houten">Houten</h3>
         <svg class="kerkenkaart-beeld" viewBox="0 0 100 113.19052987598647" role="group" aria-label="Kaart van Houten met de kerken">
           <image href="/foto/kaart-houten.webp" width="100" height="113.19052987598647"/>
           <a class="kerkenkaart-punt" href="/kerken/sionkerk/" aria-label="1. Sionkerk">
@@ -137,7 +136,7 @@
           <li><a href="/kerken/sionkerk/"><span class="kerkenkaart-nummer" aria-hidden="true">1</span> <span class="kerkenkaart-naam">Sionkerk<span class="kerkenkaart-tijd">Zondag 09.30 en 16.15 uur</span></span></a></li><li><a href="/kerken/pleinkerk/"><span class="kerkenkaart-nummer" aria-hidden="true">2</span> <span class="kerkenkaart-naam">Pleinkerk<span class="kerkenkaart-tijd">Zondag 10.00 en 18.30 uur</span></span></a></li><li><a href="/kerken/opstandingskerk/"><span class="kerkenkaart-nummer" aria-hidden="true">3</span> <span class="kerkenkaart-naam">Opstandingskerk<span class="kerkenkaart-tijd">Zondag 10.00 uur</span></span></a></li><li><a href="/kerken/de-lichtboog/"><span class="kerkenkaart-nummer" aria-hidden="true">4</span> <span class="kerkenkaart-naam">De Lichtboog<span class="kerkenkaart-tijd">Zondag 09.30 en 11.30 uur</span></span></a></li><li><a href="/kerken/het-kruispunt/"><span class="kerkenkaart-nummer" aria-hidden="true">5</span> <span class="kerkenkaart-naam">Het Kruispunt<span class="kerkenkaart-tijd">Zondag 10.00 en 16.30 uur</span></span></a></li><li><a href="/kerken/eskol-kerk/"><span class="kerkenkaart-nummer" aria-hidden="true">6</span> <span class="kerkenkaart-naam">Eskol-kerk<span class="kerkenkaart-tijd">Zondag 10.00 uur · tweede dienst op wisselende tijd</span></span></a></li><li><a href="/kerken/evangelie-gemeente-houten/"><span class="kerkenkaart-nummer" aria-hidden="true">7</span> <span class="kerkenkaart-naam">Evangelie Gemeente Houten (EGH)<span class="kerkenkaart-tijd">Zondag 10.00 uur</span></span></a></li><li><a href="/kerken/olv-houten/"><span class="kerkenkaart-nummer" aria-hidden="true">8</span> <span class="kerkenkaart-naam">O.L.V. ten Hemelopneming Houten<span class="kerkenkaart-tijd">Zondag 11.00 uur</span></span></a></li><li><a href="/kerken/de-rivier/"><span class="kerkenkaart-nummer" aria-hidden="true">9</span> <span class="kerkenkaart-naam">De Rivier Houten<span class="kerkenkaart-tijd">Zondag 10.30 uur</span></span></a></li><li><a href="/kerken/maranatha-gemeente-houten/"><span class="kerkenkaart-nummer" aria-hidden="true">10</span> <span class="kerkenkaart-naam">Maranatha Gemeente Houten<span class="kerkenkaart-tijd">Zondag 10.00 uur</span></span></a></li>
         </ul>
       </section><section class="kerkenkaart-paneel" aria-labelledby="kaart-dorpen">
-        <h4 class="kop-3" id="kaart-dorpen">Dorpen rond Houten</h4>
+        <h3 class="kop-3" id="kaart-dorpen">Dorpen rond Houten</h3>
         <svg class="kerkenkaart-beeld" viewBox="0 0 100 75.19489723600283" role="group" aria-label="Kaart van Dorpen rond Houten met de kerken">
           <image href="/foto/kaart-dorpen.webp" width="100" height="75.19489723600283"/>
           <a class="kerkenkaart-punt" href="/kerken/h-michael-schalkwijk/" aria-label="11. H. Michaëlkerk Schalkwijk">
@@ -183,7 +182,6 @@
     <div class="gevoel-intro">
       <p class="bovenregel">Kies wat bij je past</p>
       <h2 class="kop-2" id="gevoel-kop">Wat houdt je bezig?</h2>
-      <p class="gevoel-tekst">Kies een woord. Je leest een korte tekst, iets over de hoop van Jezus, en wat je daarna kunt doen.</p>
       <p class="gevoel-uitleg">Wat je hier kiest, blijft op je eigen scherm. We bewaren niets.</p>
     </div>
     <div class="gevoel-keuzes">
@@ -389,7 +387,7 @@
       <p class="lead">Elke kerk doet het net even anders, maar dit kom je bijna overal tegen. Een dienst duurt meestal een uur tot anderhalf uur. De tijden hieronder zijn ongeveer.</p>
     </div>
     <div class="ochtend-raam"><div class="ochtend-zijkant"><div class="ochtend-keuzes" data-ochtend-keuzes hidden>
-      <p class="ochtend-uitleg">Maak het persoonlijk. Je keuze blijft op je eigen scherm.</p>
+      <p class="ochtend-uitleg">Je keuze blijft op je eigen scherm.</p>
       <fieldset class="ochtend-keuze">
       <legend>Hoe wordt er gezongen in de kerk die je kiest?</legend>
       <div class="ochtend-chips"><label class="chip"><input type="radio" name="muziek" value="orgel"> <span>Orgel</span></label><label class="chip"><input type="radio" name="muziek" value="piano"> <span>Piano</span></label><label class="chip"><input type="radio" name="muziek" value="band"> <span>Band</span></label><label class="chip"><input type="radio" name="muziek" value="weet-niet"> <span>Weet ik nog niet</span></label></div>
@@ -401,7 +399,7 @@
       <p class="sr" role="status" data-ochtend-status></p>
     </div>
     <figure class="ochtend-scene" data-ochtend-scene hidden>
-      <svg class="zondag" viewBox="0 0 400 260" aria-hidden="true" focusable="false" data-stap="binnen">
+      <svg class="zondag" viewBox="0 0 400 260" aria-hidden="true" focusable="false" data-stap="binnen" data-muziek="piano">
   <defs>
     <linearGradient id="zs-licht" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a8" stop-opacity=".9"/><stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/></linearGradient>
     <radialGradient id="zs-gloed"><stop offset="0" stop-color="#fff6d8"/><stop offset=".5" stop-color="#ffe9a8" stop-opacity=".7"/><stop offset="1" stop-color="#f0c24e" stop-opacity="0"/></radialGradient>
@@ -415,13 +413,25 @@
     <g class="scherm-lied"><path d="M70 56h60M70 64h48M70 76h62M70 84h40"/></g>
     <g class="scherm-tekst"><path d="M70 58h70M70 65h70M70 72h64M70 79h70M70 86h50"/></g>
   </g>
-  <g class="orgel"><rect x="12" y="92" width="7" height="60" rx="2"/><rect x="22" y="80" width="7" height="72" rx="2"/><rect x="32" y="70" width="7" height="82" rx="2"/><rect x="42" y="80" width="7" height="72" rx="2"/><rect x="52" y="92" width="7" height="60" rx="2"/></g>
-  <g class="piano"><rect x="100" y="138" width="44" height="16" rx="2"/><path d="M103 141h38"/></g>
-  <g class="band"><g transform="translate(112 160)"><g transform="scale(0.6)"><circle cx="0" cy="-31" r="6" fill="#5a4a4d"/><path d="M-8 0V-14Q-8 -23 0 -23Q8 -23 8 -14V0Z" fill="#5a4a4d"/></g></g><g transform="translate(140 160)"><g transform="scale(0.6)"><circle cx="0" cy="-31" r="6" fill="#a64f2e"/><path d="M-8 0V-14Q-8 -23 0 -23Q8 -23 8 -14V0Z" fill="#a64f2e"/></g></g><path class="gitaar" d="M106 150l14 -6"/><circle class="drum" cx="128" cy="154" r="6"/></g>
+  <!-- podium: altijd vooraan; per soort kerk een andere inrichting (data-muziek: orgel | piano | band) -->
+  <g class="liedbord"><rect x="306" y="46" width="40" height="44" rx="2"/><text x="326" y="62" text-anchor="middle">Ps 23</text><text x="326" y="76" text-anchor="middle">Gez 1</text></g>
+  <g class="lampen"><path class="lamp lamp-0" d="M110 0L92 140H128Z"/><path class="lamp lamp-1" d="M200 0L180 140H220Z"/><path class="lamp lamp-2" d="M290 0L272 140H308Z"/></g>
+  <path class="podium" d="M52 152V138H348V152Z"/><path class="podium-rand" d="M52 138H348"/>
+  <g class="orgel"><rect x="12" y="92" width="7" height="60" rx="2"/><rect x="22" y="80" width="7" height="72" rx="2"/><rect x="32" y="70" width="7" height="82" rx="2"/><rect x="42" y="80" width="7" height="72" rx="2"/><rect x="52" y="92" width="7" height="46" rx="2"/></g>
+  <g class="piano"><rect x="96" y="124" width="44" height="15" rx="2"/><path d="M99 127h38"/></g>
+  <g class="band">
+    <g class="drumstel"><circle cx="128" cy="128" r="7"/><circle cx="116" cy="132" r="4.5"/><circle cx="140" cy="132" r="4.5"/><path d="M112 124l-4 -6M144 124l4 -6"/></g>
+    <g transform="translate(98 138)"><g transform="scale(0.6)"><circle cx="0" cy="-31" r="6" fill="#5a4a4d"/><path d="M-8 0V-14Q-8 -23 0 -23Q8 -23 8 -14V0Z" fill="#5a4a4d"/></g></g><path class="gitaar" d="M92 128l14 -6"/>
+    <g transform="translate(160 138)"><g transform="scale(0.6)"><circle cx="0" cy="-31" r="6" fill="#a64f2e"/><path d="M-8 0V-14Q-8 -23 0 -23Q8 -23 8 -14V0Z" fill="#a64f2e"/></g></g><path class="gitaar" d="M154 128l14 -6"/>
+    <g class="keys"><rect x="196" y="126" width="26" height="5" rx="1.5"/><path d="M200 131v7M218 131v7"/></g>
+    <g transform="translate(236 138)"><g transform="scale(0.6)"><circle cx="0" cy="-31" r="6" fill="#c9733f"/><path d="M-8 0V-14Q-8 -23 0 -23Q8 -23 8 -14V0Z" fill="#c9733f"/></g></g><path class="microfoon" d="M244 138v-16M244 122l-4 -2"/>
+  </g>
   <text class="noot noot-0" x="118" y="150">♪</text><text class="noot noot-1" x="134" y="150">♪</text><text class="noot noot-2" x="150" y="150">♪</text>
-  <g class="lessenaar"><path d="M256 152V126H284V152Z"/><path class="boek" d="M258 124l12 -4l12 4l-12 3Z"/><circle class="boek-gloed" cx="270" cy="121" r="16" fill="url(#zs-gloed)"/></g>
-  <g class="voorganger" transform="translate(270 126)"><g transform="scale(0.62)"><circle cx="0" cy="-31" r="6" fill="#2a1b1e"/><path d="M-8 0V-14Q-8 -23 0 -23Q8 -23 8 -14V0Z" fill="#2a1b1e"/></g></g>
-  <g class="spreken"><path d="M290 102q8 -4 0 -8M296 106q12 -8 0 -16"/></g>
+  <g class="lessenaar"><path d="M258 138V118H282V138Z"/><path class="boek" d="M259 116l11 -4l11 4l-11 3Z"/><circle class="boek-gloed" cx="270" cy="113" r="16" fill="url(#zs-gloed)"/></g>
+  <g class="preekstoel"><path class="kansel-poot" d="M265 138V112H275V138Z"/><path class="kansel" d="M254 112V92H286V112Z"/><path class="trap" d="M286 136l12 -24"/><path class="klankbord" d="M250 70H290V74H250Z"/><circle class="boek-gloed" cx="270" cy="88" r="16" fill="url(#zs-gloed)"/></g>
+  <g class="voorganger"><g transform="scale(0.62)"><circle cx="0" cy="-31" r="6" fill="#2a1b1e"/><path d="M-8 0V-14Q-8 -23 0 -23Q8 -23 8 -14V0Z" fill="#2a1b1e"/></g></g>
+  <g class="spreken"><path d="M290 96q8 -4 0 -8M296 100q12 -8 0 -16"/></g>
+  <g class="stijl-label"><rect x="8" y="8" width="88" height="17" rx="8.5"/><text class="stijl-orgel" x="52" y="20" text-anchor="middle">met een orgel</text><text class="stijl-piano" x="52" y="20" text-anchor="middle">met een piano</text><text class="stijl-band" x="52" y="20" text-anchor="middle">met een band</text></g>
   <g class="deur"><path class="deur-licht" d="M372 250V172H398V250Z" fill="url(#zs-gloed)"/><path class="deur-kozijn" d="M372 250V172H398"/></g>
   <g class="begroeter" transform="translate(358 248)"><g transform="scale(0.95)"><circle cx="0" cy="-31" r="6" fill="#7a2e3b"/><path d="M-8 0V-14Q-8 -23 0 -23Q8 -23 8 -14V0Z" fill="#7a2e3b"/></g><g class="welkom"><rect x="-44" y="-62" width="40" height="16" rx="8"/><text x="-24" y="-51" text-anchor="middle">welkom!</text></g><g class="totziens"><rect x="-50" y="-62" width="46" height="16" rx="8"/><text x="-27" y="-51" text-anchor="middle">tot ziens!</text></g></g>
   <g class="zaal"><g class="mens"><circle cx="110" cy="159.5" r="3.3" fill="#7a2e3b"/><path d="M104.4 172Q104.4 163.8 110 163.8Q115.6 163.8 115.6 172Z" fill="#7a2e3b"/></g><g class="mens"><circle cx="135" cy="159.5" r="3.3" fill="#c9733f"/><path d="M129.4 172Q129.4 163.8 135 163.8Q140.6 163.8 140.6 172Z" fill="#c9733f"/></g><g class="mens"><circle cx="185" cy="159.5" r="3.3" fill="#5a4a4d"/><path d="M179.4 172Q179.4 163.8 185 163.8Q190.6 163.8 190.6 172Z" fill="#5a4a4d"/></g><g class="mens"><circle cx="228" cy="159.5" r="3.3" fill="#a64f2e"/><path d="M222.4 172Q222.4 163.8 228 163.8Q233.6 163.8 233.6 172Z" fill="#a64f2e"/></g><g class="mens"><circle cx="270" cy="159.5" r="3.3" fill="#8c6b5e"/><path d="M264.4 172Q264.4 163.8 270 163.8Q275.6 163.8 275.6 172Z" fill="#8c6b5e"/></g><rect class="bank" x="92" y="170" width="200" height="4.3" rx="2"/><g class="mens"><circle cx="92" cy="180.4" r="4" fill="#b48a74"/><path d="M85.3 195Q85.3 185.6 92 185.6Q98.7 185.6 98.7 195Z" fill="#b48a74"/></g><g class="mens"><circle cx="150" cy="180.4" r="4" fill="#6b3a45"/><path d="M143.3 195Q143.3 185.6 150 185.6Q156.7 185.6 156.7 195Z" fill="#6b3a45"/></g><g class="mens"><circle cx="176" cy="180.4" r="4" fill="#7a2e3b"/><path d="M169.3 195Q169.3 185.6 176 185.6Q182.7 185.6 182.7 195Z" fill="#7a2e3b"/></g><g class="mens"><circle cx="240" cy="180.4" r="4" fill="#c9733f"/><path d="M233.3 195Q233.3 185.6 240 185.6Q246.7 185.6 246.7 195Z" fill="#c9733f"/></g><g class="mens"><circle cx="290" cy="180.4" r="4" fill="#5a4a4d"/><path d="M283.3 195Q283.3 185.6 290 185.6Q296.7 185.6 296.7 195Z" fill="#5a4a4d"/></g><rect class="bank" x="72" y="193" width="238" height="5.2" rx="2"/><g class="mens"><circle cx="70" cy="202.2" r="4.7" fill="#a64f2e"/><path d="M62.2 219Q62.2 208.3 70 208.3Q77.8 208.3 77.8 219Z" fill="#a64f2e"/></g><g class="mens"><circle cx="98" cy="202.2" r="4.7" fill="#8c6b5e"/><path d="M90.2 219Q90.2 208.3 98 208.3Q105.8 208.3 105.8 219Z" fill="#8c6b5e"/></g><g class="mens"><circle cx="200" cy="202.2" r="4.7" fill="#b48a74"/><path d="M192.2 219Q192.2 208.3 200 208.3Q207.8 208.3 207.8 219Z" fill="#b48a74"/></g><g class="mens"><circle cx="228" cy="202.2" r="4.7" fill="#6b3a45"/><path d="M220.2 219Q220.2 208.3 228 208.3Q235.8 208.3 235.8 219Z" fill="#6b3a45"/></g><g class="mens"><circle cx="300" cy="202.2" r="4.7" fill="#7a2e3b"/><path d="M292.2 219Q292.2 208.3 300 208.3Q307.8 208.3 307.8 219Z" fill="#7a2e3b"/></g><rect class="bank" x="50" y="217" width="278" height="6.1" rx="2"/><g class="mens"><circle cx="48" cy="226" r="5.4" fill="#c9733f"/><path d="M39 245Q39 233 48 233Q57 233 57 245Z" fill="#c9733f"/></g><g class="mens"><circle cx="120" cy="226" r="5.4" fill="#5a4a4d"/><path d="M111 245Q111 233 120 233Q129 233 129 245Z" fill="#5a4a4d"/></g><g class="mens"><circle cx="150" cy="226" r="5.4" fill="#a64f2e"/><path d="M141 245Q141 233 150 233Q159 233 159 245Z" fill="#a64f2e"/></g><g class="mens"><circle cx="250" cy="226" r="5.4" fill="#8c6b5e"/><path d="M241 245Q241 233 250 233Q259 233 259 245Z" fill="#8c6b5e"/></g><rect class="bank" x="26" y="243" width="320" height="7" rx="2"/></g>
