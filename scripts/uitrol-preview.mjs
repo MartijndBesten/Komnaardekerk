@@ -23,6 +23,7 @@ if (!host) {
 }
 const API = 'https://api.cloudflare.com/client/v4';
 const token = process.env.CLOUDFLARE_API_TOKEN || 'proxy';
+if (process.env.CI && !process.env.CLOUDFLARE_API_TOKEN) throw new Error("CLOUDFLARE_API_TOKEN ontbreekt");
 
 function cf(methode, pad, { json, form, ruw = false } = {}) {
   const args = ['-sS', '-X', methode, `${API}${pad}`, '-H', `Authorization: Bearer ${token}`];
@@ -44,6 +45,7 @@ console.log(`zone ${zone.name} (${zone.status})`);
 // Bestaat het domein al voor een andere Worker? Dan stoppen: nooit iets anders overschrijven.
 const domeinen = cf('GET', `/accounts/${A}/workers/domains`);
 const bestaand = domeinen.find((d) => d.hostname === host);
+if (!bestaand) throw new Error(`${host} is nog niet aan een Worker gekoppeld. Uitrol gestopt.`);
 if (bestaand && bestaand.service !== naam) {
   throw new Error(`${host} hangt al aan Worker '${bestaand.service}'. Gestopt; niets gewijzigd.`);
 }
@@ -75,10 +77,5 @@ console.log('✓ script geüpload');
 cf('POST', `/accounts/${A}/workers/scripts/${naam}/subdomain`, { json: { enabled: false } });
 console.log('✓ workers.dev-adres uit (alleen het eigen domein)');
 
-if (!bestaand) {
-  cf('PUT', `/accounts/${A}/workers/domains`, { json: { hostname: host, service: naam, zone_id: zone.id, environment: 'production' } });
-  console.log(`✓ domein gekoppeld: https://${host}`);
-} else {
-  console.log(`✓ domein was al gekoppeld: https://${host}`);
-}
+console.log(`✓ domein was al gekoppeld: https://${host}`);
 console.log('Controleer: https://' + host + '/versie.json');

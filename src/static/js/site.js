@@ -319,6 +319,16 @@
         pas();
       });
     });
+    alle('.kerkenkaart-legenda a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        var kerk = document.getElementById(link.hash.slice(1));
+        if (!kerk || !kerk.hidden) return;
+        alle('.filterknop[aria-pressed="true"]', filter).forEach(function (knop) {
+          knop.setAttribute('aria-pressed', 'false');
+        });
+        pas();
+      });
+    });
   }
 
   /* ---------- in je agenda zetten (.ics, alleen in de browser gemaakt) ---------- */

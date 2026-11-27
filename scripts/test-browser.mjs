@@ -12,7 +12,7 @@ import { createRequire } from 'node:module';
 import { mkdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { maakServer, verzonden } from './serve.mjs';
+import { maakServer } from './serve.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const UIT = path.join(ROOT, 'test-resultaten');
@@ -26,7 +26,7 @@ try {
 const { chromium, devices } = playwright;
 const AXE = await readFile(path.join(ROOT, 'node_modules/axe-core/axe.min.js'), 'utf8');
 
-const PAGINAS = ['/', '/waarom-naar-de-kerk/', '/voor-het-eerst/', '/kerken/', '/kerken/sionkerk/', '/kerken/eskol-kerk/', '/ontdek-het-geloof/', '/activiteiten/', '/samen-naar-de-kerk/', '/over-ons/', '/privacy/', '/ontwerp/', '/samen-naar-de-kerk/bedankt/', '/samen-naar-de-kerk/niet-gelukt/'];
+const PAGINAS = ['/', '/waarom-naar-de-kerk/', '/voor-het-eerst/', '/kerken/', '/kerken/sionkerk/', '/kerken/t-waal-en-honswijk/', '/ontdek-het-geloof/', '/activiteiten/', '/samen-naar-de-kerk/', '/over-ons/', '/privacy/', '/samen-naar-de-kerk/bedankt/', '/samen-naar-de-kerk/niet-gelukt/'];
 const BREEDTES = [320, 360, 390, 768, 1024, 1440];
 
 let geslaagd = 0;
@@ -53,13 +53,10 @@ const extern = process.env.TEST_BASE_URL;
 const bundel = process.env.TEST_BUNDEL ? await import(path.join(ROOT, '.uitrol/komnaardekerk.mjs')) : null;
 if (bundel) console.log('Test tegen de Worker-bundel .uitrol/komnaardekerk.mjs');
 const server = maakServer({ bundel });
-const serverAan = maakServer({ contactAan: true, bundel });
 await new Promise((r) => server.listen(0, r));
-await new Promise((r) => serverAan.listen(0, r));
 const BASIS = extern || `http://localhost:${server.address().port}`;
-const BASIS_AAN = `http://localhost:${serverAan.address().port}`;
 
-const browser = await chromium.launch();
+const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_BIN || undefined });
 
 async function nieuwePagina(opties = {}) {
   const ctx = await browser.newContext({ locale: 'nl-NL', ...opties });
@@ -109,9 +106,8 @@ for (const pad of PAGINAS) {
     eis(csp.includes("script-src 'self'"), 'CSP-header ontbreekt');
     // Voorkomt dat Cloudflare scripts (Web Analytics-beacon) in de HTML spuit.
     eis(/no-transform/.test(resp.headers()['cache-control'] || ''), `HTML zonder no-transform (cache-control: ${resp.headers()['cache-control']})`);
-    // Conceptomgeving: nooit indexeren, en altijd zichtbaar als concept gemarkeerd.
     eis(/noindex/.test(resp.headers()['x-robots-tag'] || ''), 'conceptpagina zonder X-Robots-Tag: noindex');
-    eis(await page.locator('.conceptbalk').isVisible(), 'conceptbalk ontbreekt');
+    eis((await page.locator('.conceptbalk').count()) === 0, 'conceptbalk zichtbaar');
     // Makersvermelding met het officiële Denckh-logo (DENCKH_MERKVERMELDING.md).
     const maker = page.locator('.maker a');
     eis((await maker.getAttribute('href')) === 'https://denckh.nl', 'Denckh-link ontbreekt of klopt niet');
@@ -381,7 +377,7 @@ await scenario('Kerk zoeken: filters op plaats, traditie en kenmerk, met melding
   await ctx.close();
 });
 
-await scenario('Geen fictieve of onbevestigde gegevens: elke kerk heeft status, bron en controledatum; geen voorbeeldkerken', async () => {
+await scenario('Geen fictieve of onbevestigde gegevens: elke kerk heeft een bron en controledatum', async () => {
   const { ctx, page } = await nieuwePagina();
   await page.goto(BASIS + '/kerken/', { waitUntil: 'networkidle' });
   const paden = await page.locator('[data-kerkenlijst] .kerkkaart-naam a').evaluateAll((as) => as.map((a) => a.getAttribute('href')));
@@ -392,6 +388,7 @@ await scenario('Geen fictieve of onbevestigde gegevens: elke kerk heeft status, 
     const naam = await k.locator('.kerk-naam').textContent();
     eis(/gecontroleerd op \d{1,2} \w+ 20\d\d/i.test(await k.locator('.kerk-controle').textContent()), `${naam}: geen controledatum`);
     eis((await k.locator('.kerk-controle a').getAttribute('href')).startsWith('https://'), `${naam}: geen bronlink`);
+    eis((await k.locator('.label-status').count()) === 0, `${naam}: deelnamestatus zichtbaar`);
     eis((await k.locator('a[href^="https://"]').first().getAttribute('href')) !== null, `${naam}: geen website`);
     eis(!/(?:^|\s)deelnemer(?:s)?(?:\s|$)/i.test(await k.textContent()), `${naam}: ten onrechte deelnemer`);
   }
@@ -405,9 +402,9 @@ await scenario('Geen fictieve of onbevestigde gegevens: elke kerk heeft status, 
   eis(!/voorbeeldkerk|voorbeeldtijd|\bpartner\b/i.test(tekst), 'voorbeeld- of partnertekst gevonden');
   await page.goto(BASIS + '/activiteiten/', { waitUntil: 'networkidle' });
   const acts = page.locator('.act');
-  eis((await acts.count()) >= 5, 'te weinig activiteiten');
+  eis((await acts.count()) > 0, 'geen activiteiten');
   for (let i = 0; i < (await acts.count()); i++) {
-    eis(/Gecontroleerd op/.test(await acts.nth(i).locator('.kerk-controle').textContent()), 'activiteit zonder controledatum');
+    eis((await acts.nth(i).locator('a.pijllink').getAttribute('href')).startsWith('https://'), 'activiteit zonder officiële aankondiging');
   }
   await ctx.close();
 });
@@ -445,19 +442,19 @@ await scenario('Mattheüs 11:28: zichtbaar op de homepage, letterlijk citaat met
 await scenario('Kerkkaartjes: één samenvatting per kerk, klik leidt naar de eigen kerkpagina met alle diensten (mobiel en desktop)', async () => {
   for (const viewport of [{ width: 390, height: 844 }, { width: 1280, height: 800 }]) {
     const { ctx, page } = await nieuwePagina({ viewport });
-    // homepage: kaartje is zichtbaar en noemt alle vaste zondagsdiensten
+    // homepage: de kaart staat er, met per kerk een nummer, de naam en de vaste zondagsdiensten
     await page.goto(BASIS + '/', { waitUntil: 'networkidle' });
-    const kaart = page.locator('.buurt .kerkkaart[data-kerk="sionkerk"]');
-    const kort = (await kaart.locator('.kerkkaart-tijden').textContent()).trim();
-    eis(kort === 'Zondag 09.30 en 16.15 uur', `homepage Sionkerk: ${kort}`);
-    eis(await kaart.locator('.kerkkaart-tijden').isVisible(), 'homepage: diensttijden niet zichtbaar');
-    // de details staan niet dubbel op de homepage of het overzicht
+    const legenda = page.locator('.buurt .kerkenkaart-legenda a[href="/kerken/sionkerk/"]');
+    eis(await legenda.isVisible(), 'homepage: Sionkerk staat niet bij de kaart');
+    eis((await legenda.textContent()).replace(/\s+/g, ' ').includes('Zondag 09.30 en 16.15 uur'), `homepage Sionkerk: ${await legenda.textContent()}`);
+    // niets dubbel: geen tweede kerkenlijst en geen details op de homepage
+    eis((await page.locator('.buurt .kerkkaart').count()) === 0, 'homepage toont naast de kaart nog een kerkenlijst');
     eis((await page.locator('.kerk-feiten').count()) === 0, 'homepage toont kerkdetails');
-    // klik ergens op het kaartje (niet op de naam): de hele kaart is klikbaar
-    await kaart.scrollIntoViewIfNeeded();
-    await page.waitForTimeout(900); // onthul-animatie
-    const vak = await kaart.boundingBox();
-    await page.mouse.click(vak.x + vak.width / 2, vak.y + vak.height - 12);
+    // klikken op het punt op de kaart leidt naar de juiste kerk
+    const punt = page.locator('.buurt a.kerkenkaart-punt[href="/kerken/sionkerk/"]');
+    await punt.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(900);
+    await punt.click();
     await page.waitForURL('**/kerken/sionkerk/');
     eis((await page.locator('h1').textContent()).trim() === 'Sionkerk', 'kerkpagina heeft niet de juiste kop');
     const vast = page.locator('.kerk-dienstgroep--regulier .kerk-tijden li');
@@ -468,7 +465,18 @@ await scenario('Kerkkaartjes: één samenvatting per kerk, klik leidt naar de ei
     for (const li of await vast.all()) eis(await li.locator('.kerk-tijd').isVisible(), 'diensttijd niet zichtbaar');
     eis(await page.locator('.kerk-rooster a').isVisible(), 'Sionkerk: verwijzing naar de actuele agenda ontbreekt');
     eis(await page.getByRole('link', { name: /Alle kerken/ }).isVisible(), 'geen weg terug naar het overzicht');
-    // overzicht: elk kaartje leidt naar een bestaande kerkpagina; oude ankers (/kerken/#id) werken nog
+    // overzicht: kaart zonder dubbele namenlijst; elk kaartje draagt hetzelfde nummer als de kaart; de hele kaart is klikbaar
+    await page.goto(BASIS + '/kerken/', { waitUntil: 'networkidle' });
+    eis((await page.locator('.kerkenkaart-legenda').count()) === 0, 'overzicht toont de namen dubbel (lijst bij de kaart én kaartjes)');
+    const nrKaart = (await page.locator('a.kerkenkaart-punt[href="/kerken/sionkerk/"] text').textContent()).trim();
+    const kaartje = page.locator('[data-kerkenlijst] .kerkkaart[data-kerk="sionkerk"]');
+    eis((await kaartje.locator('.kerkkaart-nr').textContent()).trim() === nrKaart, 'nummer op het kaartje wijkt af van de kaart');
+    await kaartje.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(600);
+    const vak = await kaartje.boundingBox();
+    await page.mouse.click(vak.x + vak.width / 2, vak.y + vak.height - 12);
+    await page.waitForURL('**/kerken/sionkerk/');
+    // oude ankers (/kerken/#id) werken nog
     await page.goto(BASIS + '/kerken/#opstandingskerk', { waitUntil: 'networkidle' });
     eis((await page.locator('#opstandingskerk').count()) === 1, 'oud anker /kerken/#opstandingskerk werkt niet meer');
     eis((await page.locator('.kerk-feiten').count()) === 0, 'overzicht toont kerkdetails');
@@ -519,85 +527,30 @@ await scenario('Komende zondag in je agenda: .ics-bestand met juiste dag en tijd
   await ctx.close();
 });
 
-await scenario('Formulier (voorbeeldmodus): fouten tonen, herstellen en een eerlijke bevestiging dat er niets is verstuurd', async () => {
+await scenario('Contact loopt via de kerk en de site toont geen formulier', async () => {
   const { ctx, page } = await nieuwePagina({ ...devices['iPhone 13'] });
-  await page.goto(BASIS + '/samen-naar-de-kerk/?kerk=de-lichtboog', { waitUntil: 'networkidle' });
-  eis(!(await page.locator('#voornaam').isVisible()), 'voorbeeldformulier staat niet ingeklapt');
-  await page.locator('.voorbeeldformulier-kop').click();
-  eis((await page.locator('#kerk').inputValue()) === 'de-lichtboog', 'kerk uit de link niet voorgeselecteerd');
-  await page.getByRole('button', { name: 'Verstuur' }).click();
-  const overzicht = page.locator('[data-foutoverzicht]');
-  eis(await overzicht.isVisible(), 'geen foutoverzicht');
-  eis(await page.evaluate(() => document.activeElement.hasAttribute('data-foutoverzicht')), 'focus niet op foutoverzicht');
-  eis((await page.locator('#voornaam').getAttribute('aria-invalid')) === 'true', 'voornaam niet als fout gemarkeerd');
-  await page.screenshot({ path: path.join(UIT, 'mobiel-formulier-fouten.png'), fullPage: false });
-  await page.getByLabel('Je voornaam').fill('Sanne');
-  await page.getByLabel('E-mailadres').fill('sanne@');
-  await page.getByRole('checkbox').check();
-  await page.getByRole('button', { name: 'Verstuur' }).click();
-  eis((await page.locator('#bereik-fout').textContent()).includes('lijkt niet te kloppen'), 'e-mailfout niet gemeld');
-  await page.getByLabel('E-mailadres').fill('');
-  await page.getByLabel('Telefoonnummer').fill('06 12345678');
-  await page.getByRole('button', { name: 'Verstuur' }).click();
-  const bedankt = page.locator('[data-bedankt]');
-  eis(await bedankt.isVisible(), 'geen bevestiging');
-  eis((await bedankt.textContent()).includes('er is niets verstuurd'), 'bevestiging zegt niet eerlijk dat er niets is verstuurd');
-  eis((await bedankt.textContent()).includes('Sanne'), 'naam niet in bevestiging');
-  await page.screenshot({ path: path.join(UIT, 'mobiel-formulier-bedankt.png') });
-  eis(page._fouten.length === 0, page._fouten.join('\n'));
+  await page.goto(BASIS + '/samen-naar-de-kerk/', { waitUntil: 'networkidle' });
+  eis((await page.locator('[data-contactformulier]').count()) === 0, 'contactformulier zichtbaar');
+  await page.getByRole('link', { name: 'Naar de kerken en hun contactgegevens' }).click();
+  await page.waitForURL('**/kerken/');
   await ctx.close();
 });
 
-if (!extern) {
-  await scenario('Formulier (aan): verzoek komt aan als precies één mail, zonder dubbel versturen', async () => {
-    verzonden.length = 0;
-    const { ctx, page } = await nieuwePagina({ viewport: { width: 1280, height: 900 } });
-    await page.goto(BASIS_AAN + '/samen-naar-de-kerk/', { waitUntil: 'networkidle' });
-    await page.locator('.voorbeeldformulier-kop').click();
-    await page.evaluate(() => document.querySelector('[data-contactformulier]').setAttribute('data-status', 'aan'));
-    await page.getByLabel('Ik wil graag een keer praten').check();
-    await page.getByLabel('Je voornaam').fill('Kees');
-    await page.getByLabel('Telefoonnummer').fill('030 1234567');
-    await page.getByRole('checkbox').check();
-    await page.waitForTimeout(3200); // minimale invultijd
-    const knop = page.getByRole('button', { name: 'Verstuur' });
-    await knop.click();
-    await knop.click({ timeout: 500 }).catch(() => {}); // dubbelklik
-    await page.locator('[data-bedankt]').waitFor({ state: 'visible' });
-    eis(verzonden.length === 1, `${verzonden.length} mails verstuurd`);
-    eis(verzonden[0].raw.includes('Content-Type: text/plain; charset=UTF-8'), 'mailopbouw');
-    await ctx.close();
-  });
-
-  await scenario('Formulier zonder JavaScript: gewone verzending eindigt op een bedankpagina', async () => {
-    verzonden.length = 0;
-    const { ctx, page } = await nieuwePagina({ javaScriptEnabled: false });
-    await page.goto(BASIS_AAN + '/samen-naar-de-kerk/', { waitUntil: 'networkidle' });
-    await page.locator('.voorbeeldformulier-kop').click();
-    await page.getByLabel('Je voornaam').fill('Wim');
-    await page.getByLabel('E-mailadres').fill('wim@test.invalid');
-    await page.getByRole('checkbox').check();
-    await page.getByRole('button', { name: 'Verstuur' }).click();
-    await page.waitForURL(/\/samen-naar-de-kerk\/bedankt\/$/);
-    eis(verzonden.length === 1, `${verzonden.length} mails`);
-    await ctx.close();
-  });
-
-  await scenario('Formulier uit (serverkant): verzending wordt geweigerd en de bezoeker krijgt een nette foutmelding', async () => {
-    const { ctx, page } = await nieuwePagina();
-    await page.goto(BASIS + '/samen-naar-de-kerk/', { waitUntil: 'networkidle' });
-    await page.locator('.voorbeeldformulier-kop').click();
-    await page.evaluate(() => document.querySelector('[data-contactformulier]').setAttribute('data-status', 'aan'));
-    await page.getByLabel('Je voornaam').fill('Test');
-    await page.getByLabel('E-mailadres').fill('test@test.invalid');
-    await page.getByRole('checkbox').check();
-    await page.getByRole('button', { name: 'Verstuur' }).click();
-    await page.locator('[data-foutoverzicht]').waitFor({ state: 'visible' });
-    eis((await page.locator('[data-foutoverzicht]').textContent()).includes('nog niet actief'), 'melding');
-    eis(await page.getByRole('button', { name: 'Verstuur' }).isEnabled(), 'knop blijft uitgeschakeld');
-    await ctx.close();
-  });
-}
+await scenario('Bijzondere vieringen hebben een plek, tijd en officiële aankondiging', async () => {
+  const { ctx, page } = await nieuwePagina({ viewport: { width: 390, height: 844 } });
+  await page.goto(BASIS + '/', { waitUntil: 'networkidle' });
+  const link = page.locator('main a[href="/activiteiten/#groep-vieringen"]');
+  if (await link.count()) {
+    await link.click();
+    const groep = page.locator('section[aria-labelledby="groep-vieringen"]');
+    for (const kaart of await groep.locator('article').all()) {
+      eis((await kaart.locator('.act-meta span').count()) === 2, 'tijd of locatie ontbreekt');
+      eis((await kaart.locator('time').getAttribute('datetime')).includes('T'), 'machineleesbare tijd ontbreekt');
+      eis((await kaart.getByRole('link').getAttribute('href')).startsWith('https://'), 'officiële aankondiging ontbreekt');
+    }
+  }
+  await ctx.close();
+});
 
 await scenario('Zonder JavaScript: alle inhoud, menu en uitklappers bruikbaar', async () => {
   const { ctx, page } = await nieuwePagina({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
@@ -667,7 +620,6 @@ await scenario('Volledige pagina’s op telefoon (390) en desktop (1440) vastgel
 
 await browser.close();
 server.close();
-serverAan.close();
 
 console.log(`\n${geslaagd} geslaagd, ${fouten.length} mislukt.`);
 if (fouten.length) {

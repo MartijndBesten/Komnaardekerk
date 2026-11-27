@@ -1,14 +1,14 @@
 # HANDOFF
 
-status: kerkenoverzicht met kaartjes + pagina per kerk, interactieve zondagochtend met getekende kerkzaal, geen 'nog niet benaderd' meer; op branch claude/kerken-en-zondagochtend, getest, nog niet op de preview
+status: live staat main (3d050bc4, informatief overzicht met kaart en broncontrole); op branch claude/kerken-en-zondagochtend staan kaart met klikbare punten, pagina per kerk, genummerde kaartjes en de interactieve zondagochtend, samengevoegd met main en getest, nog niet live
 next_actor: martijn
-updated: 2026-11-27 (Claude Code-cloudsessie, kerken, zondagochtend)
+updated: 2026-11-27 (Claude Code-cloudsessie; samengevoegd met het werk van Codex)
 
 ## Kerken, zondagochtend en ‘niet benaderd’ (2026-11-27)
 
 **Opdracht Martijn:** een geplakte opdracht (zondagochtend interactief + extra’s) plus: de kerken onder elkaar zijn te lang en onoverzichtelijk; het kaartje moet duidelijker, klikken moet naar de juiste kerk, niets dubbel. Daarna: ‘nog niet benaderd’ mag niet online (de kerken blijven er wel op: openbare standaardinformatie, prima om genoemd te worden), en de zondagochtend nog visueler, interactiever en met beweging.
 
-**Branch:** `claude/kerken-en-zondagochtend` (gepusht, niet gemerged, niet uitgerold).
+**Branch:** `claude/kerken-en-zondagochtend` (gepusht, niet gemerged, niet uitgerold). **Samengevoegd met `main`** (werk van Codex op 27-11: kaart, agendacontrole, modus ‘overzicht’). Zie ‘Samenvoegen met main’ hieronder.
 
 **Gedaan**
 - Kerken: één kaartje per kerk (plaats, traditie, alle vaste zondagsdiensten, kinderen/oppas/online) op de homepage en op `/kerken/`; de hele kaart is klikbaar en leidt naar een **eigen pagina per kerk** (`/kerken/<id>/`) met alle details. Details staan nergens anders meer. Oude ankers `/kerken/#id` werken nog. Filter ‘Dienst op zondagochtend’ erbij. Op een telefoon compactere kaartjes (homepage-sectie 3061 → 2235 px).
@@ -26,6 +26,30 @@ updated: 2026-11-27 (Claude Code-cloudsessie, kerken, zondagochtend)
 **Nieuwe teksten ter controle (in `src/pages/home.mjs`, gemarkeerd):** tijden per stap (‘Een paar minuten van tevoren’, ‘Het begin’, ‘Na ongeveer een kwartier’, ‘Tegen het eind’, ‘Na ongeveer een uur tot anderhalf uur’); ‘Dit kan / Dit hoeft niet’ per stap (o.a. collecte: ‘Geven mag, doorgeven is ook goed’); muziekteksten orgel/piano/band; tips alleen/met iemand/met kinderen; ‘En jij? Ik blijf even / Ik ga naar huis — Allebei is goed’; eindstap ‘Probeer het een keer’; in de tekening ‘welkom!’ en ‘tot ziens!’. Op de kerkpagina: ‘Liever niet alleen? … Iemand van de kerk wacht je dan op of zit naast je.’
 
 **Open:** V-020 (keuzehulp met postcode of inhoud), V-021 (productie: alle kerken tonen). **Volgende stap:** Martijn bekijkt; bij akkoord mergen naar `main` en de preview bijwerken.
+
+## Verder werken met een ander GitHub-account
+
+De openbare repository `MartijndBesten/Komnaardekerk` en branch `main` bevatten de broncode, kerkgegevens, kaarten, gebouwde bestanden en GitHub Actions. De website draait op [het bestaande adres](https://komnaardekerk.martijndenbesten.com/) met `noindex`. Openbare livecontrole op 27 november 2026 bevestigde commit [3d050bc4](https://github.com/MartijndBesten/Komnaardekerk/commit/3d050bc4), het bijgewerkte welkomstblok en de kaart met 14 kerkpunten op mobiel en desktop. Zie de [geslaagde uitrol](https://github.com/MartijndBesten/Komnaardekerk/actions/runs/45989981479). De eerdere fout bij Cloudflare-authenticatie is opgelost voor de bestaande GitHub-omgeving.
+
+- Lezen en klonen kan zonder uitnodiging. Voor pushen naar deze repository en het starten van de uitrolworkflow heeft het andere account schrijfrechten nodig. De repositorybeheerder kan het account uitnodigen via **Settings → Collaborators**. Controleer ook eventuele goedkeuringsregels van de GitHub-omgeving.
+- Begin bij `README.md` voor bouwen, testen en inhoud beheren. De kaartpunten staan in `src/lib/kerkenkaart-data.json`. Controleer bij een nieuw of gewijzigd bezoekadres ook het bijbehorende kaartpunt.
+- Het Cloudflare-token blijft opgeslagen als GitHub-omgevingssecret. Bij een verhuizing naar een andere repository moet een beheerder de omgeving en haar secret daar opnieuw instellen.
+
+## Uitrol op verzoek
+
+De GitHub-omgeving `kerkoverzicht-preview` heeft het Cloudflare-secret voor het bestaande previewadres. Via **Wekelijkse kerkagenda → Run workflow → publiceer_preview** kan de geteste versie op `main` worden gepubliceerd, ook als de broncontrole geen inhoud heeft gewijzigd. Deze keuze zet de wekelijkse automatische uitrol niet aan.
+
+## Kaart en homepage op 27 november 2026
+
+De kerkenpagina heeft een kaart voor Houten en een kaart voor de dorpen met veertien genummerde kerkvermeldingen. De kaarten gebruiken de BRT-achtergrondkaart van Kadaster/PDOK en BAG-adresposities. Bij de EGH wijst het punt naar de Kamillehof, waar de ingang ligt volgens de kerk. De Pleinkerk staat bij Plein 27 met BAG-postcode 3991 DL. Het welkomsblok op de homepage is ingekort, gecentreerd en kleiner gemaakt. Het logo en de interactieve woorden zijn behouden.
+
+## Actualisatie 27 november 2026
+
+- Bezoekersversie `overzicht` met noindex, zonder ontwerppagina, deelnamelabels, interne geloofsbasis en demonstratieformulier. De route voor contact loopt via de kerk. Mattheüs 11:28 staat als eigen weergave met bronlink op de site.
+- Bevestigde bezoekgegevens toegevoegd voor Maranatha Gemeente Houten, Hervormde gemeente Schalkwijk en ’t Goy en Hervormde gemeente Tull en ’t Waal en Honswijk. Bestaande bronnen voor de door Gerard genoemde kerken gecontroleerd en waar nodig bijgewerkt. Sudanese Gospel Mission vermeldt Houten op de eigen website. Er is geen actuele bevestiging van diensten bij de Bogermanschool gevonden. De gegevens blijven in het interne verificatieoverzicht.
+- Vier kerstactiviteiten van PJ23 toegevoegd. Enkele verstreken of onzekere aankondigingen verwijderd uit het zichtbare overzicht. Zie contentbestanden voor bronnen en data.
+- Wekelijkse monitor en GitHub Actions toegevoegd. Lokaal zijn bevestiging, dubbele invoer, annulering, verlopen data, feedformaten en bronfouten getest. De scan tegen openbare bronnen haalde 62 van 64 bronnen op, met 38 signalen ter beoordeling. Zie `docs/MONITORING.md`.
+- Er is geen openbaar DNS-record voor komnaardekerk.nu gevonden. De Cloudflare-API weigerde de authenticatie bij het opvragen van de bestaande zone. De preview bleef op versie 8182ecb7. Voor de formele lancering blijven de naam en contactgegevens van de verantwoordelijke (V-002), gebruiksrechten voor de NBV21 (V-003), domein (V-005) en formele deelnametoestemming open.
 
 ## Oude domeinnamen en veiligheid (2026-11-16)
 

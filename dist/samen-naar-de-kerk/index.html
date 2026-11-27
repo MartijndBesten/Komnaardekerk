@@ -26,14 +26,14 @@
 <link rel="preload" href="/fonts/atkinson-next.woff2" as="font" type="font/woff2" crossorigin>
 
 <script src="/js/vroeg.js?v=3d908442b5"></script>
-<link rel="stylesheet" href="/css/site.css?v=966f32c076">
-<script src="/js/site.js?v=e54339398d" defer></script>
+<link rel="stylesheet" href="/css/site.css?v=83b952385e">
+<script src="/js/site.js?v=af52305a95" defer></script>
 
 </head>
 <body>
 <a class="overslaan" href="#inhoud">Naar de inhoud</a>
 <header class="kop">
-  <p class="conceptbalk"><strong>Conceptversie</strong> · Deze site is nog in ontwikkeling. De gegevens van de kerken komen van hun eigen websites. <a href="/over-ons/#status">Meer over dit initiatief</a></p>
+
   <div class="kop-binnen">
     <a class="merk-link" href="/"><img class="kop-logo" src="/merk/logo/logo-horizontaal.svg" width="320" height="47" alt="Kom naar de kerk. Naar de startpagina"></a>
     <nav class="hoofdnav" aria-label="Hoofdmenu">
@@ -67,85 +67,13 @@
 
 <section class="praten" aria-labelledby="contact-kop">
   <div class="praten-binnen">
-    <div class="praten-uitleg">
-      
+    <div class="praten-uitleg" id="samen">
+
       <h2 class="kop-2" id="contact-kop">Liever eerst iemand spreken?</h2>
       <p>Elke kerk heeft een eigen website met contactgegevens. Je kunt de kerk van je keuze gewoon mailen of bellen met je vraag, of vragen of iemand je bij de deur wil opwachten.</p>
       <p><a class="pijllink pijllink--sterk" href="/kerken/">Naar de kerken en hun contactgegevens</a></p>
-      <h3 class="kop-3" id="samen">Persoonlijk contact via deze website</h3>
-      <p>We willen het straks mogelijk maken om via deze site te vragen of iemand met je mee wil gaan of een keer met je wil praten. Dat zetten we pas aan als er echt mensen klaarstaan om je verzoek op te volgen, en als duidelijk is wie er verantwoordelijk is voor je gegevens.</p>
-    </div>
-    <div class="praten-formulier">
-      <details class="voorbeeldformulier" id="voorbeeldformulier">
-      <summary class="voorbeeldformulier-kop">Bekijk hoe het contactformulier eruit gaat zien <span class="klein">(voorbeeld, verstuurt niets)</span></summary>
-      <form class="formulier" action="/api/contact" method="post" novalidate data-contactformulier data-status="voorbeeld">
-    <p class="formulier-voorbeeld" role="note"><strong>Voorbeeld.</strong> Dit formulier verstuurt nog niets. Het gaat pas aan als de kerken de opvolging echt hebben geregeld.</p>
-    <div class="foutoverzicht" data-foutoverzicht tabindex="-1" hidden>
-      <h3 class="kop-4">Nog niet helemaal compleet</h3>
-      <ul></ul>
     </div>
 
-    <fieldset class="veld veld--keuze">
-      <legend>Waar kunnen we je mee helpen?</legend>
-      <label class="keuzerondje"><input type="radio" name="soort" value="samen" checked> <span>Ik wil graag samen naar een kerk</span></label>
-      <label class="keuzerondje"><input type="radio" name="soort" value="gesprek"> <span>Ik wil graag een keer praten</span></label>
-      <label class="keuzerondje"><input type="radio" name="soort" value="vraag"> <span>Ik heb een vraag</span></label>
-    </fieldset>
-
-    <div class="veld">
-      <label for="voornaam">Je voornaam</label>
-      <input id="voornaam" name="voornaam" type="text" autocomplete="given-name" maxlength="60" required aria-describedby="voornaam-fout">
-      <p class="veld-fout" id="voornaam-fout" hidden></p>
-    </div>
-
-    <fieldset class="veld veld--groep" aria-describedby="bereik-uitleg bereik-fout">
-      <legend>Hoe kunnen we je bereiken?</legend>
-      <p class="veld-uitleg" id="bereik-uitleg">Vul er minstens één in. We gebruiken het alleen om jou terug te bellen of te mailen.</p>
-      <div class="veld">
-        <label for="email">E-mailadres</label>
-        <input id="email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="120">
-      </div>
-      <div class="veld">
-        <label for="telefoon">Telefoonnummer</label>
-        <input id="telefoon" name="telefoon" type="tel" autocomplete="tel" inputmode="tel" maxlength="20">
-      </div>
-      <p class="veld-fout" id="bereik-fout" hidden></p>
-    </fieldset>
-
-    <div class="veld">
-      <label for="kerk">Heb je al een kerk in gedachten? <span class="optioneel">(mag leeg blijven)</span></label>
-      <select id="kerk" name="kerk">
-        <option value="">Maakt niet uit, denk met me mee</option>
-        <option value="sionkerk">Sionkerk</option><option value="pleinkerk">Pleinkerk</option><option value="opstandingskerk">Opstandingskerk</option><option value="de-lichtboog">De Lichtboog</option><option value="het-kruispunt">Het Kruispunt</option><option value="eskol-kerk">Eskol-kerk</option><option value="evangelie-gemeente-houten">Evangelie Gemeente Houten (EGH)</option><option value="olv-houten">O.L.V. ten Hemelopneming Houten</option><option value="de-rivier">De Rivier Houten</option><option value="h-michael-schalkwijk">H. Michaëlkerk Schalkwijk</option><option value="olv-t-goy">O.L.V. ten Hemelopneming &#39;t Goy</option>
-      </select>
-    </div>
-
-    <div class="veld">
-      <label for="bericht">Wil je nog iets kwijt? <span class="optioneel">(mag leeg blijven)</span></label>
-      <textarea id="bericht" name="bericht" rows="4" maxlength="600" aria-describedby="bericht-uitleg"></textarea>
-      <p class="veld-uitleg" id="bericht-uitleg">Bijvoorbeeld wanneer je het best bereikbaar bent. Persoonlijke dingen bespreek je liever in het gesprek zelf.</p>
-    </div>
-
-    <div class="veld veld--vinkje">
-      <label class="vinkje"><input type="checkbox" name="toestemming" value="ja" required aria-describedby="toestemming-fout"> <span>Ik geef toestemming dat mijn gegevens worden gebruikt om contact met mij op te nemen, zoals beschreven in de <a href="/privacy/">privacyverklaring</a>. Ik kan die toestemming altijd intrekken.</span></label>
-      <p class="veld-fout" id="toestemming-fout" hidden></p>
-    </div>
-
-    <div class="honing" aria-hidden="true">
-      <label for="website">Laat dit veld leeg</label>
-      <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
-    </div>
-    <input type="hidden" name="t" value="" data-starttijd>
-
-    <p><button class="knop knop--vol" type="submit">Verstuur</button></p>
-    <p class="klein">Je ontvangt geen nieuwsbrief en je wordt nergens ingeschreven. Iemand neemt binnen een paar dagen persoonlijk contact met je op.</p>
-  </form>
-  <div class="bedankt" data-bedankt tabindex="-1" hidden>
-    <h3 class="kop-3">Dank je wel<span data-bedankt-naam></span>.</h3>
-    <p data-bedankt-tekst>Iemand neemt binnen een paar dagen contact met je op.</p>
-  </div>
-    </details>
-    </div>
   </div>
 </section>
 
@@ -180,7 +108,7 @@
         <li><a href="/">Home</a></li>
         <li><a class="" href="/waarom-naar-de-kerk/">Waarom de kerk?</a></li><li><a class="" href="/voor-het-eerst/">Voor het eerst</a></li><li><a class="" href="/kerken/">Kerken</a></li><li><a class="" href="/ontdek-het-geloof/">Het geloof</a></li><li><a class="" href="/activiteiten/">Activiteiten</a></li><li><a class="" href="/samen-naar-de-kerk/" aria-current="page">Samen gaan</a></li><li><a class="" href="/over-ons/">Over ons</a></li>
         <li><a href="/privacy/">Privacy</a></li>
-        <li><a href="/ontwerp/">Ontwerp en merk (concept)</a></li>
+
       </ul>
     </nav>
     <section class="voet-verwant" aria-labelledby="voet-verwant-kop">
@@ -192,7 +120,7 @@
     </section>
   </div>
   <div class="voet-onder">
-    <p>Conceptversie · komnaardekerk.nu</p>
+    <p>komnaardekerk.nu</p>
     <p class="maker"><a href="https://denckh.nl" rel="noopener">Concept en realisatie door <img src="/merk/denckh/denckh-logo-signature-light.svg" width="72" height="22" alt="Denckh."></a></p>
   </div>
 </footer>

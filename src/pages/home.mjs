@@ -1,5 +1,6 @@
+import { kerkenkaart } from '../lib/kerkenkaart.mjs';
 import { html, raw, esc } from '../lib/html.mjs';
-import { faqLijst, kerkKaart, bijbeltekst, samenGaanTeaser } from '../lib/onderdelen.mjs';
+import { faqLijst, bijbeltekst, samenGaanTeaser } from '../lib/onderdelen.mjs';
 import { beeldmerkInhoud, vlakSvg, VIEWBOX } from '../lib/logo.mjs';
 import { zondagScene } from '../lib/zondag-scene.mjs';
 
@@ -119,14 +120,20 @@ function zondagochtend() {
 }
 
 const NIETS = [
-  'Je hoeft niet eerst je leven op orde te hebben.',
-  'Je hoeft niet alles te begrijpen.',
-  'Je hoeft niet zeker te weten wat je gelooft.',
-  'Je hoeft de liederen niet te kennen.',
-  'Je hoeft je niet netjes aan te kleden.'
+  'Ook als je nog nooit in een kerk bent geweest.',
+  'Ook als je vragen hebt over het geloof.',
+  'Draag wat je prettig vindt.'
 ];
 
 const BIJBEL = 'https://www.debijbel.nl/bijbel/NBV21/';
+
+// ‘Veertien kerken in Houten, Schalkwijk, ’t Goy en Tull en ’t Waal’: altijd uit de gegevens, nooit met de hand.
+const GETALLEN = ['Geen', 'Eén', 'Twee', 'Drie', 'Vier', 'Vijf', 'Zes', 'Zeven', 'Acht', 'Negen', 'Tien', 'Elf', 'Twaalf', 'Dertien', 'Veertien', 'Vijftien', 'Zestien', 'Zeventien', 'Achttien', 'Negentien', 'Twintig'];
+const aantalWoord = (n) => GETALLEN[n] || String(n);
+function plaatsenZin(lijst) {
+  const p = [...new Set(lijst.map((k) => k.plaats))];
+  return p.length > 1 ? `${p.slice(0, -1).join(', ')} en ${p[p.length - 1]}` : p[0] || 'Houten';
+}
 
 function woordKeuze(w, site) {
   const hulp = w.hulp === 'hulplijnen'
@@ -153,7 +160,7 @@ function woordKeuze(w, site) {
 export function inhoud(ctx) {
   const { site, kerken, woorden, vragen, initiatieven } = ctx;
   const homeVragen = vragen.vragen.filter((v) => v.home);
-  const actief = initiatieven.initiatieven.filter((i) => i.actueel).slice(0, 3);
+  const heeftVieringen = initiatieven.initiatieven.some((i) => i.actueel && i.groep === 'vieringen');
   const wissel = woorden.woorden.filter((w) => w.wissel).map((w) => ({ id: w.id, w: `${w.woord}?` }));
   const eerste = wissel[0];
 
@@ -167,7 +174,7 @@ export function inhoud(ctx) {
         <p class="wissel-knoppen" hidden><button type="button" class="tekstknop" data-ander>Ander woord</button><button type="button" class="tekstknop" data-pauze aria-pressed="false">Pauze</button></p>
       </div>
       <h1 class="held-kop onthul" id="held-kop">Kom naar de kerk. <em>Er is plek voor jou.</em></h1>
-      <p class="lead held-lead onthul">Een uitnodiging van christenen uit Houten en omgeving. Je hoeft niets te weten en niets te kunnen. Kom zoals je bent.</p>
+      <p class="lead held-lead onthul">Een uitnodiging van christenen uit Houten en omgeving. Bekijk waar en wanneer je naar een kerkdienst kunt. Kom zoals je bent.</p>
       <p class="knoppen onthul">
         <a class="knop knop--licht" href="/kerken/">Vind een kerk</a>
         <a class="knop knop--omlijnd" href="#gevoel">Wat houdt je bezig?</a>
@@ -211,7 +218,7 @@ export function inhoud(ctx) {
 
 <section class="niets" aria-labelledby="niets-kop">
   <div class="niets-binnen">
-    <h2 class="sr" id="niets-kop">Je hoeft niets</h2>
+    <h2 class="sr" id="niets-kop">Voor het eerst naar de kerk</h2>
     <ul class="niets-lijst">
       ${NIETS.map((r) => html`<li class="onthul">${r}</li>`)}
     </ul>
@@ -253,31 +260,22 @@ export function inhoud(ctx) {
     <div class="sectiekop">
       <p class="bovenregel">Waar kun je heen?</p>
       <h2 class="kop-2" id="buurt-kop">Kerken bij jou in de buurt</h2>
-      <p class="lead">Elf kerken in Houten, Schalkwijk en ’t Goy. Protestants, evangelisch en katholiek. Ze geloven in dezelfde Heer en hebben dezelfde uitnodiging. Kies er gewoon één.</p>
+      <p class="lead">${aantalWoord(kerken.kerken.length)} kerken in ${plaatsenZin(kerken.kerken)}. Protestants, evangelisch en katholiek. Ze geloven in dezelfde Heer en hebben dezelfde uitnodiging. Kies er gewoon één.</p>
     </div>
-    <ul class="kerkkaarten" data-schud>
-      ${kerken.kerken.map((k) => kerkKaart(k, { kop: 'h3' }))}
-    </ul>
-    <p class="buurt-voet"><a class="knop knop--vol" href="/kerken/">Zoek op plaats en traditie</a></p>
-    <p class="klein buurt-eerlijk">De volgorde wisselt bij elk bezoek, zodat geen kerk vooraan staat.</p>
+    ${kerkenkaart(kerken.kerken, { kop: 'Kies een kerk op de kaart', kopNiveau: 3, tekst: 'Tik op een nummer of een naam: dan zie je de tijden, het adres en hoe je contact legt.' })}
+    <p class="buurt-voet"><a class="knop knop--vol" href="/kerken/">Alle kerken: tijden, filters en route</a></p>
   </div>
 </section>
 
-${actief.length
-  ? html`<section class="ontdek" aria-labelledby="ontdek-kop">
+<section class="ontdek" aria-labelledby="ontdek-kop">
   <div class="ontdek-binnen">
     <div class="sectiekop">
-      <p class="bovenregel">Verder ontdekken</p>
-      <h2 class="kop-2" id="ontdek-kop">Liever eerst praten dan een kerkdienst?</h2>
-      <p class="lead">Er zijn plekken in Houten waar je in je eigen tempo kunt kennismaken met het christelijk geloof.</p>
+      <h2 class="kop-2" id="ontdek-kop">Activiteiten bij de kerken</h2>
+      <p class="lead">Bekijk waar je kunt aanschuiven voor een maaltijd, een gesprek of een bijzondere viering.</p>
     </div>
-    <ul class="activiteiten-kort">
-      ${actief.map((a) => html`<li><a href="/activiteiten/#${a.id}"><span class="act-naam">${a.naam}</span><span class="act-wanneer">${a.wanneer}</span><span class="act-org">${a.organisatorNaam}</span></a></li>`)}
-    </ul>
-    <p><a class="pijllink pijllink--sterk" href="/activiteiten/">Alle activiteiten</a></p>
+    <p><a class="pijllink pijllink--sterk" href="${heeftVieringen ? '/activiteiten/#groep-vieringen' : '/activiteiten/'}">${heeftVieringen ? 'Bekijk bijzondere vieringen en andere activiteiten' : 'Bekijk activiteiten'}</a></p>
   </div>
-</section>`
-  : ''}
+</section>
 
 ${samenGaanTeaser()}
 

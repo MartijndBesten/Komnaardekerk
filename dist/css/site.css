@@ -920,37 +920,29 @@ details[open] > summary .plusje {
   background: var(--licht-heel-zacht);
   color: var(--inkt);
 }
+.niets-binnen {
+  text-align: center;
+  padding-block: clamp(2.5rem, 6vw, 5rem);
+}
 .niets-lijst {
   list-style: none;
+  margin-inline: auto;
+  max-width: 43ch;
   padding: 0;
   font-family: var(--kop);
-  font-size: clamp(1.65rem, 1rem + 2.9vw, 3.45rem);
-  line-height: 1.12;
-  letter-spacing: -0.015em;
+  font-size: clamp(1.2rem, 1rem + 0.8vw, 1.8rem);
+  line-height: 1.4;
+  text-wrap: pretty;
 }
 .niets-lijst li + li {
-  margin-top: 0.45em;
-}
-@media (min-width: 56rem) {
-  .niets-lijst li:nth-child(2) {
-    padding-left: 1.5em;
-  }
-  .niets-lijst li:nth-child(3) {
-    padding-left: 3em;
-  }
-  .niets-lijst li:nth-child(4) {
-    padding-left: 1em;
-  }
-  .niets-lijst li:nth-child(5) {
-    padding-left: 2.25em;
-  }
+  margin-top: 0.4em;
 }
 .niets-slot {
-  margin-top: clamp(2.5rem, 6vw, 5rem);
+  margin-top: clamp(1.3rem, 3vw, 2.25rem);
   font-family: var(--kop);
-  font-size: clamp(2.6rem, 1.3rem + 6vw, 6.4rem);
-  line-height: 1;
-  letter-spacing: -0.03em;
+  font-size: clamp(1.85rem, 1.25rem + 2vw, 3rem);
+  line-height: 1.15;
+  text-wrap: balance;
 }
 .niets-slot em {
   color: var(--klei);
@@ -3602,4 +3594,131 @@ button[disabled] {
 /* stappen zonder lijnillustratie */
 .stap-nr {
   display: block;
+}
+
+.kerkenkaart {
+  width: min(var(--breedte), 92%);
+  margin: 0 auto;
+  padding-block: clamp(2rem, 5vw, 4rem);
+}
+.kerkenkaart > p {
+  margin-block: 0.75rem;
+}
+.kerkenkaart-panelen {
+  display: grid;
+  gap: 2rem;
+  margin-block: 1.5rem;
+}
+@media (min-width: 48rem) {
+  .kerkenkaart-panelen {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+.kerkenkaart-beeld {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-block: 0.75rem;
+}
+.kerkenkaart-punt circle,
+.kerkenkaart-punt line {
+  fill: #40252a;
+  stroke: #fff;
+  stroke-width: 0.38;
+}
+/* klikbare punten: groter raakvlak, duidelijke hover en focus */
+a.kerkenkaart-punt {
+  cursor: pointer;
+}
+a.kerkenkaart-punt .kerkenkaart-stip {
+  fill: var(--mos);
+  transition: fill 0.2s;
+}
+a.kerkenkaart-punt:hover .kerkenkaart-stip,
+a.kerkenkaart-punt:focus-visible .kerkenkaart-stip {
+  fill: var(--klei-donker);
+  stroke: var(--licht);
+  stroke-width: 0.8;
+}
+a.kerkenkaart-punt:focus-visible {
+  outline: none;
+}
+.kerkenkaart-beeld {
+  border-radius: var(--boog);
+  overflow: hidden;
+  border: 1px solid var(--lijn);
+}
+.buurt .kerkenkaart {
+  width: auto;
+  padding-block: 0.5rem 0;
+}
+.kerkenkaart-naam {
+  display: grid;
+}
+.kerkenkaart-tijd {
+  font-size: 0.875rem;
+  color: var(--inkt-2);
+  font-weight: 400;
+}
+.kerkenkaart-legenda a {
+  text-decoration: none;
+  border-radius: 0.5rem;
+  padding-inline: 0.35rem;
+}
+.kerkenkaart-legenda a:hover .kerkenkaart-naam > :first-child,
+.kerkenkaart-legenda a:hover {
+  background: var(--papier-licht);
+}
+.kerkenkaart-legenda .kerkenkaart-nummer {
+  display: inline-grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  min-width: 1.6rem;
+  border-radius: 50%;
+  background: var(--mos);
+  color: #fff;
+  font-size: 0.8125rem;
+}
+.kerkkaart-nr {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  background: var(--mos);
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+@media (max-width: 39.99rem) {
+  .kerkkaart-nr {
+    top: 0.85rem;
+    right: 2.6rem;
+  }
+}
+.kerkenkaart-punt text {
+  fill: #fff;
+  font-size: 3.7px;
+  text-anchor: middle;
+  font-weight: 700;
+}
+.kerkenkaart-legenda {
+  padding: 0;
+  list-style: none;
+}
+.kerkenkaart-legenda a {
+  display: flex;
+  gap: 0.55rem;
+  align-items: baseline;
+  padding-block: 0.32rem;
+}
+.kerkenkaart-nummer {
+  min-width: 1.55rem;
+  text-align: center;
+  font-weight: 700;
 }

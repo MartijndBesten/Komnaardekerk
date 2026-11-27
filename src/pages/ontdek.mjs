@@ -4,7 +4,7 @@ import { faqLijst, paginaKop, bijbeltekst } from '../lib/onderdelen.mjs';
 export const pagina = {
   pad: '/ontdek-het-geloof/',
   titel: 'Ontdek het geloof',
-  omschrijving: 'Het evangelie van Jezus Christus, in begrijpelijke woorden: wie God is, wat Jezus deed, wat genade betekent en hoe je met God kunt leven. Plus de gezamenlijke geloofsbasis van de kerken.'
+  omschrijving: 'Het evangelie van Jezus Christus, in begrijpelijke woorden: wie God is, wat Jezus deed, wat genade betekent en hoe je met God kunt leven.'
 };
 
 // Het evangelie als verhaal in vijf bewegingen.
@@ -83,7 +83,6 @@ const VRAGEN = [
 
 export function inhoud(ctx) {
   const { site, geloofsbasis: g } = ctx;
-  const concept = g.status !== 'vastgesteld';
   return html`
 ${paginaKop({
   boven: 'Ontdek het geloof',
@@ -108,12 +107,11 @@ ${paginaKop({
   <div class="vers-blok-binnen">${bijbeltekst(site)}</div>
 </section>
 
-<section class="basis" aria-labelledby="basis-kop" id="geloofsbasis">
+${g.status === 'vastgesteld' ? html`<section class="basis" aria-labelledby="basis-kop" id="geloofsbasis">
   <div class="basis-binnen">
     <div class="basis-intro">
       <p class="bovenregel">Wat ons verbindt</p>
       <h2 class="kop-2" id="basis-kop">Gezamenlijke geloofsbasis</h2>
-      ${concept ? html`<p class="label-status label-status--kandidaat">Concept ${g.versie} · ter bespreking, door geen enkele kerk goedgekeurd</p>` : ''}
       <p>${g.inleiding}</p>
       <p class="klein">${g.wortels}</p>
     </div>
@@ -125,7 +123,7 @@ ${paginaKop({
       <p>${g.verschillen}</p>
     </div>
   </div>
-</section>
+</section>` : ''}
 
 <section class="vragenblok" aria-labelledby="geloofsvragen-kop">
   <div class="vragenblok-binnen">

@@ -21,6 +21,9 @@
 /samen-naar-de-kerk/niet-gelukt/*
   X-Robots-Tag: noindex
 
+https://komnaardekerk.martijndenbesten.com/*
+  X-Robots-Tag: noindex
+
 https://:worker.:sub.workers.dev/*
   X-Robots-Tag: noindex
 

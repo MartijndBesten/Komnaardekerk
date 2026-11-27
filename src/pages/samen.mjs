@@ -124,17 +124,13 @@ ${paginaKop({
 
 <section class="praten" aria-labelledby="contact-kop">
   <div class="praten-binnen">
-    <div class="praten-uitleg">
+    <div class="praten-uitleg" id="samen">
       
       <h2 class="kop-2" id="contact-kop">Liever eerst iemand spreken?</h2>
       <p>Elke kerk heeft een eigen website met contactgegevens. Je kunt de kerk van je keuze gewoon mailen of bellen met je vraag, of vragen of iemand je bij de deur wil opwachten.</p>
       <p><a class="pijllink pijllink--sterk" href="/kerken/">Naar de kerken en hun contactgegevens</a></p>
-      <h3 class="kop-3" id="samen">Persoonlijk contact via deze website</h3>
-      <p>We willen het straks mogelijk maken om via deze site te vragen of iemand met je mee wil gaan of een keer met je wil praten. Dat zetten we pas aan als er echt mensen klaarstaan om je verzoek op te volgen, en als duidelijk is wie er verantwoordelijk is voor je gegevens.</p>
     </div>
-    <div class="praten-formulier">
-      ${formulier(ctx)}
-    </div>
+    ${site.contact.status === 'uit' ? '' : html`<div class="praten-formulier">${formulier(ctx)}</div>`}
   </div>
 </section>
 

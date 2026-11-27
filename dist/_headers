@@ -21,6 +21,9 @@
 /samen-naar-de-kerk/niet-gelukt/*
   X-Robots-Tag: noindex
 
+https://komnaardekerk.martijndenbesten.com/*
+  X-Robots-Tag: noindex
+
 https://:worker.:sub.workers.dev/*
   X-Robots-Tag: noindex
 
@@ -72,6 +75,15 @@ https://:versie.:worker.:sub.workers.dev/*
 /kerken/olv-t-goy/
   Cache-Control: no-cache, no-transform
 
+/kerken/maranatha-gemeente-houten/
+  Cache-Control: no-cache, no-transform
+
+/kerken/hervormd-schalkwijk/
+  Cache-Control: no-cache, no-transform
+
+/kerken/t-waal-en-honswijk/
+  Cache-Control: no-cache, no-transform
+
 /ontdek-het-geloof/
   Cache-Control: no-cache, no-transform
 
@@ -85,9 +97,6 @@ https://:versie.:worker.:sub.workers.dev/*
   Cache-Control: no-cache, no-transform
 
 /privacy/
-  Cache-Control: no-cache, no-transform
-
-/ontwerp/
   Cache-Control: no-cache, no-transform
 
 /samen-naar-de-kerk/bedankt/

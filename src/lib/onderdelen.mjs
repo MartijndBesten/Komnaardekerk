@@ -58,17 +58,6 @@ export function hulplijnen(site, { kop = 'Heb je nú iemand nodig?' } = {}) {
 
 const DAG = { zondag: 'Zondag', zaterdag: 'Zaterdag', vrijdag: 'Vrijdag', donderdag: 'Donderdag', woensdag: 'Woensdag', dinsdag: 'Dinsdag', maandag: 'Maandag' };
 
-const STATUS = {
-  kandidaat: null, // besluit Martijn 27-11: geen label 'nog niet benaderd' online
-  belangstelling: null,
-  deelnemer: null
-};
-
-export function statusLabel(item) {
-  const s = item.deelname?.status || 'kandidaat';
-  return STATUS[s] ? html`<p class="label-status label-status--${s}">${STATUS[s]}</p>` : '';
-}
-
 // Diensten per soort (content/kerken.json): 'regulier' = elke week, 'wisselend' = dag of tijd wisselt (rooster nodig),
 // 'bijzonder' = maandelijks of een paar keer per jaar. Alles wordt getoond; alleen de vaste diensten krijgen een agendaknop.
 const uur = (t) => `${t.replace(':', '.')} uur`;
@@ -135,9 +124,10 @@ export function filterKenmerken(kerk) {
 
 // Kerkkaartje: één samenvatting per kerk, op de homepage en op /kerken/. De hele kaart is klikbaar
 // (de link zit op de naam; een ::after-laag vergroot het klikvlak) en leidt naar de eigen pagina van de kerk.
-export function kerkKaart(kerk, { kop = 'h3' } = {}) {
+export function kerkKaart(kerk, { kop = 'h3', nummer = null } = {}) {
   const extra = (kerk.kenmerken || []).filter((k) => KENMERK_LABEL[k]).map((k) => KENMERK_LABEL[k]);
   return html`<li class="kerkkaart" id="${kerk.id}" data-kerk="${kerk.id}" data-kenmerken="${filterKenmerken(kerk)}" data-plaats="${kerk.plaats}" data-traditie="${kerk.traditie}">
+    ${nummer ? html`<span class="kerkkaart-nr" title="Nummer op de kaart">${nummer}</span>` : ''}
     <p class="kerkkaart-plaats">${[kerk.plaats, TRADITIE_LABEL[kerk.traditie] || kerk.traditie].filter(Boolean).join(' · ')}</p>
     ${raw(`<${kop} class="kerkkaart-naam">`)}<a href="/kerken/${kerk.id}/">${kerk.naam}</a>${raw(`</${kop}>`)}
     <p class="kerkkaart-tijden">${dienstenKort(kerk)}</p>
@@ -153,7 +143,6 @@ export function kerkDetail(kerk, { concept = true } = {}) {
   return html`<article class="kerk kerk--pagina${kerk.foto ? '' : ' kerk--zonder-beeld'}">
     ${kerk.foto ? html`<div class="kerk-beeld">${boog({ foto: kerk.foto, concept, sizes: '(min-width: 56rem) 28vw, 80vw' })}</div>` : ''}
     <div class="kerk-tekst">
-      ${statusLabel(kerk)}
       <h1 class="kerk-naam" id="pagina-kop">${kerk.naam}</h1>
       <p class="kerk-traditie">${[kerk.verband || kerk.kerkverband, kerk.plaats].filter(Boolean).join(' · ')}</p>
       <h2 class="kerk-sectiekop">Kerkdiensten</h2>
@@ -176,7 +165,7 @@ export function kerkDetail(kerk, { concept = true } = {}) {
         ${kerk.website ? html`<a class="pijllink" href="${kerk.website}" rel="noopener">Website<span class="sr"> van ${kerk.naam}</span></a>` : ''}
         ${routeLink(kerk)}
       </p>
-      <p class="kerk-controle">Gegevens gecontroleerd op ${datum(kerk.gecontroleerd)}${kerk.bronnen?.length ? html` · <a href="${kerk.bronnen[0].url}" rel="noopener">bron</a>` : ''}.</p>
+      <p class="kerk-controle">Bron gecontroleerd op ${datum(kerk.bronnen?.[0]?.gecontroleerd || kerk.gecontroleerd)}${kerk.bronnen?.length ? html` · <a href="${kerk.bronnen[0].url}" rel="noopener">bron</a>` : ''}.</p>
     </div>
   </article>`;
 }

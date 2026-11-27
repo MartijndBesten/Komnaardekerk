@@ -342,7 +342,7 @@ Ontwerp ‘Open deur’ in `ontwerp/` en `docs/ONTWERP-OPEN-DEUR.md` (ronde 6). 
 
 ### V-015 — Foto’s van binnen en van mensen
 
-status: beantwoord
+status: verwerkt
 gesteld_door: claude
 datum: 2026-11-08
 
@@ -360,7 +360,7 @@ Martijn, 9 november 2026: ‘Ik ga toestemming vragen. Laat dat even los.’ Mar
 
 **Verwerkt in**
 
-Nog niet verwerkt.
+De site gebruikt de bestaande buitenfoto’s met bronvermelding. Foto’s waarvoor aparte toestemming nodig is, zijn niet toegevoegd.
 
 ### V-016 — Is ‘Open deur’ het ontwerp?
 
