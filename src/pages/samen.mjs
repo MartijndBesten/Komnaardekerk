@@ -5,16 +5,17 @@ import { raw } from '../lib/html.mjs';
 export const pagina = {
   pad: '/samen-naar-de-kerk/',
   titel: 'Samen naar de kerk',
-  omschrijving: 'Een eerste kerkbezoek voorbereiden: kies een kerk, neem iemand mee, kom op tijd. Praktische tips en contact met de kerken in Houten.'
+  omschrijving: 'Je mag gewoon binnenlopen in een kerk. Alleen of samen met iemand. Een paar dingen die handig zijn om te weten, en de kerken in Houten en omgeving.'
 };
 
-const STAPPEN = [
-  ['Kies een kerk en een tijd', 'Bekijk de kerken in Houten en de dorpen. Let op de tijd van de dienst, en of er iets is voor je kinderen.'],
-  ['Neem iemand mee', 'Een vriend, een buurvrouw, je partner of je kind. Samen binnenlopen is makkelijker. Kerken zijn gewend aan nieuwe gezichten.'],
-  ['Kijk eventueel eerst online', 'Veel kerken zenden hun diensten uit. Zo zie je alvast hoe het eruitziet.'],
-  ['Kom tien minuten eerder', 'Dan heb je rustig de tijd om een plek te zoeken. Achterin is prima.'],
-  ['Zeg gerust dat het je eerste keer is', 'Tegen iemand bij de deur. Dan helpen mensen je graag op weg. Hoeft niet, mag wel.'],
-  ['Blijf voor de koffie, of niet', 'Na de dienst kun je een praatje maken of de voorganger iets vragen. Naar huis gaan mag ook.']
+// Handig om te weten, maar niets moet: tips, geen stappenplan.
+const TIPS = [
+  ['Welke kerk?', 'Op de kaart zie je waar de kerken zijn. Bij elke kerk staan de tijden van de diensten.'],
+  ['Samen gaan kan ook', 'Een vriend, een buurvrouw, je partner of je kind. Kerken zijn gewend aan nieuwe gezichten.'],
+  ['Eerst even online kijken?', 'Veel kerken zenden hun diensten uit. Zo zie je alvast hoe het eruitziet, als je dat wilt.'],
+  ['Een paar minuten eerder', 'Dan zoek je rustig een plek. Achterin is prima. Ben je later? Dan schuif je gewoon aan.'],
+  ['Zeggen dat je nieuw bent?', 'Mag, hoeft niet. Je kunt ook gewoon gaan zitten.'],
+  ['Koffie of naar huis', 'Na de dienst kun je blijven voor een kop koffie, of naar huis gaan. Allebei is goed.']
 ];
 
 function formulier(ctx) {
@@ -107,18 +108,18 @@ export function inhoud(ctx) {
   return html`
 ${paginaKop({
   boven: 'Samen naar de kerk',
-  titel: 'Een eerste bezoek, <em>stap voor stap</em>.',
-  lead: 'Voor het eerst een kerk binnenlopen is een stap. Met een beetje voorbereiding, en misschien iemand naast je, wordt hij een stuk kleiner.',
+  titel: 'Je bent welkom. <em>Ook als je voor het eerst komt.</em>',
+  lead: 'Je mag gewoon binnenlopen. Je hoeft niets voor te bereiden. Wil je liever samen met iemand gaan? Dat kan natuurlijk ook.',
   lijnNaam: 'samen'
 })}
 
-<section class="voorbereiden" aria-labelledby="voorbereiden-kop">
+<section class="voorbereiden" aria-labelledby="handig-kop">
   <div class="voorbereiden-binnen">
-    <h2 class="kop-2" id="voorbereiden-kop">Zo bereid je je voor</h2>
-    <ol class="route-lijst">
-      ${STAPPEN.map(([kop, tekst], i) => html`<li class="route-stap onthul"><span class="stap-nr" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span><div><h3 class="kop-3">${kop}</h3><p>${tekst}</p></div></li>`)}
-    </ol>
-    <p class="knoppen"><a class="knop knop--vol" href="/kerken/">Kies een kerk</a> <a class="knop" href="/voor-het-eerst/">Wat gebeurt er in een dienst?</a></p>
+    <h2 class="kop-2" id="handig-kop">Handig om te weten, maar niets moet</h2>
+    <ul class="tips-lijst">
+      ${TIPS.map(([kop, tekst]) => html`<li class="tip onthul"><h3 class="kop-3">${kop}</h3><p>${tekst}</p></li>`)}
+    </ul>
+    <p class="knoppen"><a class="knop knop--vol" href="/#kerken">Bekijk de kerken op de kaart</a> <a class="knop" href="/#ochtend">Hoe gaat een kerkdienst ongeveer?</a></p>
   </div>
 </section>
 
@@ -126,8 +127,8 @@ ${paginaKop({
   <div class="praten-binnen">
     <div class="praten-uitleg" id="samen">
       
-      <h2 class="kop-2" id="contact-kop">Liever eerst iemand spreken?</h2>
-      <p>Elke kerk heeft een eigen website met contactgegevens. Je kunt de kerk van je keuze gewoon mailen of bellen met je vraag, of vragen of iemand je bij de deur wil opwachten.</p>
+      <h2 class="kop-2" id="contact-kop">Een vraag aan een kerk?</h2>
+      <p>Dat hoeft niet, maar het mag. Elke kerk heeft een eigen website met contactgegevens. Je kunt mailen of bellen met je vraag.</p>
       <p><a class="pijllink pijllink--sterk" href="/kerken/">Naar de kerken en hun contactgegevens</a></p>
     </div>
     ${site.contact.status === 'uit' ? '' : html`<div class="praten-formulier">${formulier(ctx)}</div>`}

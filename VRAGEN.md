@@ -453,4 +453,48 @@ Martijn, 15 november 2026, vraag 1: ‘Foto’s niet doen.’
 
 De foto’s van geloveninhouten.nl worden niet gebruikt en zijn niet in de repository opgenomen. Er is niets aan de site veranderd.
 
+### V-020 — Keuzehulp: kerk vinden op postcode of op wat je zoekt
+
+status: open
+gesteld_door: claude
+datum: 2026-11-27
+
+**Vraag**
+
+Martijn opperde: wie zijn postcode invult, ziet de kerken in de buurt; of kiezen op inhoud en geloof. Welke richting wil je?
+
+**Waarom nodig**
+
+Postcode kan zonder dat er iets wordt verstuurd (afstanden in de browser), maar vraagt eenmalig de coördinaten van de kerken en van de postcodegebieden (bijv. uit de PDOK-locatieserver van de overheid; daarvoor moet die host in de netwerkinstellingen). In Houten liggen de meeste kerken binnen 3–4 km van elkaar, dus de winst zit vooral bij Schalkwijk en ’t Goy. Kiezen op inhoud kan alleen met bevestigde gegevens: traditie, kinderen, oppas, tijden en ‘eerst online kijken’ staan er al; muziekstijl en sfeer per kerk moeten van de kerken zelf komen. Advies: een korte keuzehulp van drie vragen (waar woon je, wanneer kun je, wat vind je belangrijk) die de kaartjes sorteert, met postcode als eerste vraag. Geloofsinhoud per kerk pas als de kerken die zelf aanleveren.
+
+**Antwoord**
+
+Nog niet beantwoord.
+
+**Verwerkt in**
+
+Nog niet verwerkt.
+
+### V-021 — Productieversie: alle kerken tonen?
+
+status: open
+gesteld_door: claude
+datum: 2026-11-27
+
+**Vraag**
+
+Je besloot op 27-11 dat de kerken op de site blijven staan, ook zonder dat ze zijn benaderd (openbare standaardinformatie). De productiepoort laat nu alleen kerken zien met de status ‘deelnemer’ en toestemming. Moet de echte site (komnaardekerk.nu) straks ook alle kerken tonen?
+
+**Waarom nodig**
+
+Zonder aanpassing toont de productieversie nul kerken zolang er geen toestemmingen zijn. Met aanpassing blijft de regel: nooit ‘partner’ of ‘deelnemer’ noemen zonder toestemming. **Aanvulling 27-11:** in `main` staat inmiddels de modus ‘overzicht’ (door Codex): die toont alle kerken met openbare informatie, zonder conceptbalk, en zo draait de preview nu. Waarschijnlijk is ‘overzicht’ de stand waarmee je live wilt; dan blijft ‘productie’ voor later, als kerken echt deelnemen.
+
+**Antwoord**
+
+Nog niet beantwoord.
+
+**Verwerkt in**
+
+Nog niet verwerkt.
+
 ## Beantwoorde en verwerkte vragen

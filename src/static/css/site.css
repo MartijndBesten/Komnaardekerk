@@ -1004,41 +1004,501 @@ details[open] > summary .plusje {
   margin-top: 0.2rem;
 }
 
-/* ---------- kerkdienst ---------- */
-.stappen {
-  list-style: none;
-  padding: 0;
+/* ---------- kerkdienst: een zondagochtend als tijdlijn ---------- */
+.ochtend-keuzes {
   display: grid;
-  gap: 2.25rem 2rem;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+  padding: 1.25rem 1.35rem 1.4rem;
+  background: var(--papier-licht);
+  border: 1px solid var(--lijn);
+  border-radius: var(--boog);
+  max-width: 50rem;
 }
-.stap {
-  border-top: 1.5px solid var(--inkt);
-  padding-top: 1.1rem;
+.ochtend-keuzes[hidden] {
+  display: none;
 }
-.stap-nr {
-  display: block;
-  font-family: var(--kop);
-  font-size: 2.6rem;
-  line-height: 1;
-  color: var(--klei-donker);
-  margin-bottom: 0.8rem;
+.ochtend-na {
+  margin-top: 1rem !important;
 }
-.stap-kop {
-  font-size: 1.15em;
-  margin: 0 0 0.4rem;
-  line-height: 1.3;
+.ochtend-na[hidden] {
+  display: none;
 }
-.stap p {
+.ochtend-na-antwoord {
+  margin-top: 0.5rem;
+  font-weight: 700;
+  color: var(--mos);
+}
+.ochtend-uitleg {
+  font-size: 0.9375rem;
   color: var(--inkt-2);
 }
-@media (min-width: 40rem) {
-  .stappen {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+.ochtend-keuze {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.ochtend-keuze legend {
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+.ochtend-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.chip {
+  position: relative;
+  display: inline-flex;
+}
+.chip input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.chip span {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  min-height: 2.75rem;
+  line-height: 1.75rem;
+  border: 1.5px solid var(--inkt);
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  transition: background-color 0.2s, color 0.2s;
+}
+.chip input:checked + span {
+  background: var(--mos);
+  border-color: var(--mos);
+  color: #fff;
+}
+.chip input:checked + span::before {
+  content: '✓ ';
+}
+.chip input:focus-visible + span {
+  outline: 3px solid var(--mos);
+  outline-offset: 3px;
+}
+.chip:hover span {
+  background: var(--zand-diep);
+}
+.chip:hover input:checked + span {
+  background: var(--mos);
+}
+
+.ochtend {
+  --vulling: 1;
+  position: relative;
+  list-style: none;
+  padding: 0 0 0 2.75rem;
+  margin: 0;
+  max-width: 50rem;
+}
+/* de lijn: grijs spoor en een gouden vulling die meegroeit bij het scrollen */
+.ochtend::before,
+.ochtend::after {
+  content: '';
+  position: absolute;
+  left: 0.7rem;
+  top: 0.6rem;
+  bottom: 0.6rem;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--lijn);
+}
+.ochtend::after {
+  background: linear-gradient(var(--licht), var(--klei));
+  transform-origin: top;
+  transform: scaleY(var(--vulling));
+  transition: transform 0.6s var(--zacht);
+}
+.js .ochtend {
+  --vulling: 0;
+}
+.ochtend-stap {
+  position: relative;
+  padding-bottom: 2.5rem;
+}
+.ochtend-stap:last-child {
+  padding-bottom: 0;
+}
+.ochtend-stap > * {
+  margin: 0;
+}
+.ochtend-punt {
+  position: absolute;
+  left: -2.75rem;
+  top: 0.15rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-left: 0.15rem;
+  border-radius: 50%;
+  background: var(--papier);
+  border: 3px solid var(--lijn);
+  z-index: 1;
+  transition: border-color 0.4s, background-color 0.4s;
+}
+.ochtend-stap.bereikt .ochtend-punt,
+html:not(.js) .ochtend-punt {
+  border-color: var(--klei);
+  background: var(--licht-zacht);
+  animation: licht-aan 0.8s var(--zacht);
+}
+.ochtend-tijd {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--klei-donker);
+}
+.ochtend-kop {
+  font-family: var(--kop);
+  font-weight: 400;
+  font-size: clamp(1.45rem, 1.2rem + 1vw, 1.9rem);
+  line-height: 1.15;
+  margin: 0.3rem 0 0.5rem !important;
+}
+.ochtend-tag {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0.4rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: var(--licht-heel-zacht);
+  font-family: var(--tekst);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--mos);
+}
+.ochtend-tag[hidden] {
+  display: none;
+}
+.ochtend-tekst {
+  color: var(--inkt-2);
+  max-width: 38rem;
+}
+.ochtend-tip {
+  margin-top: 0.75rem !important;
+  padding: 0.7rem 1rem;
+  border-left: 3px solid var(--licht);
+  background: var(--licht-heel-zacht);
+  font-size: 0.9375rem;
+  max-width: 38rem;
+}
+.ochtend-tip:not([hidden]) {
+  animation: opkomen 0.5s var(--zacht);
+}
+.ochtend-meer {
+  margin-top: 0.8rem !important;
+  max-width: 38rem;
+}
+.ochtend-meer summary {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.75rem;
+  font-weight: 700;
+  color: var(--mos);
+  text-decoration: underline;
+  text-decoration-color: var(--licht);
+  text-underline-offset: 0.25em;
+}
+.ochtend-meer summary::-webkit-details-marker {
+  display: none;
+}
+.ochtend-meer summary::before {
+  content: '+';
+  display: inline-grid;
+  place-items: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  font-size: 0.95rem;
+  line-height: 1;
+  transition: transform 0.3s var(--zacht);
+}
+.ochtend-meer[open] summary::before {
+  content: '−';
+}
+.ochtend-meer-inhoud {
+  padding: 0.4rem 0 0.2rem;
+}
+.ochtend-meer-inhoud p + p {
+  margin-top: 0.5rem;
+}
+.js .ochtend-meer[open] > .ochtend-meer-inhoud {
+  animation: openklappen 0.5s var(--zacht);
+}
+.ochtend-eind .knoppen {
+  margin-top: 1.25rem !important;
+  align-items: center;
+  gap: 1rem 1.5rem;
+}
+.ochtend-eind .ochtend-kop {
+  color: var(--mos);
+}
+/* ---------- de getekende kerkzaal ---------- */
+.ochtend-scene {
+  margin: 0 0 2rem;
+}
+.ochtend-scene[hidden] {
+  display: none;
+}
+.zondag {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--boog);
+  background: #f4ebdf;
+}
+.scene-onder {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem 1rem;
+  padding: 0.6rem 0.2rem 0;
+}
+.scene-titel {
+  font-family: var(--kop);
+  font-size: 1.15rem;
+  color: var(--inkt);
+}
+.scene-stippen {
+  display: flex;
+  gap: 0.15rem;
+}
+.scene-stip {
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+.scene-stip::before {
+  content: '';
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--lijn);
+  transition: transform 0.3s var(--zacht), background-color 0.3s;
+}
+.scene-stip[aria-current='step']::before {
+  background: var(--klei);
+  transform: scale(1.35);
+}
+.scene-stip:focus-visible {
+  outline: 3px solid var(--mos);
+  outline-offset: 1px;
+  border-radius: 50%;
+}
+/* telefoon: de zaal blijft bovenaan staan terwijl je door de stappen scrolt */
+@media (max-width: 63.99rem) {
+  .ochtend-zijkant {
+    display: contents;
+  }
+  .ochtend-scene {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    margin: 0 calc(-1 * var(--goot)) 1.5rem;
+    padding: 0.5rem var(--goot) 0.5rem;
+    background: var(--papier);
+    box-shadow: 0 0.6rem 0.9rem -0.8rem rgba(42, 27, 30, 0.35);
+  }
+  .zondag {
+    max-height: 30vh;
+    width: auto;
+    margin: 0 auto;
+  }
+  .scene-onder {
+    flex-wrap: nowrap;
+    padding-top: 0.35rem;
+  }
+  .scene-titel {
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+  .scene-stip {
+    width: 1.5rem;
+    height: 1.5rem;
   }
 }
-@media (min-width: 72rem) {
-  .stappen {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+@media (min-width: 64rem) {
+  /* desktop: tijdlijn links; de zaal en de keuzes rechts, zichtbaar tijdens het scrollen */
+  .ochtend-raam {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(20rem, 28rem);
+    grid-template-areas: 'lijn zijkant';
+    gap: 4rem;
+    align-items: start;
+  }
+  .ochtend-raam > .ochtend {
+    grid-area: lijn;
+  }
+  .ochtend-zijkant {
+    grid-area: zijkant;
+    position: sticky;
+    top: 1.5rem;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 1.25rem;
+  }
+  .ochtend-zijkant .ochtend-keuzes,
+  .ochtend-zijkant .ochtend-scene {
+    margin: 0;
+  }
+}
+
+/* tekening: vaste kleuren */
+.zondag text {
+  font-family: var(--tekst);
+}
+.zondag .muur { fill: #f4ebdf; }
+.zondag .vloer { fill: #eadcc9; }
+.zondag .raam { fill: #fff6d8; stroke: #d9c2a6; stroke-width: 2; }
+.zondag .bank { fill: #8c5a3c; }
+.zondag .scherm > rect { fill: #fffdf8; stroke: #cdb9a6; stroke-width: 2; }
+.zondag .scherm path { stroke: #7a6a6c; stroke-width: 3; stroke-linecap: round; fill: none; }
+.zondag .orgel rect { fill: #d9a032; }
+.zondag .piano rect { fill: #2a1b1e; }
+.zondag .piano path { stroke: #fffdf8; stroke-width: 4; stroke-dasharray: 2 1.5; }
+.zondag .gitaar { stroke: #c9733f; stroke-width: 3; stroke-linecap: round; }
+.zondag .drum { fill: #7a2e3b; }
+.zondag .noot { font-size: 18px; fill: #c9733f; }
+.zondag .lessenaar > path:first-child { fill: #7a2e3b; }
+.zondag .boek { fill: #fffdf8; }
+.zondag .spreken { stroke: #7a6a6c; stroke-width: 2; fill: none; stroke-linecap: round; }
+.zondag .deur-kozijn { stroke: #5a4a4d; stroke-width: 3; fill: none; }
+.zondag .welkom rect { fill: #fffdf8; stroke: #d9c2a6; }
+.zondag .welkom text { font-size: 9px; font-weight: 700; fill: #2a1b1e; }
+.zondag .stilte rect { fill: #2a1b1e; opacity: 0.32; }
+.zondag .tafel, .zondag .tafel-poot { fill: #8c5a3c; stroke: #8c5a3c; stroke-width: 3; }
+.zondag .kopjes rect { fill: #fffdf8; stroke: #c9733f; stroke-width: 1.5; }
+.zondag .stoom { stroke: #b9a28f; stroke-width: 1.5; fill: none; stroke-linecap: round; }
+.zondag .jij-label { font-size: 11px; font-weight: 700; fill: #a64f2e; }
+
+/* tekening: wat er per moment te zien is */
+.zondag .stralen,
+.zondag .scherm g,
+.zondag .orgel,
+.zondag .piano,
+.zondag .band,
+.zondag .noot,
+.zondag .boek-gloed,
+.zondag .spreken,
+.zondag .deur-licht,
+.zondag .welkom,
+.zondag .stilte,
+.zondag .koffie,
+.zondag .zaal .mens,
+.zondag .bank,
+.zondag .jij-zit,
+.zondag .samen-zit,
+.zondag .kind-zit,
+.zondag .loper {
+  transition: opacity 0.7s var(--zacht), transform 1.4s var(--zacht);
+}
+.zondag .stralen { opacity: 0.35; }
+.zondag[data-stap='zingen'] .stralen { opacity: 0.55; }
+.zondag[data-stap='lezen'] .stralen { opacity: 0.75; }
+.zondag[data-stap='bidden'] .stralen { opacity: 0.2; }
+.zondag[data-stap='koffie'] .stralen,
+.zondag[data-stap='eind'] .stralen { opacity: 0.6; }
+
+.zondag .scherm g { opacity: 0; }
+.zondag:is([data-stap='binnen'], [data-stap='koffie'], [data-stap='eind']) .scherm-welkom,
+.zondag[data-stap='zingen'] .scherm-lied,
+.zondag[data-stap='lezen'] .scherm-tekst { opacity: 1; }
+
+.zondag .orgel,
+.zondag .piano,
+.zondag .band { opacity: 0; }
+.zondag[data-muziek='orgel'] .orgel,
+.zondag[data-muziek='piano'] .piano,
+.zondag[data-muziek='band'] .band { opacity: 1; }
+
+.zondag .noot { opacity: 0; }
+.zondag[data-stap='zingen'] .noot { animation: noot-op 2.6s ease-in-out infinite; }
+.zondag[data-stap='zingen'] .noot-1 { animation-delay: 0.8s; }
+.zondag[data-stap='zingen'] .noot-2 { animation-delay: 1.6s; }
+@keyframes noot-op {
+  0% { opacity: 0; transform: translate(0, 0); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translate(10px, -46px); }
+}
+
+.zondag .boek-gloed,
+.zondag .spreken { opacity: 0; }
+.zondag[data-stap='lezen'] .boek-gloed,
+.zondag[data-stap='lezen'] .spreken { opacity: 1; }
+
+.zondag .stilte { opacity: 0; }
+.zondag[data-stap='bidden'] .stilte { opacity: 1; }
+
+.zondag .deur-licht { opacity: 0.15; }
+.zondag[data-stap='binnen'] .deur-licht { opacity: 0.85; }
+.zondag[data-stap='eind'] .deur-licht,
+.zondag[data-stap='koffie'][data-na='huis'] .deur-licht { opacity: 1; }
+.zondag .welkom,
+.zondag .totziens { opacity: 0; transition: opacity 0.7s var(--zacht); }
+.zondag[data-stap='binnen'] .welkom,
+.zondag[data-stap='eind'] .totziens,
+.zondag[data-stap='koffie'][data-na='huis'] .totziens { opacity: 1; }
+.zondag .totziens rect { fill: #fffdf8; stroke: #d9c2a6; }
+.zondag .totziens text { font-size: 9px; font-weight: 700; fill: #2a1b1e; }
+
+/* koffie: de banken lopen leeg, mensen staan rond de tafel */
+.zondag .koffie { opacity: 0; }
+.zondag[data-stap='koffie'] .koffie { opacity: 1; }
+.zondag[data-stap='koffie'] .zaal .mens,
+.zondag[data-stap='eind'] .zaal .mens { opacity: 0; }
+.zondag[data-stap='koffie'] .bank,
+.zondag[data-stap='eind'] .bank { opacity: 0.4; }
+.zondag[data-stap='koffie'] .stoom { animation: stoom 2.4s ease-in-out infinite; }
+.zondag[data-stap='koffie'] .stoom-1 { animation-delay: 0.7s; }
+.zondag[data-stap='koffie'] .stoom-2 { animation-delay: 1.4s; }
+@keyframes stoom {
+  0% { opacity: 0; transform: translateY(0); }
+  40% { opacity: 0.9; }
+  100% { opacity: 0; transform: translateY(-8px); }
+}
+
+/* jij (en wie er meekomt): lopen naar de bank, zitten, staan bij de koffie, gaan weer naar buiten */
+.zondag .jij-zit,
+.zondag .samen-zit,
+.zondag .kind-zit { opacity: 0; }
+.zondag:is([data-stap='zingen'], [data-stap='lezen'], [data-stap='bidden']) .jij-zit { opacity: 1; transition-delay: 0.9s; }
+.zondag[data-mee='samen']:is([data-stap='zingen'], [data-stap='lezen'], [data-stap='bidden']) .samen-zit,
+.zondag[data-mee='kinderen']:is([data-stap='zingen'], [data-stap='lezen'], [data-stap='bidden']) .kind-zit { opacity: 1; transition-delay: 0.9s; }
+
+.zondag .jij-loopt { transform: translate(388px, 250px); }
+.zondag .samen-loopt,
+.zondag .kind-loopt { opacity: 0; transform: translate(371px, 250px); }
+.zondag[data-mee='samen'] .samen-loopt,
+.zondag[data-mee='kinderen'] .kind-loopt { opacity: 1; }
+.zondag:is([data-stap='zingen'], [data-stap='lezen'], [data-stap='bidden']) .jij-loopt { transform: translate(328px, 250px); opacity: 0; }
+.zondag:is([data-stap='zingen'], [data-stap='lezen'], [data-stap='bidden']) :is(.samen-loopt, .kind-loopt) { transform: translate(307px, 250px); opacity: 0; }
+.zondag[data-stap='koffie'] .jij-loopt { transform: translate(272px, 254px); }
+.zondag[data-stap='koffie'] :is(.samen-loopt, .kind-loopt) { transform: translate(252px, 254px); }
+.zondag[data-stap='koffie'][data-na='huis'] .jij-loopt { transform: translate(388px, 250px); }
+.zondag[data-stap='koffie'][data-na='huis'] :is(.samen-loopt, .kind-loopt) { transform: translate(371px, 250px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .zondag .noot,
+  .zondag .stoom {
+    animation: none !important;
+  }
+  .zondag[data-stap='zingen'] .noot,
+  .zondag[data-stap='koffie'] .stoom {
+    opacity: 1;
   }
 }
 .dienst-vragen {
@@ -1078,43 +1538,217 @@ details[open] > summary .plusje {
 .buurt {
   background: var(--zand);
 }
-.kerken-kort {
+/* ---------- kerkkaartjes (home en /kerken/) ---------- */
+.kerkkaarten {
   list-style: none;
   padding: 0;
   display: grid;
-  gap: 0 2rem;
+  gap: 1rem;
 }
-@media (min-width: 44rem) {
-  .kerken-kort {
+@media (min-width: 40rem) {
+  .kerkkaarten {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-.kerk-kort a {
-  display: grid;
-  gap: 0.3rem;
-  padding: 1.4rem 0 1.6rem;
-  border-top: 1.5px solid var(--inkt);
-  text-decoration: none;
-  transition: background-color 0.3s, padding 0.35s var(--zacht);
+@media (min-width: 64rem) {
+  .kerkkaarten {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
-.kerk-kort a:hover {
-  color: var(--inkt);
-  background: var(--papier);
-  padding-left: 1rem;
-  padding-right: 1rem;
+.kerkkaart {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.35rem 1.4rem 1.25rem;
+  background: var(--papier-licht);
+  border: 1px solid var(--lijn);
+  border-radius: var(--boog);
+  transition: transform 0.25s var(--zacht), box-shadow 0.25s var(--zacht), border-color 0.25s;
 }
-.kerk-kort-naam {
+.kerkkaart > * {
+  margin: 0;
+}
+.kerkkaart[hidden] {
+  display: none;
+}
+.kerkkaart:hover {
+  transform: translateY(-2px);
+  border-color: var(--mos);
+  box-shadow: 0 0.6rem 1.6rem -0.9rem rgba(42, 27, 30, 0.45);
+}
+.kerkkaart:focus-within {
+  outline: 3px solid var(--mos);
+  outline-offset: 3px;
+}
+.kerkkaart-plaats {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--klei-donker);
+}
+.kerkkaart-naam {
   font-family: var(--kop);
-  font-size: clamp(1.6rem, 1.3rem + 1vw, 2.1rem);
-  line-height: 1.1;
+  font-weight: 400;
+  font-size: clamp(1.45rem, 1.25rem + 0.7vw, 1.8rem);
+  line-height: 1.12;
+  margin: 0;
 }
-.kerk-kort-meta {
+.kerkkaart-naam a {
+  color: inherit;
+  text-decoration: none;
+}
+.kerkkaart-naam a:focus-visible {
+  outline: none;
+}
+.kerkkaart-naam a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--boog);
+}
+.kerkkaart-tijden {
+  font-weight: 700;
+  margin-top: 0.15rem;
+}
+.kerkkaart-extra {
+  font-size: 0.9375rem;
+  color: var(--inkt-2);
+}
+.kerkkaart-meer {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--mos);
+}
+.kerkkaart-meer::after {
+  content: ' →';
+  display: inline-block;
+  transition: transform 0.25s var(--zacht);
+}
+.kerkkaart:hover .kerkkaart-meer::after {
+  transform: translateX(4px);
+}
+/* op een telefoon compacter: elf kaartjes moeten niet eindeloos scrollen */
+@media (max-width: 39.99rem) {
+  .kerkkaarten {
+    gap: 0.6rem;
+  }
+  .kerkkaart {
+    padding: 0.95rem 2.6rem 0.95rem 1.1rem;
+    gap: 0.2rem;
+  }
+  .kerkkaart-meer {
+    display: none;
+  }
+  .kerkkaart::after {
+    content: '→';
+    position: absolute;
+    right: 1.1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 700;
+    color: var(--mos);
+  }
+}
+
+/* ---------- zwevende knop op de telefoon ---------- */
+.zweefknop {
+  position: fixed;
+  z-index: 20;
+  right: 1rem;
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  padding: 0.85rem 1.3rem;
+  border-radius: 999px;
+  background: var(--mos);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 0.5rem 1.4rem -0.4rem rgba(42, 27, 30, 0.55);
+  animation: opkomen 0.35s var(--zacht);
+}
+.zweefknop:hover {
+  color: #fff;
+  background: #5e2230;
+}
+.zweefknop:focus-visible {
+  outline: 3px solid var(--licht);
+  outline-offset: 3px;
+}
+.zweefknop[hidden] {
+  display: none;
+}
+@media (min-width: 48rem) {
+  .zweefknop {
+    display: none !important;
+  }
+}
+@media print {
+  .zweefknop {
+    display: none !important;
+  }
+}
+
+/* ---------- samen: tips, geen stappenplan ---------- */
+.tips-lijst {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 1.75rem 2.5rem;
+  margin-top: 1.5rem;
+}
+.tip {
+  border-top: 1px solid var(--lijn);
+  padding-top: 1rem;
+}
+.tip .kop-3 {
+  margin-bottom: 0.4rem;
+}
+@media (min-width: 44rem) {
+  .tips-lijst {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ---------- pagina per kerk ---------- */
+.kruimel-binnen {
+  max-width: var(--breedte);
+  margin: 0 auto;
+  padding: 1.25rem var(--goot) 0;
+}
+.kruimel a {
   font-weight: 700;
 }
-.kerk-kort-sfeer {
-  color: var(--inkt-2);
-  font-size: 0.9375rem;
+.kerkpagina-binnen,
+.kerkpagina-verder-binnen {
+  max-width: var(--breedte);
+  margin: 0 auto;
+  padding: clamp(1.5rem, 3vw, 2.5rem) var(--goot) clamp(2.5rem, 5vw, 4rem);
 }
+.kerk.kerk--pagina {
+  border-top: 0;
+  padding-top: 1rem;
+}
+.kerk--zonder-beeld {
+  max-width: 46rem;
+}
+@media (min-width: 56rem) {
+  .kerk.kerk--zonder-beeld {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.kerk-sectiekop {
+  font-family: var(--kop);
+  font-weight: 400;
+  font-size: 1.5rem;
+  margin-top: 2.25rem;
+}
+.kerkpagina-verder {
+  background: var(--zand);
+}
+
 .buurt-voet {
   margin-top: 2.5rem;
 }
@@ -1276,6 +1910,10 @@ details[open] > summary .plusje {
   border-top: 1px solid var(--lijn);
 }
 .route-stap .stap-nr {
+  display: block;
+  font-family: var(--kop);
+  line-height: 1;
+  color: var(--klei-donker);
   font-size: 2rem;
   margin: 0.15rem 0 0;
 }
@@ -2118,19 +2756,6 @@ button[disabled] {
 .lijn [fill='currentColor'].lijn-licht {
   fill: var(--licht);
   stroke: none;
-}
-.stap-lijn {
-  width: 3.4rem;
-  margin-bottom: 0.9rem;
-}
-.stap .stap-nr {
-  font-family: var(--tekst);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--klei-donker);
-  margin-bottom: 0.35rem;
 }
 
 /* ---------- foto's ---------- */
@@ -3023,9 +3648,84 @@ button[disabled] {
   stroke: #fff;
   stroke-width: 0.38;
 }
+/* klikbare punten: groter raakvlak, duidelijke hover en focus */
+a.kerkenkaart-punt {
+  cursor: pointer;
+}
+a.kerkenkaart-punt .kerkenkaart-stip {
+  fill: var(--mos);
+  transition: fill 0.2s;
+}
+a.kerkenkaart-punt:hover .kerkenkaart-stip,
+a.kerkenkaart-punt:focus-visible .kerkenkaart-stip {
+  fill: var(--klei-donker);
+  stroke: var(--licht);
+  stroke-width: 0.8;
+}
+a.kerkenkaart-punt:focus-visible {
+  outline: none;
+}
+.kerkenkaart-beeld {
+  border-radius: var(--boog);
+  overflow: hidden;
+  border: 1px solid var(--lijn);
+}
+.buurt .kerkenkaart {
+  width: auto;
+  padding-block: 0.5rem 0;
+}
+.kerkenkaart-naam {
+  display: grid;
+}
+.kerkenkaart-tijd {
+  font-size: 0.875rem;
+  color: var(--inkt-2);
+  font-weight: 400;
+}
+.kerkenkaart-legenda a {
+  text-decoration: none;
+  border-radius: 0.5rem;
+  padding-inline: 0.35rem;
+}
+.kerkenkaart-legenda a:hover .kerkenkaart-naam > :first-child,
+.kerkenkaart-legenda a:hover {
+  background: var(--papier-licht);
+}
+.kerkenkaart-legenda .kerkenkaart-nummer {
+  display: inline-grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  min-width: 1.6rem;
+  border-radius: 50%;
+  background: var(--mos);
+  color: #fff;
+  font-size: 0.8125rem;
+}
+.kerkkaart-nr {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  background: var(--mos);
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+@media (max-width: 39.99rem) {
+  .kerkkaart-nr {
+    top: 0.85rem;
+    right: 2.6rem;
+  }
+}
 .kerkenkaart-punt text {
   fill: #fff;
-  font-size: 3.7px;
+  font-size: 4.2px;
+  pointer-events: none;
   text-anchor: middle;
   font-weight: 700;
 }

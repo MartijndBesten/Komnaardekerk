@@ -42,7 +42,7 @@ test('mutaties worden gevangen', () => {
     ['ontbrekende afbeelding', 'content/fotos.json', (s) => s.replace('"/foto/rk-houten.webp"', '"/foto/bestaat-niet.webp"'), 'ontbrekende afbeelding'],
     ['gewijzigd Denckh-logo', 'src/static/merk/denckh/denckh-logo-signature-light.svg', (s) => s + '<!-- -->', 'niet byte-identiek'],
     ['dode link', 'src/pages/home.mjs', (s) => s.replace('/activiteiten/', '/bestaat-niet/'), 'dode link'],
-    ['dood anker', 'src/lib/onderdelen.mjs', (s) => s.replace('href="/samen-naar-de-kerk/">Een eerste bezoek', 'href="/samen-naar-de-kerk/#weg">Een eerste bezoek'), 'dood anker'],
+    ['dood anker', 'src/lib/onderdelen.mjs', (s) => s.replace('href="/samen-naar-de-kerk/">Ga gerust', 'href="/samen-naar-de-kerk/#weg">Ga gerust'), 'dood anker'],
     ['inline style', 'src/pages/ontdek.mjs', (s) => s.replace('<section class="verhaal"', '<section style="color:red" class="verhaal"'), 'inline style'],
     ['externe bron', 'src/lib/layout.mjs', (s) => s.replace('<link rel="stylesheet"', '<script src="https://cdn.invalid/x.js"></script><link rel="stylesheet"'), 'externe bron'],
     ['verouderde dist', 'src/static/css/site.css', (s) => s + '\n/* wijziging */\n', 'verouderd in dist/']
@@ -81,8 +81,10 @@ test('productieversie toont alleen deelnemende kerken met toestemming, zonder on
     assert.equal(r.status, 0, r.stderr);
     const kerken = readFileSync(path.join(dir, 'dist/kerken/index.html'), 'utf8');
     assert.ok(kerken.includes('De Lichtboog'));
-    const namen = [...kerken.matchAll(/class="kerk-naam">([^<]+)</g)].map((m) => m[1]);
+    const namen = [...kerken.matchAll(/class="kerkkaart-naam"><a href="[^"]+">([^<]+)</g)].map((m) => m[1]);
     assert.deepEqual(namen, ['De Lichtboog'], `kerkkaarten in productie: ${namen}`);
+    assert.ok(existsSync(path.join(dir, 'dist/kerken/de-lichtboog/index.html')), 'kerkpagina van de deelnemer ontbreekt');
+    assert.ok(!existsSync(path.join(dir, 'dist/kerken/sionkerk/index.html')), 'kerkpagina van een kandidaat in productie');
     assert.ok(!kerken.includes('Nog niet benaderd'), 'kandidaatlabel in productie');
     assert.ok(!existsSync(path.join(dir, 'dist/ontwerp/index.html')), 'ontwerppagina in productie');
     const headers = readFileSync(path.join(dir, 'dist/_headers'), 'utf8');

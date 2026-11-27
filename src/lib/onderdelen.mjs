@@ -68,18 +68,19 @@ const DIENSTSOORTEN = [
 ];
 const roosterVan = (kerk) => kerk.rooster?.url || kerk.website;
 
-function diensten(kerk) {
+function diensten(kerk, { kop = 'h4' } = {}) {
   const rooster = roosterVan(kerk);
   const actueel = rooster
     ? html`<p class="kerk-rooster">Tijden kunnen afwijken, bijvoorbeeld op feestdagen. <a href="${rooster}" rel="noopener">Bekijk de actuele agenda<span class="sr"> van ${kerk.naam}</span></a>.</p>`
     : '';
   if (!kerk.diensten?.length) return html`<p class="kerk-leeg">Zie de website van de kerk voor de tijden.</p>${actueel}`;
   const adres = [kerk.adres, kerk.postcode, kerk.plaats].filter(Boolean).join(', ');
-  return html`<div class="kerk-diensten">${DIENSTSOORTEN.map(([soort, kop]) => {
+  const dkop = kop;
+  return html`<div class="kerk-diensten">${DIENSTSOORTEN.map(([soort, titel]) => {
     const lijst = kerk.diensten.filter((d) => (d.soort || 'regulier') === soort);
     if (!lijst.length) return '';
     return html`<div class="kerk-dienstgroep kerk-dienstgroep--${soort}">
-      <h4 class="kerk-dienstkop">${kop}</h4>
+      ${raw(`<${dkop} class="kerk-dienstkop">`)}${titel}${raw(`</${dkop}>`)}
       <ul class="kerk-tijden">${lijst.map(
         (d) => html`<li><span class="kerk-tijd">${DAG[d.dag] || d.dag}${d.tijd ? ` ${uur(d.tijd)}` : ''}</span>${d.naam ? html` <span class="kerk-dienstnaam">${d.naam}</span>` : ''}${d.toelichting ? html` <span class="kerk-tijd-uitleg">${d.toelichting}</span>` : ''}
           ${soort === 'regulier' && d.tijd ? html`<button type="button" class="tekstknop agenda-knop" hidden data-agenda data-kerk="${kerk.naam}" data-dag="${d.dag}" data-tijd="${d.tijd}" data-adres="${adres}">Zet in mijn agenda</button>` : ''}</li>`
@@ -106,19 +107,51 @@ function routeLink(kerk) {
   return html`<a class="pijllink" href="https://www.openstreetmap.org/search?query=${q}" rel="noopener">Route<span class="sr"> naar ${kerk.naam} (OpenStreetMap)</span></a>`;
 }
 
-export function kerkItem(kerk) {
-  const kenmerken = (kerk.kenmerken || []).join(' ');
+export const TRADITIE_LABEL = {
+  'rooms-katholiek': 'Katholiek',
+  protestants: 'Protestants',
+  reformatorisch: 'Reformatorisch',
+  evangelisch: 'Evangelisch'
+};
+const KENMERK_LABEL = { kinderen: 'Iets voor kinderen', oppas: 'Oppas', online: 'Ook online' };
+
+// Afgeleide kenmerken voor het filter: een vaste dienst op zondagochtend (voor 12.00 uur).
+export function filterKenmerken(kerk) {
+  const k = new Set(kerk.kenmerken || []);
+  if ((kerk.diensten || []).some((d) => d.soort === 'regulier' && d.dag === 'zondag' && d.tijd && d.tijd < '12:00')) k.add('ochtend');
+  return [...k].sort().join(' ');
+}
+
+// Kerkkaartje: één samenvatting per kerk, op de homepage en op /kerken/. De hele kaart is klikbaar
+// (de link zit op de naam; een ::after-laag vergroot het klikvlak) en leidt naar de eigen pagina van de kerk.
+export function kerkKaart(kerk, { kop = 'h3', nummer = null } = {}) {
+  const extra = (kerk.kenmerken || []).filter((k) => KENMERK_LABEL[k]).map((k) => KENMERK_LABEL[k]);
+  return html`<li class="kerkkaart" id="${kerk.id}" data-kerk="${kerk.id}" data-kenmerken="${filterKenmerken(kerk)}" data-plaats="${kerk.plaats}" data-traditie="${kerk.traditie}">
+    ${nummer ? html`<span class="kerkkaart-nr" title="Nummer op de kaart">${nummer}</span>` : ''}
+    <p class="kerkkaart-plaats">${[kerk.plaats, TRADITIE_LABEL[kerk.traditie] || kerk.traditie].filter(Boolean).join(' · ')}</p>
+    ${raw(`<${kop} class="kerkkaart-naam">`)}<a href="/kerken/${kerk.id}/">${kerk.naam}</a>${raw(`</${kop}>`)}
+    <p class="kerkkaart-tijden">${dienstenKort(kerk)}</p>
+    ${extra.length ? html`<p class="kerkkaart-extra">${extra.join(' · ')}</p>` : ''}
+    <p class="kerkkaart-meer" aria-hidden="true">Tijden, adres en contact</p>
+  </li>`;
+}
+
+// Alles over één kerk, op /kerken/<id>/.
+export function kerkDetail(kerk, { concept = true } = {}) {
   const c = kerk.contactroute;
-  return html`<article class="kerk" id="${kerk.id}" data-kenmerken="${kenmerken}" data-plaats="${kerk.plaats}" data-traditie="${kerk.traditie}">
-    <div class="kerk-beeld">${boog({ foto: kerk.foto, sizes: '(min-width: 56rem) 28vw, 80vw' })}</div>
+  // Alleen een beeld als er een echte foto is (besluit Martijn 15-11: geen foto's zoeken); anders tekst over de volle breedte.
+  return html`<article class="kerk kerk--pagina${kerk.foto ? '' : ' kerk--zonder-beeld'}">
+    ${kerk.foto ? html`<div class="kerk-beeld">${boog({ foto: kerk.foto, concept, sizes: '(min-width: 56rem) 28vw, 80vw' })}</div>` : ''}
     <div class="kerk-tekst">
-      <h3 class="kerk-naam">${kerk.naam}</h3>
+      <h1 class="kerk-naam" id="pagina-kop">${kerk.naam}</h1>
       <p class="kerk-traditie">${[kerk.verband || kerk.kerkverband, kerk.plaats].filter(Boolean).join(' · ')}</p>
-      ${diensten(kerk)}
+      <h2 class="kerk-sectiekop">Kerkdiensten</h2>
+      ${diensten(kerk, { kop: 'h3' })}
       ${kerk.zelfomschrijving?.tekst
         ? html`<blockquote class="kerk-citaat"><p>${kerk.zelfomschrijving.tekst}</p><footer>Zo omschrijft de gemeente zichzelf · <a href="${kerk.zelfomschrijving.bron}" rel="noopener">bron</a></footer></blockquote>`
         : ''}
       ${kerk.verwachten ? html`<p class="kerk-sfeer">${kerk.verwachten}</p>` : ''}
+      <h2 class="kerk-sectiekop">Praktisch</h2>
       <dl class="kerk-feiten">
         <div><dt>Adres</dt><dd>${kerk.adres ? `${kerk.adres}, ${kerk.postcode ? kerk.postcode + ' ' : ''}${kerk.plaats}` : 'Zie website'}</dd></div>
         <div><dt>Kinderen</dt><dd>${kerk.kinderen || 'Niet vermeld op de website.'}</dd></div>
@@ -135,16 +168,6 @@ export function kerkItem(kerk) {
       <p class="kerk-controle">Bron gecontroleerd op ${datum(kerk.bronnen?.[0]?.gecontroleerd || kerk.gecontroleerd)}${kerk.bronnen?.length ? html` · <a href="${kerk.bronnen[0].url}" rel="noopener">bron</a>` : ''}.</p>
     </div>
   </article>`;
-}
-
-export function kerkCompact(kerk) {
-  return html`<li class="kerk-kort" data-kerk="${kerk.id}">
-    <a href="/kerken/#${kerk.id}">
-      <span class="kerk-kort-naam">${kerk.naam}</span>
-      <span class="kerk-kort-meta">${dienstenKort(kerk)}</span>
-      <span class="kerk-kort-sfeer">${[kerk.verband || kerk.kerkverband, kerk.plaats].filter(Boolean).join(' · ')}</span>
-    </a>
-  </li>`;
 }
 
 // Mattheüs 11:28. Zolang vertaling en rechten niet rond zijn (VRAGEN V-003): een eigen weergave, duidelijk
@@ -180,8 +203,8 @@ export function samenGaanTeaser() {
       <div class="samen-tekst">
         <p class="bovenregel">Samen naar de kerk</p>
         <h2 id="samen-kop" class="kop-2">Vind je het spannend om alleen te gaan?</h2>
-        <p class="lead">Dat snappen we. Lees hoe je een eerste bezoek voorbereidt, en neem gerust iemand mee: een vriend, een buurvrouw, je kind. Kerken zijn gewend aan nieuwe gezichten.</p>
-        <p><a class="knop knop--vol" href="/samen-naar-de-kerk/">Een eerste bezoek voorbereiden</a></p>
+        <p class="lead">Nieuwsgierig naar een kerkdienst? Je mag gewoon binnenlopen. Wil je liever samen met iemand gaan? Dat kan natuurlijk ook.</p>
+        <p><a class="knop knop--vol" href="/samen-naar-de-kerk/">Ga gerust eens kijken</a></p>
       </div>
     </div>
   </section>`;

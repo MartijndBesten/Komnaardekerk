@@ -260,12 +260,13 @@ async function bouw() {
     if (!bestanden[rel] || createHash('sha256').update(bestanden[rel]).digest('hex') !== hash) fouten.push(`${rel}: niet byte-identiek aan het officiële Denckh-logo`);
   }
 
-  const versie = { css: sha(bestanden['css/site.css']), js: sha(bestanden['js/site.js']) };
+  const versie = { css: sha(bestanden['css/site.css']), js: sha(bestanden['js/site.js']), vroeg: sha(bestanden['js/vroeg.js']) };
   const concept = content.site.modus !== 'productie';
 
   const sitemap = [];
   const htmlPaden = [];
-  for (const mod of PAGINAS) {
+  const allePaginas = PAGINAS.flatMap((mod) => [mod, ...(mod.paginas ? mod.paginas(content) : [])]);
+  for (const mod of allePaginas) {
     const pagina = { ...mod.pagina };
     if (pagina.alleenConcept && content.site.modus !== 'concept') continue;
     const ctx = { ...content, pad: pagina.pad, versie };

@@ -1,8 +1,42 @@
 # HANDOFF
 
-status: informatief kerkenoverzicht live op het bestaande previewadres, broncontrole actief
+status: homepage met kerkkaart direct na Mattheüs 11:28, pagina per kerk, interactieve zondagochtend, teksten zonder ‘voorbereiden’; samengevoegd in main en uitgerold op het previewadres (zie hieronder)
 next_actor: martijn
-updated: 2026-11-27
+updated: 2026-11-27 (Claude Code-cloudsessie, homepage en uitrol)
+
+## Homepage, kerkkaart centraal en uitnodigende teksten (2026-11-27)
+
+**Opdracht Martijn:** kaart direct zichtbaar en centraal op de homepage (volgorde: opening → Mattheüs 11:28 → kaart → de rest), geen nadruk op ‘voorbereiden’, geen ongedekte beloftes, snel en gecontroleerd live.
+
+**Gedaan**
+- Homepage: `held` → `uitnodiging` (Mattheüs 11:28) → `buurt` (kaart Houten + dorpen met genummerde, klikbare punten en daaronder namen + vaste zondagstijden) → `kort` → woorden → Jezus → zondagochtend (`#ochtend`) → rest. ‘Vind een kerk’ in de opening springt naar `#kerken` op de homepage. Kaartpunten iets groter (r 3,7) voor de vinger.
+- Teksten: knop ‘Ga gerust eens kijken’; teaser ‘Nieuwsgierig naar een kerkdienst? Je mag gewoon binnenlopen…’; `/samen-naar-de-kerk/`: titel ‘Je bent welkom. Ook als je voor het eerst komt.’, ‘Handig om te weten, maar niets moet’ met tips zonder nummers (geen stappenplan); kerkpagina: ‘Je mag gewoon binnenlopen’ zonder belofte dat iemand je opwacht; zondagochtend: geen link ‘ga samen met iemand van de kerk’ en de tip bij de deur als ‘als je wilt … hoeft niet’.
+- Mattheüs 11:28 staat op `main` als gemarkeerde eigen weergave (keuze van PR #1, Codex); niet teruggezet, omdat de NBG-toestemming er nog niet is.
+
+**Tests:** build + `--check` groen; unit 23/23; browser 36/36 (nieuw: kaart direct na Mattheüs en binnen twee schermhoogtes na de opening op mobiel, geen ‘voorbereiden’ of opvangbelofte op de belangrijkste pagina’s). Korte visuele controle 375 en 1440 px.
+
+## Kerken, zondagochtend en ‘niet benaderd’ (2026-11-27)
+
+**Opdracht Martijn:** een geplakte opdracht (zondagochtend interactief + extra’s) plus: de kerken onder elkaar zijn te lang en onoverzichtelijk; het kaartje moet duidelijker, klikken moet naar de juiste kerk, niets dubbel. Daarna: ‘nog niet benaderd’ mag niet online (de kerken blijven er wel op: openbare standaardinformatie, prima om genoemd te worden), en de zondagochtend nog visueler, interactiever en met beweging.
+
+**Branch:** `claude/kerken-en-zondagochtend` (gepusht, niet gemerged, niet uitgerold). **Samengevoegd met `main`** (werk van Codex op 27-11: kaart, agendacontrole, modus ‘overzicht’). Zie ‘Samenvoegen met main’ hieronder.
+
+**Gedaan**
+- Kerken: één kaartje per kerk (plaats, traditie, alle vaste zondagsdiensten, kinderen/oppas/online) op de homepage en op `/kerken/`; de hele kaart is klikbaar en leidt naar een **eigen pagina per kerk** (`/kerken/<id>/`) met alle details. Details staan nergens anders meer. Oude ankers `/kerken/#id` werken nog. Filter ‘Dienst op zondagochtend’ erbij. Op een telefoon compactere kaartjes (homepage-sectie 3061 → 2235 px).
+- Zondagochtend: tijdlijn die meegroeit bij het scrollen; per stap ‘Dit kan / Dit hoeft niet’; keuzes voor muziek (orgel/piano/band), gezelschap (alleen/met iemand/met kinderen) en bij de koffie ‘blijven of naar huis’; **getekende kerkzaal** (SVG uit code, `src/lib/zondag-scene.mjs`) waarin ‘jij’ in goud de ochtend meeloopt; stippen om naar een moment te springen; op de telefoon blijft de zaal bovenaan staan, op desktop staat hij naast de tijdlijn. Zonder JS een gewone lijst; bij ‘minder beweging’ geen animaties.
+- ‘Nog niet benaderd’ en ‘doen (nog) niet mee’ overal weg (kaartjes, kerkpagina’s, conceptbalk, kerkenlijst, homepage, Over ons). Conceptbalk nu: ‘Conceptversie · Deze site is nog in ontwikkeling. De gegevens van de kerken komen van hun eigen websites.’ Het label bij de geloofsbasis (‘door geen enkele kerk goedgekeurd’) is bewust gebleven.
+- Zwevende knop ‘Vind een kerk’ op de telefoon (alleen homepage, weg bij de opening, de kerken en de voet).
+- Verspringende pagina opgelost: het mobiele menu stond open tot het script laadde (Lighthouse CLS 0,29 → 0). Klein script `js/vroeg.js` in de kop zet de klasse `js` vóór de eerste weergave.
+
+**Bewust niet gedaan:** ‘komende zondag’-weergave (de gegevens zijn weekpatronen; per datum wijken kerken af, bv. Opstandingskerk 27-12 om 11.00 uur); zoekveld bij de vragen (7 vragen, voegt weinig toe); extra aria-live bij ‘Wat houdt je bezig?’ (dat zijn al native uitklappers, toegankelijk zonder extra code); horizontale tijdlijn op desktop (uitklappers in een horizontale rij lezen slecht; de zaal staat ernaast).
+
+**Tests (27-11):** build + `--check` groen; unit 19/19; browser 39/39 (nieuw: kerkkaartjes en kerkpagina’s, zondagochtend met zaal en keuzes, zwevende knop, geen ‘niet benaderd’; axe op alle pagina’s × 6 breedtes, toetsenbord, zonder JS, minder beweging). Omvang: site.js 4,6 → 6,3 kB gzip, site.css 11,6 → 14,8 kB gzip (+4,9 kB samen).
+**Lighthouse (mobiel / desktop):** vóór: home 95/100, kerken 91/100 (prestaties); toegankelijkheid 100, best practices 100. Na: home 93/100, kerken 91/100, kerkpagina 96; toegankelijkheid 100, best practices 100. SEO 69 overal, alleen door de bewuste noindex van de conceptversie.
+**Niet getest:** Safari/Firefox, echte schermlezer, echte telefoon.
+
+**Nieuwe teksten ter controle (in `src/pages/home.mjs`, gemarkeerd):** tijden per stap (‘Een paar minuten van tevoren’, ‘Het begin’, ‘Na ongeveer een kwartier’, ‘Tegen het eind’, ‘Na ongeveer een uur tot anderhalf uur’); ‘Dit kan / Dit hoeft niet’ per stap (o.a. collecte: ‘Geven mag, doorgeven is ook goed’); muziekteksten orgel/piano/band; tips alleen/met iemand/met kinderen; ‘En jij? Ik blijf even / Ik ga naar huis — Allebei is goed’; eindstap ‘Probeer het een keer’; in de tekening ‘welkom!’ en ‘tot ziens!’. Op de kerkpagina: ‘Liever niet alleen? … Iemand van de kerk wacht je dan op of zit naast je.’
+
+**Open:** V-020 (keuzehulp met postcode of inhoud), V-021 (productie: alle kerken tonen). **Volgende stap:** Martijn bekijkt; bij akkoord mergen naar `main` en de preview bijwerken.
 
 ## Verder werken met een ander GitHub-account
 
