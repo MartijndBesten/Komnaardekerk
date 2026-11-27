@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: '17 7 * * 1'
   workflow_dispatch:
+    inputs:
+      publiceer_preview:
+        description: Publiceer de geteste versie op het bestaande previewadres
+        type: boolean
+        default: false
   pull_request:
 
 permissions:
@@ -52,6 +57,7 @@ jobs:
         id: inhoud
         env:
           GH_TOKEN: ${{ github.token }}
+          PUBLICATIE_OP_VERZOEK: ${{ github.event_name == 'workflow_dispatch' && inputs.publiceer_preview }}
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         run: |
           git config user.name 'github-actions[bot]'
@@ -61,12 +67,12 @@ jobs:
             git commit -m 'Werk kerkagenda bij na broncontrole'
             git -c credential.helper= -c 'credential.helper=!gh auth git-credential' push origin HEAD:refs/heads/main
           fi
-          if ! git diff --quiet "${{ github.sha }}" HEAD -- content/initiatieven.json dist/; then
+          if test "$PUBLICATIE_OP_VERZOEK" = true || ! git diff --quiet "${{ github.sha }}" HEAD -- content/initiatieven.json dist/; then
             echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
           fi
 
   uitrol:
-    if: needs.controle.outputs.commit != '' && vars.KNDK_AUTOMATISCHE_PREVIEW == 'ja'
+    if: needs.controle.outputs.commit != '' && (vars.KNDK_AUTOMATISCHE_PREVIEW == 'ja' || (github.event_name == 'workflow_dispatch' && inputs.publiceer_preview))
     needs: controle
     runs-on: ubuntu-24.04
     timeout-minutes: 15

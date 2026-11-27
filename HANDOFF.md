@@ -4,6 +4,10 @@ status: informatieve bezoekersversie en wekelijkse broncontrole gebouwd
 next_actor: martijn
 updated: 2026-11-27
 
+## Uitrol op verzoek
+
+De GitHub-omgeving `kerkoverzicht-preview` heeft het Cloudflare-secret voor het bestaande previewadres. Via **Wekelijkse kerkagenda → Run workflow → publiceer_preview** kan de geteste versie op `main` worden gepubliceerd, ook als de broncontrole geen inhoud heeft gewijzigd. Deze keuze zet de wekelijkse automatische uitrol niet aan.
+
 ## Kaart en homepage op 27 november 2026
 
 De kerkenpagina heeft een kaart voor Houten en een kaart voor de dorpen met veertien genummerde kerkvermeldingen. De kaarten gebruiken de BRT-achtergrondkaart van Kadaster/PDOK en BAG-adresposities. Bij de EGH wijst het punt naar de Kamillehof, waar de ingang ligt volgens de kerk. De Pleinkerk staat bij Plein 27 met BAG-postcode 3991 DL. Het welkomsblok op de homepage is ingekort, gecentreerd en kleiner gemaakt. Het logo en de interactieve woorden zijn behouden.
