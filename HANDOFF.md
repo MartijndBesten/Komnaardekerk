@@ -1,8 +1,31 @@
 # HANDOFF
 
-status: verhuisd naar de eigen repository MartijndBesten/komnaardekerk (15-11-2026); preview live op commit 8182ecb7 (workbench), livecontrole 32/32 groen
+status: kerkenoverzicht met kaartjes + pagina per kerk, interactieve zondagochtend met getekende kerkzaal, geen 'nog niet benaderd' meer; op branch claude/kerken-en-zondagochtend, getest, nog niet op de preview
 next_actor: martijn
-updated: 2026-11-16 (Claude Code-cloudsessie, oude domeinnamen en veiligheid geloveninhouten.nl)
+updated: 2026-11-27 (Claude Code-cloudsessie, kerken, zondagochtend)
+
+## Kerken, zondagochtend en ‘niet benaderd’ (2026-11-27)
+
+**Opdracht Martijn:** een geplakte opdracht (zondagochtend interactief + extra’s) plus: de kerken onder elkaar zijn te lang en onoverzichtelijk; het kaartje moet duidelijker, klikken moet naar de juiste kerk, niets dubbel. Daarna: ‘nog niet benaderd’ mag niet online (de kerken blijven er wel op: openbare standaardinformatie, prima om genoemd te worden), en de zondagochtend nog visueler, interactiever en met beweging.
+
+**Branch:** `claude/kerken-en-zondagochtend` (gepusht, niet gemerged, niet uitgerold).
+
+**Gedaan**
+- Kerken: één kaartje per kerk (plaats, traditie, alle vaste zondagsdiensten, kinderen/oppas/online) op de homepage en op `/kerken/`; de hele kaart is klikbaar en leidt naar een **eigen pagina per kerk** (`/kerken/<id>/`) met alle details. Details staan nergens anders meer. Oude ankers `/kerken/#id` werken nog. Filter ‘Dienst op zondagochtend’ erbij. Op een telefoon compactere kaartjes (homepage-sectie 3061 → 2235 px).
+- Zondagochtend: tijdlijn die meegroeit bij het scrollen; per stap ‘Dit kan / Dit hoeft niet’; keuzes voor muziek (orgel/piano/band), gezelschap (alleen/met iemand/met kinderen) en bij de koffie ‘blijven of naar huis’; **getekende kerkzaal** (SVG uit code, `src/lib/zondag-scene.mjs`) waarin ‘jij’ in goud de ochtend meeloopt; stippen om naar een moment te springen; op de telefoon blijft de zaal bovenaan staan, op desktop staat hij naast de tijdlijn. Zonder JS een gewone lijst; bij ‘minder beweging’ geen animaties.
+- ‘Nog niet benaderd’ en ‘doen (nog) niet mee’ overal weg (kaartjes, kerkpagina’s, conceptbalk, kerkenlijst, homepage, Over ons). Conceptbalk nu: ‘Conceptversie · Deze site is nog in ontwikkeling. De gegevens van de kerken komen van hun eigen websites.’ Het label bij de geloofsbasis (‘door geen enkele kerk goedgekeurd’) is bewust gebleven.
+- Zwevende knop ‘Vind een kerk’ op de telefoon (alleen homepage, weg bij de opening, de kerken en de voet).
+- Verspringende pagina opgelost: het mobiele menu stond open tot het script laadde (Lighthouse CLS 0,29 → 0). Klein script `js/vroeg.js` in de kop zet de klasse `js` vóór de eerste weergave.
+
+**Bewust niet gedaan:** ‘komende zondag’-weergave (de gegevens zijn weekpatronen; per datum wijken kerken af, bv. Opstandingskerk 27-12 om 11.00 uur); zoekveld bij de vragen (7 vragen, voegt weinig toe); extra aria-live bij ‘Wat houdt je bezig?’ (dat zijn al native uitklappers, toegankelijk zonder extra code); horizontale tijdlijn op desktop (uitklappers in een horizontale rij lezen slecht; de zaal staat ernaast).
+
+**Tests (27-11):** build + `--check` groen; unit 19/19; browser 39/39 (nieuw: kerkkaartjes en kerkpagina’s, zondagochtend met zaal en keuzes, zwevende knop, geen ‘niet benaderd’; axe op alle pagina’s × 6 breedtes, toetsenbord, zonder JS, minder beweging). Omvang: site.js 4,6 → 6,3 kB gzip, site.css 11,6 → 14,8 kB gzip (+4,9 kB samen).
+**Lighthouse (mobiel / desktop):** vóór: home 95/100, kerken 91/100 (prestaties); toegankelijkheid 100, best practices 100. Na: home 93/100, kerken 91/100, kerkpagina 96; toegankelijkheid 100, best practices 100. SEO 69 overal, alleen door de bewuste noindex van de conceptversie.
+**Niet getest:** Safari/Firefox, echte schermlezer, echte telefoon.
+
+**Nieuwe teksten ter controle (in `src/pages/home.mjs`, gemarkeerd):** tijden per stap (‘Een paar minuten van tevoren’, ‘Het begin’, ‘Na ongeveer een kwartier’, ‘Tegen het eind’, ‘Na ongeveer een uur tot anderhalf uur’); ‘Dit kan / Dit hoeft niet’ per stap (o.a. collecte: ‘Geven mag, doorgeven is ook goed’); muziekteksten orgel/piano/band; tips alleen/met iemand/met kinderen; ‘En jij? Ik blijf even / Ik ga naar huis — Allebei is goed’; eindstap ‘Probeer het een keer’; in de tekening ‘welkom!’ en ‘tot ziens!’. Op de kerkpagina: ‘Liever niet alleen? … Iemand van de kerk wacht je dan op of zit naast je.’
+
+**Open:** V-020 (keuzehulp met postcode of inhoud), V-021 (productie: alle kerken tonen). **Volgende stap:** Martijn bekijkt; bij akkoord mergen naar `main` en de preview bijwerken.
 
 ## Oude domeinnamen en veiligheid (2026-11-16)
 

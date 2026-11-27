@@ -89,3 +89,7 @@ Iemand zonder kerkelijke achtergrond laten voelen: *misschien is er ook voor mij
 - [x] Build-controles, publicatiepoort en tests groen (zie HANDOFF).
 - [ ] Echte kerken, verantwoordelijke, Bijbelrechten, opvolging formulier, foto's (VRAGEN).
 - [ ] Publicatie (aparte opdracht).
+
+## Besluit 27-11-2026
+
+De kerken blijven op de site met openbare informatie van hun eigen websites, ook zonder dat ze zijn benaderd. Teksten als ‘nog niet benaderd’ staan niet online. Nooit ‘partner’ of ‘deelnemer’ zonder toestemming (zie V-021 voor de productieversie).
